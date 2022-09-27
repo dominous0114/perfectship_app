@@ -37,7 +37,7 @@ class AddressRepository {
     } else {
       print('else');
       print(response.reasonPhrase);
-      return [];
+      return [AddressModel()];
     }
   }
 

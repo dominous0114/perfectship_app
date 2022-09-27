@@ -105,6 +105,14 @@ class SetPrimaryAddressEvent extends AddressEvent {
   List<Object> get props => [id, context];
 }
 
+class SetPrimaryAddressOnCreateEvent extends AddressEvent {
+  final String id;
+  final BuildContext context;
+  SetPrimaryAddressOnCreateEvent({required this.id, required this.context});
+  @override
+  List<Object> get props => [id, context];
+}
+
 class DeleteAddressEvent extends AddressEvent {
   final String id;
   final BuildContext context;

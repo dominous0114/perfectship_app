@@ -20,6 +20,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     on<DeleteAddressEvent>(_onDelete);
     on<AddressFromphoneEvent>(_ongetAddressfromphone);
     on<AddressFromphoneSearchEvent>(_onSearchphone);
+    on<SetPrimaryAddressOnCreateEvent>(_onSetPrimaryOnCreate);
   }
 
   void _onLoadGetAddress(
@@ -113,6 +114,19 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
       Fluttertoast.showToast(msg: value['message']);
 
       Navigator.pop(event.context);
+      event.context.read<AddressBloc>().add(AddressInitialEvent());
+    });
+  }
+
+  void _onSetPrimaryOnCreate(
+      SetPrimaryAddressOnCreateEvent event, Emitter<AddressState> emit) async {
+    emit(AddressLoading());
+    await addressrepository.setPrimaryAddress(id: event.id).then((value) {
+      Fluttertoast.showToast(msg: value['message']);
+
+      Navigator.pop(event.context);
+      Navigator.pop(event.context);
+
       event.context.read<AddressBloc>().add(AddressInitialEvent());
     });
   }

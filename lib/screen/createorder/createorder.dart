@@ -245,6 +245,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   @override
   void initState() {
     getCourier();
+    context.read<AddressBloc>().add(AddressInitialEvent());
     super.initState();
   }
 
@@ -380,9 +381,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                       ),
                     );
                   } else if (state is AddressLoaded) {
-                    state.addressmodel
-                        .removeWhere((element) => element.primaryAddress == 0);
-                    List<AddressModel> list = state.addressmodel;
+                    // state.addressmodel
+                    //     .where((element) => element.primaryAddress == 1);
+                    Iterable<AddressModel> list = state.addressmodel
+                        .where((element) => element.primaryAddress == 1);
                     print(list.length.toString());
                     return list.isEmpty
                         ? Padding(
@@ -471,9 +473,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            context
-                                                .read<AddressBloc>()
-                                                .add(AddressInitialEvent());
+                                            // context
+                                            //     .read<AddressBloc>()
+                                            //     .add(AddressInitialEvent());
                                             Navigator.pushNamed(
                                                 context, '/addressoncreate');
                                           },
@@ -536,133 +538,147 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                 itemCount: list.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  labelname = state.addressmodel[index].name;
-                                  labelphone = state.addressmodel[index].phone;
-                                  labeladdress =
-                                      state.addressmodel[index].address;
-                                  labelzipcode =
-                                      state.addressmodel[index].zipcode;
-                                  print('labelname = $labelname');
+                                  labelname = list.first.name;
+                                  labelphone = list.first.phone;
+                                  labeladdress = list.first.address;
+                                  labelzipcode = list.first.zipcode;
+
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                blurRadius: 1,
-                                                color: Colors.grey)
-                                          ],
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8))),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    Color.fromARGB(
-                                                        200, 43, 166, 223),
-                                                    Color.fromARGB(
-                                                        180, 41, 88, 162),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, '/addressoncreate');
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  blurRadius: 1,
+                                                  color: Colors.grey)
+                                            ],
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8))),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      Color.fromARGB(
+                                                          200, 43, 166, 223),
+                                                      Color.fromARGB(
+                                                          180, 41, 88, 162),
+                                                    ],
+                                                    begin: Alignment.topRight,
+                                                    end: Alignment.bottomLeft,
+                                                    stops: [0.0, 0.8],
+                                                    tileMode: TileMode.clamp,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  8),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  8))),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                          CupertinoIcons
+                                                              .cube_box_fill,
+                                                          color: Colors.white,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Text(
+                                                          'ผู้ส่ง (ที่อยู่แสดงบนใบปะหน้า)',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize:
+                                                                  PlatformSize(
+                                                                          context) *
+                                                                      1.1,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ],
-                                                  begin: Alignment.topRight,
-                                                  end: Alignment.bottomLeft,
-                                                  stops: [0.0, 0.8],
-                                                  tileMode: TileMode.clamp,
                                                 ),
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(8),
-                                                    topRight:
-                                                        Radius.circular(8))),
-                                            child: Padding(
+                                              ),
+                                            ),
+                                            Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                              child: Column(
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      Icon(
-                                                        CupertinoIcons
-                                                            .cube_box_fill,
-                                                        color: Colors.white,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 5,
-                                                      ),
                                                       Text(
-                                                        'ผู้ส่ง (ที่อยู่แสดงบนใบปะหน้า)',
+                                                        'ชื่อ :',
                                                         style: TextStyle(
-                                                            color: Colors.white,
                                                             fontSize:
                                                                 PlatformSize(
-                                                                        context) *
-                                                                    1.1,
+                                                                    context),
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
                                                       ),
+                                                      Text(
+                                                        ' ${list.first.name} (${list.first.phone})',
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                PlatformSize(
+                                                                    context),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        'ที่อยู่ :',
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                PlatformSize(
+                                                                    context),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Text(
+                                                        ' ${list.first.address} ${list.first.subDistrict} ${list.first.district} ${list.first.province} ${list.first.zipcode}',
+                                                        style: TextStyle(
+                                                            fontSize:
+                                                                PlatformSize(
+                                                                    context),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal),
+                                                      )
                                                     ],
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      'ชื่อ :',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              PlatformSize(
-                                                                  context),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Text(
-                                                      ' ${state.addressmodel[index].name} (${state.addressmodel[index].phone})',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              PlatformSize(
-                                                                  context),
-                                                          fontWeight: FontWeight
-                                                              .normal),
-                                                    )
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      'ที่อยู่ :',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              PlatformSize(
-                                                                  context),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Text(
-                                                      ' ${state.addressmodel[index].address} ${state.addressmodel[index].subDistrict} ${state.addressmodel[index].district} ${state.addressmodel[index].province} ${state.addressmodel[index].zipcode}',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              PlatformSize(
-                                                                  context),
-                                                          fontWeight: FontWeight
-                                                              .normal),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );

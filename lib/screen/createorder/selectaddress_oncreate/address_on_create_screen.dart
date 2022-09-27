@@ -87,7 +87,9 @@ class _AddressOnCreateScreenState extends State<AddressOnCreateScreen>
                           //   _isprimayloading = true;
                           // });
                           context.read<AddressBloc>().add(
-                              SetPrimaryAddressEvent(id: id, context: context));
+                              SetPrimaryAddressOnCreateEvent(
+                                  id: id, context: context));
+
                           print(_isprimayloading.toString());
                         },
                         child: const Text('ตกลง'),
@@ -420,37 +422,14 @@ class _AddressOnCreateScreenState extends State<AddressOnCreateScreen>
                                         children: [
                                             SlidableAction(
                                               onPressed: (context) {
-                                                // showDialog(
-                                                //   context: context,
-                                                //   builder: (context) => Center(
-                                                //     child: Container(
-                                                //       width: 60.0,
-                                                //       height: 60.0,
-                                                //       decoration: BoxDecoration(
-                                                //         color: Colors.white,
-                                                //         borderRadius:
-                                                //             BorderRadius
-                                                //                 .circular(4.0),
-                                                //       ),
-                                                //       child: Padding(
-                                                //         padding:
-                                                //             const EdgeInsets
-                                                //                 .all(12.0),
-                                                //         child:
-                                                //             CupertinoActivityIndicator(),
-                                                //       ),
-                                                //     ),
-                                                //   ),
-                                                // );
-
-                                                _showAlertSetprimary(
-                                                    context,
-                                                    state.addressmodel[index].id
-                                                        .toString());
+                                                Navigator.pushNamed(
+                                                    context, '/editaddress',
+                                                    arguments: state
+                                                        .addressmodel[index]);
                                               },
-                                              label: 'ที่อยู่เริ่มต้น',
-                                              icon:
-                                                  CupertinoIcons.location_fill,
+                                              label: 'แก้ไข',
+                                              icon: CupertinoIcons
+                                                  .pencil_ellipsis_rectangle,
                                               foregroundColor: Color.fromARGB(
                                                   180, 41, 88, 162),
                                               backgroundColor: Colors.white,
@@ -470,8 +449,10 @@ class _AddressOnCreateScreenState extends State<AddressOnCreateScreen>
                                           ]),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/editaddress',
-                                        arguments: state.addressmodel[index]);
+                                    _showAlertSetprimary(
+                                        context,
+                                        state.addressmodel[index].id
+                                            .toString());
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

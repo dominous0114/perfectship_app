@@ -332,7 +332,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
   void initState() {
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
-    //context.read<AddressBloc>().add(AddressInitialEvent());
+    context.read<AddressBloc>().add(AddressInitialEvent());
     super.initState();
   }
 
