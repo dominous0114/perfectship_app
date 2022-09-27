@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:perfectship_app/config/constant.dart';
 import 'package:perfectship_app/model/address_model.dart';
+import 'package:perfectship_app/model/addressfromphone_model.dart';
 import 'package:perfectship_app/model/src_address_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -208,6 +209,34 @@ class AddressRepository {
       return jsonDecode(res);
     } else {
       return response.stream.bytesToString();
+    }
+  }
+
+  Future<List<AddressfromphoneModel>> searchAddressphone() async {
+    var token = preferences!.getString('token');
+    var userid = preferences!.getString('userid');
+    var headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('GET',
+        Uri.parse('${MyConstant().domain}/perfectship/search-dst-address'));
+    request.body = json.encode({"user_id": userid});
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      print('if');
+      var res = await response.stream.bytesToString();
+      print('resaddress  = $res');
+      final json = jsonDecode(res)['data'] as List;
+      List<AddressfromphoneModel> addressphone =
+          json.map((e) => AddressfromphoneModel.fromJson(e)).toList();
+
+      return addressphone;
+    } else {
+      print('else');
+      print(response.reasonPhrase);
+      return [];
     }
   }
 }

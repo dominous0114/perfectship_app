@@ -15,6 +15,7 @@ import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/customindicator.dart';
 import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:perfectship_app/widget/searchAddressHelperDelegate.dart';
+import 'package:perfectship_app/widget/searchPhoneDelegate.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../bloc/address_bloc/address_bloc.dart';
@@ -47,7 +48,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   CourierModel? _courier;
   var isExpanded = false;
   var isExpandedInsu = false;
+  var isExpandedSaveaddress = true;
   int insu = 0;
+  int saveaddress = 1;
   ProductCategory? _productCategory;
   String? labelname;
   String? labelphone;
@@ -68,6 +71,18 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
       } else {
         insuController.clear();
         insu = 0;
+      }
+      print('insu = $insu');
+    });
+  }
+
+  _onExpansionSaveAddressChanged(bool val) {
+    setState(() {
+      isExpandedSaveaddress = val;
+      if (val == true) {
+        saveaddress = 1;
+      } else {
+        saveaddress = 0;
       }
       print('insu = $insu');
     });
@@ -370,8 +385,149 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                     List<AddressModel> list = state.addressmodel;
                     print(list.length.toString());
                     return list.isEmpty
-                        ? Container(
-                            child: Text('เจ๊งงงงงงง'),
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(blurRadius: 1, color: Colors.grey)
+                                  ],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8))),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color.fromARGB(200, 43, 166, 223),
+                                            Color.fromARGB(180, 41, 88, 162),
+                                          ],
+                                          begin: Alignment.topRight,
+                                          end: Alignment.bottomLeft,
+                                          stops: [0.0, 0.8],
+                                          tileMode: TileMode.clamp,
+                                        ),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(8),
+                                            topRight: Radius.circular(8))),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                CupertinoIcons.cube_box_fill,
+                                                color: Colors.white,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                'ผู้ส่ง (ที่อยู่แสดงบนใบปะหน้า)',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize:
+                                                        PlatformSize(context) *
+                                                            1.1,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.warning_amber_rounded,
+                                              color: Colors.red,
+                                            ),
+                                            Text(
+                                              'คุณยังไม่มีมี่อยู่เริ่มต้น กรุณาเพิ่มที่อยู่เริ่มต้น',
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      PlatformSize(context),
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            context
+                                                .read<AddressBloc>()
+                                                .add(AddressInitialEvent());
+                                            Navigator.pushNamed(
+                                                context, '/addressoncreate');
+                                          },
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(8)),
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color.fromARGB(
+                                                        200, 43, 166, 223),
+                                                    Color.fromARGB(
+                                                        180, 41, 88, 162),
+                                                  ],
+                                                  begin: Alignment.bottomLeft,
+                                                  end: Alignment.topRight,
+                                                  stops: [0.0, 0.8],
+                                                  tileMode: TileMode.clamp,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons
+                                                          .location_on_outlined,
+                                                      color: Colors.white,
+                                                    ),
+                                                    Text(
+                                                      'กดเพื่อเลือกที่อยู่',
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              PlatformSize(
+                                                                  context),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                           )
                         : MediaQuery.removePadding(
                             context: context,
@@ -903,10 +1059,25 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               height: 10,
                             ),
                             GetTextField(
+                              onTap: () {
+                                showSearch(
+                                    context: context,
+                                    delegate: SearchPhoneDelegate(
+                                        addresscontroller: houseNoController,
+                                        namecontroller: dstnameController,
+                                        phonecontroller: phoneController,
+                                        provincecontroller: provinceController,
+                                        amphurecontroller: districtController,
+                                        districtcontroller:
+                                            subdistrictController,
+                                        zipcodecontroller: zipcodeController,
+                                        typeaheadcontroller:
+                                            searchhelperController));
+                              },
                               enableIconPrefix: true,
                               preIcon: CupertinoIcons.phone,
                               title: '092xxxxxxx',
-                              textInputType: TextInputType.phone,
+                              textInputType: TextInputType.none,
                               maxLength: 10,
                             ),
                             SizedBox(
@@ -1305,6 +1476,44 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                 ),
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 1, bottom: 8),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black54, blurRadius: 1)
+                                    ],
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                                child: ExpansionTile(
+                                  title: Text(
+                                    'บันทึกที่อยู่ผู้รับ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3!
+                                        .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black54,
+                                            fontSize: PlatformSize(context)),
+                                  ),
+                                  trailing: SizedBox(),
+                                  onExpansionChanged:
+                                      _onExpansionSaveAddressChanged,
+                                  leading: IgnorePointer(
+                                    child: Checkbox(
+                                        value: isExpandedSaveaddress,
+                                        onChanged: (_) {
+                                          setState(() {
+                                            isExpandedSaveaddress =
+                                                !isExpandedSaveaddress;
+                                          });
+                                        }),
+                                  ),
+                                ),
+                              ),
+                            ),
                             BlocBuilder<UserDataBloc, UserDataState>(
                               builder: (context, state) {
                                 if (state is UserDataLoading) {
@@ -1372,7 +1581,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                               is_insure: insu.toString(),
                                               product_value: insuController.text,
                                               cod_amount: codController.text,
-                                              remark: remarkController.text));
+                                              remark: remarkController.text,
+                                              issave: saveaddress.toString()));
                                         }
                                       },
                                       child: Text('บันทึกรายการ',

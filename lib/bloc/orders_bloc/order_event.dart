@@ -36,6 +36,7 @@ class AddOrderEvent extends OrderEvent {
   final String product_value;
   final String cod_amount;
   final String remark;
+  final String issave;
   final BuildContext context;
   AddOrderEvent(
       {required this.courier_code,
@@ -66,7 +67,8 @@ class AddOrderEvent extends OrderEvent {
       required this.product_value,
       required this.cod_amount,
       required this.remark,
-      required this.context});
+      required this.context,
+      required this.issave});
 
   @override
   List<Object> get props => [
@@ -98,5 +100,6 @@ class AddOrderEvent extends OrderEvent {
         product_value,
         cod_amount,
         remark,
+        issave
       ];
 }

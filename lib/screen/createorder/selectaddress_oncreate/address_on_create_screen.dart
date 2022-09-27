@@ -2,27 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
-import 'package:perfectship_app/widget/custom_appbar.dart';
-import 'package:perfectship_app/widget/shimmerloading.dart';
+import 'package:perfectship_app/model/address_model.dart';
 
+import '../../../bloc/address_bloc/address_bloc.dart';
+import '../../../widget/custom_appbar.dart';
 import '../../../widget/fontsize.dart';
+import '../../../widget/shimmerloading.dart';
 
-class SenderAddressScreen extends StatefulWidget {
-  const SenderAddressScreen({Key? key}) : super(key: key);
-  static const String routeName = '/senderaddress';
+class AddressOnCreateScreen extends StatefulWidget {
+  const AddressOnCreateScreen({Key? key}) : super(key: key);
+  static const String routeName = '/addressoncreate';
 
   static Route route() {
     return PageRouteBuilder(
         settings: const RouteSettings(name: routeName),
-        pageBuilder: (_, __, ___) => SenderAddressScreen());
+        pageBuilder: (_, __, ___) => AddressOnCreateScreen());
   }
 
   @override
-  State<SenderAddressScreen> createState() => _SenderAddressScreenState();
+  State<AddressOnCreateScreen> createState() => _AddressOnCreateScreenState();
 }
 
-class _SenderAddressScreenState extends State<SenderAddressScreen>
+class _AddressOnCreateScreenState extends State<AddressOnCreateScreen>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   bool isPlaying = false;
@@ -332,8 +333,14 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
   void initState() {
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
-    //context.read<AddressBloc>().add(AddressInitialEvent());
+    context.read<AddressBloc>().add(AddressInitialEvent());
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    context.read<AddressBloc>().add(AddressInitialEvent());
+    super.didChangeDependencies();
   }
 
   @override

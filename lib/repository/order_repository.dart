@@ -7,36 +7,36 @@ import '../config/constant.dart';
 
 class OrderRepository {
   SharedPreferences? preferences;
-  Future addOrder({
-    required String courier_code,
-    required String current_order,
-    required String src_name,
-    required String src_phone,
-    required String src_district,
-    required String src_amphure,
-    required String src_address,
-    required String src_province,
-    required String src_zipcode,
-    required String label_name,
-    required String label_phone,
-    required String label_address,
-    required String label_zipcode,
-    required String dst_name,
-    required String dst_phone,
-    required String dst_address,
-    required String dst_district,
-    required String dst_amphure,
-    required String dst_province,
-    required String dst_zipcode,
-    required String account_name,
-    required String account_number,
-    required String account_branch,
-    required String account_bank,
-    required String is_insure,
-    required String product_value,
-    required String cod_amount,
-    required String remark,
-  }) async {
+  Future addOrder(
+      {required String courier_code,
+      required String current_order,
+      required String src_name,
+      required String src_phone,
+      required String src_district,
+      required String src_amphure,
+      required String src_address,
+      required String src_province,
+      required String src_zipcode,
+      required String label_name,
+      required String label_phone,
+      required String label_address,
+      required String label_zipcode,
+      required String dst_name,
+      required String dst_phone,
+      required String dst_address,
+      required String dst_district,
+      required String dst_amphure,
+      required String dst_province,
+      required String dst_zipcode,
+      required String account_name,
+      required String account_number,
+      required String account_branch,
+      required String account_bank,
+      required String is_insure,
+      required String product_value,
+      required String cod_amount,
+      required String remark,
+      required String issave}) async {
     double weight;
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
@@ -90,7 +90,8 @@ class OrderRepository {
       "is_insured": is_insure,
       "product_value": product_value,
       "cod_amount": cod_amount,
-      "remark": remark
+      "remark": remark,
+      "save_dst_address": issave
     });
     request.headers.addAll(headers);
     print(request.body);

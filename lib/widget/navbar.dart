@@ -57,29 +57,29 @@ class _NavigatonBarState extends State<NavigatonBar> {
       extendBody: true,
       body: pageList[pageIndex],
       // drawer: showDrawer(),
-      bottomNavigationBar: BottomAppBar(
-        //color: Color.fromARGB(231, 43, 49, 134),
-        //shape: CircularNotchedRectangle(),
-        //notchMargin: 12,
-        // ← carves notch for FAB in BottomAppBar
+      bottomNavigationBar: ShaderMask(
+        shaderCallback: (Rect bounds) {
+          return LinearGradient(
+            colors: [
+              Color.fromARGB(200, 43, 166, 223),
+              Color.fromARGB(180, 41, 88, 162),
+            ],
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [0.0, 0.8],
+            tileMode: TileMode.clamp,
+          ).createShader(bounds);
+        },
+        child: BottomAppBar(
+          //color: Color.fromARGB(231, 43, 49, 134),
+          //shape: CircularNotchedRectangle(),
+          //notchMargin: 12,
+          // ← carves notch for FAB in BottomAppBar
 
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(200, 43, 166, 223),
-                Color.fromARGB(180, 41, 88, 162),
-              ],
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              stops: [0.0, 0.8],
-              tileMode: TileMode.clamp,
-            ),
-          ),
           child: BottomNavigationBar(
               selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
               unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-              selectedItemColor: Colors.white,
+              selectedItemColor: Colors.black,
               backgroundColor: Colors.transparent,
               elevation: 0,
               currentIndex: pageIndex,

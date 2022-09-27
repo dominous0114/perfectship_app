@@ -46,7 +46,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             is_insure: event.is_insure,
             product_value: event.product_value,
             cod_amount: event.cod_amount,
-            remark: event.remark)
+            remark: event.remark,
+            issave: event.issave)
         .then((value) {
       if (value['status'] == true) {
         event.context.read<UserDataBloc>().add(UserDataInitialEvent());

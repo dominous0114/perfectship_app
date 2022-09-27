@@ -12,9 +12,23 @@ class AddressInitialEvent extends AddressEvent {
   List<Object> get props => [];
 }
 
+class AddressFromphoneEvent extends AddressEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class AddressSearchEvent extends AddressEvent {
   final String keyword;
   AddressSearchEvent({
+    required this.keyword,
+  });
+  @override
+  List<Object> get props => [];
+}
+
+class AddressFromphoneSearchEvent extends AddressEvent {
+  final String keyword;
+  AddressFromphoneSearchEvent({
     required this.keyword,
   });
   @override

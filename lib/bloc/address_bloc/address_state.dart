@@ -9,6 +9,8 @@ abstract class AddressState extends Equatable {
 
 class AddressLoading extends AddressState {}
 
+class AddressFromphoneLoading extends AddressState {}
+
 class AddressLoaded extends AddressState {
   final List<AddressModel> addressmodel;
   AddressLoaded({
@@ -17,4 +19,14 @@ class AddressLoaded extends AddressState {
   @override
   // TODO: implement props
   List<Object> get props => [addressmodel];
+}
+
+class AddressFromphoneLoaded extends AddressState {
+  final List<AddressfromphoneModel> addressphonemodel;
+  AddressFromphoneLoaded({
+    required this.addressphonemodel,
+  });
+  @override
+  // TODO: implement props
+  List<Object> get props => [addressphonemodel];
 }

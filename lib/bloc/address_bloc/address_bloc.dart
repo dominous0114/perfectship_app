@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:perfectship_app/model/address_model.dart';
+import 'package:perfectship_app/model/addressfromphone_model.dart';
 import 'package:perfectship_app/repository/address_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'address_event.dart';
@@ -17,13 +18,16 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     on<EditAddressEvent>(_onEdit);
     on<SetPrimaryAddressEvent>(_onSetPrimary);
     on<DeleteAddressEvent>(_onDelete);
+    on<AddressFromphoneEvent>(_ongetAddressfromphone);
+    on<AddressFromphoneSearchEvent>(_onSearchphone);
   }
 
   void _onLoadGetAddress(
       AddressInitialEvent event, Emitter<AddressState> emit) async {
-    final response = await addressrepository.getAddress();
-
-    emit(AddressLoaded(addressmodel: response));
+    emit(AddressLoading());
+    await addressrepository.getAddress().then((value) {
+      emit(AddressLoaded(addressmodel: value));
+    });
   }
 
   void _onSearch(AddressSearchEvent event, Emitter<AddressState> emit) async {
@@ -41,6 +45,16 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
           element.province.toString().toLowerCase().contains(event.keyword) ||
           element.zipcode.toString().toLowerCase().contains(event.keyword));
       emit(AddressLoaded(addressmodel: list));
+    });
+  }
+
+  void _onSearchphone(
+      AddressFromphoneSearchEvent event, Emitter<AddressState> emit) async {
+    await addressrepository.searchAddressphone().then((value) {
+      List<AddressfromphoneModel> list = value.toList();
+      list.retainWhere((element) =>
+          element.phone.toString().toLowerCase().contains(event.keyword));
+      emit(AddressFromphoneLoaded(addressphonemodel: list.toSet().toList()));
     });
   }
 
@@ -110,6 +124,13 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
       Navigator.pop(event.context);
       event.context.read<AddressBloc>().add(AddressInitialEvent());
     });
+  }
+
+  void _ongetAddressfromphone(
+      AddressFromphoneEvent event, Emitter<AddressState> emit) async {
+    var response = await addressrepository.searchAddressphone();
+
+    emit(AddressFromphoneLoaded(addressphonemodel: response));
   }
 
   // void _onClear() {
