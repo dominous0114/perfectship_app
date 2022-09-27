@@ -793,15 +793,40 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         .map((item) =>
                                             DropdownMenuItem<CourierModel>(
                                               value: item,
-                                              child: Text(
-                                                item.name!,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      PlatformSize(context),
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.black,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(3.0),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  8)),
+                                                      child: Image.network(
+                                                          '${item.logoMobile}'),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      item.name!,
+                                                      style: TextStyle(
+                                                        fontSize: PlatformSize(
+                                                            context),
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        color: Colors.black,
+                                                      ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ],
                                                 ),
-                                                overflow: TextOverflow.ellipsis,
                                               ),
                                             ))
                                         .toList(),
