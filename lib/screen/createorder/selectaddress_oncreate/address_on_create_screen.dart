@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:perfectship_app/model/address_model.dart';
 
 import '../../../bloc/address_bloc/address_bloc.dart';
@@ -396,63 +397,70 @@ class _AddressOnCreateScreenState extends State<AddressOnCreateScreen>
                                 // enabled: AddressModel.addresstest[index].primaryAddress == 1
                                 //     ? false
                                 //     : true,
-                                endActionPane: state.addressmodel[index]
-                                            .primaryAddress ==
-                                        1
-                                    ? ActionPane(
-                                        extentRatio: 2 / 5,
-                                        motion: DrawerMotion(),
-                                        children: [
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                _showAlertDelete(
-                                                    context,
-                                                    state.addressmodel[index].id
-                                                        .toString());
-                                              },
-                                              label: 'ลบ',
-                                              icon: CupertinoIcons.delete,
-                                              foregroundColor: Colors.red,
-                                              backgroundColor: Colors.white,
-                                            )
-                                          ])
-                                    : ActionPane(
+                                endActionPane:
+                                    // state.addressmodel[index]
+                                    //             .primaryAddress ==
+                                    //         1
+                                    //     ? ActionPane(
+                                    //         extentRatio: 2 / 5,
+                                    //         motion: DrawerMotion(),
+                                    //         children: [
+                                    //             SlidableAction(
+                                    //               onPressed: (context) {
+                                    //                 _showAlertDelete(
+                                    //                     context,
+                                    //                     state.addressmodel[index].id
+                                    //                         .toString());
+                                    //               },
+                                    //               label: 'ลบ',
+                                    //               icon: CupertinoIcons.delete,
+                                    //               foregroundColor: Colors.red,
+                                    //               backgroundColor: Colors.white,
+                                    //             )
+                                    //           ])
+                                    //     :
+                                    ActionPane(
                                         extentRatio: 3.5 / 5,
                                         motion: DrawerMotion(),
                                         children: [
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                Navigator.pushNamed(
-                                                    context, '/editaddress',
-                                                    arguments: state
-                                                        .addressmodel[index]);
-                                              },
-                                              label: 'แก้ไข',
-                                              icon: CupertinoIcons
-                                                  .pencil_ellipsis_rectangle,
-                                              foregroundColor: Color.fromARGB(
-                                                  180, 41, 88, 162),
-                                              backgroundColor: Colors.white,
-                                            ),
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                _showAlertDelete(
-                                                    context,
-                                                    state.addressmodel[index].id
-                                                        .toString());
-                                              },
-                                              label: 'ลบ',
-                                              icon: CupertinoIcons.delete,
-                                              foregroundColor: Colors.red,
-                                              backgroundColor: Colors.white,
-                                            )
-                                          ]),
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          Navigator.pushNamed(
+                                              context, '/editaddress',
+                                              arguments:
+                                                  state.addressmodel[index]);
+                                        },
+                                        label: 'แก้ไข',
+                                        icon: CupertinoIcons
+                                            .pencil_ellipsis_rectangle,
+                                        foregroundColor:
+                                            Color.fromARGB(180, 41, 88, 162),
+                                        backgroundColor: Colors.white,
+                                      ),
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          _showAlertDelete(
+                                              context,
+                                              state.addressmodel[index].id
+                                                  .toString());
+                                        },
+                                        label: 'ลบ',
+                                        icon: CupertinoIcons.delete,
+                                        foregroundColor: Colors.red,
+                                        backgroundColor: Colors.white,
+                                      )
+                                    ]),
                                 child: GestureDetector(
                                   onTap: () {
-                                    _showAlertSetprimary(
-                                        context,
-                                        state.addressmodel[index].id
-                                            .toString());
+                                    state.addressmodel[index].primaryAddress ==
+                                            1
+                                        ? Fluttertoast.showToast(
+                                            msg:
+                                                'ที่อยู่นี้เป็นที่อยู่หลักอยู่แล้ว')
+                                        : _showAlertSetprimary(
+                                            context,
+                                            state.addressmodel[index].id
+                                                .toString());
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

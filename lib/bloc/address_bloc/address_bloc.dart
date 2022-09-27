@@ -25,7 +25,6 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
 
   void _onLoadGetAddress(
       AddressInitialEvent event, Emitter<AddressState> emit) async {
-    emit(AddressLoading());
     await addressrepository.getAddress().then((value) {
       emit(AddressLoaded(addressmodel: value));
     });

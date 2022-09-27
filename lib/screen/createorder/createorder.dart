@@ -52,10 +52,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   int insu = 0;
   int saveaddress = 1;
   ProductCategory? _productCategory;
-  String? labelname;
-  String? labelphone;
-  String? labeladdress;
-  String? labelzipcode;
+  String labelname = '';
+  String labelphone = '';
+  String labeladdress = '';
+  String labelzipcode = '';
 
   _onExpansionChanged(bool val) {
     setState(() {
@@ -538,10 +538,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                 itemCount: list.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  labelname = list.first.name;
-                                  labelphone = list.first.phone;
-                                  labeladdress = list.first.address;
-                                  labelzipcode = list.first.zipcode;
+                                  labelname = list.first.name!;
+                                  labelphone = list.first.phone!;
+                                  labeladdress = list.first.address!;
+                                  labelzipcode = list.first.zipcode!;
 
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -1550,55 +1550,63 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                       color: Color.fromARGB(255, 41, 88, 162),
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
-                                          context
-                                              .read<UserDataBloc>()
-                                              .add(UserdataAfterSendEvent());
-                                          context.read<OrderBloc>().add(AddOrderEvent(
-                                              context: context,
-                                              courier_code: _courier!.code!,
-                                              current_order: '',
-                                              src_name:
-                                                  state.srcaddressmodel.name!,
-                                              src_phone:
-                                                  state.srcaddressmodel.phone!,
-                                              src_district: state
-                                                  .srcaddressmodel.subDistrict!,
-                                              src_amphure: state
-                                                  .srcaddressmodel.district!,
-                                              src_address: state
-                                                  .srcaddressmodel.address!,
-                                              src_province: state
-                                                  .srcaddressmodel.province!,
-                                              src_zipcode: state
-                                                  .srcaddressmodel.zipcode!,
-                                              label_name: labelname!,
-                                              label_phone: labelphone!,
-                                              label_address: labeladdress!,
-                                              label_zipcode: labelzipcode!,
-                                              dst_name: dstnameController.text,
-                                              dst_phone: phoneController.text,
-                                              dst_address:
-                                                  houseNoController.text,
-                                              dst_district:
-                                                  subdistrictController.text,
-                                              dst_amphure:
-                                                  districtController.text,
-                                              dst_province:
-                                                  provinceController.text,
-                                              dst_zipcode:
-                                                  zipcodeController.text,
-                                              account_name: state
-                                                  .userdatamodel.accountName!,
-                                              account_number: state
-                                                  .userdatamodel.accountNumber!,
-                                              account_branch:
-                                                  state.userdatamodel.branchNo!,
-                                              account_bank: state.userdatamodel.bankId!.toString(),
-                                              is_insure: insu.toString(),
-                                              product_value: insuController.text,
-                                              cod_amount: codController.text,
-                                              remark: remarkController.text,
-                                              issave: saveaddress.toString()));
+                                          if (labelname == '' ||
+                                              labelphone == '' ||
+                                              labeladdress == '' ||
+                                              labelzipcode == '') {
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    'กรุณาตรวจสอบที่อยู่ผู้ส่ง');
+                                          } else {
+                                            context
+                                                .read<UserDataBloc>()
+                                                .add(UserdataAfterSendEvent());
+                                            context.read<OrderBloc>().add(AddOrderEvent(
+                                                context: context,
+                                                courier_code: _courier!.code!,
+                                                current_order: '',
+                                                src_name:
+                                                    state.srcaddressmodel.name!,
+                                                src_phone: state
+                                                    .srcaddressmodel.phone!,
+                                                src_district: state
+                                                    .srcaddressmodel
+                                                    .subDistrict!,
+                                                src_amphure: state
+                                                    .srcaddressmodel.district!,
+                                                src_address: state
+                                                    .srcaddressmodel.address!,
+                                                src_province: state
+                                                    .srcaddressmodel.province!,
+                                                src_zipcode: state
+                                                    .srcaddressmodel.zipcode!,
+                                                label_name: labelname,
+                                                label_phone: labelphone,
+                                                label_address: labeladdress,
+                                                label_zipcode: labelzipcode,
+                                                dst_name:
+                                                    dstnameController.text,
+                                                dst_phone: phoneController.text,
+                                                dst_address:
+                                                    houseNoController.text,
+                                                dst_district:
+                                                    subdistrictController.text,
+                                                dst_amphure:
+                                                    districtController.text,
+                                                dst_province:
+                                                    provinceController.text,
+                                                dst_zipcode:
+                                                    zipcodeController.text,
+                                                account_name: state.userdatamodel.accountName!,
+                                                account_number: state.userdatamodel.accountNumber!,
+                                                account_branch: state.userdatamodel.branchNo!,
+                                                account_bank: state.userdatamodel.bankId!.toString(),
+                                                is_insure: insu.toString(),
+                                                product_value: insuController.text,
+                                                cod_amount: codController.text,
+                                                remark: remarkController.text,
+                                                issave: saveaddress.toString()));
+                                          }
                                         }
                                       },
                                       child: Text('บันทึกรายการ',
