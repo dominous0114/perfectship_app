@@ -27,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(40),
       child: AppBar(
-        toolbarHeight: 65,
+        toolbarHeight: 50,
         elevation: 0,
         flexibleSpace: Container(
           decoration: BoxDecoration(

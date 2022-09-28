@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
 import 'package:perfectship_app/bloc/orders_bloc/order_bloc.dart';
+import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/config/app_router.dart';
 import 'package:perfectship_app/config/checkScreen.dart';
@@ -10,6 +12,7 @@ import 'package:perfectship_app/repository/address_repository.dart';
 import 'package:perfectship_app/repository/bank_repository.dart';
 import 'package:perfectship_app/repository/getuserdata_repository.dart';
 import 'package:perfectship_app/repository/order_repository.dart';
+import 'package:perfectship_app/repository/track_repository.dart';
 import 'package:perfectship_app/screen/login.dart';
 import 'package:perfectship_app/widget/fontsize.dart';
 
@@ -23,6 +26,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('th');
     return MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -37,6 +41,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => OrderBloc(orderRepository: OrderRepository()),
+          ),
+          BlocProvider(
+            create: (context) => TrackBloc(trackRepository: TrackRepository()),
           )
         ],
         child: MaterialApp(

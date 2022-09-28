@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
+import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/screen/billlist/billlist_screen.dart';
 import 'package:perfectship_app/screen/createorder/createorder.dart';
@@ -30,6 +31,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
   void initState() {
     context.read<UserDataBloc>().add(UserDataInitialEvent());
     context.read<AddressBloc>().add(AddressInitialEvent());
+
     super.initState();
   }
 
@@ -57,53 +59,46 @@ class _NavigatonBarState extends State<NavigatonBar> {
       extendBody: true,
       body: pageList[pageIndex],
       // drawer: showDrawer(),
-      bottomNavigationBar: ShaderMask(
-        shaderCallback: (Rect bounds) {
-          return LinearGradient(
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
             colors: [
-              Color.fromARGB(200, 43, 166, 223),
-              Color.fromARGB(180, 41, 88, 162),
+              Color.fromARGB(255, 49, 107, 200),
+              Color.fromARGB(255, 99, 198, 244),
             ],
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
+            begin: Alignment.topLeft,
+            end: Alignment.topRight,
             stops: [0.0, 0.8],
             tileMode: TileMode.clamp,
-          ).createShader(bounds);
-        },
-        child: BottomAppBar(
-          //color: Color.fromARGB(231, 43, 49, 134),
-          //shape: CircularNotchedRectangle(),
-          //notchMargin: 12,
-          // ← carves notch for FAB in BottomAppBar
-
-          child: BottomNavigationBar(
-              selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-              unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-              selectedItemColor: Colors.black,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              currentIndex: pageIndex,
-              type: BottomNavigationBarType.fixed,
-              onTap: (value) {
-                setState(() {
-                  pageIndex = value;
-                });
-              },
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.house),
-                  label: 'หน้าแรก',
-                ),
-                //BottomNavigationBarItem(icon: Icon(null), label: ""),
-                BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.square_list), label: 'พัสดุ'),
-                BottomNavigationBarItem(icon: Icon(null), label: ''),
-                BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.square_list_fill), label: 'บิล'),
-                BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.person_alt), label: 'โปรไฟล์'),
-              ]),
+          ),
         ),
+        child: BottomNavigationBar(
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+            selectedItemColor: Colors.white,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            currentIndex: pageIndex,
+            type: BottomNavigationBarType.fixed,
+            onTap: (value) {
+              setState(() {
+                pageIndex = value;
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.house),
+                label: 'หน้าแรก',
+              ),
+              //BottomNavigationBarItem(icon: Icon(null), label: ""),
+              BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.square_list), label: 'พัสดุ'),
+              BottomNavigationBarItem(icon: Icon(null), label: ''),
+              BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.square_list_fill), label: 'บิล'),
+              BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.person_alt), label: 'โปรไฟล์'),
+            ]),
       ),
     );
   }

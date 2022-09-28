@@ -14,7 +14,11 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
 
   void _onLoadGetTrack(
       TrackInitialEvent event, Emitter<TrackState> emit) async {
-    await trackRepository.getTrack(
-        event.start, event.end, event.courier, event.printing, event.order);
+    await trackRepository
+        .getTrack(
+            event.start, event.end, event.courier, event.printing, event.order)
+        .then((value) {
+      emit(TrackLoaded(trackmodel: value));
+    });
   }
 }
