@@ -585,6 +585,8 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                       isDense: true,
                                       contentPadding: EdgeInsets.zero,
                                       border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 2, color: Colors.amber),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       //Add more decoration as you want here
@@ -600,13 +602,21 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                     buttonPadding: const EdgeInsets.only(
                                         left: 20, right: 10),
                                     dropdownDecoration: BoxDecoration(
-                                      border: Border.all(width: 0.1),
+                                      border: Border.all(
+                                          width: 0.1, color: Colors.black),
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     dropdownMaxHeight: 250,
                                     scrollbarAlwaysShow: true,
                                     scrollbarThickness: 6,
+                                    buttonDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: Colors.black26,
+                                      ),
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),

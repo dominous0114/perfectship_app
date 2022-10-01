@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
+import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/repository/order_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +51,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             issave: event.issave)
         .then((value) {
       if (value['status'] == true) {
+        event.context.read<TrackBloc>().add(TrackInitialEvent());
         event.context.read<UserDataBloc>().add(UserDataInitialEvent());
         Navigator.pop(event.context);
         Fluttertoast.showToast(msg: 'สร้างรายการสำเร็จ');

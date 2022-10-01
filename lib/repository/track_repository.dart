@@ -17,6 +17,12 @@ class TrackRepository {
       'Content-Type': 'application/json'
     };
 
+    print('start = $start');
+    print('end = $end');
+    print('courier = $courier');
+    print('printing = $printing');
+    print('order = $order');
+
     var request = http.Request(
         'GET', Uri.parse('${MyConstant().domain}/perfectship/get-track-list'));
     request.body = json.encode({
@@ -41,6 +47,50 @@ class TrackRepository {
       print('else');
       print(response.reasonPhrase);
       return [TrackModel()];
+    }
+  }
+
+  Future candelTrack({required String courier, required String refcode}) async {
+    preferences = await SharedPreferences.getInstance();
+    var token = preferences!.getString('token');
+    var headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json'
+    };
+    var request =
+        http.Request('POST', Uri.parse('${MyConstant().domain}/cancel_order'));
+    request.body = json.encode({"courier_code": courier, "ref_code": refcode});
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      print('on of');
+      var res = await response.stream.bytesToString();
+      print(res);
+      return jsonDecode(res);
+    } else {
+      return response.stream.bytesToString();
+    }
+  }
+
+  Future deleteTrack({required String id}) async {
+    preferences = await SharedPreferences.getInstance();
+    var token = preferences!.getString('token');
+    var headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request(
+        'POST', Uri.parse('${MyConstant().domain}/perfectship/delete-cart'));
+    request.body = json.encode({"order_id": id});
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      print('on of');
+      var res = await response.stream.bytesToString();
+      print(res);
+      return jsonDecode(res);
+    } else {
+      return response.stream.bytesToString();
     }
   }
 }

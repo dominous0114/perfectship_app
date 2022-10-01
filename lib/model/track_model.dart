@@ -19,6 +19,7 @@ class TrackModel {
   String? statusName;
   String? statusColor;
   String? icon;
+  int? inBill;
 
   TrackModel(
       {this.id,
@@ -40,7 +41,8 @@ class TrackModel {
       this.statusId,
       this.statusName,
       this.statusColor,
-      this.icon});
+      this.icon,
+      this.inBill});
 
   TrackModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -63,6 +65,7 @@ class TrackModel {
     statusName = json['status_name'];
     statusColor = json['status_color'];
     icon = json['icon'];
+    inBill = json['in_bill'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,6 +90,7 @@ class TrackModel {
     data['status_name'] = this.statusName;
     data['status_color'] = this.statusColor;
     data['icon'] = this.icon;
+    data['in_bill'] = this.inBill;
     return data;
   }
 }

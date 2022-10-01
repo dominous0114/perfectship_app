@@ -10,6 +10,7 @@ import 'package:perfectship_app/config/app_router.dart';
 import 'package:perfectship_app/config/checkScreen.dart';
 import 'package:perfectship_app/repository/address_repository.dart';
 import 'package:perfectship_app/repository/bank_repository.dart';
+import 'package:perfectship_app/repository/courier_repository.dart';
 import 'package:perfectship_app/repository/getuserdata_repository.dart';
 import 'package:perfectship_app/repository/order_repository.dart';
 import 'package:perfectship_app/repository/track_repository.dart';
@@ -43,18 +44,22 @@ class MyApp extends StatelessWidget {
             create: (context) => OrderBloc(orderRepository: OrderRepository()),
           ),
           BlocProvider(
-            create: (context) => TrackBloc(trackRepository: TrackRepository()),
+            create: (context) => TrackBloc(
+              orderRepository: OrderRepository(),
+                trackRepository: TrackRepository(),
+                courierRepository: CourierRepository()),
           )
         ],
         child: MaterialApp(
             onGenerateRoute: AppRouter.onGenerateRoute,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+                    primarySwatch: Colors.blue,
                     inputDecorationTheme: InputDecorationTheme(
                       border: InputBorder.none,
                       hintStyle: GoogleFonts.ibmPlexSansThaiTextTheme(
                               Theme.of(context).textTheme)
-                          .bodyText2!
+                          .bodyMedium!
                           .copyWith(fontSize: 16),
                     ),
                     useMaterial3: true,

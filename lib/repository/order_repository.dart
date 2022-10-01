@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:perfectship_app/model/orderstatus_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -105,5 +106,20 @@ class OrderRepository {
     } else {
       return response.stream.bytesToString();
     }
+  }
+
+  Future<List<OrderStatusModel>> getOrderStatus() async {
+    preferences = await SharedPreferences.getInstance();
+    var token = preferences!.getString('token');
+    Uri url =
+        Uri.parse('${MyConstant().domain}/perfectship/get-status-shipment');
+
+    http.Response response =
+        await http.get(url, headers: {'Authorization': 'Bearer $token'});
+
+    final json = jsonDecode(response.body) as Map;
+    final newJson = json['data'] as List;
+    final list = newJson.map((e) => OrderStatusModel.fromJson(e)).toList();
+    return list;
   }
 }

@@ -855,6 +855,13 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                       //Add more decoration as you want here
                                       //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                                     ),
+                                    buttonDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: Colors.black26,
+                                      ),
+                                      color: Colors.white,
+                                    ),
                                     icon: const Icon(
                                       Icons.keyboard_arrow_down_sharp,
                                       color: Colors.black45,
@@ -964,6 +971,13 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                       ),
                                       //Add more decoration as you want here
                                       //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                                    ),
+                                    buttonDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: Colors.black26,
+                                      ),
+                                      color: Colors.white,
                                     ),
                                     icon: const Icon(
                                       Icons.keyboard_arrow_down_sharp,
