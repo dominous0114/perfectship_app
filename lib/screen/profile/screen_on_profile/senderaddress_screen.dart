@@ -207,10 +207,11 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                             context
                                 .read<AddressBloc>()
                                 .add(AddressInitialEvent());
-                          } else {}
-                          context
-                              .read<AddressBloc>()
-                              .add(AddressSearchEvent(keyword: keyword));
+                          } else {
+                            context
+                                .read<AddressBloc>()
+                                .add(AddressSearchEvent(keyword: keyword));
+                          }
                         },
                         decoration: InputDecoration(
                             prefixIconColor: Colors.blue.shade300,

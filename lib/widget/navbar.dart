@@ -50,6 +50,10 @@ class _NavigatonBarState extends State<NavigatonBar> {
             child: Icon(CupertinoIcons.add),
             backgroundColor: Color.fromARGB(255, 123, 189, 255),
             onPressed: () {
+              setState(() {
+                pageIndex = 1;
+              });
+
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => CreateOrderScreen()));
             },

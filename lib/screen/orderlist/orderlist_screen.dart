@@ -32,7 +32,7 @@ class _OrderListScreenState extends State<OrderListScreen>
   TextEditingController firstTimeController = TextEditingController();
   TextEditingController endTimeController = TextEditingController();
 
-  DateTime _startDate = DateTime(DateTime.now().year, DateTime.now().month, 1);
+  DateTime _startDate = DateTime.now().subtract(Duration(days: 7));
   DateTime _endDate = DateTime.now();
   Printed? _printed;
   List<Printed>? listprint;
@@ -82,49 +82,92 @@ class _OrderListScreenState extends State<OrderListScreen>
                       padding: EdgeInsets.symmetric(horizontal: 3, vertical: 0),
                       child: Row(
                         children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 20,
+                                child: Checkbox(
+                                    shape: CircleBorder(),
+                                    fillColor:
+                                        MaterialStateProperty.all(Colors.blue),
+                                    checkColor: Colors.white,
+                                    value: _isSelectAll,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _isSelectAll = !_isSelectAll;
+                                        if (_isSelectAll) {
+                                          _selectedItems = state.trackmodel
+                                              .map((e) => e.id)
+                                              .toList();
+                                        } else {
+                                          _selectedItems.clear();
+                                        }
+                                      });
+                                    }),
+                              ),
+                              Text(
+                                'ทั้งหมด',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                        fontSize: PlatformSize(context),
+                                        color: Colors.black),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Expanded(
-                            child: Container(
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: <Color>[
-                                          Color.fromARGB(180, 41, 88, 162),
-                                          Color.fromARGB(200, 43, 166, 223),
-                                        ]),
-                                    borderRadius: BorderRadius.circular(8),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: Offset.zero,
-                                          spreadRadius: .3,
-                                          color: Colors.grey)
-                                    ]),
-                                child: Center(
-                                    child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.printer,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      'ปริ้นท์  ${_selectedItems.length} รายการ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .copyWith(
-                                              fontSize:
-                                                  PlatformSize(context) * 1.1,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                    )
-                                  ],
-                                ))),
+                            child: GestureDetector(
+                              onTap: () {
+                                print(_selectedItems.toString());
+                              },
+                              child: Container(
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: <Color>[
+                                            Color.fromARGB(180, 41, 88, 162),
+                                            Color.fromARGB(200, 43, 166, 223),
+                                          ]),
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            offset: Offset.zero,
+                                            spreadRadius: .3,
+                                            color: Colors.grey)
+                                      ]),
+                                  child: Center(
+                                      child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        CupertinoIcons.printer,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        'ปริ้นท์  ${_selectedItems.length} รายการ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium!
+                                            .copyWith(
+                                                fontSize:
+                                                    PlatformSize(context) * 1.1,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                      )
+                                    ],
+                                  ))),
+                            ),
                           ),
                         ],
                       ),
@@ -1195,6 +1238,16 @@ class _OrderListScreenState extends State<OrderListScreen>
                                             )
                                           ]),
                                 child: GestureDetector(
+                                  onLongPress: () {
+                                    setState(() {
+                                      if (_selectedItems.isEmpty) {
+                                        _isSelect = true;
+                                        //Vibration.vibrate(duration: 50);
+                                        _selectedItems
+                                            .add(state.trackmodel[index].id);
+                                      }
+                                    });
+                                  },
                                   onTap: _isSelect
                                       ? () {
                                           setState(() {
@@ -1398,6 +1451,39 @@ class _OrderListScreenState extends State<OrderListScreen>
                                                               .format(DateTime
                                                                   .parse(
                                                                       '${state.trackmodel[index].createdAt}')),
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .headline4!
+                                                              .copyWith(
+                                                                  color: Colors
+                                                                      .black87,
+                                                                  fontSize:
+                                                                      PlatformSize(
+                                                                          context)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          'COD : ',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .headline4!
+                                                              .copyWith(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black87,
+                                                                  fontSize:
+                                                                      PlatformSize(
+                                                                          context)),
+                                                        ),
+                                                        Text(
+                                                          '${state.trackmodel[index].codAmount}',
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme

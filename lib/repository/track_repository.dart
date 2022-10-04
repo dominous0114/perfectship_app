@@ -17,12 +17,6 @@ class TrackRepository {
       'Content-Type': 'application/json'
     };
 
-    print('start = $start');
-    print('end = $end');
-    print('courier = $courier');
-    print('printing = $printing');
-    print('order = $order');
-
     var request = http.Request(
         'GET', Uri.parse('${MyConstant().domain}/perfectship/get-track-list'));
     request.body = json.encode({

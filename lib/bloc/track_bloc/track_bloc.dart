@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:perfectship_app/model/courier_model.dart';
@@ -10,6 +11,8 @@ import 'package:perfectship_app/model/track_model.dart';
 import 'package:perfectship_app/repository/courier_repository.dart';
 import 'package:perfectship_app/repository/order_repository.dart';
 import 'package:perfectship_app/repository/track_repository.dart';
+
+import '../../widget/fontsize.dart';
 
 part 'track_event.dart';
 part 'track_state.dart';
@@ -35,8 +38,7 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
 
   void _onLoadGetTrack(
       TrackInitialEvent event, Emitter<TrackState> emit) async {
-    DateTime _startDate =
-        DateTime(DateTime.now().year, DateTime.now().month, 1);
+    DateTime _startDate = DateTime.now().subtract(Duration(days: 7));
     DateTime _endDate = DateTime.now();
     String initfirst = DateFormat('yyyy-MM-dd').format(_startDate);
     String initend = DateFormat('yyyy-MM-dd').format(_endDate);

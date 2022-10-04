@@ -14,3 +14,11 @@ class OrderInitial extends OrderState {
   // TODO: implement props
   List<Object> get props => [];
 }
+
+class OrderLoadError extends OrderState {
+  final String error;
+  OrderLoadError({required this.error});
+  @override
+  // TODO: implement props
+  List<Object> get props => [error];
+}

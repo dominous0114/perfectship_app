@@ -30,3 +30,11 @@ class AddressFromphoneLoaded extends AddressState {
   // TODO: implement props
   List<Object> get props => [addressphonemodel];
 }
+
+class AddressLoadError extends AddressState {
+  final String error;
+  AddressLoadError({required this.error});
+  @override
+  // TODO: implement props
+  List<Object> get props => [error];
+}

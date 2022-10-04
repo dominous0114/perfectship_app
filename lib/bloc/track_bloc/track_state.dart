@@ -26,3 +26,11 @@ class TrackLoaded extends TrackState {
   List<Object> get props =>
       [trackmodel, courier, courierSelected, ordermodel, statusSelected];
 }
+
+class TrackLoadError extends TrackState {
+  final String error;
+  TrackLoadError({required this.error});
+  @override
+  // TODO: implement props
+  List<Object> get props => [error];
+}

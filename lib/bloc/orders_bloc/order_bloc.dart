@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/repository/order_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:perfectship_app/widget/fontsize.dart';
 
 part 'order_event.dart';
 part 'order_state.dart';
@@ -53,8 +55,42 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       if (value['status'] == true) {
         event.context.read<TrackBloc>().add(TrackInitialEvent());
         event.context.read<UserDataBloc>().add(UserDataInitialEvent());
-        Navigator.pop(event.context);
-        Fluttertoast.showToast(msg: 'สร้างรายการสำเร็จ');
+        showCupertinoModalPopup(
+          context: event.context,
+          builder: (context) {
+            return CupertinoAlertDialog(
+              title: Text(
+                'สร้างรายการสำเร็จ',
+                style: Theme.of(event.context).textTheme.headline4!.copyWith(
+                    fontSize: PlatformSize(event.context) * 1.2,
+                    fontWeight: FontWeight.bold),
+              ),
+              content: Text(
+                'คุณต้องการสร้างรายการต่อหรือไม่',
+                style: Theme.of(event.context).textTheme.headline4!.copyWith(
+                    fontSize: PlatformSize(event.context) * 1.1,
+                    fontWeight: FontWeight.normal),
+              ),
+              actions: <CupertinoDialogAction>[
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  onPressed: () {
+                    Navigator.pop(event.context);
+                  },
+                  child: const Text('ตกลง'),
+                ),
+                CupertinoDialogAction(
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    Navigator.pop(event.context);
+                    Navigator.pop(event.context);
+                  },
+                  child: const Text('ไปหน้าพัสดุ'),
+                ),
+              ],
+            );
+          },
+        );
       } else {
         Fluttertoast.showToast(msg: value['message']);
       }

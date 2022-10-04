@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
+import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
+import 'package:perfectship_app/bloc/bill_detail_bloc/bill_detail_bloc.dart';
 import 'package:perfectship_app/bloc/orders_bloc/order_bloc.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
@@ -10,6 +12,7 @@ import 'package:perfectship_app/config/app_router.dart';
 import 'package:perfectship_app/config/checkScreen.dart';
 import 'package:perfectship_app/repository/address_repository.dart';
 import 'package:perfectship_app/repository/bank_repository.dart';
+import 'package:perfectship_app/repository/bill_repository.dart';
 import 'package:perfectship_app/repository/courier_repository.dart';
 import 'package:perfectship_app/repository/getuserdata_repository.dart';
 import 'package:perfectship_app/repository/order_repository.dart';
@@ -31,6 +34,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
+            create: (context) =>
+                BillDetailBloc(billRepository: BillRepository()),
+          ),
+          BlocProvider(
+            create: (context) => BillBloc(billRepository: BillRepository()),
+          ),
+          BlocProvider(
             create: (context) => UserDataBloc(
                 addressRepository: AddressRepository(),
                 getUserDataRepository: GetUserDataRepository(),
@@ -45,7 +55,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => TrackBloc(
-              orderRepository: OrderRepository(),
+                orderRepository: OrderRepository(),
                 trackRepository: TrackRepository(),
                 courierRepository: CourierRepository()),
           )

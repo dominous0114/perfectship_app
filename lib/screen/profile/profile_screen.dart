@@ -30,190 +30,195 @@ class _ProfileSreenState extends State<ProfileSreen> {
         title: 'Profile',
         backArrow: false,
       ),
-      body: Column(
-        children: [
-          Profile(),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/senderaddress');
-            },
-            child: Container(
-              height: 60,
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-              padding: const EdgeInsets.only(
-                  top: 10, bottom: 10, left: 15, right: 25),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[100]!,
-                      blurRadius: 5.0,
-                      spreadRadius: 0.0,
-                      offset:
-                          const Offset(2, 6), // shadow direction: bottom right
+      body: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            Profile(),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/senderaddress');
+              },
+              child: Container(
+                height: 60,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                padding: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 15, right: 25),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[100]!,
+                        blurRadius: 5.0,
+                        spreadRadius: 0.0,
+                        offset: const Offset(
+                            2, 6), // shadow direction: bottom right
+                      )
+                    ],
+                    border: Border.all(color: Colors.grey.shade50)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    Icon(
+                      CupertinoIcons.location_solid,
+                      color: Color.fromARGB(255, 41, 88, 162),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    CustomTextAutoSizeforMenu(
+                        text: 'ที่อยู่ผู้ส่ง', bold: true, enable: true),
+                    const Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromARGB(255, 41, 88, 162),
+                      size: 20,
                     )
                   ],
-                  border: Border.all(color: Colors.grey.shade50)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  Icon(
-                    CupertinoIcons.location_solid,
-                    color: Color.fromARGB(255, 41, 88, 162),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  CustomTextAutoSizeforMenu(
-                      text: 'ที่อยู่ผู้ส่ง', bold: true, enable: true),
-                  const Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Color.fromARGB(255, 41, 88, 162),
-                    size: 20,
-                  )
-                ],
+                ),
               ),
             ),
-          ),
-          BlocBuilder<UserDataBloc, UserDataState>(
-            builder: (context, state) {
-              if (state is UserDataLoading) {
-                return Shimmer.fromColors(
-                  baseColor: Colors.grey.shade300,
-                  highlightColor: Colors.grey.shade100,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    child: Container(
-                      height: 60,
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(color: Colors.black54, blurRadius: 1)
-                      ], borderRadius: BorderRadius.all(Radius.circular(16))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [],
+            BlocBuilder<UserDataBloc, UserDataState>(
+              builder: (context, state) {
+                if (state is UserDataLoading) {
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.grey.shade100,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      child: Container(
+                        height: 60,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(color: Colors.black54, blurRadius: 1)
+                        ], borderRadius: BorderRadius.all(Radius.circular(16))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              } else if (state is UserDataLoaded) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/verifybank',
-                        arguments: state.userdatamodel);
-                  },
-                  child: Container(
-                    height: 60,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 2.5),
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, left: 15, right: 25),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[100]!,
-                            blurRadius: 5.0,
-                            spreadRadius: 0.0,
-                            offset: const Offset(
-                                2, 6), // shadow direction: bottom right
+                  );
+                } else if (state is UserDataLoaded) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/verifybank',
+                          arguments: state.userdatamodel);
+                    },
+                    child: Container(
+                      height: 60,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 2.5),
+                      padding: const EdgeInsets.only(
+                          top: 10, bottom: 10, left: 15, right: 25),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey[100]!,
+                              blurRadius: 5.0,
+                              spreadRadius: 0.0,
+                              offset: const Offset(
+                                  2, 6), // shadow direction: bottom right
+                            )
+                          ],
+                          border: Border.all(color: Colors.grey.shade50)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          Icon(
+                            CupertinoIcons.creditcard,
+                            color: Color.fromARGB(255, 41, 88, 162),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          CustomTextAutoSizeforMenu(
+                              text: 'ยืนยันบัญชีธนาคาร',
+                              bold: true,
+                              enable: true),
+                          const Spacer(),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Color.fromARGB(255, 41, 88, 162),
+                            size: 20,
                           )
                         ],
-                        border: Border.all(color: Colors.grey.shade50)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                        Icon(
-                          CupertinoIcons.creditcard,
-                          color: Color.fromARGB(255, 41, 88, 162),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        CustomTextAutoSizeforMenu(
-                            text: 'ยืนยันบัญชีธนาคาร',
-                            bold: true,
-                            enable: true),
-                        const Spacer(),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: Color.fromARGB(255, 41, 88, 162),
-                          size: 20,
-                        )
-                      ],
+                      ),
                     ),
-                  ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
+            GestureDetector(
+              onTap: () async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                preferences.remove('token');
+                preferences.remove('dropoff_id');
+                preferences.remove('dropoff_name');
+                preferences.remove('islogin');
+                preferences.remove('accountname');
+                preferences.remove('accountnumber');
+                MaterialPageRoute route = MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
                 );
-              } else {
-                return Container();
-              }
-            },
-          ),
-          GestureDetector(
-            onTap: () async {
-              SharedPreferences preferences =
-                  await SharedPreferences.getInstance();
-              preferences.remove('token');
-              preferences.remove('dropoff_id');
-              preferences.remove('dropoff_name');
-              preferences.remove('islogin');
-              preferences.remove('accountname');
-              preferences.remove('accountnumber');
-              MaterialPageRoute route = MaterialPageRoute(
-                builder: (context) => LoginScreen(),
-              );
-              Navigator.pushAndRemoveUntil(context, route, (route) => false);
-            },
-            child: Container(
-              height: 60,
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-              padding: const EdgeInsets.only(
-                  top: 10, bottom: 10, left: 15, right: 25),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[100]!,
-                      blurRadius: 5.0,
-                      spreadRadius: 0.0,
-                      offset:
-                          const Offset(2, 6), // shadow direction: bottom right
+                Navigator.pushAndRemoveUntil(context, route, (route) => false);
+              },
+              child: Container(
+                height: 60,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                padding: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 15, right: 25),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[100]!,
+                        blurRadius: 5.0,
+                        spreadRadius: 0.0,
+                        offset: const Offset(
+                            2, 6), // shadow direction: bottom right
+                      )
+                    ],
+                    border: Border.all(color: Colors.grey.shade50)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    Icon(
+                      Icons.logout_outlined,
+                      color: Color.fromARGB(255, 41, 88, 162),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    CustomTextAutoSizeforMenu(
+                        text: 'ออกจากระบบ', bold: true, enable: true),
+                    const Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromARGB(255, 41, 88, 162),
+                      size: 20,
                     )
                   ],
-                  border: Border.all(color: Colors.grey.shade50)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  Icon(
-                    Icons.logout_outlined,
-                    color: Color.fromARGB(255, 41, 88, 162),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  CustomTextAutoSizeforMenu(
-                      text: 'ออกจากระบบ', bold: true, enable: true),
-                  const Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: Color.fromARGB(255, 41, 88, 162),
-                    size: 20,
-                  )
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

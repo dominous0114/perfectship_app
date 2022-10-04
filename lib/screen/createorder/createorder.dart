@@ -43,6 +43,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   TextEditingController remarkController = TextEditingController();
   TextEditingController codController = TextEditingController();
   TextEditingController insuController = TextEditingController();
+  bool loadextract = false;
   final _formKey = GlobalKey<FormState>();
   late List<CourierModel> courier = [];
   CourierModel? _courier;
@@ -111,10 +112,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
     });
   }
 
-  systemExtract(
-    BuildContext context,
-    TextEditingController extractController,
-  ) {
+  systemExtract(BuildContext context, TextEditingController extractController,
+      bool loadextract) {
     showDialog(
         barrierDismissible: true,
         useRootNavigator: false,
@@ -122,121 +121,161 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
         builder: (BuildContext context) {
           return StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
-              return CupertinoAlertDialog(
-                title: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+              return loadextract == true
+                  ? Center(
+                      child: Container(
+                        width: 60.0,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: CupertinoActivityIndicator(),
+                        ),
+                      ),
+                    )
+                  : CupertinoAlertDialog(
+                      title: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.edit,
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text('ตัวช่วยแยกที่อยู่',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3!
+                                        .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                            fontSize: PlatformSize(context))),
+                              ],
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                extractController.text =
+                                    'คุณ Perfectship \n0891234567 \nบ้านเลขที่ 11/22 ถนนเพลินจิต \nแขวงลุมพินี เขตปทุมวัน \nกรุงเทพมหานคร 10330';
+                              },
+                              child: Text('ใช้ตัวอย่าง',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline3!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue,
+                                          fontSize: PlatformSize(context))),
+                            )
+                          ],
+                        ),
+                      ),
+                      content: Column(
                         children: [
-                          Icon(
-                            FontAwesomeIcons.edit,
-                            size: 18,
+                          CupertinoTextField(
+                            //padding: const EdgeInsets.all(0),
+                            placeholder:
+                                'คุณ Perfectship \n0891234567 \nบ้านเลขที่ 11/22 ถนนเพลินจิต \nแขวงลุมพินี เขตปทุมวัน \nกรุงเทพมหานคร 10330',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: PlatformSize(context)),
+                            placeholderStyle: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontSize: PlatformSize(context)),
+                            keyboardType: TextInputType.multiline,
+                            textInputAction: TextInputAction.newline,
+                            minLines: 10,
+                            maxLines: 10,
+                            controller: extractController,
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text('ตัวช่วยแยกที่อยู่',
+                        ],
+                      ),
+                      actions: [
+                        CupertinoDialogAction(
+                          onPressed: () {
+                            setState(() {
+                                    loadextract = true;
+                                  });
+                            if (extractController.text == '') {
+                              Fluttertoast.showToast(msg: 'กรุณากรอกที่อยู่');
+                              setState(() {
+                                    loadextract = false;
+                                  });
+                            } else {
+                              AddressRepository()
+                                  .normalizeAddress(extractController.text)
+                                  .then((value) {
+                                if (value['status'] == true) {
+                                  
+                                  final normalize = Normalize.fromJson(value);
+                                  print(normalize.cutAll);
+                                  setState(() {
+                                    phoneController.text = normalize.phone;
+                                    dstnameController.text = normalize.name;
+                                    houseNoController.text = normalize.cutAll;
+                                    subdistrictController.text =
+                                        normalize.district;
+                                    districtController.text = normalize.amphure;
+                                    provinceController.text =
+                                        normalize.province;
+                                    zipcodeController.text = normalize.zipcode;
+                                    Fluttertoast.showToast(msg: 'คัดแยกสำเร็จ');
+                                    extractController.text = '';
+                                    Navigator.pop(context);
+                                    setState(() {
+                                      loadextract = false;
+                                    });
+                                  });
+
+                                  print('test');
+                                } else {
+                                  setState(() {
+                                    loadextract = false;
+                                  });
+                                  Fluttertoast.showToast(
+                                      msg: '${value["msg"]}');
+                                }
+                              });
+                            }
+                          },
+                          child: Text("ตกลง",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline3!
                                   .copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                      color: Colors.blue,
                                       fontSize: PlatformSize(context))),
-                        ],
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          extractController.text =
-                              'คุณ Perfectship \n0891234567 \nบ้านเลขที่ 11/22 ถนนเพลินจิต \nแขวงลุมพินี เขตปทุมวัน \nกรุงเทพมหานคร 10330';
-                        },
-                        child: Text('ใช้ตัวอย่าง',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
-                                    fontSize: PlatformSize(context))),
-                      )
-                    ],
-                  ),
-                ),
-                content: Column(
-                  children: [
-                    CupertinoTextField(
-                      //padding: const EdgeInsets.all(0),
-                      placeholder:
-                          'คุณ Perfectship \n0891234567 \nบ้านเลขที่ 11/22 ถนนเพลินจิต \nแขวงลุมพินี เขตปทุมวัน \nกรุงเทพมหานคร 10330',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: PlatformSize(context)),
-                      placeholderStyle: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(fontSize: PlatformSize(context)),
-                      keyboardType: TextInputType.multiline,
-                      textInputAction: TextInputAction.newline,
-                      minLines: 10,
-                      maxLines: 10,
-                      controller: extractController,
-                    ),
-                  ],
-                ),
-                actions: [
-                  CupertinoDialogAction(
-                    onPressed: () {
-                      if (extractController.text == '') {
-                        Fluttertoast.showToast(msg: 'กรุณากรอกที่อยู่');
-                      } else {
-                        AddressRepository()
-                            .normalizeAddress(extractController.text)
-                            .then((value) {
-                          if (value['status'] == true) {
-                            final normalize = Normalize.fromJson(value);
-                            print(normalize.cutAll);
-                            setState(() {
-                              phoneController.text = normalize.phone;
-                              dstnameController.text = normalize.name;
-                              houseNoController.text = normalize.cutAll;
-                              subdistrictController.text = normalize.district;
-                              districtController.text = normalize.amphure;
-                              provinceController.text = normalize.province;
-                              zipcodeController.text = normalize.zipcode;
-                              Fluttertoast.showToast(msg: 'คัดแยกสำเร็จ');
-                              extractController.text = '';
-                              Navigator.pop(context);
-                            });
-
-                            print('test');
-                          } else {
-                            Fluttertoast.showToast(msg: '${value["msg"]}');
-                          }
-                        });
-                      }
-                    },
-                    child: Text("ตกลง",
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                            fontSize: PlatformSize(context))),
-                  ),
-                  CupertinoDialogAction(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      extractController.text = '';
-                    },
-                    child: Text("ยกเลิก",
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red,
-                            fontSize: PlatformSize(context))),
-                  ),
-                ],
-              );
+                        ),
+                        CupertinoDialogAction(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            extractController.text = '';
+                          },
+                          child: Text("ยกเลิก",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3!
+                                  .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                      fontSize: PlatformSize(context))),
+                        ),
+                      ],
+                    );
             },
           );
         });
@@ -535,6 +574,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             context: context,
                             removeBottom: true,
                             child: ListView.builder(
+                                primary: false,
+                                physics: NeverScrollableScrollPhysics(),
                                 itemCount: list.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
@@ -1077,7 +1118,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    systemExtract(context, extractController);
+                                    systemExtract(context, extractController,
+                                        loadextract);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
