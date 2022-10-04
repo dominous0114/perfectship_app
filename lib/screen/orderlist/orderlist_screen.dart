@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -1605,6 +1606,119 @@ class _OrderListScreenState extends State<OrderListScreen>
                                                                           context)),
                                                         ),
                                                       ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                                color: state
+                                                                            .trackmodel[
+                                                                                index]
+                                                                            .printCount! >
+                                                                        0
+                                                                    ? Colors
+                                                                        .black54
+                                                                    : Colors
+                                                                        .white,
+                                                                blurRadius: 0.5)
+                                                          ],
+                                                          color: state
+                                                                      .trackmodel[
+                                                                          index]
+                                                                      .printCount! >
+                                                                  0
+                                                              ? Colors.white
+                                                              : Colors.black54,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          8))),
+                                                      child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(4.0),
+                                                          child: state
+                                                                      .trackmodel[
+                                                                          index]
+                                                                      .printCount! >
+                                                                  0
+                                                              ? Row(
+                                                                  children: [
+                                                                    Badge(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              1),
+                                                                      position: BadgePosition(
+                                                                          bottom:
+                                                                              13,
+                                                                          start:
+                                                                              14),
+                                                                      elevation:
+                                                                          1,
+                                                                      badgeContent:
+                                                                          Icon(
+                                                                        CupertinoIcons
+                                                                            .checkmark_alt,
+                                                                        color: Colors
+                                                                            .green,
+                                                                        size:
+                                                                            14,
+                                                                      ),
+                                                                      badgeColor:
+                                                                          Colors
+                                                                              .white,
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .print_rounded,
+                                                                        color: Colors
+                                                                            .black54,
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 5,
+                                                                    ),
+                                                                    Text(
+                                                                      'พิมพ์แล้ว',
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .textTheme
+                                                                          .headline4!
+                                                                          .copyWith(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.black54,
+                                                                              fontSize: PlatformSize(context)),
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              : Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .print_rounded,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 5,
+                                                                    ),
+                                                                    Text(
+                                                                      'รอพิมพ์',
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .textTheme
+                                                                          .headline4!
+                                                                          .copyWith(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.white,
+                                                                              fontSize: PlatformSize(context)),
+                                                                    ),
+                                                                  ],
+                                                                )),
                                                     )
                                                   ],
                                                 )

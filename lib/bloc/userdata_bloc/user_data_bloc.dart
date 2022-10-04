@@ -61,13 +61,12 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     preferences.setString('accountname', response.accountName!);
     preferences.setString('accountnumber', response.accountNumber!);
     preferences.setString('userid', response.userId!.toString());
-    await Future.delayed(Duration(milliseconds: 2000), () {
-      emit(UserDataLoaded(
-          srcaddressmodel: responsesrcaddress,
-          userdatamodel: response,
-          usercreditmodel: rescreit,
-          bank: responsebank));
-    });
+
+    emit(UserDataLoaded(
+        srcaddressmodel: responsesrcaddress,
+        userdatamodel: response,
+        usercreditmodel: rescreit,
+        bank: responsebank));
   }
 
   // void _onLoadgetBankId(GetbankdataEvent event, Emitter<UserDataState> emit) {}

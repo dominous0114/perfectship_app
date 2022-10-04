@@ -57,6 +57,17 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   String labelphone = '';
   String labeladdress = '';
   String labelzipcode = '';
+  String srcname = '';
+  String srcphone = '';
+  String srcsubdistrict = '';
+  String srcdistrict = '';
+  String srcaddress = '';
+  String srcprovince = '';
+  String srczipcode = '';
+  String accountname = '';
+  String accountnumber = '';
+  String branchno = '';
+  String bankid = '';
 
   _onExpansionChanged(bool val) {
     setState(() {
@@ -207,19 +218,18 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                         CupertinoDialogAction(
                           onPressed: () {
                             setState(() {
-                                    loadextract = true;
-                                  });
+                              loadextract = true;
+                            });
                             if (extractController.text == '') {
                               Fluttertoast.showToast(msg: 'กรุณากรอกที่อยู่');
                               setState(() {
-                                    loadextract = false;
-                                  });
+                                loadextract = false;
+                              });
                             } else {
                               AddressRepository()
                                   .normalizeAddress(extractController.text)
                                   .then((value) {
                                 if (value['status'] == true) {
-                                  
                                   final normalize = Normalize.fromJson(value);
                                   print(normalize.cutAll);
                                   setState(() {
@@ -332,6 +342,18 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                       ),
                     );
                   } else if (state is UserDataLoaded) {
+                    srcname = state.srcaddressmodel.name!;
+                    srcphone = state.srcaddressmodel.phone!;
+                    srcsubdistrict = state.srcaddressmodel.subDistrict!;
+                    srcdistrict = state.srcaddressmodel.district!;
+                    srcaddress = state.srcaddressmodel.address!;
+                    srcprovince = state.srcaddressmodel.province!;
+                    srczipcode = state.srcaddressmodel.zipcode!;
+                    accountname = state.userdatamodel.accountName!;
+                    accountnumber = state.userdatamodel.accountNumber!;
+                    branchno = state.userdatamodel.branchNo!;
+                    bankid = state.userdatamodel.bankId.toString();
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
@@ -1229,6 +1251,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               height: 10,
                             ),
                             GetTextField(
+                              textInputAction: TextInputAction.next,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'กรุณากรอกข้อมูล';
@@ -1453,10 +1476,42 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             SizedBox(
                               height: 10,
                             ),
-                            GetTextField(
+                            TextFormField(
+                              decoration: InputDecoration(
+                                hintText: '',
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline4!
+                                    .copyWith(
+                                        color:
+                                            Colors.grey[500]!.withOpacity(.5),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: PlatformSize(context)),
+                                fillColor: Colors.white,
+                                filled: true,
+                                isDense: true,
+                                contentPadding: EdgeInsets.all(2),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 0.7,
+                                      color: Colors.grey), //<-- SEE HERE
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.blue.shade200),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4))),
+                                errorStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline4!
+                                    .copyWith(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                              ),
+                              minLines: 5,
+                              maxLines: 8,
                               controller: remarkController,
-                              minLine: 5,
-                              maxLine: 8,
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -1611,9 +1666,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                 ),
                               ),
                             ),
-                            BlocBuilder<UserDataBloc, UserDataState>(
+                            BlocBuilder<OrderBloc, OrderState>(
                               builder: (context, state) {
-                                if (state is UserDataLoading) {
+                                if (state is OrderLoading) {
                                   return Container(
                                     width: MediaQuery.of(context).size.width,
                                     child: CupertinoButton(
@@ -1622,9 +1677,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         child: CustomProgessIndicator(
                                             Colors.white, 20)),
                                   );
-                                } else if (state is UserDataLoaded) {
-                                  print(
-                                      'state bank = ${state.userdatamodel.accountName}');
+                                } else if (state is OrderInitial) {
+                                  // print(
+                                  //     'state bank = ${state.userdatamodel.accountName}');
                                   return Container(
                                     width: MediaQuery.of(context).size.width,
                                     child: CupertinoButton(
@@ -1642,51 +1697,53 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                             context
                                                 .read<UserDataBloc>()
                                                 .add(UserdataAfterSendEvent());
-                                            context.read<OrderBloc>().add(AddOrderEvent(
-                                                context: context,
-                                                courier_code: _courier!.code!,
-                                                current_order: '',
-                                                src_name:
-                                                    state.srcaddressmodel.name!,
-                                                src_phone: state
-                                                    .srcaddressmodel.phone!,
-                                                src_district: state
-                                                    .srcaddressmodel
-                                                    .subDistrict!,
-                                                src_amphure: state
-                                                    .srcaddressmodel.district!,
-                                                src_address: state
-                                                    .srcaddressmodel.address!,
-                                                src_province: state
-                                                    .srcaddressmodel.province!,
-                                                src_zipcode: state
-                                                    .srcaddressmodel.zipcode!,
-                                                label_name: labelname,
-                                                label_phone: labelphone,
-                                                label_address: labeladdress,
-                                                label_zipcode: labelzipcode,
-                                                dst_name:
-                                                    dstnameController.text,
-                                                dst_phone: phoneController.text,
-                                                dst_address:
-                                                    houseNoController.text,
-                                                dst_district:
-                                                    subdistrictController.text,
-                                                dst_amphure:
-                                                    districtController.text,
-                                                dst_province:
-                                                    provinceController.text,
-                                                dst_zipcode:
-                                                    zipcodeController.text,
-                                                account_name: state.userdatamodel.accountName!,
-                                                account_number: state.userdatamodel.accountNumber!,
-                                                account_branch: state.userdatamodel.branchNo!,
-                                                account_bank: state.userdatamodel.bankId!.toString(),
-                                                is_insure: insu.toString(),
-                                                product_value: insuController.text,
-                                                cod_amount: codController.text,
-                                                remark: remarkController.text,
-                                                issave: saveaddress.toString()));
+                                            context.read<OrderBloc>().add(
+                                                AddOrderEvent(
+                                                    context: context,
+                                                    courier_code:
+                                                        _courier!.code!,
+                                                    current_order: '',
+                                                    src_name: srcname,
+                                                    src_phone: srcphone,
+                                                    src_district:
+                                                        srcsubdistrict,
+                                                    src_amphure: srcdistrict,
+                                                    src_address: srcaddress,
+                                                    src_province: srcprovince,
+                                                    src_zipcode: srczipcode,
+                                                    label_name: labelname,
+                                                    label_phone: labelphone,
+                                                    label_address: labeladdress,
+                                                    label_zipcode: labelzipcode,
+                                                    dst_name:
+                                                        dstnameController.text,
+                                                    dst_phone:
+                                                        phoneController.text,
+                                                    dst_address:
+                                                        houseNoController.text,
+                                                    dst_district:
+                                                        subdistrictController
+                                                            .text,
+                                                    dst_amphure:
+                                                        districtController.text,
+                                                    dst_province:
+                                                        provinceController.text,
+                                                    dst_zipcode:
+                                                        zipcodeController.text,
+                                                    account_name: accountname,
+                                                    account_number:
+                                                        accountnumber,
+                                                    account_branch: branchno,
+                                                    account_bank: bankid,
+                                                    is_insure: insu.toString(),
+                                                    product_value:
+                                                        insuController.text,
+                                                    cod_amount:
+                                                        codController.text,
+                                                    remark:
+                                                        remarkController.text,
+                                                    issave: saveaddress
+                                                        .toString()));
                                           }
                                         }
                                       },

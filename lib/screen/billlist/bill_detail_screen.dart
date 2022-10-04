@@ -179,18 +179,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromARGB(200, 43, 166, 223),
-            Color.fromARGB(180, 41, 88, 162),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.topRight,
-          stops: [0.0, 0.8],
-          tileMode: TileMode.clamp,
-        ),
-      ),
+      decoration: BoxDecoration(),
       child: SafeArea(
         bottom: false,
         child: Scaffold(

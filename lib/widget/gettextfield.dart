@@ -5,8 +5,6 @@ import 'package:perfectship_app/widget/fontsize.dart';
 class GetTextField extends StatelessWidget {
   GetTextField({
     Key? key,
-    this.minLine,
-    this.maxLine,
     this.title,
     this.preIcon,
     this.sufIcon,
@@ -45,15 +43,12 @@ class GetTextField extends StatelessWidget {
   final String? initialValue;
   final bool? enableIconPrefix;
   final String? labelText;
-  final int? minLine;
-  final int? maxLine;
+
   bool? enabled;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      minLines: minLine,
-      maxLines: maxLine,
       // decoration: InputDecoration(
       //   isDense: true,
       //   contentPadding: EdgeInsets.all(2),

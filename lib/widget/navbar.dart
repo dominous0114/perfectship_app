@@ -47,7 +47,10 @@ class _NavigatonBarState extends State<NavigatonBar> {
           padding: const EdgeInsets.only(top: 30),
           child: FloatingActionButton(
             shape: CircleBorder(),
-            child: Icon(CupertinoIcons.add),
+            child: Icon(
+              CupertinoIcons.plus_app_fill,
+              size: 40,
+            ),
             backgroundColor: Color.fromARGB(255, 123, 189, 255),
             onPressed: () {
               setState(() {
@@ -96,7 +99,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
               ),
               //BottomNavigationBarItem(icon: Icon(null), label: ""),
               BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.square_list), label: 'พัสดุ'),
+                  icon: Icon(CupertinoIcons.cube_box_fill), label: 'พัสดุ'),
               BottomNavigationBarItem(icon: Icon(null), label: ''),
               BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.square_list_fill), label: 'บิล'),

@@ -15,11 +15,12 @@ part 'order_state.dart';
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
   final OrderRepository orderRepository;
-  OrderBloc({required this.orderRepository}) : super(OrderLoading()) {
+  OrderBloc({required this.orderRepository}) : super(OrderInitial()) {
     on<AddOrderEvent>(_onAdd);
   }
 
   void _onAdd(AddOrderEvent event, Emitter<OrderState> emit) async {
+    emit(OrderLoading());
     await orderRepository
         .addOrder(
             courier_code: event.courier_code,
