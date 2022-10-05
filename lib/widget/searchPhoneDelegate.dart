@@ -20,6 +20,7 @@ class SearchPhoneDelegate extends SearchDelegate {
       : super(
           searchFieldLabel: 'ค้นหาจากเบอร์มือถือ',
           keyboardType: TextInputType.phone,
+          
         );
   final TextEditingController provincecontroller;
   final TextEditingController amphurecontroller;
