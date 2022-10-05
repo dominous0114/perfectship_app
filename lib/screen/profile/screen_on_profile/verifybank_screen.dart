@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:perfectship_app/model/bank_model.dart';
 import 'package:perfectship_app/model/userdata_model.dart';
 import 'package:perfectship_app/repository/bank_repository.dart';
@@ -41,6 +42,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
   final TextEditingController _branchController = TextEditingController();
   final TextEditingController _accountController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  final FocusNode _branchnode = FocusNode();
   XFile? _imageFile;
   String path = '';
   final _formKey = GlobalKey<FormState>();
@@ -283,6 +285,18 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
             ),
           );
         });
+  }
+
+  KeyboardActionsConfig _buildKeyboardActionsConfig(BuildContext context) {
+    return KeyboardActionsConfig(
+      keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
+      keyboardBarColor: Colors.white,
+      actions: [
+        KeyboardActionsItem(
+          focusNode: _branchnode,
+        ),
+      ],
+    );
   }
 
   @override
@@ -716,6 +730,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                                       .symmetric(vertical: 2),
                                                   child: Material(
                                                       child: GetTextField(
+                                                    focusNode: _branchnode,
                                                     controller:
                                                         _branchController,
                                                     textInputType:

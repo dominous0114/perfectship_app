@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:keyboard_actions/keyboard_actions_config.dart';
 import 'package:perfectship_app/bloc/orders_bloc/order_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/model/address_model.dart';
@@ -43,6 +45,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   TextEditingController remarkController = TextEditingController();
   TextEditingController codController = TextEditingController();
   TextEditingController insuController = TextEditingController();
+  final FocusNode _nodephone = FocusNode();
   bool loadextract = false;
   final _formKey = GlobalKey<FormState>();
   late List<CourierModel> courier = [];
@@ -121,6 +124,18 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
       _productCategory = newSelected;
       print('categoryid = ${_productCategory!.id}');
     });
+  }
+
+  KeyboardActionsConfig _buildKeyboardActionsConfig(BuildContext context) {
+    return KeyboardActionsConfig(
+      keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
+      keyboardBarColor: Colors.white,
+      actions: [
+        KeyboardActionsItem(
+          focusNode: _nodephone,
+        ),
+      ],
+    );
   }
 
   systemExtract(BuildContext context, TextEditingController extractController,
@@ -300,18 +315,17 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      autovalidateMode: AutovalidateMode.disabled,
-      child: Scaffold(
-        appBar: CustomAppBar(
-          title: 'CreateOrderScreen',
-          backArrow: true,
-          onPressArrow: () {
-            Navigator.pop(context);
-          },
-        ),
-        body: SingleChildScrollView(
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: 'CreateOrderScreen',
+        backArrow: true,
+        onPressArrow: () {
+          Navigator.pop(context);
+        },
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
           child: Column(
             children: [
               BlocBuilder<UserDataBloc, UserDataState>(
@@ -1293,6 +1307,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                 }
                                 return null;
                               },
+                              focusNode: _nodephone,
                               controller: phoneController,
                               enableIconPrefix: true,
                               preIcon: CupertinoIcons.phone,

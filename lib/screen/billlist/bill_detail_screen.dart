@@ -179,10 +179,13 @@ class _BillDetailScreenState extends State<BillDetailScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(),
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 41, 88, 162),
+      ),
       child: SafeArea(
         bottom: false,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     SliverAppBar(
@@ -220,16 +223,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                       ),
                       flexibleSpace: Container(
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(200, 43, 166, 223),
-                              Color.fromARGB(180, 41, 88, 162),
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.topRight,
-                            stops: [0.0, 0.8],
-                            tileMode: TileMode.clamp,
-                          ),
+                          color: Color.fromARGB(255, 41, 88, 162),
                         ),
                       ),
                     )
@@ -249,158 +243,166 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                           child: buildSearch(
                               context, state.billdetailmodel.length),
                         ),
-                        ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: state.billdetailmodel.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 8),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black54,
-                                      blurRadius: 1,
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.blueGrey.shade300,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(5),
-                                              topRight: Radius.circular(5))),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 4, vertical: 2),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                '# ${state.billdetailmodel[index].trackNo} (${state.billdetailmodel[index].dstName})',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headlineMedium!
-                                                    .copyWith(
-                                                        fontSize: PlatformSize(
-                                                                context) *
-                                                            1.1,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Colors.black),
+                        MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: state.billdetailmodel.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 8),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black54,
+                                        blurRadius: 1,
+                                      )
+                                    ],
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.blueGrey.shade300,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(5),
+                                                topRight: Radius.circular(5))),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4, vertical: 2),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  '# ${state.billdetailmodel[index].trackNo} (${state.billdetailmodel[index].dstName})',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineMedium!
+                                                      .copyWith(
+                                                          fontSize:
+                                                              PlatformSize(
+                                                                      context) *
+                                                                  1.1,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: Colors.black),
+                                                ),
                                               ),
-                                            ),
-                                            // Container(
-                                            //   decoration: BoxDecoration(
-                                            //     color: Colors.red,
-                                            //     borderRadius: BorderRadius.all(
-                                            //         Radius.circular(8)),
-                                            //   ),
-                                            //   child: Padding(
-                                            //     padding:
-                                            //         const EdgeInsets.symmetric(
-                                            //             horizontal: 8,
-                                            //             vertical: 3),
-                                            //     child: Text(
-                                            //       'ยกเลิกเลขพัสดุ',
-                                            //       style: Theme.of(context)
-                                            //           .textTheme
-                                            //           .headlineMedium!
-                                            //           .copyWith(
-                                            //               fontSize: PlatformSize(
-                                            //                   context),
-                                            //               fontWeight:
-                                            //                   FontWeight.w600,
-                                            //               color: Colors.white),
-                                            //     ),
-                                            //   ),
-                                            // )
-                                            state.billdetailmodel[index]
-                                                        .isCancel ==
-                                                    'รายการปกติ'
-                                                ? SizedBox()
-                                                : Text(
-                                                    'ยกเลิกเลขพัสดุแล้ว',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headlineMedium!
-                                                        .copyWith(
-                                                            fontSize:
-                                                                PlatformSize(
-                                                                    context),
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: Colors.red),
-                                                  ),
-                                          ],
+                                              // Container(
+                                              //   decoration: BoxDecoration(
+                                              //     color: Colors.red,
+                                              //     borderRadius: BorderRadius.all(
+                                              //         Radius.circular(8)),
+                                              //   ),
+                                              //   child: Padding(
+                                              //     padding:
+                                              //         const EdgeInsets.symmetric(
+                                              //             horizontal: 8,
+                                              //             vertical: 3),
+                                              //     child: Text(
+                                              //       'ยกเลิกเลขพัสดุ',
+                                              //       style: Theme.of(context)
+                                              //           .textTheme
+                                              //           .headlineMedium!
+                                              //           .copyWith(
+                                              //               fontSize: PlatformSize(
+                                              //                   context),
+                                              //               fontWeight:
+                                              //                   FontWeight.w600,
+                                              //               color: Colors.white),
+                                              //     ),
+                                              //   ),
+                                              // )
+                                              state.billdetailmodel[index]
+                                                          .isCancel ==
+                                                      'รายการปกติ'
+                                                  ? SizedBox()
+                                                  : Text(
+                                                      'ยกเลิกเลขพัสดุแล้ว',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .headlineMedium!
+                                                          .copyWith(
+                                                              fontSize:
+                                                                  PlatformSize(
+                                                                      context),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color:
+                                                                  Colors.red),
+                                                    ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      'ราคา/หน่วย : ${state.billdetailmodel[index].price}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .copyWith(
-                                              fontSize: PlatformSize(context),
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black),
-                                    ),
-                                    Text(
-                                      'COD : ${state.billdetailmodel[index].codAmount}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .copyWith(
-                                              fontSize: PlatformSize(context),
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black),
-                                    ),
-                                    Text(
-                                      'ค่าธรรมเนียม COD : ${state.billdetailmodel[index].codAmount}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .copyWith(
-                                              fontSize: PlatformSize(context),
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black),
-                                    ),
-                                    Text(
-                                      'จำนวน : ${state.billdetailmodel[index].productQty}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .copyWith(
-                                              fontSize: PlatformSize(context),
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black),
-                                    ),
-                                    Text(
-                                      'รวม : ${state.billdetailmodel[index].totalPrice}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .copyWith(
-                                              fontSize: PlatformSize(context),
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black),
-                                    ),
-                                  ],
+                                      Text(
+                                        'ราคา/หน่วย : ${state.billdetailmodel[index].price}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium!
+                                            .copyWith(
+                                                fontSize: PlatformSize(context),
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black),
+                                      ),
+                                      Text(
+                                        'COD : ${state.billdetailmodel[index].codAmount}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium!
+                                            .copyWith(
+                                                fontSize: PlatformSize(context),
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black),
+                                      ),
+                                      Text(
+                                        'ค่าธรรมเนียม COD : ${state.billdetailmodel[index].codAmount}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium!
+                                            .copyWith(
+                                                fontSize: PlatformSize(context),
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black),
+                                      ),
+                                      Text(
+                                        'จำนวน : ${state.billdetailmodel[index].productQty}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium!
+                                            .copyWith(
+                                                fontSize: PlatformSize(context),
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black),
+                                      ),
+                                      Text(
+                                        'รวม : ${state.billdetailmodel[index].totalPrice}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium!
+                                            .copyWith(
+                                                fontSize: PlatformSize(context),
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         )
                       ]),
                     );
