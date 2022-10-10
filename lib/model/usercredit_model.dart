@@ -1,6 +1,6 @@
 class UserCreditModel {
   int? orderAmount;
-  int? credit;
+  double? credit;
 
   UserCreditModel({this.orderAmount, this.credit});
 

@@ -63,4 +63,31 @@ class BillRepository {
       return [BillDeatilModel()];
     }
   }
+
+  // Future getBillforPrint(String id) async {
+  //   preferences = await SharedPreferences.getInstance();
+  //   var token = preferences!.getString('token');
+  //   var headers = {
+  //     'Authorization': 'Bearer $token',
+  //     'Content-Type': 'application/json'
+  //   };
+  //   var request = http.Request('GET',
+  //       Uri.parse('${MyConstant().domain}/perfectship/get-bill-detail/$id'));
+  //   request.headers.addAll(headers);
+  //   http.StreamedResponse response = await request.send();
+  //   if (response.statusCode == 200) {
+  //     print('if');
+  //     List lid = [];
+  //     var res = await response.stream.bytesToString();
+  //     final json = jsonDecode(res)['data'];
+
+  //     print(lid);
+
+  //     return json;
+  //   } else {
+  //     print('else');
+  //     print(response.reasonPhrase);
+  //     return 'fail';
+  //   }
+  // }
 }

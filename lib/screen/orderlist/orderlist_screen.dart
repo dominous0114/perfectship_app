@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
+import 'package:perfectship_app/config/constant.dart';
 import 'package:perfectship_app/repository/track_repository.dart';
+import 'package:perfectship_app/screen/orderlist/tracking_screen.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 import 'package:intl/intl.dart';
@@ -26,12 +30,12 @@ class _OrderListScreenState extends State<OrderListScreen>
   late AnimationController _animationController;
   bool _isSelect = false;
   bool _isSelectAll = false;
+  String path = '/tracking?id=';
 
   bool isPlaying = false;
   TextEditingController textController = TextEditingController();
   FocusNode searchFocusNode = FocusNode();
   TextEditingController firstTimeController = TextEditingController();
-  TextEditingController endTimeController = TextEditingController();
 
   DateTime _startDate = DateTime.now().subtract(Duration(days: 7));
   DateTime _endDate = DateTime.now();
@@ -125,6 +129,31 @@ class _OrderListScreenState extends State<OrderListScreen>
                             child: GestureDetector(
                               onTap: () {
                                 print(_selectedItems.toString());
+                                final jsonEn = jsonEncode(_selectedItems);
+                                final removeFirst = jsonEn.replaceAll('[', '');
+                                final removeLast =
+                                    removeFirst.replaceAll(']', '');
+                                final removeDoubleQte =
+                                    removeLast.replaceAll('"', '');
+                                final trackId = removeDoubleQte;
+                                Navigator.pushNamed(context, '/pdforder',
+                                    arguments: trackId);
+                                setState(() {
+                                  _isSelect = !_isSelect;
+                                  if (_isSelect == false) {
+                                    _isSelectAll = false;
+                                    _selectedItems.clear();
+                                  }
+                                });
+                                context.read<TrackBloc>().add(TrackFilterEvent(
+                                    start: DateFormat('yyyy-MM-dd')
+                                        .format(_startDate),
+                                    end: DateFormat('yyyy-MM-dd')
+                                        .format(_endDate),
+                                    courier:
+                                        state.courierSelected.code.toString(),
+                                    printing: _printed!.id,
+                                    order: state.statusSelected.id.toString()));
                               },
                               child: Container(
                                   height: 60,
@@ -156,7 +185,7 @@ class _OrderListScreenState extends State<OrderListScreen>
                                         width: 5,
                                       ),
                                       Text(
-                                        'ปริ้นท์  ${_selectedItems.length} รายการ',
+                                        'พิมพ์  ${_selectedItems.length} รายการ',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineMedium!
@@ -479,7 +508,7 @@ class _OrderListScreenState extends State<OrderListScreen>
                           fontWeight: FontWeight.bold),
                     ),
                     content: Text(
-                      'คุณต้องลบที่อยู่นี้หรือไม่',
+                      'คุณต้องลบรายการนี้หรือไม่',
                       style: Theme.of(context).textTheme.headline4!.copyWith(
                           fontSize: PlatformSize(context) * 1.1,
                           fontWeight: FontWeight.normal),
@@ -1203,8 +1232,31 @@ class _OrderListScreenState extends State<OrderListScreen>
                                         motion: DrawerMotion(),
                                         children: [
                                             SlidableAction(
-                                              onPressed: (context) {},
-                                              label: 'ปริ้นท์',
+                                              onPressed: (context) {
+                                                Navigator.pushNamed(
+                                                    context, '/pdforder',
+                                                    arguments: state
+                                                        .trackmodel[index].id
+                                                        .toString());
+
+                                                context.read<TrackBloc>().add(
+                                                    TrackFilterEvent(
+                                                        start: DateFormat(
+                                                                'yyyy-MM-dd')
+                                                            .format(_startDate),
+                                                        end: DateFormat(
+                                                                'yyyy-MM-dd')
+                                                            .format(_endDate),
+                                                        courier: state
+                                                            .courierSelected
+                                                            .code
+                                                            .toString(),
+                                                        printing: _printed!.id,
+                                                        order: state
+                                                            .statusSelected.id
+                                                            .toString()));
+                                              },
+                                              label: 'พิมพ์',
                                               icon: CupertinoIcons.printer,
                                               foregroundColor: Colors.blue,
                                               backgroundColor: Colors.white,
@@ -1215,8 +1267,31 @@ class _OrderListScreenState extends State<OrderListScreen>
                                         motion: DrawerMotion(),
                                         children: [
                                             SlidableAction(
-                                              onPressed: (context) {},
-                                              label: 'ปริ้นท์',
+                                              onPressed: (context) {
+                                                Navigator.pushNamed(
+                                                    context, '/pdforder',
+                                                    arguments: state
+                                                        .trackmodel[index].id
+                                                        .toString());
+
+                                                context.read<TrackBloc>().add(
+                                                    TrackFilterEvent(
+                                                        start: DateFormat(
+                                                                'yyyy-MM-dd')
+                                                            .format(_startDate),
+                                                        end: DateFormat(
+                                                                'yyyy-MM-dd')
+                                                            .format(_endDate),
+                                                        courier: state
+                                                            .courierSelected
+                                                            .code
+                                                            .toString(),
+                                                        printing: _printed!.id,
+                                                        order: state
+                                                            .statusSelected.id
+                                                            .toString()));
+                                              },
+                                              label: 'พิมพ์',
                                               icon: CupertinoIcons.printer,
                                               foregroundColor: Colors.blue,
                                               backgroundColor: Colors.white,
@@ -1265,7 +1340,38 @@ class _OrderListScreenState extends State<OrderListScreen>
                                             }
                                           });
                                         }
-                                      : null,
+                                      : () {
+                                          String url = MyConstant().domainprint;
+                                          if (state.trackmodel[index]
+                                                  .courierCode ==
+                                              'NinjaVan') {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TrackingScreen(
+                                                            url:
+                                                                'https://www.ninjavan.co/th-th',
+                                                            path: path,
+                                                            trackingNo: state
+                                                                .trackmodel[
+                                                                    index]
+                                                                .trackNo!)));
+                                          } else {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TrackingScreen(
+                                                            url: url,
+                                                            path:
+                                                                '/tracking?track=',
+                                                            trackingNo: state
+                                                                .trackmodel[
+                                                                    index]
+                                                                .trackNo!)));
+                                          }
+                                        },
                                   child: Container(
                                     decoration: BoxDecoration(
                                         // border: Border.all(

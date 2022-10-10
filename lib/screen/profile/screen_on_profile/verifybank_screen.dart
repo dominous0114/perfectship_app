@@ -17,6 +17,7 @@ import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:perfectship_app/widget/gettextfield.dart';
 
 import '../../../bloc/userdata_bloc/user_data_bloc.dart';
+import '../../../config/keyboard_overlay.dart';
 import '../../../repository/getpathimage_repository.dart';
 
 class VerifyBankScreen extends StatefulWidget {
@@ -43,6 +44,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
   final TextEditingController _accountController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   final FocusNode _branchnode = FocusNode();
+  final FocusNode _accountnode = FocusNode();
   XFile? _imageFile;
   String path = '';
   final _formKey = GlobalKey<FormState>();
@@ -287,18 +289,6 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
         });
   }
 
-  KeyboardActionsConfig _buildKeyboardActionsConfig(BuildContext context) {
-    return KeyboardActionsConfig(
-      keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
-      keyboardBarColor: Colors.white,
-      actions: [
-        KeyboardActionsItem(
-          focusNode: _branchnode,
-        ),
-      ],
-    );
-  }
-
   @override
   void initState() {
     getBanks();
@@ -306,7 +296,22 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
     _banknameController.text = widget.userdatamodel.accountName!;
     _branchController.text = widget.userdatamodel.branchNo!;
     path = widget.userdatamodel.bookBankUrl;
-
+    _branchnode.addListener(() {
+      bool hasFocus = _branchnode.hasFocus;
+      if (hasFocus) {
+        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+      } else {
+        KeyboardOverlay.removeOverlay();
+      }
+    });
+    _accountnode.addListener(() {
+      bool hasFocus = _accountnode.hasFocus;
+      if (hasFocus) {
+        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+      } else {
+        KeyboardOverlay.removeOverlay();
+      }
+    });
     super.initState();
   }
 
@@ -664,6 +669,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                           height: 10,
                         ),
                         GetTextField(
+                          textInputAction: TextInputAction.next,
                           controller: _banknameController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -730,6 +736,8 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                                       .symmetric(vertical: 2),
                                                   child: Material(
                                                       child: GetTextField(
+                                                    textInputAction:
+                                                        TextInputAction.next,
                                                     focusNode: _branchnode,
                                                     controller:
                                                         _branchController,
@@ -786,6 +794,9 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                                       .symmetric(vertical: 2),
                                                   child: Material(
                                                       child: GetTextField(
+                                                    focusNode: _accountnode,
+                                                    textInputAction:
+                                                        TextInputAction.done,
                                                     controller:
                                                         _accountController,
                                                     textInputType:

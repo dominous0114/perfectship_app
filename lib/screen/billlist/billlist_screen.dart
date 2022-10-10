@@ -5,6 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
+import 'package:perfectship_app/repository/bill_repository.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 
@@ -25,6 +26,10 @@ class _BillListScreenState extends State<BillListScreen>
   FocusNode searchFocusNode = FocusNode();
   DateTime _startDate = DateTime.now().subtract(Duration(days: 30));
   DateTime _endDate = DateTime.now();
+  String lid = '';
+  static final GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>();
+  late NavigatorState _navigator;
   void _handleOnPressed() {
     setState(() {
       isPlaying = !isPlaying;
@@ -240,6 +245,18 @@ class _BillListScreenState extends State<BillListScreen>
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _navigator = Navigator.of(context);
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -257,6 +274,7 @@ class _BillListScreenState extends State<BillListScreen>
       child: SafeArea(
         bottom: false,
         child: Scaffold(
+          key: scaffoldKey,
           body: NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     SliverAppBar(
@@ -346,7 +364,30 @@ class _BillListScreenState extends State<BillListScreen>
                                         motion: DrawerMotion(),
                                         children: [
                                           SlidableAction(
-                                            onPressed: (context) {},
+                                            onPressed: (context) async {
+                                              await BillRepository()
+                                                  .getBillDetail(state
+                                                      .billmodel[index].id
+                                                      .toString())
+                                                  .then((value) async {
+                                                var enval = value.map((e) =>
+                                                    e.orderId.toString());
+                                                String enval2 =
+                                                    enval.toString();
+                                                final removefirst =
+                                                    enval2.replaceAll('(', '');
+                                                final removelast = removefirst
+                                                    .replaceAll(')', '');
+                                                setState(() {
+                                                  lid = removelast;
+                                                  print('lid = $lid');
+                                                });
+                                                Navigator.pushNamed(
+                                                    scaffoldKey.currentContext!,
+                                                    '/pdforder',
+                                                    arguments: lid);
+                                              });
+                                            },
                                             label: 'ใบเสร็จ',
                                             icon: CupertinoIcons.printer,
                                             foregroundColor: Color.fromARGB(

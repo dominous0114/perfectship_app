@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:perfectship_app/model/address_model.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/customindicator.dart';
 
+import '../../../config/keyboard_overlay.dart';
 import '../../../widget/fontsize.dart';
 import '../../../widget/gettextfield.dart';
 import '../../../widget/searchAddressHelperDelegate.dart';
@@ -37,6 +40,8 @@ TextEditingController subdistrictController = TextEditingController();
 TextEditingController zipcodeController = TextEditingController();
 TextEditingController typeaheadcontroller = TextEditingController();
 final _formKey = GlobalKey<FormState>();
+final FocusNode _nodephone = FocusNode();
+final FocusNode _nodezipcode = FocusNode();
 
 class _EditAddressScreenState extends State<EditAddressScreen> {
   @override
@@ -48,6 +53,22 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
     districtController.text = widget.addressModel.district!;
     subdistrictController.text = widget.addressModel.subDistrict!;
     zipcodeController.text = widget.addressModel.zipcode!;
+    _nodephone.addListener(() {
+      bool hasFocus = _nodephone.hasFocus;
+      if (hasFocus) {
+        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+      } else {
+        KeyboardOverlay.removeOverlay();
+      }
+    });
+    _nodezipcode.addListener(() {
+      bool hasFocus = _nodezipcode.hasFocus;
+      if (hasFocus) {
+        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+      } else {
+        KeyboardOverlay.removeOverlay();
+      }
+    });
     super.initState();
   }
 
@@ -146,6 +167,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       },
                       title: 'นายทดสอบ ระบบ',
                       controller: namecontroller,
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(
                       height: 10,
@@ -181,6 +203,8 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       },
                       title: '092xxxxxxx',
                       textInputType: TextInputType.phone,
+                      textInputAction: TextInputAction.next,
+                      focusNode: _nodephone,
                       controller: phonecontroller,
                       maxLength: 10,
                     ),
@@ -218,6 +242,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       },
                       title: '57/11',
                       controller: addresscontroller,
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(
                       height: 10,
@@ -253,6 +278,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       },
                       title: 'สายไหม',
                       controller: subdistrictController,
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(
                       height: 10,
@@ -285,6 +311,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       },
                       title: 'สายไหม',
                       controller: districtController,
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(
                       height: 10,
@@ -317,6 +344,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       },
                       title: 'กรุงเทพ',
                       controller: provinceController,
+                      textInputAction: TextInputAction.next,
                     ),
                     SizedBox(
                       height: 10,
@@ -344,6 +372,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       height: 10,
                     ),
                     GetTextField(
+                      textInputType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'กรุณากรอกข้อมูล';
@@ -351,6 +380,8 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         return null;
                       },
                       title: '10210',
+                      focusNode: _nodezipcode,
+                      textInputAction: TextInputAction.done,
                       controller: zipcodeController,
                     ),
                     SizedBox(

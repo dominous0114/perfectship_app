@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ import 'package:perfectship_app/widget/searchPhoneDelegate.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../bloc/address_bloc/address_bloc.dart';
+import '../../config/keyboard_overlay.dart';
 import '../../model/normalize_model.dart';
 import '../../model/productcategory_model.dart';
 import '../../widget/gettextfield.dart';
@@ -46,6 +49,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   TextEditingController codController = TextEditingController();
   TextEditingController insuController = TextEditingController();
   final FocusNode _nodephone = FocusNode();
+  final FocusNode _nodezipcode = FocusNode();
+  final FocusNode _nodecod = FocusNode();
+  final FocusNode _nodeinsu = FocusNode();
   bool loadextract = false;
   final _formKey = GlobalKey<FormState>();
   late List<CourierModel> courier = [];
@@ -308,6 +314,38 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
 
   @override
   void initState() {
+    _nodephone.addListener(() {
+      bool hasFocus = _nodephone.hasFocus;
+      if (hasFocus) {
+        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+      } else {
+        KeyboardOverlay.removeOverlay();
+      }
+    });
+    _nodezipcode.addListener(() {
+      bool hasFocus = _nodezipcode.hasFocus;
+      if (hasFocus) {
+        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+      } else {
+        KeyboardOverlay.removeOverlay();
+      }
+    });
+    _nodecod.addListener(() {
+      bool hasFocus = _nodecod.hasFocus;
+      if (hasFocus) {
+        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+      } else {
+        KeyboardOverlay.removeOverlay();
+      }
+    });
+    _nodeinsu.addListener(() {
+      bool hasFocus = _nodeinsu.hasFocus;
+      if (hasFocus) {
+        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+      } else {
+        KeyboardOverlay.removeOverlay();
+      }
+    });
     getCourier();
     context.read<AddressBloc>().add(AddressInitialEvent());
     super.initState();
@@ -317,7 +355,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'CreateOrderScreen',
+        title: 'สร้างรายการพัสดุ',
         backArrow: true,
         onPressArrow: () {
           Navigator.pop(context);
@@ -1313,6 +1351,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               preIcon: CupertinoIcons.phone,
                               title: '092xxxxxxx',
                               textInputType: TextInputType.phone,
+                              textInputAction: TextInputAction.next,
                               maxLength: 10,
                             ),
                             Row(
@@ -1342,6 +1381,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               },
                               controller: houseNoController,
                               enableIconPrefix: true,
+                              textInputAction: TextInputAction.next,
                               preIcon: CupertinoIcons.house_fill,
                               title: '57/11',
                             ),
@@ -1373,6 +1413,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               },
                               controller: subdistrictController,
                               enableIconPrefix: true,
+                              textInputAction: TextInputAction.next,
                               preIcon: CupertinoIcons.location_circle_fill,
                               title: 'สายไหม',
                             ),
@@ -1404,6 +1445,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               },
                               controller: districtController,
                               enableIconPrefix: true,
+                              textInputAction: TextInputAction.next,
                               preIcon: CupertinoIcons.location_circle_fill,
                               title: 'สายไหม',
                             ),
@@ -1435,6 +1477,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               },
                               controller: provinceController,
                               enableIconPrefix: true,
+                              textInputAction: TextInputAction.next,
                               preIcon: CupertinoIcons.location_circle_fill,
                               title: 'กรุงเทพ',
                             ),
@@ -1464,9 +1507,11 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                 }
                                 return null;
                               },
+                              focusNode: _nodezipcode,
                               controller: zipcodeController,
                               textInputType: TextInputType.number,
                               enableIconPrefix: true,
+                              textInputAction: TextInputAction.next,
                               preIcon: CupertinoIcons.envelope_circle,
                               title: '10210',
                             ),
@@ -1524,6 +1569,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12),
                               ),
+                              textInputAction: TextInputAction.done,
                               minLines: 5,
                               maxLines: 8,
                               controller: remarkController,
@@ -1568,6 +1614,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         Padding(
                                           padding: const EdgeInsets.all(4),
                                           child: GetTextField(
+                                            textInputType: TextInputType.number,
+                                            focusNode: _nodecod,
                                             validator: (value) {
                                               if (isExpanded == true) {
                                                 if (value == null ||
@@ -1618,6 +1666,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: GetTextField(
+                                            textInputType: TextInputType.number,
+                                            focusNode: _nodeinsu,
                                             validator: (value) {
                                               if (isExpandedInsu == true) {
                                                 if (value == null ||
