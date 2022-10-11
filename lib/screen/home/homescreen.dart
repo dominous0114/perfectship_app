@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:perfectship_app/bloc/dashboard_bloc/dashboard_bloc.dart';
+
+import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/model/dashboard_graph_model.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
+import 'package:perfectship_app/widget/searchTrackDelegate.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 
 import '../../model/statistics_model.dart';
@@ -191,7 +194,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.white,
                         )),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<TrackBloc>().add(TrackInitialEvent());
+                          showSearch(
+                              context: context,
+                              delegate: SearchTrackDeletfate());
+                        },
                         icon: Icon(
                           Icons.search,
                           color: Colors.white,
@@ -760,6 +768,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 return Column(
                                                   children: [
                                                     ListTile(
+                                                      // iconColor: Colors.pink,
+                                                      // textColor: Colors.amber,
+                                                      // tileColor: Colors.green,
+                                                      // focusColor:
+                                                      //     Colors.brown,
+                                                      // hoverColor:
+                                                      //     Colors.purple,
+                                                      // splashColor:
+                                                      //     Colors.cyan,
+                                                      // selectedColor:
+                                                      //     Colors.brown,
+                                                      // selectedTileColor:
+                                                      //     Colors.grey,
                                                       leading: Text(
                                                         '${index + 1}',
                                                         style: Theme.of(context)
@@ -800,7 +821,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .normal),
                                                       ),
                                                     ),
-                                                    Divider()
+                                                    //Divider()
                                                   ],
                                                 );
                                               }).toList(),

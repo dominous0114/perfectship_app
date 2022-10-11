@@ -66,11 +66,26 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                   );
                 } else if (state is AddressLoaded) {
                   return CupertinoAlertDialog(
-                    title: Text(
-                      'แจ้งเตือน',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: PlatformSize(context) * 1.2,
-                          fontWeight: FontWeight.bold),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.warning,
+                          color: Colors.red,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'แจ้งเตือน',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
+                                  fontSize: PlatformSize(context) * 1.2,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     content: Text(
                       'คุณต้องการตั้งที่อยู่นี้เป็นที่อยู่เริ่มต้นหรือไม่',
@@ -86,17 +101,37 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                           //   _isprimayloading = true;
                           // });
                           context.read<AddressBloc>().add(
-                              SetPrimaryAddressEvent(id: id, context: context));
+                              SetPrimaryAddressOnCreateEvent(
+                                  id: id, context: context));
+
                           print(_isprimayloading.toString());
                         },
-                        child: const Text('ตกลง'),
+                        child: Text(
+                          'ตกลง',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.blue),
+                        ),
                       ),
                       CupertinoDialogAction(
                         isDestructiveAction: true,
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('ยกเลิก'),
+                        child: Text(
+                          'ยกเลิก',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.red),
+                        ),
                       ),
                     ],
                   );
@@ -133,11 +168,26 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                   );
                 } else if (state is AddressLoaded) {
                   return CupertinoAlertDialog(
-                    title: Text(
-                      'แจ้งเตือน',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: PlatformSize(context) * 1.2,
-                          fontWeight: FontWeight.bold),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.warning,
+                          color: Colors.red,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'แจ้งเตือน',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
+                                  fontSize: PlatformSize(context) * 1.2,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     content: Text(
                       'คุณต้องลบที่อยู่นี้หรือไม่',
@@ -155,14 +205,32 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                           context.read<AddressBloc>().add(
                               DeleteAddressEvent(id: id, context: context));
                         },
-                        child: const Text('ตกลง'),
+                        child: Text(
+                          'ตกลง',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.blue),
+                        ),
                       ),
                       CupertinoDialogAction(
                         isDestructiveAction: true,
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('ยกเลิก'),
+                        child: Text(
+                          'ยกเลิก',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.red),
+                        ),
                       ),
                     ],
                   );

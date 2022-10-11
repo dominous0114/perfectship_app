@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "727269920144",
+    "project_id": "perfectship-app",
+    "storage_bucket": "perfectship-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727269920144:android:c9c50968498deed5727715",
+        "android_client_info": {
+          "package_name": "com.perfectship.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727269920144-8hjcf4ijra9b07rg96c6qmi2hpccco7p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perfectship.app",
+            "certificate_hash": "3e0ff9ced337ebfb0bdf5e061170e15ed7979df3"
+          }
+        },
+        {
+          "client_id": "727269920144-qbjgn7b55i0514a4jhv1l390qkiftesh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6ePFbr5urf5paqGAB8XheGuE8OOXuDy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727269920144-qbjgn7b55i0514a4jhv1l390qkiftesh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "727269920144-93or8fp257g95s4op2se3du9af36b1o9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.perfectship.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

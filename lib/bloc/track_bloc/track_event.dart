@@ -50,6 +50,25 @@ class TrackSearchEvent extends TrackEvent {
   List<Object> get props => [start, end, courier, printing, order, keyword];
 }
 
+class TrackSearchHomeEvent extends TrackEvent {
+  final String keyword;
+  final String start;
+  final String end;
+  final String courier;
+  final String printing;
+  final String order;
+  TrackSearchHomeEvent({
+    required this.keyword,
+    required this.start,
+    required this.end,
+    required this.courier,
+    required this.printing,
+    required this.order,
+  });
+  @override
+  List<Object> get props => [start, end, courier, printing, order, keyword];
+}
+
 class UpdateFilterEvent extends TrackEvent {
   final CourierModel? courierSelected;
   final OrderStatusModel? statusSelected;

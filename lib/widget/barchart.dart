@@ -136,9 +136,7 @@ class _ShippingState extends State<Shipping> {
                                             yValueMapper: (Data data, _) =>
                                                 data.pack,
                                             name: name,
-                                            color: Theme.of(context)
-                                                .appBarTheme
-                                                .backgroundColor,
+                                            color: Colors.blue,
                                           )
                                         ]),
                                   ),
@@ -271,16 +269,13 @@ class _CreditLogState extends State<CreditLog> {
                                           TooltipBehavior(enable: true),
                                       series: <ChartSeries<Datas, String>>[
                                         ColumnSeries<Datas, String>(
-                                          dataSource: widget.creditLog!,
-                                          xValueMapper: (Datas data, _) =>
-                                              data.date,
-                                          yValueMapper: (Datas data, _) =>
-                                              data.credit,
-                                          name: name,
-                                          color: Theme.of(context)
-                                              .appBarTheme
-                                              .backgroundColor,
-                                        )
+                                            dataSource: widget.creditLog!,
+                                            xValueMapper: (Datas data, _) =>
+                                                data.date,
+                                            yValueMapper: (Datas data, _) =>
+                                                data.credit,
+                                            name: name,
+                                            color: Colors.blue)
                                       ]),
                                 )));
                   },

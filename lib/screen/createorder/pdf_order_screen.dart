@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:perfectship_app/config/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -184,6 +186,17 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
 
   @override
   Widget build(BuildContext context) {
+    _createFileFromBase64(
+        String base64content, String fileName, String yourExtension) async {
+      var bytes = base64Decode(base64content.replaceAll('\n', ''));
+      final output = await getExternalStorageDirectory();
+      final file = File("${output!.path}/$fileName.$yourExtension");
+      await file.writeAsBytes(bytes.buffer.asUint8List());
+      print("${output.path}/${fileName}.$yourExtension");
+      await OpenFile.open("${output.path}/$fileName.$yourExtension");
+      setState(() {});
+    }
+
     return !isLoading
         ? Scaffold(
             // drawer: myDrawer(context: context),
@@ -290,6 +303,22 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                           pullToRefreshController: pullToRefreshController,
                           onWebViewCreated: (controller) {
                             webViewController = controller;
+                            // webViewController!.addJavaScriptHandler(
+                            //   handlerName: 'serverSideJsFuncName',
+                            //   callback: (data) async {
+                            //     if (data.isNotEmpty) {
+                            //       final String receivedFileInBase64 = data[0];
+                            //       final String receivedMimeType = data[1];
+
+                            //       // NOTE: create a method that will handle your extensions
+                            //       final String yourExtension =
+                            //           'application/pdf'; // 'pdf'
+
+                            //       _createFileFromBase64(receivedFileInBase64,
+                            //           'YourFileName', yourExtension);
+                            //     }
+                            //   },
+                            // );
                           },
                           onLoadStart: (controller, url) {
                             setState(() {

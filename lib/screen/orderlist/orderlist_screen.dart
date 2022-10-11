@@ -501,11 +501,26 @@ class _OrderListScreenState extends State<OrderListScreen>
                   );
                 } else if (state is TrackLoaded) {
                   return CupertinoAlertDialog(
-                    title: Text(
-                      'แจ้งเตือน',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: PlatformSize(context) * 1.2,
-                          fontWeight: FontWeight.bold),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.warning,
+                          color: Colors.red,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'แจ้งเตือน',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
+                                  fontSize: PlatformSize(context) * 1.2,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     content: Text(
                       'คุณต้องลบรายการนี้หรือไม่',
@@ -533,14 +548,32 @@ class _OrderListScreenState extends State<OrderListScreen>
                               refcode: refcode,
                               id: orderid));
                         },
-                        child: const Text('ตกลง'),
+                        child: Text(
+                          'ตกลง',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.blue),
+                        ),
                       ),
                       CupertinoDialogAction(
                         isDestructiveAction: true,
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('ยกเลิก'),
+                        child: Text(
+                          'ยกเลิก',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.red),
+                        ),
                       ),
                     ],
                   );
@@ -1262,57 +1295,110 @@ class _OrderListScreenState extends State<OrderListScreen>
                                               backgroundColor: Colors.white,
                                             ),
                                           ])
-                                    : ActionPane(
-                                        extentRatio: 3 / 5,
-                                        motion: DrawerMotion(),
-                                        children: [
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                Navigator.pushNamed(
-                                                    context, '/pdforder',
-                                                    arguments: state
-                                                        .trackmodel[index].id
-                                                        .toString());
+                                    : state.trackmodel[index].statusId == 1
+                                        ? ActionPane(
+                                            extentRatio: 3 / 5,
+                                            motion: DrawerMotion(),
+                                            children: [
+                                                SlidableAction(
+                                                  onPressed: (context) {
+                                                    Navigator.pushNamed(
+                                                        context, '/pdforder',
+                                                        arguments: state
+                                                            .trackmodel[index]
+                                                            .id
+                                                            .toString());
 
-                                                context.read<TrackBloc>().add(
-                                                    TrackFilterEvent(
-                                                        start: DateFormat(
-                                                                'yyyy-MM-dd')
-                                                            .format(_startDate),
-                                                        end: DateFormat(
-                                                                'yyyy-MM-dd')
-                                                            .format(_endDate),
-                                                        courier: state
-                                                            .courierSelected
-                                                            .code
+                                                    context
+                                                        .read<TrackBloc>()
+                                                        .add(TrackFilterEvent(
+                                                            start:
+                                                                DateFormat(
+                                                                        'yyyy-MM-dd')
+                                                                    .format(
+                                                                        _startDate),
+                                                            end:
+                                                                DateFormat(
+                                                                        'yyyy-MM-dd')
+                                                                    .format(
+                                                                        _endDate),
+                                                            courier: state
+                                                                .courierSelected
+                                                                .code
+                                                                .toString(),
+                                                            printing:
+                                                                _printed!.id,
+                                                            order: state
+                                                                .statusSelected
+                                                                .id
+                                                                .toString()));
+                                                  },
+                                                  label: 'พิมพ์',
+                                                  icon: CupertinoIcons.printer,
+                                                  foregroundColor: Colors.blue,
+                                                  backgroundColor: Colors.white,
+                                                ),
+                                                SlidableAction(
+                                                  onPressed: (context) {
+                                                    _showAlertDelete(
+                                                        context,
+                                                        state.trackmodel[index]
+                                                            .id
                                                             .toString(),
-                                                        printing: _printed!.id,
-                                                        order: state
-                                                            .statusSelected.id
-                                                            .toString()));
-                                              },
-                                              label: 'พิมพ์',
-                                              icon: CupertinoIcons.printer,
-                                              foregroundColor: Colors.blue,
-                                              backgroundColor: Colors.white,
-                                            ),
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                _showAlertDelete(
-                                                    context,
-                                                    state.trackmodel[index].id
-                                                        .toString(),
-                                                    state.trackmodel[index]
-                                                        .courierCode!,
-                                                    state.trackmodel[index]
-                                                        .refCode!);
-                                              },
-                                              label: 'ยกเลิก',
-                                              icon: CupertinoIcons.delete,
-                                              foregroundColor: Colors.red,
-                                              backgroundColor: Colors.white,
-                                            )
-                                          ]),
+                                                        state.trackmodel[index]
+                                                            .courierCode!,
+                                                        state.trackmodel[index]
+                                                            .refCode!);
+                                                  },
+                                                  label: 'ยกเลิก',
+                                                  icon: CupertinoIcons.delete,
+                                                  foregroundColor: Colors.red,
+                                                  backgroundColor: Colors.white,
+                                                )
+                                              ])
+                                        : ActionPane(
+                                            extentRatio: 2 / 5,
+                                            motion: DrawerMotion(),
+                                            children: [
+                                                SlidableAction(
+                                                  onPressed: (context) {
+                                                    Navigator.pushNamed(
+                                                        context, '/pdforder',
+                                                        arguments: state
+                                                            .trackmodel[index]
+                                                            .id
+                                                            .toString());
+
+                                                    context
+                                                        .read<TrackBloc>()
+                                                        .add(TrackFilterEvent(
+                                                            start:
+                                                                DateFormat(
+                                                                        'yyyy-MM-dd')
+                                                                    .format(
+                                                                        _startDate),
+                                                            end:
+                                                                DateFormat(
+                                                                        'yyyy-MM-dd')
+                                                                    .format(
+                                                                        _endDate),
+                                                            courier: state
+                                                                .courierSelected
+                                                                .code
+                                                                .toString(),
+                                                            printing:
+                                                                _printed!.id,
+                                                            order: state
+                                                                .statusSelected
+                                                                .id
+                                                                .toString()));
+                                                  },
+                                                  label: 'พิมพ์',
+                                                  icon: CupertinoIcons.printer,
+                                                  foregroundColor: Colors.blue,
+                                                  backgroundColor: Colors.white,
+                                                ),
+                                              ]),
                                 child: GestureDetector(
                                   onLongPress: () {
                                     setState(() {

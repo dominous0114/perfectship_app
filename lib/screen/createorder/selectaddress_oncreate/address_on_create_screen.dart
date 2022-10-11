@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:perfectship_app/model/address_model.dart';
 
 import '../../../bloc/address_bloc/address_bloc.dart';
@@ -68,11 +69,26 @@ class _AddressOnCreateScreenState extends State<AddressOnCreateScreen>
                   );
                 } else if (state is AddressLoaded) {
                   return CupertinoAlertDialog(
-                    title: Text(
-                      'แจ้งเตือน',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: PlatformSize(context) * 1.2,
-                          fontWeight: FontWeight.bold),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.warning,
+                          color: Colors.red,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'แจ้งเตือน',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
+                                  fontSize: PlatformSize(context) * 1.2,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     content: Text(
                       'คุณต้องการตั้งที่อยู่นี้เป็นที่อยู่เริ่มต้นหรือไม่',
@@ -93,14 +109,32 @@ class _AddressOnCreateScreenState extends State<AddressOnCreateScreen>
 
                           print(_isprimayloading.toString());
                         },
-                        child: const Text('ตกลง'),
+                        child: Text(
+                          'ตกลง',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.blue),
+                        ),
                       ),
                       CupertinoDialogAction(
                         isDestructiveAction: true,
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text('ยกเลิก'),
+                        child: Text(
+                          'ยกเลิก',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.red),
+                        ),
                       ),
                     ],
                   );

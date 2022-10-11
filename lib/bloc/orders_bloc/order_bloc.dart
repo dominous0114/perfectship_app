@@ -60,11 +60,27 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
           context: event.context,
           builder: (context) {
             return CupertinoAlertDialog(
-              title: Text(
-                'สร้างรายการสำเร็จ',
-                style: Theme.of(event.context).textTheme.headline4!.copyWith(
-                    fontSize: PlatformSize(event.context) * 1.2,
-                    fontWeight: FontWeight.bold),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.add_task,
+                    color: Colors.green.shade900,
+                    size: 20,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    'สร้างรายการสำเร็จ',
+                    style: Theme.of(event.context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(
+                            fontSize: PlatformSize(event.context) * 1.2,
+                            fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
               content: Text(
                 'คุณต้องการสร้างรายการต่อหรือไม่',
@@ -78,7 +94,16 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                   onPressed: () {
                     Navigator.pop(event.context);
                   },
-                  child: const Text('ตกลง'),
+                  child: Text(
+                    'สร้างรายการต่อ',
+                    style: Theme.of(event.context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(
+                            fontSize: PlatformSize(event.context),
+                            fontWeight: FontWeight.normal,
+                            color: Colors.blue),
+                  ),
                 ),
                 CupertinoDialogAction(
                   isDestructiveAction: true,
@@ -86,7 +111,16 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                     Navigator.pop(event.context);
                     Navigator.pop(event.context);
                   },
-                  child: const Text('ไปหน้าพัสดุ'),
+                  child: Text(
+                    'ไปหน้าพัสดุ',
+                    style: Theme.of(event.context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(
+                            fontSize: PlatformSize(event.context),
+                            fontWeight: FontWeight.normal,
+                            color: Colors.red),
+                  ),
                 ),
               ],
             );

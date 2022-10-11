@@ -34,6 +34,7 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
     on<ResetFilterEvent>(_onResetFilter);
     on<TrackSearchEvent>(_onSearch);
     on<DeleteTrackEvent>(_onDelete);
+    on<TrackSearchHomeEvent>(_onSearchhome);
   }
 
   void _onLoadGetTrack(
@@ -157,6 +158,28 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
                 .toString()
                 .toLowerCase()
                 .contains(event.keyword.toLowerCase()));
+        emit(TrackLoaded(
+            trackmodel: value,
+            courier: state.courier,
+            ordermodel: state.ordermodel,
+            courierSelected: state.courierSelected,
+            statusSelected: state.statusSelected));
+      });
+    }
+  }
+
+  void _onSearchhome(
+      TrackSearchHomeEvent event, Emitter<TrackState> emit) async {
+    final state = this.state;
+    if (state is TrackLoaded) {
+      await trackRepository
+          .getTrack(event.start, event.end, event.courier, event.printing,
+              event.order)
+          .then((value) {
+        value.retainWhere((element) => element.trackNo
+            .toString()
+            .toLowerCase()
+            .contains(event.keyword.toLowerCase()));
         emit(TrackLoaded(
             trackmodel: value,
             courier: state.courier,
