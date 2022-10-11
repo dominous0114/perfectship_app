@@ -25,14 +25,14 @@ class _TrackingScreenState extends State<TrackingScreen> {
   bool isLoading = true;
   final _key = UniqueKey();
 
-  @override
-  void initState() {
-    isLoading = true;
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
-    if (Platform.isIOS) WebView.platform = CupertinoWebView();
-    print('url =${widget.url}${widget.path}${widget.trackingNo}');
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   isLoading = true;
+  //   if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  //   if (Platform.isIOS) WebView.platform = CupertinoWebView();
+  //   print('url =${widget.url}${widget.path}${widget.trackingNo}');
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
