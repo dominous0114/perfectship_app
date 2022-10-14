@@ -9,18 +9,18 @@ class LocalNotficationService {
   static void initialize(BuildContext context) {
     final InitializationSettings initializationSettings =
         InitializationSettings(
-            android: AndroidInitializationSettings('@mipmap/launch_image'),
+            android: AndroidInitializationSettings("@mipmap/launcher_icon"),
             iOS: DarwinInitializationSettings(
                 requestAlertPermission: true,
                 requestBadgePermission: true,
                 requestSoundPermission: true));
     _notificationplugin.initialize(
       initializationSettings,
-      onDidReceiveBackgroundNotificationResponse: (details) {
-        print('on bg push');
-        print(context);
-        Navigator.pushNamed(context, '/notification');
-      },
+      // onDidReceiveBackgroundNotificationResponse: (details) {
+      //   print('on bg push');
+      //   print(context);
+      //   Navigator.pushNamed(context, '/notification');
+      // },
       onDidReceiveNotificationResponse: (details) {
         print('on push');
         print(context);
@@ -35,42 +35,47 @@ class LocalNotficationService {
 
       final NotificationDetails notificationDetails = NotificationDetails(
           android: AndroidNotificationDetails(
-              'perfectship', 'perfectship channel',
-              importance: Importance.max, priority: Priority.high),
+              'perfectship-shipping', 'แจ้งเตือนการสถานะพัสดุ',
+              importance: Importance.max,
+              priority: Priority.high,
+              icon: "@mipmap/launcher_icon"),
           iOS: DarwinNotificationDetails());
-      await _notificationplugin.show(id, message.notification!.title,
-          message.notification!.body, notificationDetails);
+      await _notificationplugin.show(
+          id, message.data['title'], message.data['body'], notificationDetails);
     } on Exception catch (e) {
       print(e);
     }
   }
 
-  static void testdisplay(String test) async {
-    try {
-      final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+  // static void testdisplay(String test) async {
+  //   try {
+  //     final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
-      final NotificationDetails notificationDetails = NotificationDetails(
-          android: AndroidNotificationDetails(
-              'perfectship', 'perfectship channel',
-              importance: Importance.max, priority: Priority.high),
-          iOS: DarwinNotificationDetails());
-      await _notificationplugin.show(id, test, test, notificationDetails);
-    } on Exception catch (e) {
-      print(e);
-    }
-  }
+  //     final NotificationDetails notificationDetails = NotificationDetails(
+  //         android: AndroidNotificationDetails(
+  //             'perfectship-shipping', 'แจ้งเตือนการสถานะพัสดุ',
+  //             importance: Importance.max,
+  //             priority: Priority.high,
+  //             icon: "@mipmap/launcher_icon"),
+  //         iOS: DarwinNotificationDetails());
+  //     await _notificationplugin.show(id, test, test, notificationDetails);
+  //   } on Exception catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   static void displaybackground(RemoteMessage message) async {
     final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     RemoteNotification? remoteNotification = message.notification;
     final NotificationDetails notificationDetails = NotificationDetails(
         android: AndroidNotificationDetails(
-            'perfectship', 'perfectship channel',
-            importance: Importance.max, priority: Priority.high),
+            'perfectship-shipping', 'แจ้งเตือนการสถานะพัสดุ',
+            importance: Importance.max,
+            priority: Priority.high,
+            icon: "@mipmap/launcher_icon"),
         iOS: DarwinNotificationDetails());
-    if (remoteNotification != null) {
-      await _notificationplugin.show(id, message.notification!.title,
-          message.notification!.body, notificationDetails);
-    }
+
+    await _notificationplugin.show(
+        id, message.data['title'], message.data['body'], notificationDetails);
   }
 }

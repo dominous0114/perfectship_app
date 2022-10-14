@@ -28,7 +28,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-Future<void> backgroundHandler(RemoteMessage message) async {
+Future<dynamic> backgroundHandler(RemoteMessage message) async {
+  print('on bg handler');
+  print(message.data['title']);
   LocalNotficationService.displaybackground(message);
 }
 

@@ -29,6 +29,10 @@ class _NavigatonBarState extends State<NavigatonBar> {
     ProfileSreen()
   ];
 
+  Future<dynamic> backgroundHandler(RemoteMessage message) async {
+    LocalNotficationService.displaybackground(message);
+  }
+
   @override
   void initState() {
     print('init navbar');
@@ -40,8 +44,6 @@ class _NavigatonBarState extends State<NavigatonBar> {
       }
     });
     FirebaseMessaging.onMessage.listen((event) {
-      print('on mess');
-      print('event title = ${event.notification!.title}');
       LocalNotficationService.display(event);
     });
 
@@ -55,10 +57,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
       // });
     });
 
-    FirebaseMessaging.onBackgroundMessage((message) async {
-      print('on bg');
-      LocalNotficationService.displaybackground(message);
-    });
+    // FirebaseMessaging.onBackgroundMessage(backgroundHandler);
     super.initState();
     context.read<UserDataBloc>().add(UserDataInitialEvent());
     context.read<AddressBloc>().add(AddressInitialEvent());
@@ -85,7 +84,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
             backgroundColor: Color.fromARGB(255, 123, 189, 255),
             onPressed: () {
               setState(() {
-                LocalNotficationService.testdisplay('test');
+                // LocalNotficationService.testdisplay('test');
                 pageIndex = 1;
               });
 
