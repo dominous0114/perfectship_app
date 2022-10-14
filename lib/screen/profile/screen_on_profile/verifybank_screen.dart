@@ -485,9 +485,9 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              Platform.isIOS
-                                                  ? _showActionSheet(context)
-                                                  : _selectImage();
+                                              // Platform.isIOS
+                                              //     ? _showActionSheet(context)
+                                              _selectImage();
                                             },
                                             child: Card(
                                               color: Colors.white70,

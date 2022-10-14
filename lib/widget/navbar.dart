@@ -1,9 +1,11 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
+import 'package:perfectship_app/config/localnoti_service.dart';
 import 'package:perfectship_app/screen/billlist/billlist_screen.dart';
 import 'package:perfectship_app/screen/createorder/createorder.dart';
 import 'package:perfectship_app/screen/home/homescreen.dart';
@@ -29,6 +31,35 @@ class _NavigatonBarState extends State<NavigatonBar> {
 
   @override
   void initState() {
+    print('init navbar');
+    LocalNotficationService.initialize(context);
+    FirebaseMessaging.instance.getInitialMessage().then((value) {
+      if (value != null) {
+        print('on init');
+        Navigator.pushNamed(context, '/notification');
+      }
+    });
+    FirebaseMessaging.onMessage.listen((event) {
+      print('on mess');
+      print('event title = ${event.notification!.title}');
+      LocalNotficationService.display(event);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      print('on open');
+      Navigator.pushNamed(context, '/notification');
+
+      // setState(() {
+      //   print('index = ${event.data['index']}');
+      //   pageIndex = int.parse(event.data['index']);
+      // });
+    });
+
+    FirebaseMessaging.onBackgroundMessage((message) async {
+      print('on bg');
+      LocalNotficationService.displaybackground(message);
+    });
+    super.initState();
     context.read<UserDataBloc>().add(UserDataInitialEvent());
     context.read<AddressBloc>().add(AddressInitialEvent());
 
@@ -54,6 +85,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
             backgroundColor: Color.fromARGB(255, 123, 189, 255),
             onPressed: () {
               setState(() {
+                LocalNotficationService.testdisplay('test');
                 pageIndex = 1;
               });
 

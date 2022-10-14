@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,11 +93,21 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Column(
                                     children: [
-                                      CircleAvatar(
-                                        backgroundImage: AssetImage(
-                                            'assets/image/circle_perfectship.png'),
-                                        radius: 50,
-                                        backgroundColor: Colors.white,
+                                      GestureDetector(
+                                        onTap: () async {
+                                          FirebaseMessaging firebaseMessaging =
+                                              FirebaseMessaging.instance;
+                                          String? token =
+                                              await firebaseMessaging
+                                                  .getToken();
+                                          print(token);
+                                        },
+                                        child: CircleAvatar(
+                                          backgroundImage: AssetImage(
+                                              'assets/image/circle_perfectship.png'),
+                                          radius: 50,
+                                          backgroundColor: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   ),

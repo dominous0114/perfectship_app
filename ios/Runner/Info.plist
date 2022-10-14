@@ -60,6 +60,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<string>NO</string>
+	<false/>
 </dict>
 </plist>

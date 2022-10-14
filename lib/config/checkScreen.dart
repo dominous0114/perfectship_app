@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:perfectship_app/screen/login.dart';
 import 'package:perfectship_app/widget/navbar.dart';
@@ -35,6 +36,7 @@ class _CheckScreenState extends State<CheckScreen> {
   @override
   void initState() {
     checkPreference();
+
     super.initState();
   }
 

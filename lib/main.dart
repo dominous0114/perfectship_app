@@ -13,6 +13,7 @@ import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/config/app_router.dart';
 import 'package:perfectship_app/config/checkScreen.dart';
+import 'package:perfectship_app/config/localnoti_service.dart';
 import 'package:perfectship_app/repository/address_repository.dart';
 import 'package:perfectship_app/repository/bank_repository.dart';
 import 'package:perfectship_app/repository/bill_repository.dart';
@@ -27,11 +28,28 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
+Future<void> backgroundHandler(RemoteMessage message) async {
+  LocalNotficationService.displaybackground(message);
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  var _messaging = FirebaseMessaging.instance;
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
+  NotificationSettings settings = await _messaging.requestPermission(
+      alert: true, badge: true, provisional: true, sound: true);
+
+  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    print('User granted permission');
+  } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+    print('User granted provisional permission');
+  } else {
+    print('User declined or has not accepted permission');
+  }
   // Plugin must be initialized before using
   await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   await Permission.storage.request();
@@ -43,6 +61,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('th');

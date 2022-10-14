@@ -11,7 +11,7 @@ import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 
 class SearchTrackDeletfate extends SearchDelegate {
-  String server = MyConstant().domain;
+  String server = MyConstant().domainprint;
   String initend = DateFormat('yyyy-MM-dd').format(DateTime.now());
   String path = '/tracking?track=';
   BuildContext? contextPage;

@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -188,7 +189,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   actions: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          FirebaseMessaging firebaseMessaging =
+                              FirebaseMessaging.instance;
+                          String? token = await firebaseMessaging.getToken();
+                          print(token);
+                          print(context);
+                          Navigator.pushNamed(context, '/notification');
+                        },
                         icon: Icon(
                           Icons.notifications_active,
                           color: Colors.white,
