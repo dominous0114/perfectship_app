@@ -2,11 +2,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+@pragma('vm:entry-point')
 class LocalNotficationService {
+  @pragma('vm:entry-point')
   static final FlutterLocalNotificationsPlugin _notificationplugin =
       FlutterLocalNotificationsPlugin();
-
+  @pragma('vm:entry-point')
   static void initialize(BuildContext context) {
+    @pragma('vm:entry-point')
     final InitializationSettings initializationSettings =
         InitializationSettings(
             android: AndroidInitializationSettings("@mipmap/launcher_icon"),
@@ -14,13 +17,14 @@ class LocalNotficationService {
                 requestAlertPermission: true,
                 requestBadgePermission: true,
                 requestSoundPermission: true));
+
     _notificationplugin.initialize(
       initializationSettings,
-      // onDidReceiveBackgroundNotificationResponse: (details) {
-      //   print('on bg push');
-      //   print(context);
-      //   Navigator.pushNamed(context, '/notification');
-      // },
+      onDidReceiveBackgroundNotificationResponse: (details) {
+        print('on bg push');
+        print(context);
+        Navigator.pushNamed(context, '/notification');
+      },
       onDidReceiveNotificationResponse: (details) {
         print('on push');
         print(context);
@@ -40,8 +44,8 @@ class LocalNotficationService {
               priority: Priority.high,
               icon: "@mipmap/launcher_icon"),
           iOS: DarwinNotificationDetails());
-      await _notificationplugin.show(
-          id, message.data['title'], message.data['body'], notificationDetails);
+      await _notificationplugin.show(id, message.data['title'],
+          '${message.data['body']} displayfore', notificationDetails);
     } on Exception catch (e) {
       print(e);
     }
@@ -75,7 +79,7 @@ class LocalNotficationService {
             icon: "@mipmap/launcher_icon"),
         iOS: DarwinNotificationDetails());
 
-    await _notificationplugin.show(
-        id, message.data['title'], message.data['body'], notificationDetails);
+    await _notificationplugin.show(id, message.data['title'],
+        '${message.data['body']} displayback', notificationDetails);
   }
 }

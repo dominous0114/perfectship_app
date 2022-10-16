@@ -28,9 +28,13 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-Future<dynamic> backgroundHandler(RemoteMessage message) async {
+@pragma('vm:entry-point')
+Future<void> backgroundHandlersss(RemoteMessage message) async {
   print('on bg handler');
   print(message.data['title']);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   LocalNotficationService.displaybackground(message);
 }
 
@@ -39,9 +43,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  var _messaging = FirebaseMessaging.instance;
-  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
 
+  FirebaseMessaging.onBackgroundMessage(backgroundHandlersss);
+  var _messaging = FirebaseMessaging.instance;
   NotificationSettings settings = await _messaging.requestPermission(
       alert: true, badge: true, provisional: true, sound: true);
 
