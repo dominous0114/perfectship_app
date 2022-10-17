@@ -193,12 +193,11 @@ class _CreditLogState extends State<CreditLog> {
                 tooltipBehavior: TooltipBehavior(enable: true),
                 series: <ChartSeries<Datas, String>>[
                   ColumnSeries<Datas, String>(
-                    dataSource: widget.creditLog!,
-                    xValueMapper: (Datas data, _) => data.date,
-                    yValueMapper: (Datas data, _) => data.credit,
-                    name: name,
-                    color: Theme.of(context).appBarTheme.backgroundColor,
-                  )
+                      dataSource: widget.creditLog!,
+                      xValueMapper: (Datas data, _) => data.date,
+                      yValueMapper: (Datas data, _) => data.credit,
+                      name: name,
+                      color: Colors.blue)
                 ]),
             Positioned(
                 top: 0,

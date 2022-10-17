@@ -6,6 +6,7 @@ import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/config/localnoti_service.dart';
+import 'package:perfectship_app/repository/getuserdata_repository.dart';
 import 'package:perfectship_app/screen/billlist/billlist_screen.dart';
 import 'package:perfectship_app/screen/createorder/createorder.dart';
 import 'package:perfectship_app/screen/home/homescreen.dart';
@@ -21,6 +22,7 @@ class NavigatonBar extends StatefulWidget {
 
 class _NavigatonBarState extends State<NavigatonBar> {
   int pageIndex = 0;
+  String? token;
   List<Widget> pageList = <Widget>[
     HomeScreen(),
     OrderListScreen(),
@@ -33,23 +35,29 @@ class _NavigatonBarState extends State<NavigatonBar> {
     LocalNotficationService.displaybackground(message);
   }
 
+  void gettoken() async {
+    FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    token = await firebaseMessaging.getToken();
+    GetUserDataRepository().updateFcmToken(token!).then((value) {
+      print('gettoken val = ${value}');
+    });
+  }
+
   @override
   void initState() {
     print('init navbar');
     LocalNotficationService.initialize(context);
-    FirebaseMessaging.instance.getInitialMessage().then((value) {
-      if (value != null) {
-        print('on init');
-        Navigator.pushNamed(context, '/notification');
-      }
-    });
+    // FirebaseMessaging.instance.getInitialMessage().then((value) {
+    //   print('on init');
+    //   Navigator.pushNamed(context, '/notification');
+    // });
     FirebaseMessaging.onMessage.listen((event) {
       LocalNotficationService.display(event);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       print('on open');
-      Navigator.pushNamed(context, '/notification');
+      // Navigator.pushNamed(context, '/notification');
 
       // setState(() {
       //   print('index = ${event.data['index']}');
@@ -58,6 +66,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
     });
 
     // FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+    gettoken();
     super.initState();
     context.read<UserDataBloc>().add(UserDataInitialEvent());
     context.read<AddressBloc>().add(AddressInitialEvent());

@@ -189,14 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   actions: [
                     IconButton(
-                        onPressed: () async {
-                          FirebaseMessaging firebaseMessaging =
-                              FirebaseMessaging.instance;
-                          String? token = await firebaseMessaging.getToken();
-                          print(token);
-                          print(context);
-                          Navigator.pushNamed(context, '/notification');
-                        },
+                        onPressed: () async {},
                         icon: Icon(
                           Icons.notifications_active,
                           color: Colors.white,
@@ -767,72 +760,78 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   .height *
                                               0.56,
                                           child: SingleChildScrollView(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children:
-                                                  state.provinceModel!.map((e) {
-                                                var index = state.provinceModel!
-                                                    .indexOf(e);
-                                                return Column(
-                                                  children: [
-                                                    ListTile(
-                                                      // iconColor: Colors.pink,
-                                                      // textColor: Colors.amber,
-                                                      // tileColor: Colors.green,
-                                                      // focusColor:
-                                                      //     Colors.brown,
-                                                      // hoverColor:
-                                                      //     Colors.purple,
-                                                      // splashColor:
-                                                      //     Colors.cyan,
-                                                      // selectedColor:
-                                                      //     Colors.brown,
-                                                      // selectedTileColor:
-                                                      //     Colors.grey,
-                                                      leading: Text(
-                                                        '${index + 1}',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyText1!
-                                                            .copyWith(
-                                                                fontSize:
-                                                                    PlatformSize(
-                                                                        context),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal),
+                                            child: SafeArea(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: state.provinceModel!
+                                                    .map((e) {
+                                                  var index = state
+                                                      .provinceModel!
+                                                      .indexOf(e);
+                                                  return Column(
+                                                    children: [
+                                                      ListTile(
+                                                        // iconColor: Colors.pink,
+                                                        // textColor: Colors.amber,
+                                                        // tileColor: Colors.green,
+                                                        // focusColor:
+                                                        //     Colors.brown,
+                                                        // hoverColor:
+                                                        //     Colors.purple,
+                                                        // splashColor:
+                                                        //     Colors.cyan,
+                                                        // selectedColor:
+                                                        //     Colors.brown,
+                                                        // selectedTileColor:
+                                                        //     Colors.grey,
+                                                        leading: Text(
+                                                          '${index + 1}',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodyText1!
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      PlatformSize(
+                                                                          context),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal),
+                                                        ),
+                                                        title: Text(
+                                                          '${e.dstProvince!}',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodyText1!
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      PlatformSize(
+                                                                          context),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal),
+                                                        ),
+                                                        trailing: Text(
+                                                          '${e.totalPack!.toString()} รายการ',
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodyText1!
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      PlatformSize(
+                                                                          context),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal),
+                                                        ),
                                                       ),
-                                                      title: Text(
-                                                        '${e.dstProvince!}',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyText1!
-                                                            .copyWith(
-                                                                fontSize:
-                                                                    PlatformSize(
-                                                                        context),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal),
-                                                      ),
-                                                      trailing: Text(
-                                                        '${e.totalPack!.toString()} รายการ',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyText1!
-                                                            .copyWith(
-                                                                fontSize:
-                                                                    PlatformSize(
-                                                                        context),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal),
-                                                      ),
-                                                    ),
-                                                    //Divider()
-                                                  ],
-                                                );
-                                              }).toList(),
+                                                      Divider()
+                                                    ],
+                                                  );
+                                                }).toList(),
+                                              ),
                                             ),
                                           ),
                                         ),

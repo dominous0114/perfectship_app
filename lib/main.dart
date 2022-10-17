@@ -14,6 +14,7 @@ import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/config/app_router.dart';
 import 'package:perfectship_app/config/checkScreen.dart';
 import 'package:perfectship_app/config/localnoti_service.dart';
+import 'package:perfectship_app/config/navkey.dart';
 import 'package:perfectship_app/repository/address_repository.dart';
 import 'package:perfectship_app/repository/bank_repository.dart';
 import 'package:perfectship_app/repository/bill_repository.dart';
@@ -105,6 +106,7 @@ class MyApp extends StatelessWidget {
           )
         ],
         child: MaterialApp(
+            navigatorKey: NavKey.navKey,
             onGenerateRoute: AppRouter.onGenerateRoute,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(

@@ -56,4 +56,28 @@ class GetUserDataRepository {
       return UserCreditModel();
     }
   }
+
+  Future updateFcmToken(String fcmtoken) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var token = preferences.getString('token');
+    var dropoff_id = preferences.getString('dropoff_id');
+    var headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request(
+        'POST', Uri.parse('${MyConstant().domain}/perfectship/updatefcmtoken'));
+    request.body =
+        json.encode({"dropoff_member_id": dropoff_id, "fcm_token": fcmtoken});
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      print('on of');
+      var res = await response.stream.bytesToString();
+      print('res = $res');
+      return jsonDecode(res);
+    } else {
+      return response.stream.bytesToString();
+    }
+  }
 }

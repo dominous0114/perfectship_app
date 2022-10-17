@@ -71,7 +71,7 @@ class SearchTrackDeletfate extends SearchDelegate {
   }
 
   @override
-  Widget buildResults(BuildContext context) {
+  buildResults(BuildContext context) {
     return TrackingScreen(url: server, path: path, trackingNo: query);
   }
 

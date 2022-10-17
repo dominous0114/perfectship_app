@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/config/constant.dart';
@@ -128,32 +129,40 @@ class _OrderListScreenState extends State<OrderListScreen>
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                print(_selectedItems.toString());
-                                final jsonEn = jsonEncode(_selectedItems);
-                                final removeFirst = jsonEn.replaceAll('[', '');
-                                final removeLast =
-                                    removeFirst.replaceAll(']', '');
-                                final removeDoubleQte =
-                                    removeLast.replaceAll('"', '');
-                                final trackId = removeDoubleQte;
-                                Navigator.pushNamed(context, '/pdforder',
-                                    arguments: trackId);
-                                setState(() {
-                                  _isSelect = !_isSelect;
-                                  if (_isSelect == false) {
-                                    _isSelectAll = false;
-                                    _selectedItems.clear();
-                                  }
-                                });
-                                context.read<TrackBloc>().add(TrackFilterEvent(
-                                    start: DateFormat('yyyy-MM-dd')
-                                        .format(_startDate),
-                                    end: DateFormat('yyyy-MM-dd')
-                                        .format(_endDate),
-                                    courier:
-                                        state.courierSelected.code.toString(),
-                                    printing: _printed!.id,
-                                    order: state.statusSelected.id.toString()));
+                                if (_selectedItems.length <= 0) {
+                                  Fluttertoast.showToast(
+                                      msg: 'กรุณาเลือกรายการ');
+                                } else {
+                                  print(_selectedItems.toString());
+                                  final jsonEn = jsonEncode(_selectedItems);
+                                  final removeFirst =
+                                      jsonEn.replaceAll('[', '');
+                                  final removeLast =
+                                      removeFirst.replaceAll(']', '');
+                                  final removeDoubleQte =
+                                      removeLast.replaceAll('"', '');
+                                  final trackId = removeDoubleQte;
+                                  Navigator.pushNamed(context, '/pdforder',
+                                      arguments: trackId);
+                                  setState(() {
+                                    _isSelect = !_isSelect;
+                                    if (_isSelect == false) {
+                                      _isSelectAll = false;
+                                      _selectedItems.clear();
+                                    }
+                                  });
+                                  context.read<TrackBloc>().add(
+                                      TrackFilterEvent(
+                                          start: DateFormat('yyyy-MM-dd')
+                                              .format(_startDate),
+                                          end: DateFormat('yyyy-MM-dd')
+                                              .format(_endDate),
+                                          courier: state.courierSelected.code
+                                              .toString(),
+                                          printing: _printed!.id,
+                                          order: state.statusSelected.id
+                                              .toString()));
+                                }
                               },
                               child: Container(
                                   height: 60,

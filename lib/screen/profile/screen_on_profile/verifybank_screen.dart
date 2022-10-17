@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -435,53 +436,16 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                     : Stack(
                                         alignment: Alignment.bottomRight,
                                         children: [
-                                          Image.network(
-                                            path,
+                                          CachedNetworkImage(
+                                            imageUrl: path,
                                             fit: BoxFit.fitHeight,
-                                            loadingBuilder:
-                                                (BuildContext context,
-                                                    Widget child,
-                                                    ImageChunkEvent?
-                                                        loadingProgress) {
-                                              if (loadingProgress == null) {
-                                                return child;
-                                              }
-                                              return Center(
-                                                child: Column(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    CircularProgressIndicator(
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      'ดาวโหลดแล้ว ${loadingProgress.expectedTotalBytes != null ? (loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!) * 100 : null} %',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .headline3!
-                                                          .copyWith(
-                                                              fontSize:
-                                                                  PlatformSize(
-                                                                      context),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            },
+                                            progressIndicatorBuilder:
+                                                (context, url, progress) =>
+                                                    Center(
+                                              child: CircularProgressIndicator(
+                                                value: progress.progress,
+                                              ),
+                                            ),
                                           ),
                                           InkWell(
                                             onTap: () {

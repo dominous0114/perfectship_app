@@ -109,7 +109,7 @@ class Datas {
   Datas({this.credit, this.date});
 
   Datas.fromJson(Map<String, dynamic> json) {
-    credit = json['credit'];
+    credit = double.parse(json['credit']);
     date = json['date'];
   }
 

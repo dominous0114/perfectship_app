@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
+import 'package:perfectship_app/repository/getuserdata_repository.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -162,6 +163,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
             ),
             GestureDetector(
               onTap: () async {
+                GetUserDataRepository().updateFcmToken('');
                 SharedPreferences preferences =
                     await SharedPreferences.getInstance();
                 preferences.remove('token');

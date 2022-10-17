@@ -200,6 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         style: TextStyle(
                                             fontSize: PlatformSize(context)),
                                         decoration: InputDecoration(
+                                            counterText: '',
                                             errorStyle: TextStyle(
                                                 fontSize: PlatformSize(context),
                                                 color: Colors.red,
@@ -302,10 +303,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onTap: loginload == true
                                     ? null
                                     : () {
-                                        setState(() {
-                                          loginload = true;
-                                        });
                                         if (_formKey.currentState!.validate()) {
+                                          setState(() {
+                                            loginload = true;
+                                          });
                                           SigninRepository()
                                               .senddataSignin(
                                                   phone: _phonecontroller.text,
@@ -375,7 +376,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ? CustomProgessIndicator(
                                               Colors.white, 18)
                                           : Text(
-                                              "Login",
+                                              "เข้าสู่ระบบ",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold),

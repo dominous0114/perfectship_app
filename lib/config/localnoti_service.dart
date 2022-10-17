@@ -1,15 +1,19 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:perfectship_app/config/navkey.dart';
 
 @pragma('vm:entry-point')
+onSelectNotification(NotificationResponse notificationResponse) async {
+  print('on bg select');
+  // Navigator.pushNamed(NavKey.navKey.currentContext!, '/notification');
+}
+
 class LocalNotficationService {
-  @pragma('vm:entry-point')
   static final FlutterLocalNotificationsPlugin _notificationplugin =
       FlutterLocalNotificationsPlugin();
-  @pragma('vm:entry-point')
-  static void initialize(BuildContext context) {
-    @pragma('vm:entry-point')
+
+  static void initialize(BuildContext context) async {
     final InitializationSettings initializationSettings =
         InitializationSettings(
             android: AndroidInitializationSettings("@mipmap/launcher_icon"),
@@ -17,20 +21,25 @@ class LocalNotficationService {
                 requestAlertPermission: true,
                 requestBadgePermission: true,
                 requestSoundPermission: true));
+    final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+        await _notificationplugin.getNotificationAppLaunchDetails();
 
-    _notificationplugin.initialize(
-      initializationSettings,
-      onDidReceiveBackgroundNotificationResponse: (details) {
-        print('on bg push');
-        print(context);
-        Navigator.pushNamed(context, '/notification');
-      },
-      onDidReceiveNotificationResponse: (details) {
-        print('on push');
-        print(context);
-        Navigator.pushNamed(context, '/notification');
-      },
-    );
+    final didNotificationLaunchApp =
+        notificationAppLaunchDetails?.didNotificationLaunchApp ?? false;
+    if (didNotificationLaunchApp) {
+      var payload = notificationAppLaunchDetails!.notificationResponse;
+      onSelectNotification(payload!);
+    } else {
+      _notificationplugin.initialize(
+        initializationSettings,
+        onDidReceiveBackgroundNotificationResponse: onSelectNotification,
+        onDidReceiveNotificationResponse: (details) {
+          print('on push');
+          print(context);
+          // Navigator.pushNamed(context, '/notification');
+        },
+      );
+    }
   }
 
   static void display(RemoteMessage message) async {
