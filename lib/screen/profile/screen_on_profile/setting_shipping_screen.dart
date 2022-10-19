@@ -53,6 +53,204 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
       "title": "อยู่หน้ารายการ",
     },
   ];
+
+  void _showAlertReset(BuildContext context) {
+    showCupertinoModalPopup<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (context, StateSetter setState) {
+              return CupertinoAlertDialog(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.warning,
+                      color: Colors.red,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'แจ้งเตือน',
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                          fontSize: PlatformSize(context) * 1.2,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                content: Text(
+                  'คุณต้องการรีเซ็ทการตั้งค่าหรือไม่',
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: PlatformSize(context) * 1.1,
+                      fontWeight: FontWeight.normal),
+                ),
+                actions: <CupertinoDialogAction>[
+                  CupertinoDialogAction(
+                    isDefaultAction: true,
+                    onPressed: () async {
+                      SharedPreferences preferences =
+                          await SharedPreferences.getInstance();
+                      preferences.remove('initshipping');
+                      preferences.remove('initcat');
+                      preferences.remove('initpush');
+                      Fluttertoast.showToast(msg: 'รีเซ็ทการตั้งค่าสำเร็จ');
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      context
+                          .read<DropdownCourierBloc>()
+                          .add(DropdownCourierIniitialEvent());
+                    },
+                    child: Text(
+                      'ตกลง',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.normal,
+                              color: Colors.blue),
+                    ),
+                  ),
+                  CupertinoDialogAction(
+                    isDestructiveAction: true,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'ยกเลิก',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.normal,
+                              color: Colors.red),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        });
+  }
+
+  void _showAlertSave(BuildContext context) {
+    showCupertinoModalPopup<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (context, StateSetter setState) {
+              return CupertinoAlertDialog(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.warning,
+                      color: Colors.red,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'แจ้งเตือน',
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                          fontSize: PlatformSize(context) * 1.2,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                content: Text(
+                  'คุณต้องการเปลี่ยนแปลงการตั้งค่าหรือไม่',
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                      fontSize: PlatformSize(context) * 1.1,
+                      fontWeight: FontWeight.normal),
+                ),
+                actions: <CupertinoDialogAction>[
+                  CupertinoDialogAction(
+                    isDefaultAction: true,
+                    onPressed: () async {
+                      SharedPreferences preferences =
+                          await SharedPreferences.getInstance();
+                      if (_courier?.code == null &&
+                          _productCategory?.id != null) {
+                        print('condition 1 ');
+                        preferences.setInt('initpush', initpush!);
+                        preferences.setInt('initcat', _productCategory!.id);
+                        Fluttertoast.showToast(msg: 'บันทึกการตั้งค่าสำเร็จ');
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        context
+                            .read<DropdownCourierBloc>()
+                            .add(DropdownCourierIniitialEvent());
+                      } else if (_courier?.code != null &&
+                          _productCategory?.id == null) {
+                        print('condition 2 ');
+                        preferences.setInt('initpush', initpush!);
+                        preferences.setString('initshipping', _courier!.code!);
+                        Fluttertoast.showToast(msg: 'บันทึกการตั้งค่าสำเร็จ');
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        context
+                            .read<DropdownCourierBloc>()
+                            .add(DropdownCourierIniitialEvent());
+                      } else if (_courier?.code == null ||
+                          _productCategory?.id == null) {
+                        print('condition 3 ');
+                        preferences.setInt('initpush', initpush!);
+                        Fluttertoast.showToast(msg: 'บันทึกการตั้งค่าสำเร็จ');
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        context
+                            .read<DropdownCourierBloc>()
+                            .add(DropdownCourierIniitialEvent());
+                      } else {
+                        print('condition 4 ');
+                        preferences.setString('initshipping', _courier!.code!);
+                        preferences.setInt('initcat', _productCategory!.id);
+                        preferences.setInt('initpush', initpush!);
+                        Fluttertoast.showToast(msg: 'บันทึกการตั้งค่าสำเร็จ');
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        context
+                            .read<DropdownCourierBloc>()
+                            .add(DropdownCourierIniitialEvent());
+                      }
+                    },
+                    child: Text(
+                      'ตกลง',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.normal,
+                              color: Colors.blue),
+                    ),
+                  ),
+                  CupertinoDialogAction(
+                    isDestructiveAction: true,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'ยกเลิก',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.normal,
+                              color: Colors.red),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        });
+  }
+
   Future getCourier() async {
     CourierRepository().getCourier().then((value) {
       setState(() {
@@ -82,10 +280,22 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
       checkListItems[initpush!]["value"] = true;
     }
 
-    _courier = courier.firstWhere((element) => element.code == courcode);
+    if (courcode != null && procatid == null) {
+      _courier = courier.firstWhere((element) => element.code == courcode);
+    } else if (courcode == null && procatid != null) {
+      _productCategory = ProductCategory.category
+          .firstWhere((element) => element.id == procatid);
+    } else if (courcode != null && procatid != null) {
+      _courier = courier.firstWhere((element) => element.code == courcode);
+      print('procat = $procatid');
+      _productCategory = ProductCategory.category
+          .firstWhere((element) => element.id == procatid);
+    }
 
-    _productCategory = ProductCategory.category
-        .firstWhere((element) => element.id == procatid);
+    // _courier = courier.firstWhere((element) => element.code == courcode);
+    // print('procat = $procatid');
+    // _productCategory = ProductCategory.category
+    //     .firstWhere((element) => element.id == procatid);
   }
 
   void _onDropDownItemSelectedCategory(ProductCategory newSelected) {
@@ -108,6 +318,14 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
       appBar: CustomAppBar(
           title: 'ตั้งค่าการส่งพัสดุ',
           backArrow: true,
+          addButton: true,
+          icon: Icon(
+            Icons.cleaning_services_rounded,
+            color: Colors.white,
+          ),
+          onPress: () async {
+            _showAlertReset(context);
+          },
           onPressArrow: () {
             Navigator.pop(context);
           }),
@@ -529,18 +747,7 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                   child: CupertinoButton(
                     color: Color.fromARGB(255, 41, 88, 162),
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        SharedPreferences preferences =
-                            await SharedPreferences.getInstance();
-                        preferences.setString('initshipping', _courier!.code!);
-                        preferences.setInt('initcat', _productCategory!.id);
-                        preferences.setInt('initpush', initpush!);
-                        Fluttertoast.showToast(msg: 'บันทึกการตั้งค่าสำเร็จ');
-                        Navigator.pop(context);
-                        context
-                            .read<DropdownCourierBloc>()
-                            .add(DropdownCourierIniitialEvent());
-                      }
+                      _showAlertSave(context);
                     },
                     child: Text('บันทึกการตั้งค่า',
                         style: Theme.of(context).textTheme.headline3!.copyWith(

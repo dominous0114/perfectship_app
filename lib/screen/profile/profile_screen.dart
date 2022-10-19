@@ -28,7 +28,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Profile',
+        title: 'โปรไฟล์',
         backArrow: false,
       ),
       body: SingleChildScrollView(

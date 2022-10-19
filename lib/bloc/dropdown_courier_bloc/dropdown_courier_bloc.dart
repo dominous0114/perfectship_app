@@ -36,19 +36,37 @@ class DropdownCourierBloc
     });
     courcode = preferences.getString('initshipping');
     procatid = preferences.getInt('initcat');
-    if (courcode == null || procatid == null) {
-      emit(DropdownCourierLoaded(
-        courier: val,
-      ));
-    } else {
+
+    if (courcode != null && procatid == null) {
       _courier = val.firstWhere((element) => element.code == courcode);
+      emit(DropdownCourierLoaded(courier: val, couriermodel: _courier));
+    } else if (courcode == null && procatid != null) {
+      _productCategory = ProductCategory.category
+          .firstWhere((element) => element.id == procatid);
+      emit(DropdownCourierLoaded(
+          courier: val, productCategory: _productCategory));
+    } else if (courcode != null && procatid != null) {
+      _courier = val.firstWhere((element) => element.code == courcode);
+      print('procat = $procatid');
       _productCategory = ProductCategory.category
           .firstWhere((element) => element.id == procatid);
       emit(DropdownCourierLoaded(
           courier: val,
           couriermodel: _courier,
           productCategory: _productCategory));
+    } else {
+      emit(DropdownCourierLoaded(courier: val));
     }
+
+    // if (courcode == null || procatid == null) {
+    //   emit(DropdownCourierLoaded(
+    //     courier: val,
+    //   ));
+    // } else {
+
+    //   // _courier = val.firstWhere((element) => element.code == courcode);
+    //   // _productCategory = ProductCategory.category
+    //   //     .firstWhere((element) => element.id == procatid);
   }
 
   void _onSelectCourier(DropDropdownCourierSelectCourierEvent event,

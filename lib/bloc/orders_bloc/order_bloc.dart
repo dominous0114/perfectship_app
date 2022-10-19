@@ -25,6 +25,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
   void _onAdd(AddOrderEvent event, Emitter<OrderState> emit) async {
     emit(OrderLoading());
+
     await orderRepository
         .addOrder(
             courier_code: event.courier_code,
@@ -58,6 +59,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
             issave: event.issave,
             category: event.category)
         .then((value) async {
+      void popinstance() {
+        Fluttertoast.showToast(msg: 'สร้างรายการสำเร็จ');
+        Navigator.pop(event.context);
+      }
+
       if (value['status'] == true) {
         event.context.read<TrackBloc>().add(TrackInitialEvent());
         event.context.read<UserDataBloc>().add(UserDataInitialEvent());
@@ -146,13 +152,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                 },
               )
             : initpush == 1
-                ? () {
-                    Fluttertoast.showToast(msg: 'สร้างรายการสำเร็จ');
-                    Navigator.pop(event.context);
-                  }
-                : () {
-                    Fluttertoast.showToast(msg: 'สร้างรายการสำเร็จ');
-                  };
+                ? popinstance()
+                : Fluttertoast.showToast(msg: 'สร้างรายการสำเร็จ');
       } else {
         Fluttertoast.showToast(msg: value['message']);
       }

@@ -320,8 +320,16 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var initcour = preferences.getString('initshipping');
     var initcat = preferences.getInt('initcat');
-    courcode = initcour!;
-    procat = initcat!;
+    if (initcour != null && initcat == null) {
+      courcode = initcour;
+    } else if (initcour == null && initcat != null) {
+      procat = initcat;
+    } else if (initcour != null && initcat != null) {
+      courcode = initcour;
+      procat = initcat;
+    } else {
+      null;
+    }
   }
 
   @override
@@ -1930,16 +1938,16 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             SizedBox(
                               height: 10,
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                print(courcode);
-                                print(procat);
-                              },
-                              child: Container(
-                                height: 50,
-                                color: Colors.red,
-                              ),
-                            )
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     print(courcode);
+                            //     print(procat);
+                            //   },
+                            //   child: Container(
+                            //     height: 50,
+                            //     color: Colors.red,
+                            //   ),
+                            // )
                           ],
                         ),
                       ),
