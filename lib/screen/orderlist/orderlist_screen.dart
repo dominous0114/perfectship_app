@@ -1255,6 +1255,20 @@ class _OrderListScreenState extends State<OrderListScreen>
                           await Future.delayed(Duration(milliseconds: 1000),
                               () {
                             context.read<TrackBloc>().add(TrackInitialEvent());
+                            context.read<TrackBloc>().add(ResetFilterEvent());
+                            setState(() {
+                              _startDate = DateTime(
+                                  DateTime.now().year, DateTime.now().month, 1);
+                              _endDate = DateTime.now();
+                              firstTimeController = TextEditingController(
+                                  text:
+                                      "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
+                              //searchFocusNode = FocusNode();
+                              _printed = Printed.printed.first;
+                              print('printed = ${_printed!.statusName}');
+
+                              //context.read<FilterOrderBloc>().add(FilterOrderInitialEvent());
+                            });
                           });
                         },
                         child: ListView.builder(

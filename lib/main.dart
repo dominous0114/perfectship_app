@@ -8,6 +8,7 @@ import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
 import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
 import 'package:perfectship_app/bloc/bill_detail_bloc/bill_detail_bloc.dart';
 import 'package:perfectship_app/bloc/dashboard_bloc/dashboard_bloc.dart';
+import 'package:perfectship_app/bloc/dropdown_courier_bloc/dropdown_courier_bloc.dart';
 import 'package:perfectship_app/bloc/orders_bloc/order_bloc.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
@@ -74,6 +75,9 @@ class MyApp extends StatelessWidget {
     initializeDateFormatting('th');
     return MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => DropdownCourierBloc(),
+          ),
           BlocProvider(
             create: (context) =>
                 DashboardBloc(dashboardRepository: DashboardRepository()),

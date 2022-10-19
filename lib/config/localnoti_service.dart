@@ -54,7 +54,7 @@ class LocalNotficationService {
               icon: "@mipmap/launcher_icon"),
           iOS: DarwinNotificationDetails());
       await _notificationplugin.show(id, message.data['title'],
-          '${message.data['body']} displayfore', notificationDetails);
+          '${message.data['body']}', notificationDetails);
     } on Exception catch (e) {
       print(e);
     }
@@ -89,6 +89,6 @@ class LocalNotficationService {
         iOS: DarwinNotificationDetails());
 
     await _notificationplugin.show(id, message.data['title'],
-        '${message.data['body']} displayback', notificationDetails);
+        '${message.data['body']}', notificationDetails);
   }
 }

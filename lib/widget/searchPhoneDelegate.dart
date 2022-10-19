@@ -20,7 +20,6 @@ class SearchPhoneDelegate extends SearchDelegate {
       : super(
           searchFieldLabel: 'ค้นหาจากเบอร์มือถือ',
           keyboardType: TextInputType.phone,
-          
         );
   final TextEditingController provincecontroller;
   final TextEditingController amphurecontroller;
@@ -61,8 +60,7 @@ class SearchPhoneDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
+    return SizedBox();
   }
 
   @override

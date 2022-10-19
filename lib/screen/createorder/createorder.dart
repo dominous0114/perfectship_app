@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:keyboard_actions/keyboard_actions_config.dart';
+import 'package:perfectship_app/bloc/dropdown_courier_bloc/dropdown_courier_bloc.dart';
 import 'package:perfectship_app/bloc/orders_bloc/order_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/model/address_model.dart';
@@ -20,6 +21,7 @@ import 'package:perfectship_app/widget/customindicator.dart';
 import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:perfectship_app/widget/searchAddressHelperDelegate.dart';
 import 'package:perfectship_app/widget/searchPhoneDelegate.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../bloc/address_bloc/address_bloc.dart';
@@ -77,6 +79,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
   String accountnumber = '';
   String branchno = '';
   String bankid = '';
+  String courcode = '';
+  int procat = 0;
 
   _onExpansionChanged(bool val) {
     setState(() {
@@ -312,6 +316,14 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
         });
   }
 
+  void checkinitsetting() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var initcour = preferences.getString('initshipping');
+    var initcat = preferences.getInt('initcat');
+    courcode = initcour!;
+    procat = initcat!;
+  }
+
   @override
   void initState() {
     _nodephone.addListener(() {
@@ -347,7 +359,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
       }
     });
     getCourier();
+    checkinitsetting();
     context.read<AddressBloc>().add(AddressInitialEvent());
+    context.read<DropdownCourierBloc>().add(DropdownCourierIniitialEvent());
+
     super.initState();
   }
 
@@ -804,132 +819,324 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                   }
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [BoxShadow(blurRadius: 1, color: Colors.grey)],
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromARGB(200, 43, 166, 223),
-                                  Color.fromARGB(180, 41, 88, 162),
+              BlocBuilder<DropdownCourierBloc, DropdownCourierState>(
+                builder: (context, state) {
+                  if (state is DropdownCourierLoading) {
+                    return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey.shade400,
+                          highlightColor: Colors.grey.shade100,
+                          child: Container(
+                            height: 210,
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black54, blurRadius: 2)
                                 ],
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                stops: [0.0, 0.8],
-                                tileMode: TileMode.clamp,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [],
                               ),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  topRight: Radius.circular(8))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.truck,
-                                      color: Colors.white,
-                                      size: 18,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      'ข้อมูลการจัดส่ง',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: PlatformSize(context) * 1.1,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ],
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            'ขนส่ง',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162)),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Material(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              child: Center(
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButtonFormField2(
-                                    validator: (value) {
-                                      if (value == null) {
-                                        return 'กรุณาเลือกขนส่ง';
-                                      }
-                                      return null;
-                                    },
-                                    isExpanded: true,
-                                    hint: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 4,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            '--โปรดเลือกขนส่ง--',
-                                            style: TextStyle(
-                                              fontSize: PlatformSize(context),
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.black,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
+                        ));
+                  } else if (state is DropdownCourierLoaded) {
+                    // if (state.couriermodel != null ||
+                    //     state.productCategory != null) {
+                    //   courcode = state.couriermodel!.code!;
+                    //   procat = state.productCategory!.id;
+                    // }
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(blurRadius: 1, color: Colors.grey)
+                            ],
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color.fromARGB(200, 43, 166, 223),
+                                        Color.fromARGB(180, 41, 88, 162),
                                       ],
+                                      begin: Alignment.topRight,
+                                      end: Alignment.bottomLeft,
+                                      stops: [0.0, 0.8],
+                                      tileMode: TileMode.clamp,
                                     ),
-                                    value: _courier,
-                                    items: courier
-                                        .map((item) =>
-                                            DropdownMenuItem<CourierModel>(
-                                              value: item,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  8)),
-                                                      child: Image.network(
-                                                          '${item.logoMobile}'),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        topRight: Radius.circular(8))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            FontAwesomeIcons.truck,
+                                            color: Colors.white,
+                                            size: 18,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            'ข้อมูลการจัดส่ง',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize:
+                                                    PlatformSize(context) * 1.1,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  'ขนส่ง',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline3!
+                                      .copyWith(
+                                          fontSize: PlatformSize(context),
+                                          fontWeight: FontWeight.bold,
+                                          color:
+                                              Color.fromARGB(255, 41, 88, 162)),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: Material(
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 2),
+                                    child: Center(
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButtonFormField2(
+                                          validator: (value) {
+                                            if (value == null) {
+                                              return 'กรุณาเลือกขนส่ง';
+                                            }
+                                            return null;
+                                          },
+                                          isExpanded: true,
+                                          hint: Row(
+                                            children: [
+                                              SizedBox(
+                                                width: 4,
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  '--โปรดเลือกขนส่ง--',
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        PlatformSize(context),
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: Colors.black,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          value: state.couriermodel,
+                                          items: state.courier!
+                                              .map((item) => DropdownMenuItem<
+                                                      CourierModel>(
+                                                    value: item,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              3.0),
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            8)),
+                                                            child: Image.network(
+                                                                '${item.logoMobile}'),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Text(
+                                                            item.name!,
+                                                            style: TextStyle(
+                                                              fontSize:
+                                                                  PlatformSize(
+                                                                      context),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      item.name!,
+                                                  ))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            context.read<DropdownCourierBloc>().add(
+                                                DropDropdownCourierSelectCourierEvent(
+                                                    couriermodel:
+                                                        value as CourierModel));
+
+                                            courcode = value.code!;
+
+                                            // print('courcode = $courcode');
+                                            // setState(() {
+                                            //   _onDropDownItemSelected(
+                                            //       value! as CourierModel);
+                                            // });
+                                          },
+                                          decoration: InputDecoration(
+                                            fillColor: Colors.white,
+                                            errorStyle: Theme.of(context)
+                                                .textTheme
+                                                .headline4!
+                                                .copyWith(
+                                                    color: Colors.red,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12),
+                                            //Add isDense true and zero Padding.
+                                            //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            //Add more decoration as you want here
+                                            //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                                          ),
+                                          buttonDecoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border: Border.all(
+                                              color: Colors.black26,
+                                            ),
+                                            color: Colors.white,
+                                          ),
+                                          icon: const Icon(
+                                            Icons.keyboard_arrow_down_sharp,
+                                            color: Colors.black45,
+                                            size: 20,
+                                          ),
+                                          iconSize: 30,
+                                          buttonHeight: 45,
+                                          buttonPadding: const EdgeInsets.only(
+                                              left: 20, right: 10),
+                                          dropdownDecoration: BoxDecoration(
+                                            border: Border.all(width: 0.1),
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          dropdownMaxHeight: 250,
+                                          scrollbarAlwaysShow: true,
+                                          scrollbarThickness: 6,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  'ประเภทพัสดุ',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline3!
+                                      .copyWith(
+                                          fontSize: PlatformSize(context),
+                                          fontWeight: FontWeight.bold,
+                                          color:
+                                              Color.fromARGB(255, 41, 88, 162)),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 5, left: 4, right: 4),
+                                child: Material(
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 2),
+                                    child: Center(
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButtonFormField2(
+                                          validator: (value) {
+                                            if (value == null) {
+                                              return 'กรุณาเลือกประเภทพัสดุ';
+                                            }
+                                            return null;
+                                          },
+                                          isExpanded: true,
+                                          hint: Row(
+                                            children: [
+                                              SizedBox(
+                                                width: 4,
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  '--โปรดเลือกประเภทพัสดุ--',
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        PlatformSize(context),
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: Colors.black,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          value: state.productCategory,
+                                          items: ProductCategory.category
+                                              .map((item) => DropdownMenuItem<
+                                                      ProductCategory>(
+                                                    value: item,
+                                                    child: Text(
+                                                      item.name,
                                                       style: TextStyle(
                                                         fontSize: PlatformSize(
                                                             context),
@@ -940,185 +1147,77 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _onDropDownItemSelected(
-                                            value! as CourierModel);
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      errorStyle: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                      //Add isDense true and zero Padding.
-                                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.zero,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      //Add more decoration as you want here
-                                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                                    ),
-                                    buttonDecoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        color: Colors.black26,
-                                      ),
-                                      color: Colors.white,
-                                    ),
-                                    icon: const Icon(
-                                      Icons.keyboard_arrow_down_sharp,
-                                      color: Colors.black45,
-                                      size: 20,
-                                    ),
-                                    iconSize: 30,
-                                    buttonHeight: 45,
-                                    buttonPadding: const EdgeInsets.only(
-                                        left: 20, right: 10),
-                                    dropdownDecoration: BoxDecoration(
-                                      border: Border.all(width: 0.1),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    dropdownMaxHeight: 250,
-                                    scrollbarAlwaysShow: true,
-                                    scrollbarThickness: 6,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            'ประเภทพัสดุ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162)),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: 5, left: 4, right: 4),
-                          child: Material(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              child: Center(
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButtonFormField2(
-                                    validator: (value) {
-                                      if (value == null) {
-                                        return 'กรุณาเลือกขนส่ง';
-                                      }
-                                      return null;
-                                    },
-                                    isExpanded: true,
-                                    hint: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 4,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            '--โปรดเลือกประเภทพัสดุ--',
-                                            style: TextStyle(
-                                              fontSize: PlatformSize(context),
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.black,
+                                                  ))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            context.read<DropdownCourierBloc>().add(
+                                                DropDropdownCourierSelectCategoryEvent(
+                                                    productCategory: value
+                                                        as ProductCategory));
+                                            procat = value.id;
+
+                                            // _onDropDownItemSelectedCategory(
+                                            //     value as ProductCategory);
+                                          },
+                                          decoration: InputDecoration(
+                                            fillColor: Colors.white,
+                                            errorStyle: Theme.of(context)
+                                                .textTheme
+                                                .headline4!
+                                                .copyWith(
+                                                    color: Colors.red,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12),
+                                            //Add isDense true and zero Padding.
+                                            //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.zero,
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                             ),
-                                            overflow: TextOverflow.ellipsis,
+                                            //Add more decoration as you want here
+                                            //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                                           ),
+                                          buttonDecoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border: Border.all(
+                                              color: Colors.black26,
+                                            ),
+                                            color: Colors.white,
+                                          ),
+                                          icon: const Icon(
+                                            Icons.keyboard_arrow_down_sharp,
+                                            color: Colors.black45,
+                                            size: 20,
+                                          ),
+                                          iconSize: 30,
+                                          buttonHeight: 45,
+                                          buttonPadding: const EdgeInsets.only(
+                                              left: 20, right: 10),
+                                          dropdownDecoration: BoxDecoration(
+                                            border: Border.all(width: 0.1),
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          dropdownMaxHeight: 250,
+                                          scrollbarAlwaysShow: true,
+                                          scrollbarThickness: 6,
                                         ),
-                                      ],
-                                    ),
-                                    value: _productCategory,
-                                    items: ProductCategory.category
-                                        .map((item) =>
-                                            DropdownMenuItem<ProductCategory>(
-                                              value: item,
-                                              child: Text(
-                                                item.name,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      PlatformSize(context),
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.black,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      _onDropDownItemSelectedCategory(
-                                          value as ProductCategory);
-                                    },
-                                    decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      errorStyle: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                      //Add isDense true and zero Padding.
-                                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.zero,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                      //Add more decoration as you want here
-                                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                                     ),
-                                    buttonDecoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        color: Colors.black26,
-                                      ),
-                                      color: Colors.white,
-                                    ),
-                                    icon: const Icon(
-                                      Icons.keyboard_arrow_down_sharp,
-                                      color: Colors.black45,
-                                      size: 20,
-                                    ),
-                                    iconSize: 30,
-                                    buttonHeight: 45,
-                                    buttonPadding: const EdgeInsets.only(
-                                        left: 20, right: 10),
-                                    dropdownDecoration: BoxDecoration(
-                                      border: Border.all(width: 0.1),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    dropdownMaxHeight: 250,
-                                    scrollbarAlwaysShow: true,
-                                    scrollbarThickness: 6,
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ]),
-                ),
+                            ]),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -1764,9 +1863,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                                 .add(UserdataAfterSendEvent());
                                             context.read<OrderBloc>().add(
                                                 AddOrderEvent(
+                                                    category: procat,
                                                     context: context,
-                                                    courier_code:
-                                                        _courier!.code!,
+                                                    courier_code: courcode,
                                                     current_order: '',
                                                     src_name: srcname,
                                                     src_phone: srcphone,
@@ -1831,6 +1930,16 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             SizedBox(
                               height: 10,
                             ),
+                            GestureDetector(
+                              onTap: () {
+                                print(courcode);
+                                print(procat);
+                              },
+                              child: Container(
+                                height: 50,
+                                color: Colors.red,
+                              ),
+                            )
                           ],
                         ),
                       ),

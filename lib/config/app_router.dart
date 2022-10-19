@@ -9,6 +9,7 @@ import 'package:perfectship_app/screen/home/notification_screen.dart';
 import 'package:perfectship_app/screen/profile/screen_on_profile/add_address_screen.dart';
 import 'package:perfectship_app/screen/profile/screen_on_profile/edit_address_screen.dart';
 import 'package:perfectship_app/screen/profile/screen_on_profile/senderaddress_screen.dart';
+import 'package:perfectship_app/screen/profile/screen_on_profile/setting_shipping_screen.dart';
 import 'package:perfectship_app/screen/profile/screen_on_profile/verifybank_screen.dart';
 
 class AppRouter {
@@ -32,6 +33,8 @@ class AppRouter {
         return PdfOrderScreen.route(pdfData: settings.arguments as String);
       case NotificationScreen.routeName:
         return NotificationScreen.route();
+      case SettingShippingScreen.routeName:
+        return SettingShippingScreen.route();
       default:
         return _errorRoute();
     }

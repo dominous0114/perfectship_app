@@ -325,17 +325,16 @@ class _BillListScreenState extends State<BillListScreen>
                   if (state is BillLoading) {
                     return LoadingShimmer();
                   } else if (state is BillLoaded) {
-                    return SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [BoxShadow(color: Colors.black)]),
-                            child: buildSearch(context, state.billmodel.length),
-                          ),
-                          RefreshIndicator(
+                    return Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [BoxShadow(color: Colors.black)]),
+                          child: buildSearch(context, state.billmodel.length),
+                        ),
+                        Expanded(
+                          child: RefreshIndicator(
                             onRefresh: () async {
                               await Future.delayed(Duration(milliseconds: 1000),
                                   () {
@@ -611,9 +610,9 @@ class _BillListScreenState extends State<BillListScreen>
                                 );
                               },
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     );
                   } else {
                     return Container();

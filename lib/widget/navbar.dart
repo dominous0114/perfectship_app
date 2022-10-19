@@ -13,6 +13,8 @@ import 'package:perfectship_app/screen/home/homescreen.dart';
 import 'package:perfectship_app/screen/orderlist/orderlist_screen.dart';
 import 'package:perfectship_app/screen/profile/profile_screen.dart';
 
+import '../bloc/dropdown_courier_bloc/dropdown_courier_bloc.dart';
+
 class NavigatonBar extends StatefulWidget {
   const NavigatonBar({Key? key}) : super(key: key);
 
@@ -70,6 +72,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
     super.initState();
     context.read<UserDataBloc>().add(UserDataInitialEvent());
     context.read<AddressBloc>().add(AddressInitialEvent());
+    context.read<DropdownCourierBloc>().add(DropdownCourierIniitialEvent());
 
     super.initState();
   }

@@ -37,7 +37,8 @@ class OrderRepository {
       required String product_value,
       required String cod_amount,
       required String remark,
-      required String issave}) async {
+      required String issave,
+      required int category}) async {
     double weight;
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
@@ -92,7 +93,8 @@ class OrderRepository {
       "product_value": product_value,
       "cod_amount": cod_amount,
       "remark": remark,
-      "save_dst_address": issave
+      "save_dst_address": issave,
+      "category_id": category
     });
     request.headers.addAll(headers);
     print(request.body);

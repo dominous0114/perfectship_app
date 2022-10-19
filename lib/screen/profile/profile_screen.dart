@@ -162,8 +162,54 @@ class _ProfileSreenState extends State<ProfileSreen> {
               },
             ),
             GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/settingshipping');
+              },
+              child: Container(
+                height: 60,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                padding: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 15, right: 25),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[100]!,
+                        blurRadius: 5.0,
+                        spreadRadius: 0.0,
+                        offset: const Offset(
+                            2, 6), // shadow direction: bottom right
+                      )
+                    ],
+                    border: Border.all(color: Colors.grey.shade50)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    Icon(
+                      CupertinoIcons.cube_box,
+                      color: Color.fromARGB(255, 41, 88, 162),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    CustomTextAutoSizeforMenu(
+                        text: 'ตั้งค่าการส่งพัสดุ', bold: true, enable: true),
+                    const Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Color.fromARGB(255, 41, 88, 162),
+                      size: 20,
+                    )
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
               onTap: () async {
-                GetUserDataRepository().updateFcmToken('');
+                await GetUserDataRepository().updateFcmToken('');
                 SharedPreferences preferences =
                     await SharedPreferences.getInstance();
                 preferences.remove('token');
