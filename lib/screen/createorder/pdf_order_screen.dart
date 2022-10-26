@@ -14,9 +14,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:perfectship_app/config/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../widget/custom_appbar.dart';
 import '../../widget/fontsize.dart';
@@ -202,6 +204,25 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
     //   await OpenFile.open("${output.path}/$fileName.$yourExtension");
     //   setState(() {});
     // }
+
+    Future<void> share() async {
+      await FlutterShare.share(
+          title: 'Example share',
+          text: 'Example share text',
+          linkUrl: 'https://flutter.dev/',
+          chooserTitle: 'Example Chooser Title');
+    }
+
+    Future<void> launchURL(String url) async {
+      if (await canLaunchUrlString(
+        url,
+      )) {
+        // Passes the URL to the OS to be handled by another application.
+        await launchUrlString(url, mode: LaunchMode.externalApplication);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
 
     return !isLoading
         ? Scaffold(
@@ -544,7 +565,19 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                         if (Platform.isAndroid) {
                           _openJioSavaan();
                         } else {
-                          launch(url);
+                          Clipboard.setData(ClipboardData(text: url)).then((_) {
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                              "คัดลอก Link $url แล้ว",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      fontSize: PlatformSize(context),
+                                      color: Colors.white),
+                            )));
+                          });
                         }
                       } else {
                         webViewController!
@@ -565,33 +598,63 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                               ]),
                         ),
                         child: _papersize!.lower == 'paperang'
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
-                                    child: Image.network(
-                                        'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw',
-                                        scale: 15),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'แชร์ไปยัง Paperang',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                            color: Colors.white,
-                                            fontSize:
-                                                PlatformSize(context) * 1.4,
-                                            fontWeight: FontWeight.w900),
-                                  ),
-                                ],
-                              )
+                            ? Platform.isIOS
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8)),
+                                        child: Image.network(
+                                            'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw',
+                                            scale: 15),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'คัดลอก URL',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge!
+                                            .copyWith(
+                                                color: Colors.white,
+                                                fontSize:
+                                                    PlatformSize(context) * 1.4,
+                                                fontWeight: FontWeight.w900),
+                                      ),
+                                    ],
+                                  )
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8)),
+                                        child: Image.network(
+                                            'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw',
+                                            scale: 15),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        'แชร์ไปยัง Paperang',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge!
+                                            .copyWith(
+                                                color: Colors.white,
+                                                fontSize:
+                                                    PlatformSize(context) * 1.4,
+                                                fontWeight: FontWeight.w900),
+                                      ),
+                                    ],
+                                  )
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,

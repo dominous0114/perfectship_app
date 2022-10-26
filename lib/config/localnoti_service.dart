@@ -43,6 +43,7 @@ class LocalNotficationService {
   }
 
   static void display(RemoteMessage message) async {
+    print('fore display');
     try {
       final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 

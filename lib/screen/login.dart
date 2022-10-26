@@ -124,19 +124,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
-                                      Icon(
-                                        CupertinoIcons.rocket,
-                                        color: Colors.blue,
-                                      ),
                                       Text(
-                                        ' Welcome to Perfect Ship!',
+                                        '  เข้าสู่ระบบ',
                                         style: TextStyle(
                                             fontSize:
-                                                PlatformSize(context) * 1.5,
+                                                PlatformSize(context) * 1.3,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.blue),
                                       ),
