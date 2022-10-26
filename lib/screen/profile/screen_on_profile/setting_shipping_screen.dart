@@ -711,8 +711,8 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                             dense: true,
                             title: Text(
                               checkListItems[index]["title"],
-                              style: const TextStyle(
-                                fontSize: 16.0,
+                              style: TextStyle(
+                                fontSize: PlatformSize(context),
                                 color: Colors.black,
                               ),
                             ),

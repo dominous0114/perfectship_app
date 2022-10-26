@@ -3,6 +3,7 @@ import 'package:perfectship_app/model/address_model.dart';
 import 'package:perfectship_app/model/bank_model.dart';
 import 'package:perfectship_app/model/userdata_model.dart';
 import 'package:perfectship_app/screen/billlist/bill_detail_screen.dart';
+import 'package:perfectship_app/screen/billlist/pdf_bill_screen.dart';
 import 'package:perfectship_app/screen/createorder/pdf_order_screen.dart';
 import 'package:perfectship_app/screen/createorder/selectaddress_oncreate/address_on_create_screen.dart';
 import 'package:perfectship_app/screen/home/notification_screen.dart';
@@ -35,6 +36,8 @@ class AppRouter {
         return NotificationScreen.route();
       case SettingShippingScreen.routeName:
         return SettingShippingScreen.route();
+      case PdfBillScreen.routeName:
+        return PdfBillScreen.route(pdfData: settings.arguments as String);
       default:
         return _errorRoute();
     }

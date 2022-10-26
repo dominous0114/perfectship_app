@@ -188,12 +188,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   actions: [
-                    IconButton(
-                        onPressed: () async {},
-                        icon: Icon(
-                          Icons.notifications_active,
-                          color: Colors.white,
-                        )),
+                    // IconButton(
+                    //     onPressed: () async {},
+                    //     icon: Icon(
+                    //       Icons.notifications_active,
+                    //       color: Colors.white,
+                    //     )),
                     IconButton(
                         onPressed: () {
                           context.read<TrackBloc>().add(TrackInitialEvent());

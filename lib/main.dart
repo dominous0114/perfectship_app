@@ -2,8 +2,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
 import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
 import 'package:perfectship_app/bloc/bill_detail_bloc/bill_detail_bloc.dart';
@@ -29,6 +29,7 @@ import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 @pragma('vm:entry-point')
 Future<void> backgroundHandlersss(RemoteMessage message) async {
@@ -42,6 +43,8 @@ Future<void> backgroundHandlersss(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(
+      widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -72,7 +75,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    initializeDateFormatting('th');
     return MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -110,6 +112,24 @@ class MyApp extends StatelessWidget {
           )
         ],
         child: MaterialApp(
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('en'),
+              const Locale('th')
+            ],
+            // localizationsDelegates: [
+            //   GlobalMaterialLocalizations.delegate,
+            //   GlobalWidgetsLocalizations.delegate,
+            //   GlobalCupertinoLocalizations.delegate,
+            // ],
+            // supportedLocales: [
+            //   Locale('en', ''),
+            //   Locale('th', ''),
+            // ],
             navigatorKey: NavKey.navKey,
             onGenerateRoute: AppRouter.onGenerateRoute,
             debugShowCheckedModeBanner: false,

@@ -459,7 +459,7 @@ class _OrderListScreenState extends State<OrderListScreen>
                                   ]),
                               child: Center(
                                 child: Icon(
-                                  Icons.checklist_sharp,
+                                  CupertinoIcons.printer,
                                   color: Colors.white,
                                 ),
                               )),
@@ -1766,6 +1766,48 @@ class _OrderListScreenState extends State<OrderListScreen>
                                                     ),
                                                   ],
                                                 ),
+                                                state.trackmodel[index]
+                                                            .remark ==
+                                                        null
+                                                    ? SizedBox()
+                                                    : Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            'หมายเหตุ : ',
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .headline4!
+                                                                .copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .black87,
+                                                                    fontSize:
+                                                                        PlatformSize(
+                                                                            context)),
+                                                          ),
+                                                          Expanded(
+                                                            child: Text(
+                                                              '${state.trackmodel[index].remark}',
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .headline4!
+                                                                  .copyWith(
+                                                                      color: Colors
+                                                                          .black87,
+                                                                      fontSize:
+                                                                          PlatformSize(
+                                                                              context)),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                 Row(
                                                   children: [
                                                     Text(

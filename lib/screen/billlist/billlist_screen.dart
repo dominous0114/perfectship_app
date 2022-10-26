@@ -394,7 +394,30 @@ class _BillListScreenState extends State<BillListScreen>
                                             backgroundColor: Colors.white,
                                           ),
                                           SlidableAction(
-                                            onPressed: (context) {},
+                                            onPressed: (context) async {
+                                              await BillRepository()
+                                                  .getBillDetail(state
+                                                      .billmodel[index].id
+                                                      .toString())
+                                                  .then((value) async {
+                                                var enval = value.map((e) =>
+                                                    e.orderId.toString());
+                                                String enval2 =
+                                                    enval.toString();
+                                                final removefirst =
+                                                    enval2.replaceAll('(', '');
+                                                final removelast = removefirst
+                                                    .replaceAll(')', '');
+                                                setState(() {
+                                                  lid = removelast;
+                                                  print('lid = $lid');
+                                                });
+                                                Navigator.pushNamed(
+                                                    scaffoldKey.currentContext!,
+                                                    '/pdfbill',
+                                                    arguments: lid);
+                                              });
+                                            },
                                             label: 'ใบปะหน้า',
                                             icon: CupertinoIcons.printer_fill,
                                             foregroundColor: Color.fromARGB(

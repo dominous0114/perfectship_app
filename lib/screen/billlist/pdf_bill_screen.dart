@@ -1,53 +1,44 @@
 import 'dart:collection';
-import 'dart:convert';
 import 'dart:io';
-import 'dart:isolate';
-import 'dart:ui';
 
-import 'package:android_intent_plus/android_intent.dart';
-import 'package:device_apps/device_apps.dart';
 import 'package:dio/dio.dart';
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:perfectship_app/config/constant.dart';
+import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../widget/custom_appbar.dart';
-import '../../widget/fontsize.dart';
 
-class PdfOrderScreen extends StatefulWidget {
-  static const String routeName = '/pdforder';
+class PdfBillScreen extends StatefulWidget {
+  static const String routeName = '/pdfbill';
 
   static Route route({required String pdfData}) {
     return PageRouteBuilder(
         settings: RouteSettings(name: routeName),
-        pageBuilder: (_, __, ___) => PdfOrderScreen(
+        pageBuilder: (_, __, ___) => PdfBillScreen(
               pdfData: pdfData,
             ));
   }
 
   final String pdfData;
-  const PdfOrderScreen({
+  const PdfBillScreen({
     Key? key,
     required this.pdfData,
   }) : super(key: key);
 
   @override
-  State<PdfOrderScreen> createState() => _PdfOrderScreenState();
+  State<PdfBillScreen> createState() => _PdfBillScreenState();
 }
 
-class _PdfOrderScreenState extends State<PdfOrderScreen>
+class _PdfBillScreenState extends State<PdfBillScreen>
     with SingleTickerProviderStateMixin {
-  String title = 'A4';
+  String title = '80mm';
+  String paperSize = 'print';
 
-  String selectIndex = 'A4';
-
+  String selectIndex = '80mm';
   final GlobalKey webViewKey = GlobalKey();
   double progress = 0;
   String url = '';
@@ -80,12 +71,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
   String percentage = '';
 
   bool isLoading = false;
-
-  var dio = Dio();
   String urlShare = 'trackId';
-
-  ReceivePort receiveport = ReceivePort();
-  final ReceivePort _port = ReceivePort();
 
   PaperSizeModel? _papersize = PaperSizeModel.paperSizes.first;
 
@@ -96,26 +82,10 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
     });
   }
 
+  var dio = Dio();
+
   @override
   void initState() {
-    // IsolateNameServer.registerPortWithName(receiveport.sendPort, 'downloadpdf');
-
-    // receiveport.listen((message) {
-    //   setState(() {
-    //     progress = message;
-    //   });
-    // });
-    IsolateNameServer.registerPortWithName(
-        _port.sendPort, 'downloader_send_port');
-    _port.listen((dynamic data) {
-      String id = data[0];
-      DownloadTaskStatus status = data[1];
-      int progress = data[2];
-      setState(() {});
-    });
-
-    FlutterDownloader.registerCallback(downloadCallback);
-
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 260),
@@ -123,9 +93,8 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
     final curvedAnimation =
         CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
     _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
-    url =
-        '${MyConstant().domainprint}/print/${_papersize!.lower}?order=${widget.pdfData}';
-    // getPDF();
+    url = 'https://customer.perfectship.cloud/order/${paperSize}/238652';
+    print('url print = $url');
     super.initState();
 
     contextMenu = ContextMenu(
@@ -174,17 +143,10 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
     );
   }
 
-  static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
-    final SendPort send =
-        IsolateNameServer.lookupPortByName('downloader_send_port')!;
-    send.send([id, status, progress]);
-  }
-
   Future setPaper({required String paper}) async {
     setState(() {
-      url =
-          '${MyConstant().domainprint}/print/${_papersize!.lower}?order=${widget.pdfData}';
+      paperSize = paper;
+      url = 'https://customer.perfectship.cloud/order/${paperSize}/238652';
       urlController.text = url;
       webViewController?.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
     });
@@ -192,17 +154,6 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
 
   @override
   Widget build(BuildContext context) {
-    // _createFileFromBase64(
-    //     String base64content, String fileName, String yourExtension) async {
-    //   var bytes = base64Decode(base64content.replaceAll('\n', ''));
-    //   final output = await getExternalStorageDirectory();
-    //   final file = File("${output!.path}/$fileName.$yourExtension");
-    //   await file.writeAsBytes(bytes.buffer.asUint8List());
-    //   print("${output.path}/${fileName}.$yourExtension");
-    //   await OpenFile.open("${output.path}/$fileName.$yourExtension");
-    //   setState(() {});
-    // }
-
     return !isLoading
         ? Scaffold(
             // drawer: myDrawer(context: context),
@@ -540,18 +491,10 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      if (_papersize!.lower == 'paperang') {
-                        if (Platform.isAndroid) {
-                          _openJioSavaan();
-                        } else {
-                          launch(url);
-                        }
-                      } else {
-                        webViewController!
-                            .evaluateJavascript(source: 'window.print()');
-                        // .evaluateJavascript(source: ('generatePDF()'));
-                        // "var today = new Date();var dd = String(today.getDate()).padStart(2, ‘0’);var mm = String(today.getMonth() + 1).padStart(2, ‘0’); //January is 0!var yyyy = today.getFullYear();today = dd + ‘-’ + mm + ‘-’ + yyyy;const element = document.getElementById(‘page’);let nbPages = 3;var opt = {margin:       0,filename:     today,image:        { type: ‘jpeg’, quality: 0.98 },html2canvas:  { scale: 2},jsPDF:        { unit: ‘mm’, format: ‘a5’, orientation: ‘p’ },pagebreak: { mode: ‘avoid-all’, after:‘.page-break’ }};html2pdf().set(opt).from(element).save();console.log(‘pdf’)");
-                      }
+                      webViewController!
+                          .evaluateJavascript(source: 'window.print()');
+                      // .evaluateJavascript(source: ('generatePDF()'));
+                      // "var today = new Date();var dd = String(today.getDate()).padStart(2, ‘0’);var mm = String(today.getMonth() + 1).padStart(2, ‘0’); //January is 0!var yyyy = today.getFullYear();today = dd + ‘-’ + mm + ‘-’ + yyyy;const element = document.getElementById(‘page’);let nbPages = 3;var opt = {margin:       0,filename:     today,image:        { type: ‘jpeg’, quality: 0.98 },html2canvas:  { scale: 2},jsPDF:        { unit: ‘mm’, format: ‘a5’, orientation: ‘p’ },pagebreak: { mode: ‘avoid-all’, after:‘.page-break’ }};html2pdf().set(opt).from(element).save();console.log(‘pdf’)");
                     },
                     child: Container(
                         decoration: BoxDecoration(
@@ -623,29 +566,6 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
           )
         : LoadingIndicator();
   }
-
-  _openJioSavaan() async {
-    bool isInstalled =
-        await DeviceApps.isAppInstalled('cn.paperang.international');
-    print('isInstalled = $isInstalled');
-    if (isInstalled != false) {
-      if (Platform.isAndroid) {
-        AndroidIntent intent = AndroidIntent(action: 'action_view', data: url);
-        await intent.launchChooser('cn.paperang.international');
-      } else {
-        launch(url);
-      }
-    } else {
-      String url = Platform.isAndroid
-          ? 'https://play.google.com/store/apps/details?id=cn.paperang.international&hl=th&gl=US'
-          : 'https://apps.apple.com/th/app/paperang/id1228042625?l=th';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-  }
 }
 
 class LoadingIndicator extends StatelessWidget {
@@ -681,29 +601,29 @@ class PaperSizeModel {
 
   static final paperSizes = [
     PaperSizeModel(
-      upper: 'A4',
-      lower: 'a4',
+      upper: '80mm',
+      lower: 'print',
     ),
     PaperSizeModel(
-      upper: 'A5',
-      lower: 'a5',
+      upper: '100mm x 75mm',
+      lower: 'print-a7',
     ),
     PaperSizeModel(
-      upper: 'A6 (100x150)',
-      lower: 'a6',
+      upper: '58mm',
+      lower: 'print-58',
     ),
-    PaperSizeModel(
-      upper: 'A7 (100x75)',
-      lower: 'a7',
-    ),
-    PaperSizeModel(
-      upper: 'Paperang',
-      lower: 'paperang',
-    ),
-    PaperSizeModel(
-      upper: 'Letter',
-      lower: 'letter',
-    ),
+    // PaperSizeModel(
+    //   upper: 'A7 (100x75)',
+    //   lower: 'a7',
+    // ),
+    // PaperSizeModel(
+    //   upper: 'Paperang',
+    //   lower: 'paperang',
+    // ),
+    // PaperSizeModel(
+    //   upper: 'Letter',
+    //   lower: 'letter',
+    // ),
     // PaperSizeModel(
     //   upper: 'PDF',
     //   lower: 'pdf',
