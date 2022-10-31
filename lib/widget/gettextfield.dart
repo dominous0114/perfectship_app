@@ -49,21 +49,6 @@ class GetTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // decoration: InputDecoration(
-      //   isDense: true,
-      //   contentPadding: EdgeInsets.all(2),
-      //   border: OutlineInputBorder(
-      //       borderRadius: BorderRadius.all(Radius.circular(8))),
-      //   focusedBorder: OutlineInputBorder(
-      //       borderSide: BorderSide(color: Colors.grey.shade500),
-      //       borderRadius: BorderRadius.all(Radius.circular(8))),
-      //   // enabledBorder: OutlineInputBorder(
-      //   //     borderRadius: BorderRadius.all(Radius.circular(8))),
-      //   // errorBorder: OutlineInputBorder(
-      //   //     borderRadius: BorderRadius.all(Radius.circular(8))),
-      //   // disabledBorder: OutlineInputBorder(
-      //   //     borderRadius: BorderRadius.all(Radius.circular(8))),
-      // ),
       autofocus: false,
       initialValue: initialValue,
       controller: controller,
@@ -113,50 +98,6 @@ class GetTextField extends StatelessWidget {
               )
             : null,
       ),
-
-      // decoration: InputDecoration(
-      //   border: OutlineInputBorder(
-      //       borderRadius: BorderRadius.all(Radius.circular(8))),
-      //   focusedBorder: OutlineInputBorder(
-      //       borderSide: BorderSide(color: Colors.grey.shade500),
-      //       borderRadius: BorderRadius.all(Radius.circular(8))),
-
-      //   // errorStyle: Theme.of(context).textTheme.headline4!.copyWith(
-      //   //     color: Colors.red, fontWeight: FontWeight.bold, fontSize: 16),
-      //   // prefixIcon: enableIconPrefix != false
-      //   //     ? Icon(
-      //   //         preIcon,
-      //   //         color: Colors.grey[500],
-      //   //       )
-      //   //     : null,
-      //   // contentPadding: EdgeInsets.all(0),
-      //   // hintText: title,
-      //   // labelText: labelText,
-      //   // labelStyle: Theme.of(context).textTheme.headline4!.copyWith(
-      //   //     // color: focusNode.hasFocus || controller!.text.isNotEmpty ? Colors.blue : Colors.grey[500]!.withOpacity(.5),
-      //   //     fontWeight: FontWeight.bold,
-      //   //     fontSize: 16),
-
-      //   // hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-      //   //     color: Colors.grey[500]!.withOpacity(.5),
-      //   //     fontWeight: FontWeight.bold,
-      //   //     fontSize: 16),
-      // suffixIcon: IconButton(
-      //   icon: Icon(
-      //     enableSuffixIcon != false ? sufIcon : null,
-      //     color: Colors.grey[500],
-      //   ),
-      //   onPressed: visiblePress,
-      // ),
-      //   // enabledBorder: UnderlineInputBorder(
-      //   //   borderSide: BorderSide(color: Colors.grey[500]!.withOpacity(.3)),
-      //   // ),
-      //   // focusedBorder: UnderlineInputBorder(
-      //   //   borderSide: BorderSide(color: Colors.grey[800]!.withOpacity(.5)),
-      //   // ),
-      //   //border: OutlineInputBorder(),
-      //   // border: InputBorder.none
-      // ),
     );
   }
 }

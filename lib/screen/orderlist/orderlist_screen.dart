@@ -69,6 +69,17 @@ class _OrderListScreenState extends State<OrderListScreen>
     return int.parse(hexColor, radix: 16);
   }
 
+  void pushprint(int id, String code, String statusselct) {
+    Navigator.pushNamed(context, '/pdforder', arguments: id.toString());
+
+    context.read<TrackBloc>().add(TrackFilterEvent(
+        start: DateFormat('yyyy-MM-dd').format(_startDate),
+        end: DateFormat('yyyy-MM-dd').format(_endDate),
+        courier: code,
+        printing: _printed!.id,
+        order: statusselct));
+  }
+
   buildSearch(BuildContext context, int total, TrackLoaded state) {
     return _isSelect == true
         ? Container(
@@ -1205,7 +1216,7 @@ class _OrderListScreenState extends State<OrderListScreen>
               floating: true,
               snap: false,
               pinned: false,
-              toolbarHeight: 50,
+              toolbarHeight: 60,
               elevation: 0,
               title: Row(
                 children: [
@@ -1898,84 +1909,114 @@ class _OrderListScreenState extends State<OrderListScreen>
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(4.0),
-                                                          child: state
-                                                                      .trackmodel[
-                                                                          index]
-                                                                      .printCount! >
-                                                                  0
-                                                              ? Row(
-                                                                  children: [
-                                                                    Badge(
-                                                                      padding:
-                                                                          EdgeInsets.all(
-                                                                              1),
-                                                                      position: BadgePosition(
-                                                                          bottom:
-                                                                              13,
-                                                                          start:
-                                                                              14),
-                                                                      elevation:
-                                                                          1,
-                                                                      badgeContent:
-                                                                          Icon(
-                                                                        CupertinoIcons
-                                                                            .checkmark_alt,
-                                                                        color: Colors
-                                                                            .green,
-                                                                        size:
-                                                                            14,
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              print('gesture');
+                                                              print(_isSelect);
+                                                              _isSelect == true
+                                                                  ? setState(
+                                                                      () {
+                                                                      if (_selectedItems.contains(state
+                                                                          .trackmodel[
+                                                                              index]
+                                                                          .id)) {
+                                                                        _selectedItems.removeWhere((val) =>
+                                                                            val ==
+                                                                            state.trackmodel[index].id);
+                                                                      } else {
+                                                                        _selectedItems.add(state
+                                                                            .trackmodel[index]
+                                                                            .id);
+                                                                      }
+                                                                    })
+                                                                  : pushprint(
+                                                                      state
+                                                                          .trackmodel[
+                                                                              index]
+                                                                          .id!,
+                                                                      state
+                                                                          .courierSelected
+                                                                          .code
+                                                                          .toString(),
+                                                                      state
+                                                                          .statusSelected
+                                                                          .id
+                                                                          .toString());
+                                                            },
+                                                            child: state
+                                                                        .trackmodel[
+                                                                            index]
+                                                                        .printCount! >
+                                                                    0
+                                                                ? Row(
+                                                                    children: [
+                                                                      Badge(
+                                                                        padding:
+                                                                            EdgeInsets.all(1),
+                                                                        position: BadgePosition(
+                                                                            bottom:
+                                                                                13,
+                                                                            start:
+                                                                                14),
+                                                                        elevation:
+                                                                            1,
+                                                                        badgeContent:
+                                                                            Icon(
+                                                                          CupertinoIcons
+                                                                              .checkmark_alt,
+                                                                          color:
+                                                                              Colors.green,
+                                                                          size:
+                                                                              14,
+                                                                        ),
+                                                                        badgeColor:
+                                                                            Colors.white,
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .print_rounded,
+                                                                          color:
+                                                                              Colors.black54,
+                                                                        ),
                                                                       ),
-                                                                      badgeColor:
-                                                                          Colors
-                                                                              .white,
-                                                                      child:
-                                                                          Icon(
+                                                                      SizedBox(
+                                                                        width:
+                                                                            5,
+                                                                      ),
+                                                                      Text(
+                                                                        'พิมพ์แล้ว',
+                                                                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Colors.black54,
+                                                                            fontSize: PlatformSize(context)),
+                                                                      ),
+                                                                    ],
+                                                                  )
+                                                                : Row(
+                                                                    children: [
+                                                                      Icon(
                                                                         Icons
                                                                             .print_rounded,
                                                                         color: Colors
-                                                                            .black54,
+                                                                            .white,
                                                                       ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 5,
-                                                                    ),
-                                                                    Text(
-                                                                      'พิมพ์แล้ว',
-                                                                      style: Theme.of(
-                                                                              context)
-                                                                          .textTheme
-                                                                          .headline4!
-                                                                          .copyWith(
-                                                                              fontWeight: FontWeight.bold,
-                                                                              color: Colors.black54,
-                                                                              fontSize: PlatformSize(context)),
-                                                                    ),
-                                                                  ],
-                                                                )
-                                                              : Row(
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .print_rounded,
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 5,
-                                                                    ),
-                                                                    Text(
-                                                                      'รอพิมพ์',
-                                                                      style: Theme.of(
-                                                                              context)
-                                                                          .textTheme
-                                                                          .headline4!
-                                                                          .copyWith(
-                                                                              fontWeight: FontWeight.bold,
-                                                                              color: Colors.white,
-                                                                              fontSize: PlatformSize(context)),
-                                                                    ),
-                                                                  ],
-                                                                )),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            5,
+                                                                      ),
+                                                                      Text(
+                                                                        'รอพิมพ์',
+                                                                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Colors.white,
+                                                                            fontSize: PlatformSize(context)),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                          )),
                                                     )
                                                   ],
                                                 )

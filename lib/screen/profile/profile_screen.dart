@@ -8,6 +8,7 @@ import 'package:perfectship_app/widget/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../widget/fontsize.dart';
 import '../../widget/fontsizemenu.dart';
 import '../login.dart';
 
@@ -27,9 +28,30 @@ class _ProfileSreenState extends State<ProfileSreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'โปรไฟล์',
-        backArrow: false,
+      appBar: AppBar(
+        toolbarHeight: 60,
+        elevation: 0,
+        title: Text(
+          'โปรไฟล์',
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+              fontSize: PlatformSize(context) * 1.2,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(200, 43, 166, 223),
+                Color.fromARGB(180, 41, 88, 162),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              stops: [0.0, 0.8],
+              tileMode: TileMode.clamp,
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),

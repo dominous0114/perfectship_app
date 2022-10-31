@@ -106,42 +106,112 @@ class SearchPhoneDelegate extends SearchDelegate {
                 itemCount: address.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () {
-                      context.read<AddressBloc>().add(AddressInitialEvent());
-                      districtcontroller.text = address[index].subDistrict!;
-                      amphurecontroller.text = address[index].district!;
-                      provincecontroller.text = address[index].province!;
-                      zipcodecontroller.text = address[index].zipcode!;
-                      typeaheadcontroller.text = query;
-                      namecontroller.text = address[index].name!;
-                      phonecontroller.text = address[index].phone!;
-                      addresscontroller.text = address[index].address!;
-                      close(context, 'close');
-                    },
-                    child: ListTile(
-                      title: Text(
-                        'คุณ : ${state.addressphonemodel[index].name}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(fontSize: PlatformSize(context)),
-                      ),
-                      subtitle: Text(
-                        'ที่อยู่ : ${state.addressphonemodel[index].address} ${state.addressphonemodel[index].subDistrict} ${state.addressphonemodel[index].district} ${state.addressphonemodel[index].province} ${state.addressphonemodel[index].zipcode}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: PlatformSize(context) * .8),
-                      ),
-                      trailing: Text(
-                        '${state.addressphonemodel[index].phone}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6!
-                            .copyWith(fontSize: PlatformSize(context)),
-                      ),
-                    ),
-                  );
+                      onTap: () {
+                        context.read<AddressBloc>().add(AddressInitialEvent());
+                        districtcontroller.text = address[index].subDistrict!;
+                        amphurecontroller.text = address[index].district!;
+                        provincecontroller.text = address[index].province!;
+                        zipcodecontroller.text = address[index].zipcode!;
+                        typeaheadcontroller.text = query;
+                        namecontroller.text = address[index].name!;
+                        phonecontroller.text = address[index].phone!;
+                        addresscontroller.text = address[index].address!;
+                        close(context, 'close');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [BoxShadow(color: Colors.black54)]),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        'คุณ : ${state.addressphonemodel[index].name}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6!
+                                            .copyWith(
+                                                fontSize:
+                                                    PlatformSize(context) *
+                                                        1.1),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            '${state.addressphonemodel[index].phone}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline6!
+                                                .copyWith(
+                                                    fontSize:
+                                                        PlatformSize(context) *
+                                                            1.1),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        'ที่อยู่ : ${state.addressphonemodel[index].address} ${state.addressphonemodel[index].subDistrict} ${state.addressphonemodel[index].district} ${state.addressphonemodel[index].province} ${state.addressphonemodel[index].zipcode}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                                fontSize:
+                                                    PlatformSize(context) * .9),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                      // ListTile(
+                      //   title: Text(
+                      //     'คุณ : ${state.addressphonemodel[index].name}',
+                      // style: Theme.of(context)
+                      //     .textTheme
+                      //     .headline6!
+                      //     .copyWith(fontSize: PlatformSize(context)),
+                      //   ),
+                      //   subtitle:
+                      // Text(
+                      //     'ที่อยู่ : ${state.addressphonemodel[index].address} ${state.addressphonemodel[index].subDistrict} ${state.addressphonemodel[index].district} ${state.addressphonemodel[index].province} ${state.addressphonemodel[index].zipcode}',
+                      //     style: Theme.of(context)
+                      //         .textTheme
+                      //         .bodyText1!
+                      //         .copyWith(fontSize: PlatformSize(context) * .8),
+                      //   ),
+                      //   trailing: Text(
+                      //     '${state.addressphonemodel[index].phone}',
+                      //     style: Theme.of(context)
+                      //         .textTheme
+                      //         .headline6!
+                      //         .copyWith(fontSize: PlatformSize(context)),
+                      //   ),
+                      // ),
+                      );
                 }),
           );
         } else {

@@ -64,6 +64,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         Navigator.pop(event.context);
       }
 
+      print(value);
+
       if (value['status'] == true) {
         event.context.read<TrackBloc>().add(TrackInitialEvent());
         event.context.read<UserDataBloc>().add(UserDataInitialEvent());

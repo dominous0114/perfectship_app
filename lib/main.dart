@@ -35,9 +35,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 Future<void> backgroundHandlersss(RemoteMessage message) async {
   print('on bg handler');
   print(message.data['title']);
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   LocalNotficationService.displaybackground(message);
 }
 

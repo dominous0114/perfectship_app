@@ -101,8 +101,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                           //   _isprimayloading = true;
                           // });
                           context.read<AddressBloc>().add(
-                              SetPrimaryAddressOnCreateEvent(
-                                  id: id, context: context));
+                              SetPrimaryAddressEvent(id: id, context: context));
 
                           print(_isprimayloading.toString());
                         },

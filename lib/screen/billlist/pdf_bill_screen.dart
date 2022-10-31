@@ -146,7 +146,8 @@ class _PdfBillScreenState extends State<PdfBillScreen>
   Future setPaper({required String paper}) async {
     setState(() {
       paperSize = paper;
-      url = 'https://customer.perfectship.cloud/order/${paperSize}/238652';
+      url =
+          'https://customer.perfectship.cloud/order/${paperSize}/${widget.pdfData}';
       urlController.text = url;
       webViewController?.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
     });

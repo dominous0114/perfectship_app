@@ -281,7 +281,7 @@ class _BillListScreenState extends State<BillListScreen>
                       floating: true,
                       snap: false,
                       pinned: false,
-                      toolbarHeight: 50,
+                      toolbarHeight: 60,
                       elevation: 0,
                       title: Row(
                         children: [

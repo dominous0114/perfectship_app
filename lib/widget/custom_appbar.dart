@@ -27,17 +27,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(40),
       child: AppBar(
-        toolbarHeight: 50,
+        toolbarHeight: 60,
         elevation: 0,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
+              colors: [
                 Color.fromARGB(200, 43, 166, 223),
                 Color.fromARGB(180, 41, 88, 162),
               ],
+              begin: Alignment.topLeft,
+              end: Alignment.topRight,
+              stops: [0.0, 0.8],
+              tileMode: TileMode.clamp,
             ),
           ),
         ),

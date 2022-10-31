@@ -285,7 +285,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                     ),
                     Row(
                       children: [
-                        Icon(CupertinoIcons.location),
+                        Icon(
+                          CupertinoIcons.location,
+                          color: Colors.blue.shade300,
+                        ),
                         SizedBox(width: 10),
                         Text(
                           'อำเภอ / เขต',
@@ -318,7 +321,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                     ),
                     Row(
                       children: [
-                        Icon(CupertinoIcons.location),
+                        Icon(
+                          CupertinoIcons.location,
+                          color: Colors.blue.shade300,
+                        ),
                         SizedBox(width: 10),
                         Text(
                           'จังหวัด',
