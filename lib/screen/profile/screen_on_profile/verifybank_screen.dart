@@ -23,8 +23,7 @@ import '../../../repository/getpathimage_repository.dart';
 
 class VerifyBankScreen extends StatefulWidget {
   final UserDataModel userdatamodel;
-  const VerifyBankScreen({Key? key, required this.userdatamodel})
-      : super(key: key);
+  const VerifyBankScreen({Key? key, required this.userdatamodel}) : super(key: key);
   static const String routeName = '/verifybank';
 
   static Route route({required UserDataModel userdatamodel}) {
@@ -56,9 +55,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
         _imageFile = image;
         final byte = File(_imageFile!.path).readAsBytesSync();
         String base64Image = "data:image/png;base64," + base64Encode(byte);
-        ImageRepository()
-            .getPathImage(image: base64Image, type: 'perfectship-app_bookbank')
-            .then((value) {
+        ImageRepository().getPathImage(image: base64Image, type: 'perfectship-app_bookbank').then((value) {
           setState(() {
             path = value;
             print('path = $path');
@@ -72,9 +69,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
         _imageFile = photo;
         final byte = File(_imageFile!.path).readAsBytesSync();
         String base64Image = "data:image/png;base64," + base64Encode(byte);
-        ImageRepository()
-            .getPathImage(image: base64Image, type: 'perfectship-app_bookbank')
-            .then((value) {
+        ImageRepository().getPathImage(image: base64Image, type: 'perfectship-app_bookbank').then((value) {
           setState(() {
             path = value;
             print(path);
@@ -91,8 +86,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
     BankRepository().getBank().then((value) {
       setState(() {
         bank = value;
-        _banks = bank
-            .firstWhere((element) => element.id == widget.userdatamodel.bankId);
+        _banks = bank.firstWhere((element) => element.id == widget.userdatamodel.bankId);
       });
     });
   }
@@ -209,10 +203,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline4!
-                                        .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black54,
-                                            fontSize: PlatformSize(context)),
+                                        .copyWith(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: PlatformSize(context)),
                                   ),
                                 ],
                               ),
@@ -245,8 +236,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                 ),
                                 Text(
                                   'กล้องถ่ายภาพ',
-                                  style: TextStyle(
-                                      fontSize: PlatformSize(context)),
+                                  style: TextStyle(fontSize: PlatformSize(context)),
                                 )
                               ],
                             ),
@@ -273,8 +263,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                 ),
                                 Text(
                                   'แกลเลอรี่',
-                                  style: TextStyle(
-                                      fontSize: PlatformSize(context)),
+                                  style: TextStyle(fontSize: PlatformSize(context)),
                                 )
                               ],
                             ),
@@ -334,9 +323,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(color: Colors.grey.shade300, blurRadius: 1)
-                  ]),
+                  boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 1)]),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -376,10 +363,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline3!
-                                    .copyWith(
-                                        color: Colors.white,
-                                        fontSize: PlatformSize(context) * 1.2,
-                                        fontWeight: FontWeight.bold),
+                                    .copyWith(color: Colors.white, fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold),
                               )
                             ],
                           )
@@ -400,16 +384,12 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                   : null;
                             },
                             child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.shade300,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8))),
+                              decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.all(Radius.circular(8))),
                               height: 250,
                               child: Center(
                                 child: path == ''
                                     ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Icon(
                                             CupertinoIcons.photo_on_rectangle,
@@ -423,13 +403,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline3!
-                                                .copyWith(
-                                                    color: Colors.black54,
-                                                    fontSize:
-                                                        PlatformSize(context) *
-                                                            1.2,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                .copyWith(color: Colors.black54, fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold),
                                           ),
                                         ],
                                       )
@@ -439,9 +413,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                           CachedNetworkImage(
                                             imageUrl: path,
                                             fit: BoxFit.fitHeight,
-                                            progressIndicatorBuilder:
-                                                (context, url, progress) =>
-                                                    Center(
+                                            progressIndicatorBuilder: (context, url, progress) => Center(
                                               child: CircularProgressIndicator(
                                                 value: progress.progress,
                                               ),
@@ -456,17 +428,10 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                             child: Card(
                                               color: Colors.white70,
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
+                                                padding: const EdgeInsets.all(8.0),
                                                 child: Text(
                                                   'เลือกรูปใหม่',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText1!
-                                                      .copyWith(
-                                                          fontSize:
-                                                              PlatformSize(
-                                                                  context)),
+                                                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context)),
                                                 ),
                                               ),
                                             ),
@@ -490,12 +455,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                             ),
                             Text(
                               'ธนาคาร',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(
-                                      fontSize: PlatformSize(context),
-                                      fontWeight: FontWeight.bold),
+                              style: Theme.of(context).textTheme.headline3!.copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -539,8 +499,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                               child: Text(
                                                 item.name,
                                                 style: TextStyle(
-                                                  fontSize:
-                                                      PlatformSize(context),
+                                                  fontSize: PlatformSize(context),
                                                   fontWeight: FontWeight.normal,
                                                   color: Colors.black,
                                                 ),
@@ -550,8 +509,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                         .toList(),
                                     onChanged: (value) {
                                       setState(() {
-                                        _onDropDownItemSelected(
-                                            value! as Banks);
+                                        _onDropDownItemSelected(value! as Banks);
                                       });
                                     },
                                     decoration: InputDecoration(
@@ -559,17 +517,13 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                       errorStyle: Theme.of(context)
                                           .textTheme
                                           .headline4!
-                                          .copyWith(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
+                                          .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                       //Add isDense true and zero Padding.
                                       //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
                                       isDense: true,
                                       contentPadding: EdgeInsets.zero,
                                       border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 2, color: Colors.amber),
+                                        borderSide: BorderSide(width: 2, color: Colors.amber),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       //Add more decoration as you want here
@@ -582,11 +536,9 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                     ),
                                     iconSize: 30,
                                     buttonHeight: 45,
-                                    buttonPadding: const EdgeInsets.only(
-                                        left: 20, right: 10),
+                                    buttonPadding: const EdgeInsets.only(left: 20, right: 10),
                                     dropdownDecoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 0.1, color: Colors.black),
+                                      border: Border.all(width: 0.1, color: Colors.black),
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
@@ -620,12 +572,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                             ),
                             Text(
                               'ชื่อบัญชี',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(
-                                      fontSize: PlatformSize(context),
-                                      fontWeight: FontWeight.bold),
+                              style: Theme.of(context).textTheme.headline3!.copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -645,71 +592,50 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 0),
                           child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(color: Colors.grey),
-                                ]),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8)), color: Colors.white, boxShadow: [
+                              BoxShadow(color: Colors.grey),
+                            ]),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Expanded(
                                         child: Container(
                                           //decoration: BoxDecoration(color: Colors.red),
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
                                                   Icon(
                                                     Icons.numbers_rounded,
-                                                    color: Color.fromARGB(
-                                                        255, 41, 88, 162),
+                                                    color: Color.fromARGB(255, 41, 88, 162),
                                                   ),
                                                   SizedBox(
                                                     width: 5,
                                                   ),
                                                   Text(
                                                     'รหัสสาขา',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline3!
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                Colors.black54,
-                                                            fontSize:
-                                                                PlatformSize(
-                                                                    context)),
+                                                    style: Theme.of(context).textTheme.headline3!.copyWith(
+                                                        fontWeight: FontWeight.bold, color: Colors.black54, fontSize: PlatformSize(context)),
                                                   ),
                                                 ],
                                               ),
                                               Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 2),
+                                                  padding: const EdgeInsets.symmetric(vertical: 2),
                                                   child: Material(
                                                       child: GetTextField(
-                                                    textInputAction:
-                                                        TextInputAction.next,
+                                                    textInputAction: TextInputAction.next,
                                                     focusNode: _branchnode,
-                                                    controller:
-                                                        _branchController,
-                                                    textInputType:
-                                                        TextInputType.number,
+                                                    controller: _branchController,
+                                                    textInputType: TextInputType.number,
                                                     validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
+                                                      if (value == null || value.isEmpty) {
                                                         return 'กรุณากรอกข้อมูล';
                                                       }
                                                       return null;
@@ -726,15 +652,13 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                         child: Container(
                                           //decoration: BoxDecoration(color: Colors.red),
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
                                                   Icon(
                                                     Icons.credit_card,
-                                                    color: Color.fromARGB(
-                                                        255, 41, 88, 162),
+                                                    color: Color.fromARGB(255, 41, 88, 162),
                                                   ),
                                                   SizedBox(
                                                     width: 5,
@@ -744,30 +668,20 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .headline3!
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize:
-                                                                PlatformSize(
-                                                                    context)),
+                                                        .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
                                                   ),
                                                 ],
                                               ),
                                               Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 2),
+                                                  padding: const EdgeInsets.symmetric(vertical: 2),
                                                   child: Material(
                                                       child: GetTextField(
                                                     focusNode: _accountnode,
-                                                    textInputAction:
-                                                        TextInputAction.done,
-                                                    controller:
-                                                        _accountController,
-                                                    textInputType:
-                                                        TextInputType.number,
+                                                    textInputAction: TextInputAction.done,
+                                                    controller: _accountController,
+                                                    textInputType: TextInputType.number,
                                                     validator: (value) {
-                                                      if (value == null ||
-                                                          value.isEmpty) {
+                                                      if (value == null || value.isEmpty) {
                                                         return 'กรุณากรอกข้อมูล';
                                                       }
                                                       return null;
@@ -793,23 +707,14 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   BankRepository()
-                                      .updatebank(
-                                          _banks!.id,
-                                          _branchController.text,
-                                          path,
-                                          _banknameController.text,
-                                          _accountController.text)
+                                      .updatebank(_banks!.id, _branchController.text, path, _banknameController.text, _accountController.text)
                                       .then((value) {
                                     if (value['status'] == true) {
-                                      context
-                                          .read<UserDataBloc>()
-                                          .add(UserDataInitialEvent());
+                                      context.read<UserDataBloc>().add(UserDataInitialEvent());
                                       Navigator.pop(context);
-                                      Fluttertoast.showToast(
-                                          msg: '${value['message']}');
+                                      Fluttertoast.showToast(msg: '${value['message']}');
                                     } else if (value['status'] == false) {
-                                      Fluttertoast.showToast(
-                                          msg: '${value['message']}');
+                                      Fluttertoast.showToast(msg: '${value['message']}');
                                     }
                                   });
                                 }
@@ -818,10 +723,7 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline3!
-                                      .copyWith(
-                                          color: Colors.white,
-                                          fontSize: PlatformSize(context),
-                                          fontWeight: FontWeight.bold)),
+                                      .copyWith(color: Colors.white, fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
                             ),
                           ),
                         ),

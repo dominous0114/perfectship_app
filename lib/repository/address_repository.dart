@@ -16,12 +16,8 @@ class AddressRepository {
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
     var dropoff_id = int.parse(preferences!.getString('dropoff_id')!);
-    var headers = {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request('GET',
-        Uri.parse('${MyConstant().domain}/perfectship/get-user-address'));
+    var headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse('${MyConstant().domain}/perfectship/get-user-address'));
     request.body = json.encode({"dropoff_member_id": dropoff_id});
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
@@ -30,8 +26,7 @@ class AddressRepository {
       var res = await response.stream.bytesToString();
       print('resaddress  = $res');
       final json = jsonDecode(res)['data'] as List;
-      List<AddressModel> address =
-          json.map((e) => AddressModel.fromJson(e)).toList();
+      List<AddressModel> address = json.map((e) => AddressModel.fromJson(e)).toList();
 
       return address;
     } else {
@@ -45,12 +40,8 @@ class AddressRepository {
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
     var userid = preferences!.getString('userid');
-    var headers = {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request(
-        'GET', Uri.parse('${MyConstant().domain}/perfectship/get-src-address'));
+    var headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse('${MyConstant().domain}/perfectship/get-src-address'));
     request.body = json.encode({"user_id": userid});
     print(request.body);
     request.headers.addAll(headers);
@@ -100,12 +91,8 @@ class AddressRepository {
     var token = preferences!.getString('token');
     var dropoffId = preferences!.getString('dropoff_id');
     var userId = preferences!.getString('userid');
-    var headers = {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request(
-        'POST', Uri.parse('${MyConstant().domain}/perfectship/add-address'));
+    var headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse('${MyConstant().domain}/perfectship/add-address'));
     request.body = json.encode({
       "dropoff_member_id": dropoffId,
       "user_id": userId,
@@ -140,12 +127,8 @@ class AddressRepository {
       required String id}) async {
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
-    var headers = {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request('POST',
-        Uri.parse('${MyConstant().domain}/perfectship/update-address/$id'));
+    var headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse('${MyConstant().domain}/perfectship/update-address/$id'));
     request.body = json.encode({
       "name": name,
       "phone": phone,
@@ -170,14 +153,8 @@ class AddressRepository {
   Future setPrimaryAddress({required String id}) async {
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
-    var headers = {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request(
-        'GET',
-        Uri.parse(
-            '${MyConstant().domain}/perfectship/set-primary-address/$id'));
+    var headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse('${MyConstant().domain}/perfectship/set-primary-address/$id'));
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -194,12 +171,8 @@ class AddressRepository {
   Future deleteAddress({required String id}) async {
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
-    var headers = {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request('GET',
-        Uri.parse('${MyConstant().domain}/perfectship/delete-address/$id'));
+    var headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse('${MyConstant().domain}/perfectship/delete-address/$id'));
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
@@ -215,12 +188,8 @@ class AddressRepository {
   Future<List<AddressfromphoneModel>> searchAddressphone() async {
     var token = preferences!.getString('token');
     var userid = preferences!.getString('userid');
-    var headers = {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request('GET',
-        Uri.parse('${MyConstant().domain}/perfectship/search-dst-address'));
+    var headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse('${MyConstant().domain}/perfectship/search-dst-address'));
     request.body = json.encode({"user_id": userid});
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
@@ -229,8 +198,7 @@ class AddressRepository {
       var res = await response.stream.bytesToString();
       print('resaddress  = $res');
       final json = jsonDecode(res)['data'] as List;
-      List<AddressfromphoneModel> addressphone =
-          json.map((e) => AddressfromphoneModel.fromJson(e)).toList();
+      List<AddressfromphoneModel> addressphone = json.map((e) => AddressfromphoneModel.fromJson(e)).toList();
 
       return addressphone;
     } else {
