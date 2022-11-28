@@ -25,13 +25,7 @@ class NavigatonBar extends StatefulWidget {
 class _NavigatonBarState extends State<NavigatonBar> {
   int pageIndex = 0;
   String? token;
-  List<Widget> pageList = <Widget>[
-    HomeScreen(),
-    OrderListScreen(),
-    CreateOrderScreen(),
-    BillListScreen(),
-    ProfileSreen()
-  ];
+  List<Widget> pageList = <Widget>[HomeScreen(), OrderListScreen(), CreateOrderScreen(), BillListScreen(), ProfileSreen()];
 
   Future<dynamic> backgroundHandler(RemoteMessage message) async {
     LocalNotficationService.displaybackground(message);
@@ -40,6 +34,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
   void gettoken() async {
     FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
     token = await firebaseMessaging.getToken();
+    print('fcm = $token');
     GetUserDataRepository().updateFcmToken(token!).then((value) {
       print('gettoken val = ${value}');
     });
@@ -100,8 +95,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
                 pageIndex = 1;
               });
 
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CreateOrderScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateOrderScreen()));
             },
           ),
         ),
@@ -141,13 +135,10 @@ class _NavigatonBarState extends State<NavigatonBar> {
                 label: 'หน้าแรก',
               ),
               //BottomNavigationBarItem(icon: Icon(null), label: ""),
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.cube_box_fill), label: 'พัสดุ'),
+              BottomNavigationBarItem(icon: Icon(CupertinoIcons.cube_box_fill), label: 'พัสดุ'),
               BottomNavigationBarItem(icon: Icon(null), label: ''),
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.square_list_fill), label: 'บิล'),
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.person_alt), label: 'โปรไฟล์'),
+              BottomNavigationBarItem(icon: Icon(CupertinoIcons.square_list_fill), label: 'บิล'),
+              BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_alt), label: 'โปรไฟล์'),
             ]),
       ),
     );
