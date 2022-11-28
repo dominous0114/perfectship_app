@@ -1,6 +1,6 @@
 class MyConstant {
-  String domain = 'https://app-uat.iship.cloud/api';
-  String domainprint = 'https://app-uat.iship.cloud';
+  String domain = 'https://app.iship.cloud/api';
+  String domainprint = 'https://app.iship.cloud';
 
   MyConstant();
 }

@@ -17,20 +17,14 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   final GetUserDataRepository getUserDataRepository;
   final BankRepository bankRepository;
   final AddressRepository addressRepository;
-  UserDataBloc(
-      {required this.getUserDataRepository,
-      required this.bankRepository,
-      required this.addressRepository})
-      : super(UserDataLoading()) {
+  UserDataBloc({required this.getUserDataRepository, required this.bankRepository, required this.addressRepository}) : super(UserDataLoading()) {
     on<UserDataInitialEvent>(_onLoadGetUserdata);
     on<UserdataAfterSendEvent>(_onLoadGetAftersenddata);
   }
 
-  void _onLoadGetUserdata(
-      UserDataInitialEvent event, Emitter<UserDataState> emit) async {
+  void _onLoadGetUserdata(UserDataInitialEvent event, Emitter<UserDataState> emit) async {
     final response = await getUserDataRepository.getUser();
-    final rescreit =
-        await getUserDataRepository.getUserCredit(response.userId.toString());
+    final rescreit = await getUserDataRepository.getUserCredit(response.userId!);
     final responsebank = await bankRepository.getBank();
 
     print('bloc res = ${response.accountName}');
@@ -40,19 +34,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     preferences.setString('accountnumber', response.accountNumber!);
     preferences.setString('userid', response.userId!.toString());
     final responsesrcaddress = await addressRepository.getSrcAddress();
-    emit(UserDataLoaded(
-        srcaddressmodel: responsesrcaddress,
-        userdatamodel: response,
-        usercreditmodel: rescreit,
-        bank: responsebank));
+    emit(UserDataLoaded(srcaddressmodel: responsesrcaddress, userdatamodel: response, usercreditmodel: rescreit, bank: responsebank));
   }
 
-  void _onLoadGetAftersenddata(
-      UserdataAfterSendEvent event, Emitter<UserDataState> emit) async {
+  void _onLoadGetAftersenddata(UserdataAfterSendEvent event, Emitter<UserDataState> emit) async {
     emit(UserDataLoading());
     final response = await getUserDataRepository.getUser();
-    final rescreit =
-        await getUserDataRepository.getUserCredit(response.userId.toString());
+    final rescreit = await getUserDataRepository.getUserCredit(response.userId!);
     final responsebank = await bankRepository.getBank();
     final responsesrcaddress = await addressRepository.getSrcAddress();
     print('bloc res = ${response.accountName}');
@@ -62,11 +50,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     preferences.setString('accountnumber', response.accountNumber!);
     preferences.setString('userid', response.userId!.toString());
 
-    emit(UserDataLoaded(
-        srcaddressmodel: responsesrcaddress,
-        userdatamodel: response,
-        usercreditmodel: rescreit,
-        bank: responsebank));
+    emit(UserDataLoaded(srcaddressmodel: responsesrcaddress, userdatamodel: response, usercreditmodel: rescreit, bank: responsebank));
   }
 
   // void _onLoadgetBankId(GetbankdataEvent event, Emitter<UserDataState> emit) {}

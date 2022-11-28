@@ -6,7 +6,7 @@ class UserCreditModel {
 
   UserCreditModel.fromJson(Map<String, dynamic> json) {
     orderAmount = json['order_amount'];
-    credit = json['credit'];
+    credit = double.parse(json['credit'].toString());
   }
 
   Map<String, dynamic> toJson() {
