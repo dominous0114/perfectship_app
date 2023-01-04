@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime _startDate = DateTime.now().subtract(Duration(days: 30));
   DateTime _endDate = DateTime.now();
   TextEditingController firstTimeController = TextEditingController();
+  String initend = DateFormat('yyyy-MM-dd').format(DateTime.now());
   int _currentPage = 0;
 
   bool isSelected = true;
@@ -40,9 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     context.read<DashboardBloc>().add(DashboardInitialEvent());
-    firstTimeController = TextEditingController(
-        text:
-            "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
+    firstTimeController =
+        TextEditingController(text: "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
     _controller.addListener(() {
       setState(() {
         _currentPage = _controller.page!.round();
@@ -58,18 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Expanded(
             child: TextFormField(
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(fontSize: PlatformSize(context)),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context)),
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(0, 10, 20, 0),
                   enabled: false,
                   hintText: 'YYYY-MM-DD',
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(fontSize: PlatformSize(context)),
+                  hintStyle: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context)),
                   prefixIcon: Icon(
                     Icons.timelapse_rounded,
                     color: Theme.of(context).iconTheme.color,
@@ -101,8 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       helpText: 'เลือกวันที่หรือช่วงวันที่',
                       cancelText: 'ยกเลิก',
                       confirmText: 'ตกลง',
-                      initialDateRange:
-                          DateTimeRange(start: _startDate, end: _endDate),
+                      initialDateRange: DateTimeRange(start: _startDate, end: _endDate),
                       firstDate: DateTime(2020),
                       lastDate: DateTime.now(),
                       saveText: 'เสร็จ',
@@ -118,16 +111,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() {
                       _startDate = picked.start;
                       _endDate = picked.end;
-                      String formattedDate2 =
-                          DateFormat('yyyy-MM-dd').format(_endDate);
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(_startDate);
-                      firstTimeController.text =
-                          '$formattedDate - $formattedDate2';
-                      context.read<DashboardBloc>().add(
-                          FilterDateTimeGraphEvent(
-                              start_date: formattedDate,
-                              end_date: formattedDate2));
+                      String formattedDate2 = DateFormat('yyyy-MM-dd').format(_endDate);
+                      String formattedDate = DateFormat('yyyy-MM-dd').format(_startDate);
+                      firstTimeController.text = '$formattedDate - $formattedDate2';
+                      context.read<DashboardBloc>().add(FilterDateTimeGraphEvent(start_date: formattedDate, end_date: formattedDate2));
                     });
                   }
                 },
@@ -166,10 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium!
-                            .copyWith(
-                                fontSize: PlatformSize(context) * 1.3,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.white),
+                            .copyWith(fontSize: PlatformSize(context) * 1.3, fontWeight: FontWeight.w900, color: Colors.white),
                       )
                     ],
                   ),
@@ -197,9 +181,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     IconButton(
                         onPressed: () {
                           context.read<TrackBloc>().add(TrackInitialEvent());
-                          showSearch(
-                              context: context,
-                              delegate: SearchTrackDeletfate());
+                          context.read<TrackBloc>().add(
+                              TrackSearchHomeEvent(keyword: '', start: '2021-01-01', end: initend, courier: 'all', printing: 'all', order: 'all'));
+                          showSearch(context: context, delegate: SearchTrackDeletfate());
                         },
                         icon: Icon(
                           Icons.search,
@@ -266,8 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               height: MediaQuery.of(context).size.height * 0.48,
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 0.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 0.0),
                                 child: PageView(
                                   physics: AlwaysScrollableScrollPhysics(),
                                   controller: _controller,
@@ -279,9 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 right: -10,
                                 child: IconButton(
                                   onPressed: () {
-                                    _controller.nextPage(
-                                        duration: Duration(milliseconds: 500),
-                                        curve: Curves.linear);
+                                    _controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.linear);
                                   },
                                   icon: Icon(
                                     Icons.arrow_forward_ios_sharp,
@@ -292,9 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 left: -10,
                                 child: IconButton(
                                   onPressed: () {
-                                    _controller.previousPage(
-                                        duration: Duration(milliseconds: 500),
-                                        curve: Curves.easeInOut);
+                                    _controller.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
                                   },
                                   icon: Icon(
                                     Icons.arrow_back_ios_sharp,
@@ -311,10 +290,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             context: context,
                             removeBottom: true,
                             child: Card(
-                              color:
-                                  Theme.of(context).appBarTheme.backgroundColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                              color: Theme.of(context).appBarTheme.backgroundColor,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               elevation: .7,
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -331,61 +308,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                             if (_currentPage == index) {
                                               // _controller.animateToPage(_currentPage, duration: Duration(milliseconds: 500), curve: (_currentPage - 1) % 3 != 0 ?  Curves.easeIn : Curves.easeIn);
                                             } else {
-                                              _controller.animateToPage(
-                                                  (_currentPage - 1) % 3,
-                                                  duration: Duration(
-                                                      milliseconds: 500),
-                                                  curve:
-                                                      (_currentPage - 1) % 3 !=
-                                                              1
-                                                          ? Curves.easeIn
-                                                          : Curves.easeIn);
+                                              _controller.animateToPage((_currentPage - 1) % 3,
+                                                  duration: Duration(milliseconds: 500),
+                                                  curve: (_currentPage - 1) % 3 != 1 ? Curves.easeIn : Curves.easeIn);
                                             }
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 color: _currentPage == index
-                                                    ? Theme.of(context)
-                                                        .primaryColor
-                                                    : Theme.of(context)
-                                                        .appBarTheme
-                                                        .backgroundColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
+                                                    ? Theme.of(context).primaryColor
+                                                    : Theme.of(context).appBarTheme.backgroundColor,
+                                                borderRadius: BorderRadius.circular(10)),
                                             height: 70,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2.5,
+                                            width: MediaQuery.of(context).size.width / 2.5,
                                             child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 20),
+                                              padding: EdgeInsets.symmetric(horizontal: 20),
                                               child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   Icon(
                                                     iconbutton[index],
-                                                    color: _currentPage == index
-                                                        ? Colors.white
-                                                        : Colors.black,
+                                                    color: _currentPage == index ? Colors.white : Colors.black,
                                                   ),
                                                   SizedBox(
                                                     width: 5,
                                                   ),
                                                   Text(
                                                     '${buttons[index]}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText1!
-                                                        .copyWith(
-                                                          fontSize:
-                                                              PlatformSize(
-                                                                  context),
-                                                          color: _currentPage ==
-                                                                  index
-                                                              ? Colors.white
-                                                              : Colors.black,
+                                                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                                          fontSize: PlatformSize(context),
+                                                          color: _currentPage == index ? Colors.white : Colors.black,
                                                         ),
                                                   ),
                                                 ],
@@ -437,11 +389,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1!
-                                              .copyWith(
-                                                  fontSize:
-                                                      PlatformSize(context) *
-                                                          1.2,
-                                                  color: Colors.white)),
+                                              .copyWith(fontSize: PlatformSize(context) * 1.2, color: Colors.white)),
                                     ],
                                   ),
                                 ),
@@ -449,12 +397,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: const EdgeInsets.all(4.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(8)),
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
                                       color: Colors.white,
                                     ),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.80,
+                                    height: MediaQuery.of(context).size.height * 0.80,
                                     child: Column(
                                       children: [
                                         SizedBox(
@@ -462,169 +408,89 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(4.0),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     CircleAvatar(
-                                                        backgroundColor:
-                                                            statistics[0]
-                                                                .bgColor
-                                                                .withOpacity(
-                                                                    .2),
+                                                        backgroundColor: statistics[0].bgColor.withOpacity(.2),
                                                         child: Icon(
                                                           statistics[0].icon,
-                                                          color: statistics[0]
-                                                              .iconColor,
+                                                          color: statistics[0].iconColor,
                                                         )),
                                                     SizedBox(width: 10),
                                                     Text(
                                                       statistics[0].name,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1!
-                                                          .copyWith(
-                                                              fontSize:
-                                                                  PlatformSize(
-                                                                          context) *
-                                                                      .9),
+                                                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                                     ),
                                                     SizedBox(height: 10),
-                                                    statistics[0].name ==
-                                                            'ชำระปลายทาง'
+                                                    statistics[0].name == 'ชำระปลายทาง'
                                                         ? Text(
                                                             '${statistics[0].total} บาท',
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1!
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        PlatformSize(context) *
-                                                                            .9),
+                                                            style:
+                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                                           )
                                                         : Text(
                                                             statistics[0].total,
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1!
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        PlatformSize(context) *
-                                                                            .9),
+                                                            style:
+                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                                           ),
                                                   ],
                                                 ),
                                                 Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     CircleAvatar(
-                                                        backgroundColor:
-                                                            statistics[1]
-                                                                .bgColor
-                                                                .withOpacity(
-                                                                    .2),
+                                                        backgroundColor: statistics[1].bgColor.withOpacity(.2),
                                                         child: Icon(
                                                           statistics[1].icon,
-                                                          color: statistics[1]
-                                                              .iconColor,
+                                                          color: statistics[1].iconColor,
                                                         )),
                                                     SizedBox(width: 10),
                                                     Text(
                                                       statistics[1].name,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1!
-                                                          .copyWith(
-                                                              fontSize:
-                                                                  PlatformSize(
-                                                                          context) *
-                                                                      .9),
+                                                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                                     ),
                                                     SizedBox(height: 10),
-                                                    statistics[1].name ==
-                                                            'ชำระปลายทาง'
+                                                    statistics[1].name == 'ชำระปลายทาง'
                                                         ? Text(
                                                             '${statistics[1].total} บาท',
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1!
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        PlatformSize(context) *
-                                                                            .9),
+                                                            style:
+                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                                           )
                                                         : Text(
                                                             statistics[1].total,
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1!
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        PlatformSize(context) *
-                                                                            .9),
+                                                            style:
+                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                                           ),
                                                   ],
                                                 ),
                                                 Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     CircleAvatar(
-                                                        backgroundColor:
-                                                            statistics[2]
-                                                                .bgColor
-                                                                .withOpacity(
-                                                                    .2),
+                                                        backgroundColor: statistics[2].bgColor.withOpacity(.2),
                                                         child: Icon(
                                                           statistics[2].icon,
-                                                          color: statistics[2]
-                                                              .iconColor,
+                                                          color: statistics[2].iconColor,
                                                         )),
                                                     SizedBox(width: 10),
                                                     Text(
                                                       statistics[2].name,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1!
-                                                          .copyWith(
-                                                              fontSize:
-                                                                  PlatformSize(
-                                                                          context) *
-                                                                      .9),
+                                                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                                     ),
                                                     SizedBox(height: 10),
-                                                    statistics[2].name ==
-                                                            'ชำระปลายทาง'
+                                                    statistics[2].name == 'ชำระปลายทาง'
                                                         ? Text(
                                                             '${statistics[2].total} บาท',
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1!
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        PlatformSize(context) *
-                                                                            .9),
+                                                            style:
+                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                                           )
                                                         : Text(
                                                             statistics[1].total,
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1!
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        PlatformSize(context) *
-                                                                            .9),
+                                                            style:
+                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                                           ),
                                                   ],
                                                 ),
@@ -725,21 +591,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                           height: 10,
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Icon(Icons.auto_graph),
                                             SizedBox(
                                               width: 5,
                                             ),
                                             Text('10 จังหวัดส่งของมากที่สุด',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText1!
-                                                    .copyWith(
-                                                        fontSize: PlatformSize(
-                                                                context) *
-                                                            1.2)),
+                                                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * 1.2)),
                                           ],
                                         ),
                                         // ListView.builder(
@@ -755,19 +614,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         //   },
                                         // ),
                                         Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.56,
+                                          height: MediaQuery.of(context).size.height * 0.56,
                                           child: SingleChildScrollView(
                                             child: SafeArea(
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
-                                                children: state.provinceModel!
-                                                    .map((e) {
-                                                  var index = state
-                                                      .provinceModel!
-                                                      .indexOf(e);
+                                                children: state.provinceModel!.map((e) {
+                                                  var index = state.provinceModel!.indexOf(e);
                                                   return Column(
                                                     children: [
                                                       ListTile(
@@ -786,45 +639,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         //     Colors.grey,
                                                         leading: Text(
                                                           '${index + 1}',
-                                                          style: Theme.of(
-                                                                  context)
+                                                          style: Theme.of(context)
                                                               .textTheme
                                                               .bodyText1!
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      PlatformSize(
-                                                                          context),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal),
+                                                              .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
                                                         ),
                                                         title: Text(
                                                           '${e.dstProvince!}',
-                                                          style: Theme.of(
-                                                                  context)
+                                                          style: Theme.of(context)
                                                               .textTheme
                                                               .bodyText1!
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      PlatformSize(
-                                                                          context),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal),
+                                                              .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
                                                         ),
                                                         trailing: Text(
                                                           '${e.totalPack!.toString()} รายการ',
-                                                          style: Theme.of(
-                                                                  context)
+                                                          style: Theme.of(context)
                                                               .textTheme
                                                               .bodyText1!
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      PlatformSize(
-                                                                          context),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal),
+                                                              .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
                                                         ),
                                                       ),
                                                       Divider()

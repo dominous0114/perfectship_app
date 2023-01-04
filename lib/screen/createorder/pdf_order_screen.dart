@@ -44,8 +44,7 @@ class PdfOrderScreen extends StatefulWidget {
   State<PdfOrderScreen> createState() => _PdfOrderScreenState();
 }
 
-class _PdfOrderScreenState extends State<PdfOrderScreen>
-    with SingleTickerProviderStateMixin {
+class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProviderStateMixin {
   String title = 'A4';
 
   String selectIndex = 'A4';
@@ -56,10 +55,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
   final urlController = TextEditingController();
   InAppWebViewController? webViewController;
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(
-        useShouldOverrideUrlLoading: true,
-        mediaPlaybackRequiresUserGesture: true,
-        useOnDownloadStart: true),
+    crossPlatform: InAppWebViewOptions(useShouldOverrideUrlLoading: true, mediaPlaybackRequiresUserGesture: true, useOnDownloadStart: true),
     android: AndroidInAppWebViewOptions(
       useHybridComposition: true,
     ),
@@ -107,8 +103,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
     //     progress = message;
     //   });
     // });
-    IsolateNameServer.registerPortWithName(
-        _port.sendPort, 'downloader_send_port');
+    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
     _port.listen((dynamic data) {
       String id = data[0];
       DownloadTaskStatus status = data[1];
@@ -122,11 +117,9 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
       vsync: this,
       duration: Duration(milliseconds: 260),
     );
-    final curvedAnimation =
-        CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
+    final curvedAnimation = CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
     _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
-    url =
-        '${MyConstant().domainprint}/print/${_papersize!.lower}?order=${widget.pdfData}';
+    url = 'https://customer.perfectship.cloud/print/${_papersize!.lower}?order=${widget.pdfData}';
     // getPDF();
     super.initState();
 
@@ -152,13 +145,8 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
           print("onHideContextMenu");
         },
         onContextMenuActionItemClicked: (contextMenuItemClicked) async {
-          var id = (Platform.isAndroid)
-              ? contextMenuItemClicked.androidId
-              : contextMenuItemClicked.iosId;
-          print("onContextMenuActionItemClicked: " +
-              id.toString() +
-              " " +
-              contextMenuItemClicked.title);
+          var id = (Platform.isAndroid) ? contextMenuItemClicked.androidId : contextMenuItemClicked.iosId;
+          print("onContextMenuActionItemClicked: " + id.toString() + " " + contextMenuItemClicked.title);
         });
 
     pullToRefreshController = PullToRefreshController(
@@ -169,24 +157,20 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
         if (Platform.isAndroid) {
           webViewController?.reload();
         } else if (Platform.isIOS) {
-          webViewController?.loadUrl(
-              urlRequest: URLRequest(url: await webViewController?.getUrl()));
+          webViewController?.loadUrl(urlRequest: URLRequest(url: await webViewController?.getUrl()));
         }
       },
     );
   }
 
-  static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
-    final SendPort send =
-        IsolateNameServer.lookupPortByName('downloader_send_port')!;
+  static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
+    final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
     send.send([id, status, progress]);
   }
 
   Future setPaper({required String paper}) async {
     setState(() {
-      url =
-          '${MyConstant().domainprint}/print/${_papersize!.lower}?order=${widget.pdfData}';
+      url = 'https://customer.perfectship.cloud/print/${_papersize!.lower}?order=${widget.pdfData}';
       urlController.text = url;
       webViewController?.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
     });
@@ -207,10 +191,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
 
     Future<void> share() async {
       await FlutterShare.share(
-          title: 'Example share',
-          text: 'Example share text',
-          linkUrl: 'https://flutter.dev/',
-          chooserTitle: 'Example Chooser Title');
+          title: 'Example share', text: 'Example share text', linkUrl: 'https://flutter.dev/', chooserTitle: 'Example Chooser Title');
     }
 
     Future<void> launchURL(String url) async {
@@ -285,8 +266,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                                     ))
                                 .toList(),
                             onChanged: (value) {
-                              _onDropDownItemSelectedCategory(
-                                  value as PaperSizeModel);
+                              _onDropDownItemSelectedCategory(value as PaperSizeModel);
                               setState(() {
                                 selectIndex = value.lower;
                                 title = value.upper;
@@ -295,13 +275,8 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                             },
                             decoration: InputDecoration(
                               fillColor: Colors.white,
-                              errorStyle: Theme.of(context)
-                                  .textTheme
-                                  .headline4!
-                                  .copyWith(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
+                              errorStyle:
+                                  Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                               //Add isDense true and zero Padding.
                               //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
                               isDense: true,
@@ -326,8 +301,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                             ),
                             iconSize: 30,
                             buttonHeight: 45,
-                            buttonPadding:
-                                const EdgeInsets.only(left: 20, right: 10),
+                            buttonPadding: const EdgeInsets.only(left: 20, right: 10),
                             dropdownDecoration: BoxDecoration(
                               border: Border.all(width: 0.1),
                               color: Colors.white,
@@ -366,10 +340,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                               children: [
                                 Text(
                                   ' คัดลอก',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
+                                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
                                         fontSize: PlatformSize(context),
                                       ),
                                 ),
@@ -381,20 +352,12 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                               ],
                             ),
                             onPressed: () {
-                              Clipboard.setData(ClipboardData(text: url))
-                                  .then((_) {
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                        content: Text(
+                              Clipboard.setData(ClipboardData(text: url)).then((_) {
+                                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text(
                                   "คัดลอก Link $url แล้ว",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                          fontSize: PlatformSize(context),
-                                          color: Colors.white),
+                                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context), color: Colors.white),
                                 )));
                               });
                             }),
@@ -412,8 +375,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                           contextMenu: contextMenu,
                           initialUrlRequest: URLRequest(url: Uri.parse(url)),
                           // initialFile: "assets/index.html",
-                          initialUserScripts:
-                              UnmodifiableListView<UserScript>([]),
+                          initialUserScripts: UnmodifiableListView<UserScript>([]),
                           initialOptions: options,
                           pullToRefreshController: pullToRefreshController,
                           onWebViewCreated: (controller) {
@@ -454,25 +416,13 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                           //     saveInPublicStorage: true,
                           //   );
                           // },
-                          androidOnPermissionRequest:
-                              (controller, origin, resources) async {
-                            return PermissionRequestResponse(
-                                resources: resources,
-                                action: PermissionRequestResponseAction.GRANT);
+                          androidOnPermissionRequest: (controller, origin, resources) async {
+                            return PermissionRequestResponse(resources: resources, action: PermissionRequestResponseAction.GRANT);
                           },
-                          shouldOverrideUrlLoading:
-                              (controller, navigationAction) async {
+                          shouldOverrideUrlLoading: (controller, navigationAction) async {
                             var uri = navigationAction.request.url!;
 
-                            if (![
-                              "http",
-                              "https",
-                              "file",
-                              "chrome",
-                              "data",
-                              "javascript",
-                              "about"
-                            ].contains(uri.scheme)) {
+                            if (!["http", "https", "file", "chrome", "data", "javascript", "about"].contains(uri.scheme)) {
                               if (await canLaunch(url)) {
                                 // Launch the App
                                 await launch(
@@ -505,8 +455,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                               urlController.text = this.url;
                             });
                           },
-                          onUpdateVisitedHistory:
-                              (controller, url, androidIsReload) {
+                          onUpdateVisitedHistory: (controller, url, androidIsReload) {
                             setState(() {
                               this.url = url.toString();
                               urlController.text = this.url;
@@ -552,9 +501,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
               color: Theme.of(context).appBarTheme.backgroundColor,
               shape: CircularNotchedRectangle(),
               child: Container(
-                decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(color: Colors.black54)],
-                    color: Colors.white),
+                decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black54)], color: Colors.white),
                 width: MediaQuery.of(context).size.width,
                 height: 70,
                 child: Padding(
@@ -570,18 +517,12 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text(
                               "คัดลอก Link $url แล้ว",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                      fontSize: PlatformSize(context),
-                                      color: Colors.white),
+                              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context), color: Colors.white),
                             )));
                           });
                         }
                       } else {
-                        webViewController!
-                            .evaluateJavascript(source: 'window.print()');
+                        webViewController!.evaluateJavascript(source: 'window.print()');
                         // .evaluateJavascript(source: ('generatePDF()'));
                         // "var today = new Date();var dd = String(today.getDate()).padStart(2, ‘0’);var mm = String(today.getMonth() + 1).padStart(2, ‘0’); //January is 0!var yyyy = today.getFullYear();today = dd + ‘-’ + mm + ‘-’ + yyyy;const element = document.getElementById(‘page’);let nbPages = 3;var opt = {margin:       0,filename:     today,image:        { type: ‘jpeg’, quality: 0.98 },html2canvas:  { scale: 2},jsPDF:        { unit: ‘mm’, format: ‘a5’, orientation: ‘p’ },pagebreak: { mode: ‘avoid-all’, after:‘.page-break’ }};html2pdf().set(opt).from(element).save();console.log(‘pdf’)");
                       }
@@ -589,24 +530,19 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                     child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.centerLeft,
-                              colors: <Color>[
-                                Color.fromARGB(180, 41, 88, 162),
-                                Color.fromARGB(200, 43, 166, 223),
-                              ]),
+                          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.centerLeft, colors: <Color>[
+                            Color.fromARGB(180, 41, 88, 162),
+                            Color.fromARGB(200, 43, 166, 223),
+                          ]),
                         ),
                         child: _papersize!.lower == 'paperang'
                             ? Platform.isIOS
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8)),
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
                                         child: Image.network(
                                             'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw',
                                             scale: 15),
@@ -619,22 +555,16 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                                         style: Theme.of(context)
                                             .textTheme
                                             .displayLarge!
-                                            .copyWith(
-                                                color: Colors.white,
-                                                fontSize:
-                                                    PlatformSize(context) * 1.4,
-                                                fontWeight: FontWeight.w900),
+                                            .copyWith(color: Colors.white, fontSize: PlatformSize(context) * 1.4, fontWeight: FontWeight.w900),
                                       ),
                                     ],
                                   )
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8)),
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
                                         child: Image.network(
                                             'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw',
                                             scale: 15),
@@ -647,11 +577,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                                         style: Theme.of(context)
                                             .textTheme
                                             .displayLarge!
-                                            .copyWith(
-                                                color: Colors.white,
-                                                fontSize:
-                                                    PlatformSize(context) * 1.4,
-                                                fontWeight: FontWeight.w900),
+                                            .copyWith(color: Colors.white, fontSize: PlatformSize(context) * 1.4, fontWeight: FontWeight.w900),
                                       ),
                                     ],
                                   )
@@ -671,11 +597,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline1!
-                                        .copyWith(
-                                            color: Colors.white,
-                                            fontSize:
-                                                PlatformSize(context) * 1.5,
-                                            fontWeight: FontWeight.w900),
+                                        .copyWith(color: Colors.white, fontSize: PlatformSize(context) * 1.5, fontWeight: FontWeight.w900),
                                   ),
                                 ],
                               )),
@@ -688,8 +610,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen>
   }
 
   _openJioSavaan() async {
-    bool isInstalled =
-        await DeviceApps.isAppInstalled('cn.paperang.international');
+    bool isInstalled = await DeviceApps.isAppInstalled('cn.paperang.international');
     print('isInstalled = $isInstalled');
     if (isInstalled != false) {
       if (Platform.isAndroid) {
@@ -720,9 +641,7 @@ class LoadingIndicator extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Platform.isAndroid
-                  ? CircularProgressIndicator()
-                  : CupertinoActivityIndicator(),
+              Platform.isAndroid ? CircularProgressIndicator() : CupertinoActivityIndicator(),
               Text(
                 'กำลังโหลด',
                 style: Theme.of(context).textTheme.headline3,
