@@ -52,7 +52,7 @@ android {
         applicationId "com.perfectship.app"
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 6
+        versionCode 8
         versionName flutterVersionName
         multiDexEnabled true
     }
