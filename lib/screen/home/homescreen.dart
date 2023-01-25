@@ -9,6 +9,7 @@ import 'package:perfectship_app/model/dashboard_graph_model.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/searchTrackDelegate.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/statistics_model.dart';
 import '../../repository/dashboard_repository.dart';
@@ -148,12 +149,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(
-                        'Perfect Ship',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(fontSize: PlatformSize(context) * 1.3, fontWeight: FontWeight.w900, color: Colors.white),
+                      GestureDetector(
+                        onTap: () {
+                          launchUrl(Uri.parse('https://app-uat.iship.cloud/'));
+                        },
+                        child: Text(
+                          'Perfect Ship',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(fontSize: PlatformSize(context) * 1.3, fontWeight: FontWeight.w900, color: Colors.white),
+                        ),
                       )
                     ],
                   ),
