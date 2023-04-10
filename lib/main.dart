@@ -41,16 +41,14 @@ Future<void> backgroundHandlersss(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(
-      widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
+  FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   FirebaseMessaging.onBackgroundMessage(backgroundHandlersss);
   var _messaging = FirebaseMessaging.instance;
-  NotificationSettings settings = await _messaging.requestPermission(
-      alert: true, badge: true, provisional: true, sound: true);
+  NotificationSettings settings = await _messaging.requestPermission(alert: true, badge: true, provisional: true, sound: true);
 
   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
     print('User granted permission');
@@ -79,34 +77,27 @@ class MyApp extends StatelessWidget {
             create: (context) => DropdownCourierBloc(),
           ),
           BlocProvider(
-            create: (context) =>
-                DashboardBloc(dashboardRepository: DashboardRepository()),
+            create: (context) => DashboardBloc(dashboardRepository: DashboardRepository()),
           ),
           BlocProvider(
-            create: (context) =>
-                BillDetailBloc(billRepository: BillRepository()),
+            create: (context) => BillDetailBloc(billRepository: BillRepository()),
           ),
           BlocProvider(
             create: (context) => BillBloc(billRepository: BillRepository()),
           ),
           BlocProvider(
             create: (context) => UserDataBloc(
-                addressRepository: AddressRepository(),
-                getUserDataRepository: GetUserDataRepository(),
-                bankRepository: BankRepository()),
+                addressRepository: AddressRepository(), getUserDataRepository: GetUserDataRepository(), bankRepository: BankRepository()),
           ),
           BlocProvider(
-            create: (context) =>
-                AddressBloc(addressrepository: AddressRepository()),
+            create: (context) => AddressBloc(addressrepository: AddressRepository()),
           ),
           BlocProvider(
             create: (context) => OrderBloc(orderRepository: OrderRepository()),
           ),
           BlocProvider(
-            create: (context) => TrackBloc(
-                orderRepository: OrderRepository(),
-                trackRepository: TrackRepository(),
-                courierRepository: CourierRepository()),
+            create: (context) =>
+                TrackBloc(orderRepository: OrderRepository(), trackRepository: TrackRepository(), courierRepository: CourierRepository()),
           )
         ],
         child: MaterialApp(
@@ -135,37 +126,22 @@ class MyApp extends StatelessWidget {
                     primarySwatch: Colors.blue,
                     inputDecorationTheme: InputDecorationTheme(
                       border: InputBorder.none,
-                      hintStyle: GoogleFonts.ibmPlexSansThaiTextTheme(
-                              Theme.of(context).textTheme)
-                          .bodyMedium!
-                          .copyWith(fontSize: 16),
+                      hintStyle: GoogleFonts.ibmPlexSansThaiTextTheme(Theme.of(context).textTheme).bodyMedium!.copyWith(fontSize: 16),
                     ),
-                    useMaterial3: true,
+                    useMaterial3: false,
                     secondaryHeaderColor: Colors.blue,
                     primaryColor: Colors.blue.shade900,
-                    buttonBarTheme: ButtonBarThemeData(
-                        buttonTextTheme: ButtonTextTheme.primary),
+                    buttonBarTheme: ButtonBarThemeData(buttonTextTheme: ButtonTextTheme.primary),
                     appBarTheme: AppBarTheme(
                             elevation: 0,
                             backgroundColor: Colors.white,
-                            toolbarTextStyle:
-                                GoogleFonts.ibmPlexSansThaiTextTheme(
-                                        Theme.of(context).textTheme)
-                                    .bodyText2!
-                                    .copyWith(fontSize: 16),
-                            titleTextStyle:
-                                GoogleFonts.ibmPlexSansThaiTextTheme(
-                                        Theme.of(context).textTheme)
-                                    .headline6!
-                                    .copyWith(fontSize: 16))
+                            toolbarTextStyle: GoogleFonts.ibmPlexSansThaiTextTheme(Theme.of(context).textTheme).bodyText2!.copyWith(fontSize: 16),
+                            titleTextStyle: GoogleFonts.ibmPlexSansThaiTextTheme(Theme.of(context).textTheme).headline6!.copyWith(fontSize: 16))
                         .copyWith(),
-                    colorScheme: ColorScheme.fromSwatch()
-                        .copyWith(secondary: Colors.blue, primary: Colors.blue))
+                    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.blue, primary: Colors.blue))
                 .copyWith(
-              textTheme: GoogleFonts.ibmPlexSansThaiTextTheme(Theme.of(context)
-                  .textTheme
-                  .copyWith(
-                      headline6: TextStyle(fontSize: 16, color: Colors.black))),
+              textTheme:
+                  GoogleFonts.ibmPlexSansThaiTextTheme(Theme.of(context).textTheme.copyWith(headline6: TextStyle(fontSize: 16, color: Colors.black))),
 
               snackBarTheme: SnackBarThemeData(
                 contentTextStyle: GoogleFonts.ibmPlexSansThai(),
