@@ -11,6 +11,7 @@ import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/config/constant.dart';
 import 'package:perfectship_app/repository/track_repository.dart';
 import 'package:perfectship_app/screen/orderlist/tracking_screen.dart';
+import 'package:perfectship_app/widget/allkey.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 import 'package:intl/intl.dart';
@@ -30,8 +31,8 @@ class OrderListScreen extends StatefulWidget {
 
 class _OrderListScreenState extends State<OrderListScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
-  bool _isSelect = false;
-  bool _isSelectAll = false;
+  // bool Allkey.isSelected = false;
+  // bool Allkey.isSelectedAll = false;
   String path = '/tracking?id=';
 
   bool isPlaying = false;
@@ -57,6 +58,7 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
   _onSelectFilterStatusPrint(Printed printed) {
     setState(() {
       _printed = printed;
+      //Allkey.isSelected
     });
   }
 
@@ -80,7 +82,7 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
   }
 
   buildSearch(BuildContext context, int total, TrackLoaded state) {
-    return _isSelect == true
+    return Allkey.isSelected == true
         ? Container(
             decoration:
                 BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .2, color: Colors.grey.shade400)]),
@@ -103,11 +105,11 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                     shape: CircleBorder(),
                                     fillColor: MaterialStateProperty.all(Colors.blue),
                                     checkColor: Colors.white,
-                                    value: _isSelectAll,
+                                    value: Allkey.isSelectedAll,
                                     onChanged: (value) {
                                       setState(() {
-                                        _isSelectAll = !_isSelectAll;
-                                        if (_isSelectAll) {
+                                        Allkey.isSelectedAll = !Allkey.isSelectedAll;
+                                        if (Allkey.isSelectedAll) {
                                           _selectedItems = state.trackmodel.map((e) => e.id).toList();
                                         } else {
                                           _selectedItems.clear();
@@ -138,9 +140,9 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                   final trackId = removeDoubleQte;
                                   Navigator.pushNamed(context, '/pdforder', arguments: trackId);
                                   setState(() {
-                                    _isSelect = !_isSelect;
-                                    if (_isSelect == false) {
-                                      _isSelectAll = false;
+                                    Allkey.isSelected = !Allkey.isSelected;
+                                    if (Allkey.isSelected == false) {
+                                      Allkey.isSelectedAll = false;
                                       _selectedItems.clear();
                                     }
                                   });
@@ -191,9 +193,9 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        _isSelect = !_isSelect;
-                        if (_isSelect == false) {
-                          _isSelectAll = false;
+                        Allkey.isSelected = !Allkey.isSelected;
+                        if (Allkey.isSelected == false) {
+                          Allkey.isSelectedAll = false;
                           _selectedItems.clear();
                         }
                       });
@@ -298,13 +300,21 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                             padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                             child: Row(
                               children: [
-                                Text(
-                                  'ทั้งหมด $total รายการ',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.black),
-                                ),
+                                total == 0
+                                    ? Text(
+                                        'ไม่พบรายการ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.black),
+                                      )
+                                    : Text(
+                                        'ทั้งหมด $total รายการ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.black),
+                                      ),
                               ],
                             ),
                           ),
@@ -353,7 +363,7 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                       : GestureDetector(
                           onTap: () {
                             setState(() {
-                              _isSelect = !_isSelect;
+                              Allkey.isSelected = !Allkey.isSelected;
                             });
                           },
                           child: Container(
@@ -381,6 +391,7 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
 
   @override
   void initState() {
+    Allkey.isSelected = Allkey.isSelected;
     _printed = Printed.printed.first;
 
     print(_startDate.toString());
@@ -1075,292 +1086,283 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                             });
                           });
                         },
-                        child: ListView.builder(
-                          controller: scrollController,
-                          //physics: AlwaysScrollableScrollPhysics(),
-                          itemCount: state.trackmodel.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                              child: Slidable(
-                                enabled: !_isSelect,
-                                endActionPane: state.trackmodel[index].inBill == 1
-                                    ? ActionPane(extentRatio: 2 / 5, motion: DrawerMotion(), children: [
-                                        SlidableAction(
-                                          onPressed: (context) {
-                                            Navigator.pushNamed(context, '/pdforder', arguments: state.trackmodel[index].id.toString());
+                        child: state.trackmodel.length == 0
+                            ? Center(child: Text('ไม่พบข้อมูล'))
+                            : ListView.builder(
+                                controller: Allkey.orderScrollController,
+                                //physics: AlwaysScrollableScrollPhysics(),
+                                itemCount: state.trackmodel.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                                    child: Slidable(
+                                      enabled: !Allkey.isSelected,
+                                      endActionPane: state.trackmodel[index].inBill == 1
+                                          ? ActionPane(extentRatio: 2 / 5, motion: DrawerMotion(), children: [
+                                              SlidableAction(
+                                                onPressed: (context) {
+                                                  Navigator.pushNamed(context, '/pdforder', arguments: state.trackmodel[index].id.toString());
 
-                                            context.read<TrackBloc>().add(TrackFilterEvent(
-                                                start: DateFormat('yyyy-MM-dd').format(_startDate),
-                                                end: DateFormat('yyyy-MM-dd').format(_endDate),
-                                                courier: state.courierSelected.code.toString(),
-                                                printing: _printed!.id,
-                                                order: state.statusSelected.id.toString()));
-                                          },
-                                          label: 'พิมพ์',
-                                          icon: CupertinoIcons.printer,
-                                          foregroundColor: Colors.blue,
-                                          backgroundColor: Colors.white,
-                                        ),
-                                      ])
-                                    : state.trackmodel[index].statusId == 1
-                                        ? ActionPane(extentRatio: 3 / 5, motion: DrawerMotion(), children: [
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                Navigator.pushNamed(context, '/pdforder', arguments: state.trackmodel[index].id.toString());
+                                                  context.read<TrackBloc>().add(TrackFilterEvent(
+                                                      start: DateFormat('yyyy-MM-dd').format(_startDate),
+                                                      end: DateFormat('yyyy-MM-dd').format(_endDate),
+                                                      courier: state.courierSelected.code.toString(),
+                                                      printing: _printed!.id,
+                                                      order: state.statusSelected.id.toString()));
+                                                },
+                                                label: 'พิมพ์',
+                                                icon: CupertinoIcons.printer,
+                                                foregroundColor: Colors.blue,
+                                                backgroundColor: Colors.white,
+                                              ),
+                                            ])
+                                          : state.trackmodel[index].statusId == 1
+                                              ? ActionPane(extentRatio: 3 / 5, motion: DrawerMotion(), children: [
+                                                  SlidableAction(
+                                                    onPressed: (context) {
+                                                      Navigator.pushNamed(context, '/pdforder', arguments: state.trackmodel[index].id.toString());
 
-                                                context.read<TrackBloc>().add(TrackFilterEvent(
-                                                    start: DateFormat('yyyy-MM-dd').format(_startDate),
-                                                    end: DateFormat('yyyy-MM-dd').format(_endDate),
-                                                    courier: state.courierSelected.code.toString(),
-                                                    printing: _printed!.id,
-                                                    order: state.statusSelected.id.toString()));
-                                              },
-                                              label: 'พิมพ์',
-                                              icon: CupertinoIcons.printer,
-                                              foregroundColor: Colors.blue,
-                                              backgroundColor: Colors.white,
-                                            ),
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                _showAlertDelete(context, state.trackmodel[index].id.toString(), state.trackmodel[index].courierCode!,
-                                                    state.trackmodel[index].refCode!);
-                                              },
-                                              label: 'ยกเลิก',
-                                              icon: CupertinoIcons.delete,
-                                              foregroundColor: Colors.red,
-                                              backgroundColor: Colors.white,
-                                            )
-                                          ])
-                                        : ActionPane(extentRatio: 2 / 5, motion: DrawerMotion(), children: [
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                Navigator.pushNamed(context, '/pdforder', arguments: state.trackmodel[index].id.toString());
+                                                      context.read<TrackBloc>().add(TrackFilterEvent(
+                                                          start: DateFormat('yyyy-MM-dd').format(_startDate),
+                                                          end: DateFormat('yyyy-MM-dd').format(_endDate),
+                                                          courier: state.courierSelected.code.toString(),
+                                                          printing: _printed!.id,
+                                                          order: state.statusSelected.id.toString()));
+                                                    },
+                                                    label: 'พิมพ์',
+                                                    icon: CupertinoIcons.printer,
+                                                    foregroundColor: Colors.blue,
+                                                    backgroundColor: Colors.white,
+                                                  ),
+                                                  SlidableAction(
+                                                    onPressed: (context) {
+                                                      _showAlertDelete(context, state.trackmodel[index].id.toString(),
+                                                          state.trackmodel[index].courierCode!, state.trackmodel[index].refCode!);
+                                                    },
+                                                    label: 'ยกเลิก',
+                                                    icon: CupertinoIcons.delete,
+                                                    foregroundColor: Colors.red,
+                                                    backgroundColor: Colors.white,
+                                                  )
+                                                ])
+                                              : ActionPane(extentRatio: 2 / 5, motion: DrawerMotion(), children: [
+                                                  SlidableAction(
+                                                    onPressed: (context) {
+                                                      Navigator.pushNamed(context, '/pdforder', arguments: state.trackmodel[index].id.toString());
 
-                                                context.read<TrackBloc>().add(TrackFilterEvent(
-                                                    start: DateFormat('yyyy-MM-dd').format(_startDate),
-                                                    end: DateFormat('yyyy-MM-dd').format(_endDate),
-                                                    courier: state.courierSelected.code.toString(),
-                                                    printing: _printed!.id,
-                                                    order: state.statusSelected.id.toString()));
-                                              },
-                                              label: 'พิมพ์',
-                                              icon: CupertinoIcons.printer,
-                                              foregroundColor: Colors.blue,
-                                              backgroundColor: Colors.white,
-                                            ),
-                                          ]),
-                                child: GestureDetector(
-                                  onLongPress: () {
-                                    setState(() {
-                                      if (_selectedItems.isEmpty) {
-                                        _isSelect = true;
-                                        //Vibration.vibrate(duration: 50);
-                                        _selectedItems.add(state.trackmodel[index].id);
-                                      }
-                                    });
-                                  },
-                                  onTap: _isSelect
-                                      ? () {
+                                                      context.read<TrackBloc>().add(TrackFilterEvent(
+                                                          start: DateFormat('yyyy-MM-dd').format(_startDate),
+                                                          end: DateFormat('yyyy-MM-dd').format(_endDate),
+                                                          courier: state.courierSelected.code.toString(),
+                                                          printing: _printed!.id,
+                                                          order: state.statusSelected.id.toString()));
+                                                    },
+                                                    label: 'พิมพ์',
+                                                    icon: CupertinoIcons.printer,
+                                                    foregroundColor: Colors.blue,
+                                                    backgroundColor: Colors.white,
+                                                  ),
+                                                ]),
+                                      child: GestureDetector(
+                                        onLongPress: () {
                                           setState(() {
-                                            if (_selectedItems.contains(state.trackmodel[index].id)) {
-                                              _selectedItems.removeWhere((val) => val == state.trackmodel[index].id);
-                                            } else {
+                                            if (_selectedItems.isEmpty) {
+                                              Allkey.isSelected = true;
+                                              //Vibration.vibrate(duration: 50);
                                               _selectedItems.add(state.trackmodel[index].id);
                                             }
                                           });
-                                        }
-                                      : () {
-                                          String url = MyConstant().domainprint;
-                                          if (state.trackmodel[index].courierCode == 'NinjaVan') {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => TrackingScreen(
-                                                        url: 'https://www.ninjavan.co/th-th',
-                                                        path: path,
-                                                        trackingNo: state.trackmodel[index].trackNo!)));
-                                          } else {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => TrackingScreen(
-                                                        url: url, path: '/tracking?track=', trackingNo: state.trackmodel[index].trackNo!)));
-                                          }
                                         },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        // border: Border.all(
-                                        //   width: 0.5,
-                                        //   color: Colors.black54,
-                                        // ),
-                                        boxShadow: [
-                                          _selectedItems.contains(state.trackmodel[index].id)
-                                              ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4)
-                                              : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)
-                                        ],
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Container(
-                                                width: MediaQuery.of(context).size.width * 0.23,
-                                                child: state.trackmodel[index].courierCode == 'FlashExpress'
-                                                    ? Image.network(
-                                                        '${state.trackmodel[index].logoMobile}',
-                                                      )
-                                                    : ClipRRect(
-                                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                        child: Image.network(
-                                                          '${state.trackmodel[index].logoMobile}',
-                                                        ),
-                                                      ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 6,
-                                            ),
-                                            Expanded(
-                                              child: Container(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          'เลขพัสดุ : ',
-                                                          style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                              fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
-                                                        ),
-                                                        Expanded(
-                                                          child: Text(
-                                                            '${state.trackmodel[index].trackNo}',
-                                                            style: Theme.of(context)
-                                                                .textTheme
-                                                                .headline4!
-                                                                .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          'ผู้รับ : ',
-                                                          style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                              fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
-                                                        ),
-                                                        Text(
-                                                          '${state.trackmodel[index].dstName}',
-                                                          style: Theme.of(context)
-                                                              .textTheme
-                                                              .headline4!
-                                                              .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          'เบอร์โทร : ',
-                                                          style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                              fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
-                                                        ),
-                                                        Text(
-                                                          '${state.trackmodel[index].dstPhone}',
-                                                          style: Theme.of(context)
-                                                              .textTheme
-                                                              .headline4!
-                                                              .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          'วันที่ : ',
-                                                          style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                              fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
-                                                        ),
-                                                        Text(
-                                                          DateFormat.yMd('th')
-                                                              .add_jms()
-                                                              .format(DateTime.parse('${state.trackmodel[index].createdAt}')),
-                                                          style: Theme.of(context)
-                                                              .textTheme
-                                                              .headline4!
-                                                              .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          'COD : ',
-                                                          style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                              fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
-                                                        ),
-                                                        Text(
-                                                          '${state.trackmodel[index].codAmount}',
-                                                          style: Theme.of(context)
-                                                              .textTheme
-                                                              .headline4!
-                                                              .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        Container(
+                                        onTap: Allkey.isSelected
+                                            ? () {
+                                                setState(() {
+                                                  if (_selectedItems.contains(state.trackmodel[index].id)) {
+                                                    _selectedItems.removeWhere((val) => val == state.trackmodel[index].id);
+                                                  } else {
+                                                    _selectedItems.add(state.trackmodel[index].id);
+                                                  }
+                                                });
+                                              }
+                                            : () {
+                                                String url = MyConstant().domainprint;
+                                                if (state.trackmodel[index].courierCode == 'NinjaVan') {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) => TrackingScreen(
+                                                              url: 'https://www.ninjavan.co/th-th',
+                                                              path: path,
+                                                              trackingNo: state.trackmodel[index].trackNo!)));
+                                                } else {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) => TrackingScreen(
+                                                              url: url, path: '/tracking?track=', trackingNo: state.trackmodel[index].trackNo!)));
+                                                }
+                                              },
+                                        child: Container(
                                           decoration: BoxDecoration(
-                                              color: Colors.blueGrey.shade100,
-                                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'ที่อยู่ : ',
-                                                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                          fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
+                                              // border: Border.all(
+                                              //   width: 0.5,
+                                              //   color: Colors.black54,
+                                              // ),
+                                              boxShadow: [
+                                                _selectedItems.contains(state.trackmodel[index].id)
+                                                    ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4)
+                                                    : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)
+                                              ],
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(Radius.circular(8))),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(4.0),
+                                                    child: Container(
+                                                      width: MediaQuery.of(context).size.width * 0.23,
+                                                      child: state.trackmodel[index].courierCode == 'FlashExpress'
+                                                          ? Image.network(
+                                                              '${state.trackmodel[index].logoMobile}',
+                                                            )
+                                                          : ClipRRect(
+                                                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                              child: Image.network(
+                                                                '${state.trackmodel[index].logoMobile}',
+                                                              ),
+                                                            ),
                                                     ),
-                                                    Expanded(
-                                                      child: Text(
-                                                        '${state.trackmodel[index].dstAddress} ${state.trackmodel[index].dstZipcode}',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .headline4!
-                                                            .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 6,
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'เลขพัสดุ : ',
+                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.black87,
+                                                                    fontSize: PlatformSize(context)),
+                                                              ),
+                                                              Expanded(
+                                                                child: Text(
+                                                                  '${state.trackmodel[index].trackNo}',
+                                                                  style: Theme.of(context)
+                                                                      .textTheme
+                                                                      .headline4!
+                                                                      .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'ผู้รับ : ',
+                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.black87,
+                                                                    fontSize: PlatformSize(context)),
+                                                              ),
+                                                              Text(
+                                                                '${state.trackmodel[index].dstName}',
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headline4!
+                                                                    .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'เบอร์โทร : ',
+                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.black87,
+                                                                    fontSize: PlatformSize(context)),
+                                                              ),
+                                                              Text(
+                                                                '${state.trackmodel[index].dstPhone}',
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headline4!
+                                                                    .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'วันที่ : ',
+                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.black87,
+                                                                    fontSize: PlatformSize(context)),
+                                                              ),
+                                                              Text(
+                                                                DateFormat.yMd('th')
+                                                                    .add_jms()
+                                                                    .format(DateTime.parse('${state.trackmodel[index].createdAt}')),
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headline4!
+                                                                    .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'COD : ',
+                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.black87,
+                                                                    fontSize: PlatformSize(context)),
+                                                              ),
+                                                              Text(
+                                                                '${state.trackmodel[index].codAmount}',
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headline4!
+                                                                    .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-                                                state.trackmodel[index].remark == null
-                                                    ? SizedBox()
-                                                    : Row(
+                                                  )
+                                                ],
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.blueGrey.shade100,
+                                                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(4.0),
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Text(
-                                                            'หมายเหตุ : ',
+                                                            'ที่อยู่ : ',
                                                             style: Theme.of(context).textTheme.headline4!.copyWith(
                                                                 fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
                                                           ),
                                                           Expanded(
                                                             child: Text(
-                                                              '${state.trackmodel[index].remark}',
+                                                              '${state.trackmodel[index].dstAddress} ${state.trackmodel[index].dstZipcode}',
                                                               style: Theme.of(context)
                                                                   .textTheme
                                                                   .headline4!
@@ -1369,122 +1371,149 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                           ),
                                                         ],
                                                       ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      'สถานะ : ',
-                                                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                          fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Color(_getColorFromHex(state.trackmodel[index].statusColor!)).withOpacity(.75),
-                                                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.all(4.0),
-                                                        child: Text(
-                                                          state.trackmodel[index].statusName!,
-                                                          style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                              fontWeight: FontWeight.bold, color: Colors.white, fontSize: PlatformSize(context)),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          boxShadow: [
-                                                            BoxShadow(
-                                                                color: state.trackmodel[index].printCount! > 0 ? Colors.black54 : Colors.white,
-                                                                blurRadius: 0.5)
-                                                          ],
-                                                          color: state.trackmodel[index].printCount! > 0 ? Colors.white : Colors.black54,
-                                                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                      child: Padding(
-                                                          padding: const EdgeInsets.all(4.0),
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              print('gesture');
-                                                              print(_isSelect);
-                                                              _isSelect == true
-                                                                  ? setState(() {
-                                                                      if (_selectedItems.contains(state.trackmodel[index].id)) {
-                                                                        _selectedItems.removeWhere((val) => val == state.trackmodel[index].id);
-                                                                      } else {
-                                                                        _selectedItems.add(state.trackmodel[index].id);
-                                                                      }
-                                                                    })
-                                                                  : pushprint(state.trackmodel[index].id!, state.courierSelected.code.toString(),
-                                                                      state.statusSelected.id.toString());
-                                                            },
-                                                            child: state.trackmodel[index].printCount! > 0
-                                                                ? Row(
-                                                                    children: [
-                                                                      badges.Badge(
-                                                                        padding: EdgeInsets.all(1),
-                                                                        position: BadgePosition(bottom: 13, start: 14),
-                                                                        elevation: 1,
-                                                                        badgeContent: Icon(
-                                                                          CupertinoIcons.checkmark_alt,
-                                                                          color: Colors.green,
-                                                                          size: 14,
-                                                                        ),
-                                                                        badgeColor: Colors.white,
-                                                                        child: Icon(
-                                                                          Icons.print_rounded,
-                                                                          color: Colors.black54,
-                                                                        ),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width: 5,
-                                                                      ),
-                                                                      Text(
-                                                                        'พิมพ์แล้ว',
-                                                                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                            fontWeight: FontWeight.bold,
-                                                                            color: Colors.black54,
-                                                                            fontSize: PlatformSize(context)),
-                                                                      ),
-                                                                    ],
-                                                                  )
-                                                                : Row(
-                                                                    children: [
-                                                                      Icon(
-                                                                        Icons.print_rounded,
-                                                                        color: Colors.white,
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width: 5,
-                                                                      ),
-                                                                      Text(
-                                                                        'รอพิมพ์',
-                                                                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                            fontWeight: FontWeight.bold,
-                                                                            color: Colors.white,
-                                                                            fontSize: PlatformSize(context)),
-                                                                      ),
-                                                                    ],
+                                                      state.trackmodel[index].remark == null
+                                                          ? SizedBox()
+                                                          : Row(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                Text(
+                                                                  'หมายเหตุ : ',
+                                                                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                      fontWeight: FontWeight.bold,
+                                                                      color: Colors.black87,
+                                                                      fontSize: PlatformSize(context)),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${state.trackmodel[index].remark}',
+                                                                    style: Theme.of(context)
+                                                                        .textTheme
+                                                                        .headline4!
+                                                                        .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
                                                                   ),
-                                                          )),
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            'สถานะ : ',
+                                                            style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Container(
+                                                            decoration: BoxDecoration(
+                                                                color: Color(_getColorFromHex(state.trackmodel[index].statusColor!)).withOpacity(.75),
+                                                                borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.all(4.0),
+                                                              child: Text(
+                                                                state.trackmodel[index].statusName!,
+                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: Colors.white,
+                                                                    fontSize: PlatformSize(context)),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                          Container(
+                                                            decoration: BoxDecoration(
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: state.trackmodel[index].printCount! > 0 ? Colors.black54 : Colors.white,
+                                                                      blurRadius: 0.5)
+                                                                ],
+                                                                color: state.trackmodel[index].printCount! > 0 ? Colors.white : Colors.black54,
+                                                                borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                            child: Padding(
+                                                                padding: const EdgeInsets.all(4.0),
+                                                                child: GestureDetector(
+                                                                  onTap: () {
+                                                                    print('gesture');
+                                                                    print(Allkey.isSelected);
+                                                                    Allkey.isSelected == true
+                                                                        ? setState(() {
+                                                                            if (_selectedItems.contains(state.trackmodel[index].id)) {
+                                                                              _selectedItems.removeWhere((val) => val == state.trackmodel[index].id);
+                                                                            } else {
+                                                                              _selectedItems.add(state.trackmodel[index].id);
+                                                                            }
+                                                                          })
+                                                                        : pushprint(
+                                                                            state.trackmodel[index].id!,
+                                                                            state.courierSelected.code.toString(),
+                                                                            state.statusSelected.id.toString());
+                                                                  },
+                                                                  child: state.trackmodel[index].printCount! > 0
+                                                                      ? Row(
+                                                                          children: [
+                                                                            badges.Badge(
+                                                                              padding: EdgeInsets.all(1),
+                                                                              position: BadgePosition(bottom: 13, start: 14),
+                                                                              elevation: 1,
+                                                                              badgeContent: Icon(
+                                                                                CupertinoIcons.checkmark_alt,
+                                                                                color: Colors.green,
+                                                                                size: 14,
+                                                                              ),
+                                                                              badgeColor: Colors.white,
+                                                                              child: Icon(
+                                                                                Icons.print_rounded,
+                                                                                color: Colors.black54,
+                                                                              ),
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: 5,
+                                                                            ),
+                                                                            Text(
+                                                                              'พิมพ์แล้ว',
+                                                                              style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  color: Colors.black54,
+                                                                                  fontSize: PlatformSize(context)),
+                                                                            ),
+                                                                          ],
+                                                                        )
+                                                                      : Row(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.print_rounded,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: 5,
+                                                                            ),
+                                                                            Text(
+                                                                              'รอพิมพ์',
+                                                                              style: Theme.of(context).textTheme.headline4!.copyWith(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  color: Colors.white,
+                                                                                  fontSize: PlatformSize(context)),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                )),
+                                                          )
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                        )
-                                      ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
                       ),
                     )
                   ],

@@ -6,6 +6,7 @@ import 'package:perfectship_app/bloc/dashboard_bloc/dashboard_bloc.dart';
 
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/model/dashboard_graph_model.dart';
+import 'package:perfectship_app/widget/allkey.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/searchTrackDelegate.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
@@ -239,6 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   CreditLog(creditLog: credits),
                 ];
                 return SingleChildScrollView(
+                  controller: Allkey.homeScrollController,
                   child: Column(
                     children: [
                       buildFilter(context),

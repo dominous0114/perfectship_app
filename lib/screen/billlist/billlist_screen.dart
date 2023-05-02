@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
 import 'package:perfectship_app/repository/bill_repository.dart';
+import 'package:perfectship_app/widget/allkey.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 
@@ -18,8 +19,7 @@ class BillListScreen extends StatefulWidget {
   State<BillListScreen> createState() => _BillListScreenState();
 }
 
-class _BillListScreenState extends State<BillListScreen>
-    with TickerProviderStateMixin {
+class _BillListScreenState extends State<BillListScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
   bool isPlaying = false;
   TextEditingController textController = TextEditingController();
@@ -27,15 +27,12 @@ class _BillListScreenState extends State<BillListScreen>
   DateTime _startDate = DateTime.now().subtract(Duration(days: 30));
   DateTime _endDate = DateTime.now();
   String lid = '';
-  static final GlobalKey<ScaffoldState> scaffoldKey =
-      GlobalKey<ScaffoldState>();
+  static final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late NavigatorState _navigator;
   void _handleOnPressed() {
     setState(() {
       isPlaying = !isPlaying;
-      isPlaying
-          ? _animationController.forward()
-          : _animationController.reverse();
+      isPlaying ? _animationController.forward() : _animationController.reverse();
       print(isPlaying);
     });
   }
@@ -54,12 +51,7 @@ class _BillListScreenState extends State<BillListScreen>
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset.zero,
-                                spreadRadius: .3,
-                                color: Colors.grey)
-                          ]),
+                          boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                       child: TextFormField(
                         style: TextStyle(fontSize: PlatformSize(context)),
                         cursorColor: Colors.blue.shade300,
@@ -71,14 +63,9 @@ class _BillListScreenState extends State<BillListScreen>
                           if (textController.text == '') {
                             context.read<BillBloc>().add(BillInitialEvent());
                           } else {
-                            String formattedDate2 =
-                                DateFormat('yyyy-MM-dd').format(_endDate);
-                            String formattedDate =
-                                DateFormat('yyyy-MM-dd').format(_startDate);
-                            context.read<BillBloc>().add(BillFilterSearchEvent(
-                                keyword: keyword,
-                                end: formattedDate2,
-                                start: formattedDate));
+                            String formattedDate2 = DateFormat('yyyy-MM-dd').format(_endDate);
+                            String formattedDate = DateFormat('yyyy-MM-dd').format(_startDate);
+                            context.read<BillBloc>().add(BillFilterSearchEvent(keyword: keyword, end: formattedDate2, start: formattedDate));
                           }
                         },
                         decoration: InputDecoration(
@@ -91,9 +78,7 @@ class _BillListScreenState extends State<BillListScreen>
                             ),
                             suffix: TextButton(
                               onPressed: () {
-                                context
-                                    .read<BillBloc>()
-                                    .add(BillInitialEvent());
+                                context.read<BillBloc>().add(BillInitialEvent());
                                 setState(() {
                                   textController.clear();
                                   searchFocusNode.unfocus();
@@ -101,12 +86,7 @@ class _BillListScreenState extends State<BillListScreen>
                               },
                               child: Text(
                                 'ล้าง',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(
-                                        color: Colors.blue.shade300,
-                                        fontSize: PlatformSize(context)),
+                                style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.blue.shade300, fontSize: PlatformSize(context)),
                               ),
                             ),
                             border: InputBorder.none,
@@ -114,10 +94,7 @@ class _BillListScreenState extends State<BillListScreen>
                             hintStyle: Theme.of(context)
                                 .textTheme
                                 .headline4!
-                                .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
-                                    fontSize: PlatformSize(context))),
+                                .copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: PlatformSize(context))),
                       ),
                     ),
                   )
@@ -132,10 +109,7 @@ class _BillListScreenState extends State<BillListScreen>
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1!
-                                .copyWith(
-                                    fontSize: PlatformSize(context) * 1.2,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.black),
                           ),
                         ],
                       ),
@@ -150,12 +124,7 @@ class _BillListScreenState extends State<BillListScreen>
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset.zero,
-                            spreadRadius: .3,
-                            color: Colors.grey)
-                      ]),
+                      boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                   child: Center(
                     child: AnimatedIcon(
                       color: Colors.black54,
@@ -173,8 +142,7 @@ class _BillListScreenState extends State<BillListScreen>
                     helpText: 'เลือกวันที่หรือช่วงวันที่',
                     cancelText: 'ยกเลิก',
                     confirmText: 'ตกลง',
-                    initialDateRange:
-                        DateTimeRange(start: _startDate, end: _endDate),
+                    initialDateRange: DateTimeRange(start: _startDate, end: _endDate),
                     firstDate: DateTime(2020),
                     // the earliest allowable
                     lastDate: DateTime.now(),
@@ -194,13 +162,10 @@ class _BillListScreenState extends State<BillListScreen>
                     _startDate = picked.start;
                     _endDate = picked.end;
 
-                    String formattedDate2 =
-                        DateFormat('yyyy-MM-dd').format(_endDate);
-                    String formattedDate =
-                        DateFormat('yyyy-MM-dd').format(_startDate);
+                    String formattedDate2 = DateFormat('yyyy-MM-dd').format(_endDate);
+                    String formattedDate = DateFormat('yyyy-MM-dd').format(_startDate);
                     print('forend = $formattedDate2');
-                    context.read<BillBloc>().add(BillFilterDateEvent(
-                        start: formattedDate, end: formattedDate2));
+                    context.read<BillBloc>().add(BillFilterDateEvent(start: formattedDate, end: formattedDate2));
                     //firstTimeController.text = '${formattedDate} - $formattedDate2';
                   });
                 }
@@ -209,20 +174,12 @@ class _BillListScreenState extends State<BillListScreen>
                   height: 50,
                   width: 50,
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Color.fromARGB(200, 43, 166, 223),
-                            Color.fromARGB(180, 41, 88, 162),
-                          ]),
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset.zero,
-                            spreadRadius: .3,
-                            color: Colors.grey)
+                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
+                        Color.fromARGB(200, 43, 166, 223),
+                        Color.fromARGB(180, 41, 88, 162),
                       ]),
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                   child: Center(
                     child: Icon(
                       CupertinoIcons.calendar,
@@ -238,8 +195,7 @@ class _BillListScreenState extends State<BillListScreen>
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     context.read<BillBloc>().add(BillInitialEvent());
     super.initState();
   }
@@ -297,10 +253,7 @@ class _BillListScreenState extends State<BillListScreen>
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineMedium!
-                                .copyWith(
-                                    fontSize: PlatformSize(context) * 1.2,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
                           )
                         ],
                       ),
@@ -328,131 +281,86 @@ class _BillListScreenState extends State<BillListScreen>
                     return Column(
                       children: [
                         Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [BoxShadow(color: Colors.black)]),
+                          decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black)]),
                           child: buildSearch(context, state.billmodel.length),
                         ),
                         Expanded(
                           child: RefreshIndicator(
                             onRefresh: () async {
-                              await Future.delayed(Duration(milliseconds: 1000),
-                                  () {
-                                _startDate =
-                                    DateTime.now().subtract(Duration(days: 30));
+                              await Future.delayed(Duration(milliseconds: 1000), () {
+                                _startDate = DateTime.now().subtract(Duration(days: 30));
                                 _endDate = DateTime.now();
-                                context
-                                    .read<BillBloc>()
-                                    .add(BillInitialEvent());
+                                context.read<BillBloc>().add(BillInitialEvent());
                               });
                             },
                             child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              controller: Allkey.billScrollController,
+                              //physics: NeverScrollableScrollPhysics(),
                               itemCount: state.billmodel.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 6, vertical: 3),
+                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                   child: Slidable(
-                                    enabled: state.billmodel[index].isPrint == 1
-                                        ? true
-                                        : false,
-                                    endActionPane: ActionPane(
-                                        extentRatio: 1,
-                                        motion: DrawerMotion(),
-                                        children: [
-                                          SlidableAction(
-                                            onPressed: (context) async {
-                                              await BillRepository()
-                                                  .getBillDetail(state
-                                                      .billmodel[index].id
-                                                      .toString())
-                                                  .then((value) async {
-                                                var enval = value.map((e) =>
-                                                    e.orderId.toString());
-                                                String enval2 =
-                                                    enval.toString();
-                                                final removefirst =
-                                                    enval2.replaceAll('(', '');
-                                                final removelast = removefirst
-                                                    .replaceAll(')', '');
-                                                setState(() {
-                                                  lid = removelast;
-                                                  print('lid = $lid');
-                                                });
-                                                Navigator.pushNamed(
-                                                    scaffoldKey.currentContext!,
-                                                    '/pdforder',
-                                                    arguments: lid);
-                                              });
-                                            },
-                                            label: 'ใบเสร็จ',
-                                            icon: CupertinoIcons.printer,
-                                            foregroundColor: Color.fromARGB(
-                                                200, 43, 166, 223),
-                                            backgroundColor: Colors.white,
-                                          ),
-                                          SlidableAction(
-                                            onPressed: (context) async {
-                                              await BillRepository()
-                                                  .getBillDetail(state
-                                                      .billmodel[index].id
-                                                      .toString())
-                                                  .then((value) async {
-                                                var enval = value.map((e) =>
-                                                    e.orderId.toString());
-                                                String enval2 =
-                                                    enval.toString();
-                                                final removefirst =
-                                                    enval2.replaceAll('(', '');
-                                                final removelast = removefirst
-                                                    .replaceAll(')', '');
-                                                setState(() {
-                                                  lid = removelast;
-                                                  print('lid = $lid');
-                                                });
-                                                Navigator.pushNamed(
-                                                    scaffoldKey.currentContext!,
-                                                    '/pdfbill',
-                                                    arguments: lid);
-                                              });
-                                            },
-                                            label: 'ใบปะหน้า',
-                                            icon: CupertinoIcons.printer_fill,
-                                            foregroundColor: Color.fromARGB(
-                                                180, 41, 88, 162),
-                                            backgroundColor: Colors.white,
-                                          ),
-                                        ]),
+                                    enabled: state.billmodel[index].isPrint == 1 ? true : false,
+                                    endActionPane: ActionPane(extentRatio: 1, motion: DrawerMotion(), children: [
+                                      SlidableAction(
+                                        onPressed: (context) async {
+                                          await BillRepository().getBillDetail(state.billmodel[index].id.toString()).then((value) async {
+                                            var enval = value.map((e) => e.orderId.toString());
+                                            String enval2 = enval.toString();
+                                            final removefirst = enval2.replaceAll('(', '');
+                                            final removelast = removefirst.replaceAll(')', '');
+                                            setState(() {
+                                              lid = removelast;
+                                              print('lid = $lid');
+                                            });
+                                            Navigator.pushNamed(scaffoldKey.currentContext!, '/pdforder', arguments: lid);
+                                          });
+                                        },
+                                        label: 'ใบเสร็จ',
+                                        icon: CupertinoIcons.printer,
+                                        foregroundColor: Color.fromARGB(200, 43, 166, 223),
+                                        backgroundColor: Colors.white,
+                                      ),
+                                      SlidableAction(
+                                        onPressed: (context) async {
+                                          await BillRepository().getBillDetail(state.billmodel[index].id.toString()).then((value) async {
+                                            var enval = value.map((e) => e.orderId.toString());
+                                            String enval2 = enval.toString();
+                                            final removefirst = enval2.replaceAll('(', '');
+                                            final removelast = removefirst.replaceAll(')', '');
+                                            setState(() {
+                                              lid = removelast;
+                                              print('lid = $lid');
+                                            });
+                                            Navigator.pushNamed(scaffoldKey.currentContext!, '/pdfbill', arguments: lid);
+                                          });
+                                        },
+                                        label: 'ใบปะหน้า',
+                                        icon: CupertinoIcons.printer_fill,
+                                        foregroundColor: Color.fromARGB(180, 41, 88, 162),
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    ]),
                                     child: GestureDetector(
                                       onTap: () {
-                                        Navigator.pushNamed(
-                                            context, '/billdetail', arguments: [
-                                          state.billmodel[index].id.toString(),
-                                          state.billmodel[index].code.toString()
-                                        ]);
+                                        Navigator.pushNamed(context, '/billdetail',
+                                            arguments: [state.billmodel[index].id.toString(), state.billmodel[index].code.toString()]);
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
                                             color: Colors.white,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  blurRadius: 1,
-                                                  color: Colors.grey)
-                                            ],
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
+                                            boxShadow: [BoxShadow(blurRadius: 1, color: Colors.grey)],
+                                            borderRadius: BorderRadius.all(Radius.circular(5))),
                                         child: Column(
                                           children: [
                                             Container(
                                               decoration: BoxDecoration(
                                                   gradient: LinearGradient(
                                                     colors: [
-                                                      Color.fromARGB(
-                                                          200, 43, 166, 223),
-                                                      Color.fromARGB(
-                                                          180, 41, 88, 162),
+                                                      Color.fromARGB(200, 43, 166, 223),
+                                                      Color.fromARGB(180, 41, 88, 162),
                                                     ],
                                                     begin: Alignment.topRight,
                                                     end: Alignment.bottomLeft,
@@ -464,27 +372,16 @@ class _BillListScreenState extends State<BillListScreen>
                                                   //         1
                                                   //     ? Colors.blue.shade300
                                                   //     : Colors.grey.shade200,
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  5),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  5))),
+                                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))),
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
+                                                padding: const EdgeInsets.all(5.0),
                                                 child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     Row(
                                                       children: [
                                                         Icon(
-                                                          FontAwesomeIcons
-                                                              .receipt,
+                                                          FontAwesomeIcons.receipt,
                                                           color: Colors.white,
                                                           size: 20,
                                                         ),
@@ -495,15 +392,9 @@ class _BillListScreenState extends State<BillListScreen>
                                                           // '${state.addressmodel[index].name}',
                                                           '# ${state.billmodel[index].code}',
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize:
-                                                                  PlatformSize(
-                                                                          context) *
-                                                                      1.1,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                              color: Colors.white,
+                                                              fontSize: PlatformSize(context) * 1.1,
+                                                              fontWeight: FontWeight.bold),
                                                         ),
                                                       ],
                                                     ),
@@ -512,35 +403,19 @@ class _BillListScreenState extends State<BillListScreen>
                                               ),
                                             ),
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
+                                              padding: const EdgeInsets.all(8.0),
                                               child: Column(
                                                 children: [
                                                   Row(
                                                     children: [
                                                       Text(
                                                         'วันที่สร้าง : ',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                PlatformSize(
-                                                                    context),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
                                                       ),
                                                       Text(
                                                         // ' ${state.addressmodel[index].phone}',
-                                                        DateFormat.yMd('th')
-                                                            .add_jms()
-                                                            .format(DateTime.parse(
-                                                                '${state.billmodel[index].created}')),
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                PlatformSize(
-                                                                    context),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
+                                                        DateFormat.yMd('th').add_jms().format(DateTime.parse('${state.billmodel[index].created}')),
+                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
                                                       )
                                                     ],
                                                   ),
@@ -548,24 +423,12 @@ class _BillListScreenState extends State<BillListScreen>
                                                     children: [
                                                       Text(
                                                         'ชื่อลูกค้า : ',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                PlatformSize(
-                                                                    context),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
                                                       ),
                                                       Expanded(
                                                         child: Text(
                                                           '${state.billmodel[index].customerName}',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  PlatformSize(
-                                                                      context),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal),
+                                                          style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
                                                         ),
                                                       )
                                                     ],
@@ -574,24 +437,12 @@ class _BillListScreenState extends State<BillListScreen>
                                                     children: [
                                                       Text(
                                                         'เบอร์โทร : ',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                PlatformSize(
-                                                                    context),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
                                                       ),
                                                       Expanded(
                                                         child: Text(
                                                           '${state.billmodel[index].customerPhone}',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  PlatformSize(
-                                                                      context),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal),
+                                                          style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
                                                         ),
                                                       )
                                                     ],
@@ -600,24 +451,12 @@ class _BillListScreenState extends State<BillListScreen>
                                                     children: [
                                                       Text(
                                                         'ราคา : ',
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                PlatformSize(
-                                                                    context),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
                                                       ),
                                                       Expanded(
                                                         child: Text(
                                                           '${state.billmodel[index].totalAmount}',
-                                                          style: TextStyle(
-                                                              fontSize:
-                                                                  PlatformSize(
-                                                                      context),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal),
+                                                          style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
                                                         ),
                                                       )
                                                     ],
