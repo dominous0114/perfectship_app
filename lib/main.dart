@@ -86,8 +86,7 @@ class MyApp extends StatelessWidget {
             create: (context) => BillBloc(billRepository: BillRepository()),
           ),
           BlocProvider(
-            create: (context) => UserDataBloc(
-                addressRepository: AddressRepository(), getUserDataRepository: GetUserDataRepository(), bankRepository: BankRepository()),
+            create: (context) => UserDataBloc(addressRepository: AddressRepository(), bankRepository: BankRepository()),
           ),
           BlocProvider(
             create: (context) => AddressBloc(addressrepository: AddressRepository()),

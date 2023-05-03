@@ -85,13 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color:
-                                            Color.fromRGBO(143, 148, 251, .2),
-                                        blurRadius: 20.0,
-                                        offset: Offset(0, 10))
-                                  ]),
+                                  boxShadow: [BoxShadow(color: Color.fromRGBO(143, 148, 251, .2), blurRadius: 20.0, offset: Offset(0, 10))]),
                               child: Column(
                                 children: <Widget>[
                                   Padding(
@@ -110,50 +104,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline4!
-                                          .copyWith(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: PlatformSize(context)),
+                                          .copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
                                       decoration: InputDecoration(
                                           counterText: '',
                                           label: Text(
                                             'เบอร์โทรศัพท์',
                                           ),
-                                          labelStyle: TextStyle(
-                                              fontSize: PlatformSize(context),
-                                              color: Colors.black54),
-                                          hintStyle: Theme.of(context)
-                                              .textTheme
-                                              .headline4!
-                                              .copyWith(
-                                                  color: Color.fromARGB(
-                                                          255, 28, 19, 19)
-                                                      .withOpacity(.5),
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                      PlatformSize(context)),
+                                          labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
+                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                                              color: Color.fromARGB(255, 28, 19, 19).withOpacity(.5),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: PlatformSize(context)),
                                           fillColor: Colors.white,
                                           filled: true,
                                           isDense: true,
                                           contentPadding: EdgeInsets.all(2),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 0.7,
-                                                color:
-                                                    Colors.grey), //<-- SEE HERE
+                                            borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.blue.shade200),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(4))),
+                                              borderSide: BorderSide(color: Colors.blue.shade200),
+                                              borderRadius: BorderRadius.all(Radius.circular(4))),
                                           errorStyle: Theme.of(context)
                                               .textTheme
                                               .headline4!
-                                              .copyWith(
-                                                  color: Colors.red,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12),
+                                              .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                           prefixIcon: Icon(
                                             CupertinoIcons.phone_circle,
                                             color: Colors.blue,
@@ -174,10 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline4!
-                                          .copyWith(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: PlatformSize(context)),
+                                          .copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
                                       decoration: InputDecoration(
                                           suffixIcon: IconButton(
                                               onPressed: () {
@@ -185,46 +157,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   obsecure = !obsecure;
                                                 });
                                               },
-                                              icon: obsecure == true
-                                                  ? Icon(Icons.visibility)
-                                                  : Icon(Icons.visibility_off)),
+                                              icon: obsecure == true ? Icon(Icons.visibility) : Icon(Icons.visibility_off)),
                                           label: Text(
                                             'รหัสผ่าน',
                                           ),
-                                          labelStyle: TextStyle(
-                                              fontSize: PlatformSize(context),
-                                              color: Colors.black54),
-                                          hintStyle: Theme.of(context)
-                                              .textTheme
-                                              .headline4!
-                                              .copyWith(
-                                                  color: Colors.grey[500]!
-                                                      .withOpacity(.5),
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                      PlatformSize(context)),
+                                          labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
+                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                                              color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
                                           fillColor: Colors.white,
                                           filled: true,
                                           isDense: true,
                                           contentPadding: EdgeInsets.all(2),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 0.7,
-                                                color:
-                                                    Colors.grey), //<-- SEE HERE
+                                            borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.blue.shade200),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(4))),
+                                              borderSide: BorderSide(color: Colors.blue.shade200),
+                                              borderRadius: BorderRadius.all(Radius.circular(4))),
                                           errorStyle: Theme.of(context)
                                               .textTheme
                                               .headline4!
-                                              .copyWith(
-                                                  color: Colors.red,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12),
+                                              .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                           prefixIcon: Icon(
                                             CupertinoIcons.lock_circle,
                                             color: Colors.blue,
@@ -244,48 +197,28 @@ class _LoginScreenState extends State<LoginScreen> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline4!
-                                          .copyWith(
-                                              color: Colors.black87,
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: PlatformSize(context)),
+                                          .copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
                                       decoration: InputDecoration(
                                           label: Text(
                                             'รหัสอ้างอิง',
                                           ),
-                                          labelStyle: TextStyle(
-                                              fontSize: PlatformSize(context),
-                                              color: Colors.black54),
-                                          hintStyle: Theme.of(context)
-                                              .textTheme
-                                              .headline4!
-                                              .copyWith(
-                                                  color: Colors.grey[500]!
-                                                      .withOpacity(.5),
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                      PlatformSize(context)),
+                                          labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
+                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
+                                              color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
                                           fillColor: Colors.white,
                                           filled: true,
                                           isDense: true,
                                           contentPadding: EdgeInsets.all(2),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 0.7,
-                                                color:
-                                                    Colors.grey), //<-- SEE HERE
+                                            borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.blue.shade200),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(4))),
+                                              borderSide: BorderSide(color: Colors.blue.shade200),
+                                              borderRadius: BorderRadius.all(Radius.circular(4))),
                                           errorStyle: Theme.of(context)
                                               .textTheme
                                               .headline4!
-                                              .copyWith(
-                                                  color: Colors.red,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12),
+                                              .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                           prefixIcon: Icon(
                                             CupertinoIcons.ticket,
                                             color: Colors.blue,
@@ -310,39 +243,34 @@ class _LoginScreenState extends State<LoginScreen> {
                                         });
                                         SigninRepository()
                                             .senddataSignin(
-                                                phone: _phonecontroller.text,
-                                                password:
-                                                    _passwordcontroller.text,
-                                                ref: _refcontroller.text)
+                                                phone: _phonecontroller.text, password: _passwordcontroller.text, ref: _refcontroller.text)
                                             .then((value) async {
                                           if (value['status'] == true) {
-                                            SharedPreferences preferences =
-                                                await SharedPreferences
-                                                    .getInstance();
-                                            preferences.setString('token',
-                                                value['data']['token']);
-                                            preferences.setString(
-                                                'dropoff_id',
-                                                value['data']
-                                                        ['dropoff_member_id']
-                                                    .toString());
-                                            preferences.setString(
-                                                'dropoff_name',
-                                                value['data']
-                                                    ['dropoff_member_name']);
-                                            preferences.setBool(
-                                                'islogin', true);
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        NavigatonBar()));
+                                            SharedPreferences preferences = await SharedPreferences.getInstance();
+                                            print(value);
+                                            preferences.setString('token', value['data']['token']);
+                                            preferences.setInt('customerid', value['data']['customer_id']);
+                                            preferences.setString('customername', value['data']['customer_name']);
+                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigatonBar()));
+                                            // preferences.setString(
+                                            //     'dropoff_name',
+                                            //     value['data']
+                                            //         ['dropoff_member_name']);
+                                            preferences.setBool('islogin', true);
+                                            // Navigator.pushReplacement(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             NavigatonBar()));
                                             setState(() {
                                               loginload = false;
                                             });
                                           } else if (value['status'] == false) {
+                                            print(value);
                                             Fluttertoast.showToast(
-                                                msg: value['message']);
+                                              msg: value['message'],
+                                              gravity: ToastGravity.CENTER,
+                                            );
                                             setState(() {
                                               loginload = false;
                                             });
@@ -363,10 +291,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ? CustomProgessIndicator(Colors.white, 18)
                                       : Text(
                                           "เข้าสู่ระบบ",
-                                          style: TextStyle(
-                                              fontSize: PlatformSize(context),
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
+                                          style: TextStyle(fontSize: PlatformSize(context), color: Colors.white, fontWeight: FontWeight.bold),
                                         ),
                                 ),
                               ),

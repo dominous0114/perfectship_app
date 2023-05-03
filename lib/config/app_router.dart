@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perfectship_app/model/address_model.dart';
 import 'package:perfectship_app/model/bank_model.dart';
-import 'package:perfectship_app/model/userdata_model.dart';
+
 import 'package:perfectship_app/screen/billlist/bill_detail_screen.dart';
 import 'package:perfectship_app/screen/billlist/pdf_bill_screen.dart';
 import 'package:perfectship_app/screen/createorder/pdf_order_screen.dart';
@@ -16,16 +16,15 @@ import 'package:perfectship_app/screen/profile/screen_on_profile/verifybank_scre
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case VerifyBankScreen.routeName:
-        return VerifyBankScreen.route(
-            userdatamodel: settings.arguments as UserDataModel);
+      // case VerifyBankScreen.routeName:
+      //   return VerifyBankScreen.route(
+      //       userdatamodel: settings.arguments as UserDataModel);
       case SenderAddressScreen.routeName:
         return SenderAddressScreen.route();
       case AddAddressScreen.routeName:
         return AddAddressScreen.route();
       case EditAddressScreen.routeName:
-        return EditAddressScreen.route(
-            addressModel: settings.arguments as AddressModel);
+        return EditAddressScreen.route(addressModel: settings.arguments as AddressModel);
       case AddressOnCreateScreen.routeName:
         return AddressOnCreateScreen.route();
       case BillDetailScreen.routeName:

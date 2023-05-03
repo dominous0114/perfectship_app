@@ -11,7 +11,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:perfectship_app/model/bank_model.dart';
-import 'package:perfectship_app/model/userdata_model.dart';
 import 'package:perfectship_app/repository/bank_repository.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/fontsize.dart';
@@ -22,16 +21,12 @@ import '../../../config/keyboard_overlay.dart';
 import '../../../repository/getpathimage_repository.dart';
 
 class VerifyBankScreen extends StatefulWidget {
-  final UserDataModel userdatamodel;
-  const VerifyBankScreen({Key? key, required this.userdatamodel}) : super(key: key);
+  //final UserDataModel userdatamodel;
+  const VerifyBankScreen({Key? key}) : super(key: key);
   static const String routeName = '/verifybank';
 
-  static Route route({required UserDataModel userdatamodel}) {
-    return PageRouteBuilder(
-        settings: const RouteSettings(name: routeName),
-        pageBuilder: (_, __, ___) => VerifyBankScreen(
-              userdatamodel: userdatamodel,
-            ));
+  static Route route() {
+    return PageRouteBuilder(settings: const RouteSettings(name: routeName), pageBuilder: (_, __, ___) => VerifyBankScreen());
   }
 
   @override
@@ -82,14 +77,14 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
   late List<Banks> bank = [];
   Banks? _banks;
 
-  Future getBanks() async {
-    BankRepository().getBank().then((value) {
-      setState(() {
-        bank = value;
-        _banks = bank.firstWhere((element) => element.id == widget.userdatamodel.bankId);
-      });
-    });
-  }
+  // Future getBanks() async {
+  //   BankRepository().getBank().then((value) {
+  //     setState(() {
+  //       bank = value;
+  //       _banks = bank.firstWhere((element) => element.id == widget.userdatamodel.bankId);
+  //     });
+  //   });
+  // }
 
   void _onDropDownItemSelected(Banks newSelectedBank) {
     setState(() {
@@ -281,27 +276,27 @@ class _VerifyBankScreenState extends State<VerifyBankScreen> {
 
   @override
   void initState() {
-    getBanks();
-    _accountController.text = widget.userdatamodel.accountNumber!;
-    _banknameController.text = widget.userdatamodel.accountName!;
-    _branchController.text = widget.userdatamodel.branchNo!;
-    path = widget.userdatamodel.bookBankUrl;
-    _branchnode.addListener(() {
-      bool hasFocus = _branchnode.hasFocus;
-      if (hasFocus) {
-        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
-      } else {
-        KeyboardOverlay.removeOverlay();
-      }
-    });
-    _accountnode.addListener(() {
-      bool hasFocus = _accountnode.hasFocus;
-      if (hasFocus) {
-        Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
-      } else {
-        KeyboardOverlay.removeOverlay();
-      }
-    });
+    // getBanks();
+    // _accountController.text = widget.userdatamodel.accountNumber!;
+    // _banknameController.text = widget.userdatamodel.accountName!;
+    // _branchController.text = widget.userdatamodel.branchNo!;
+    // path = widget.userdatamodel.bookBankUrl;
+    // _branchnode.addListener(() {
+    //   bool hasFocus = _branchnode.hasFocus;
+    //   if (hasFocus) {
+    //     Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+    //   } else {
+    //     KeyboardOverlay.removeOverlay();
+    //   }
+    // });
+    // _accountnode.addListener(() {
+    //   bool hasFocus = _accountnode.hasFocus;
+    //   if (hasFocus) {
+    //     Platform.isAndroid ? null : KeyboardOverlay.showOverlay(context);
+    //   } else {
+    //     KeyboardOverlay.removeOverlay();
+    //   }
+    // });
     super.initState();
   }
 

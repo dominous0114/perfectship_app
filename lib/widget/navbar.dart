@@ -251,24 +251,13 @@ class _NavigatonBarState extends State<NavigatonBar> {
           body: pageList[pageIndex],
           // drawer: showDrawer(),
           bottomNavigationBar: Container(
-            decoration: BoxDecoration(color: Colors.white
-                // gradient: LinearGradient(
-                //   colors: [
-                //     Color.fromARGB(255, 49, 107, 200),
-                //     Color.fromARGB(255, 99, 198, 244),
-                //   ],
-                //   begin: Alignment.topLeft,
-                //   end: Alignment.topRight,
-                //   stops: [0.0, 0.8],
-                //   tileMode: TileMode.clamp,
-                // ),
-                ),
+            decoration: BoxDecoration(color: Colors.white),
             child: AnimatedContainer(
               height: _hideBottomNavBar ? 0.0 : 95,
               duration: Duration(milliseconds: 200),
               child: BottomNavigationBar(
-                  selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-                  unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+                  selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                  unselectedLabelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
 
                   //selectedItemColor: Colors.blue,
                   backgroundColor: Colors.white,
@@ -314,8 +303,8 @@ class _NavigatonBarState extends State<NavigatonBar> {
           child: Padding(
             padding: EdgeInsets.only(bottom: 30.0),
             child: SizedBox(
-              width: 100,
-              height: 100,
+              width: 90,
+              height: 90,
               child: Padding(
                 padding: EdgeInsets.only(top: 30),
                 child: RawMaterialButton(
