@@ -97,9 +97,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                           style: Theme.of(event.context)
                               .textTheme
                               .headline4!
-                              .copyWith(
-                                  fontSize: PlatformSize(event.context) * 1.2,
-                                  fontWeight: FontWeight.bold),
+                              .copyWith(fontSize: PlatformSize(event.context) * 1.2, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -108,9 +106,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                       style: Theme.of(event.context)
                           .textTheme
                           .headline4!
-                          .copyWith(
-                              fontSize: PlatformSize(event.context) * 1.1,
-                              fontWeight: FontWeight.normal),
+                          .copyWith(fontSize: PlatformSize(event.context) * 1.1, fontWeight: FontWeight.normal),
                     ),
                     actions: <CupertinoDialogAction>[
                       CupertinoDialogAction(
@@ -123,10 +119,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                           style: Theme.of(event.context)
                               .textTheme
                               .headlineMedium!
-                              .copyWith(
-                                  fontSize: PlatformSize(event.context),
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.blue),
+                              .copyWith(fontSize: PlatformSize(event.context), fontWeight: FontWeight.normal, color: Colors.blue),
                         ),
                       ),
                       CupertinoDialogAction(
@@ -134,19 +127,14 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                         onPressed: () {
                           Navigator.pop(event.context);
                           Navigator.pop(event.context);
-                          event.context
-                              .read<DropdownCourierBloc>()
-                              .add(DropdownCourierIniitialEvent());
+                          event.context.read<DropdownCourierBloc>().add(DropdownCourierIniitialEvent());
                         },
                         child: Text(
                           'ไปหน้าพัสดุ',
                           style: Theme.of(event.context)
                               .textTheme
                               .headlineMedium!
-                              .copyWith(
-                                  fontSize: PlatformSize(event.context),
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.red),
+                              .copyWith(fontSize: PlatformSize(event.context), fontWeight: FontWeight.normal, color: Colors.red),
                         ),
                       ),
                     ],

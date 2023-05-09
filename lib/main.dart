@@ -9,6 +9,7 @@ import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
 import 'package:perfectship_app/bloc/bill_detail_bloc/bill_detail_bloc.dart';
 import 'package:perfectship_app/bloc/dashboard_bloc/dashboard_bloc.dart';
 import 'package:perfectship_app/bloc/dropdown_courier_bloc/dropdown_courier_bloc.dart';
+import 'package:perfectship_app/bloc/new_bloc/create_order/create_order_bloc.dart';
 import 'package:perfectship_app/bloc/orders_bloc/order_bloc.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
@@ -97,7 +98,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 TrackBloc(orderRepository: OrderRepository(), trackRepository: TrackRepository(), courierRepository: CourierRepository()),
-          )
+          ),
+          BlocProvider(
+            create: (context) => CreateOrderBloc(),
+          ),
         ],
         child: MaterialApp(
             localizationsDelegates: [
@@ -125,7 +129,7 @@ class MyApp extends StatelessWidget {
                     primarySwatch: Colors.blue,
                     inputDecorationTheme: InputDecorationTheme(
                       border: InputBorder.none,
-                      hintStyle: GoogleFonts.ibmPlexSansThaiTextTheme(Theme.of(context).textTheme).bodyMedium!.copyWith(fontSize: 16),
+                      hintStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme).bodyMedium!.copyWith(fontSize: 16),
                     ),
                     useMaterial3: false,
                     secondaryHeaderColor: Colors.blue,
@@ -134,16 +138,16 @@ class MyApp extends StatelessWidget {
                     appBarTheme: AppBarTheme(
                             elevation: 0,
                             backgroundColor: Colors.white,
-                            toolbarTextStyle: GoogleFonts.ibmPlexSansThaiTextTheme(Theme.of(context).textTheme).bodyText2!.copyWith(fontSize: 16),
-                            titleTextStyle: GoogleFonts.ibmPlexSansThaiTextTheme(Theme.of(context).textTheme).headline6!.copyWith(fontSize: 16))
+                            toolbarTextStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme).bodyText2!.copyWith(fontSize: 16),
+                            titleTextStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme).headline6!.copyWith(fontSize: 16))
                         .copyWith(),
                     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.blue, primary: Colors.blue))
                 .copyWith(
               textTheme:
-                  GoogleFonts.ibmPlexSansThaiTextTheme(Theme.of(context).textTheme.copyWith(headline6: TextStyle(fontSize: 16, color: Colors.black))),
+                  GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme.copyWith(headline6: TextStyle(fontSize: 16, color: Colors.black))),
 
               snackBarTheme: SnackBarThemeData(
-                contentTextStyle: GoogleFonts.ibmPlexSansThai(),
+                contentTextStyle: GoogleFonts.notoSansThai(),
               ),
               //colorScheme: Theme.of(context).colorScheme.copyWith(secondary: Colors.red, background: Colors.white, primary: Colors.green, brightness: Brightness.dark, onBackground: Colors.green),
             ),

@@ -1,95 +1,8 @@
-class UserDataModel {
-  int? id;
-  int? userId;
-  String? name;
-  String? phone;
-  String? password;
-  String? cardId;
-  var cardUrl;
-  String? branchNo;
-  int? bankId;
-  String? accountName;
-  String? accountNumber;
-  var bookBankUrl;
-  int? status;
-  String? createdAt;
-  String? updatedAt;
-  var deletedAt;
-  String? bankName;
-  Address? address;
-
-  UserDataModel(
-      {this.id,
-      this.userId,
-      this.name,
-      this.phone,
-      this.password,
-      this.cardId,
-      this.cardUrl,
-      this.branchNo,
-      this.bankId,
-      this.accountName,
-      this.accountNumber,
-      this.bookBankUrl,
-      this.status,
-      this.createdAt,
-      this.updatedAt,
-      this.deletedAt,
-      this.bankName,
-      this.address});
-
-  UserDataModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    name = json['name'];
-    phone = json['phone'];
-    password = json['password'];
-    cardId = json['card_id'];
-    cardUrl = json['card_url'];
-    branchNo = json['branch_no'];
-    bankId = json['bank_id'];
-    accountName = json['account_name'];
-    accountNumber = json['account_number'];
-    bookBankUrl = json['book_bank_url'];
-    status = json['status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    deletedAt = json['deleted_at'];
-    bankName = json['bank_name'];
-    address = json['address'] != null ? new Address.fromJson(json['address']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['name'] = this.name;
-    data['phone'] = this.phone;
-    data['password'] = this.password;
-    data['card_id'] = this.cardId;
-    data['card_url'] = this.cardUrl;
-    data['branch_no'] = this.branchNo;
-    data['bank_id'] = this.bankId;
-    data['account_name'] = this.accountName;
-    data['account_number'] = this.accountNumber;
-    data['book_bank_url'] = this.bookBankUrl;
-    data['status'] = this.status;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['deleted_at'] = this.deletedAt;
-    data['bank_name'] = this.bankName;
-    if (this.address != null) {
-      data['address'] = this.address!.toJson();
-    }
-    return data;
-  }
-}
-
-class Address {
+class AddressDstNewModel {
   int? id;
   String? name;
   String? phone;
-  int? customerId;
+  var customerId;
   int? userId;
   int? type;
   String? address;
@@ -98,19 +11,19 @@ class Address {
   String? province;
   String? zipcode;
   int? useLabel;
-  String? labelName;
-  String? labelPhone;
-  String? labelAddress;
-  String? labelSubDistrict;
-  String? labelDistrict;
-  String? labelProvince;
-  String? labelZipcode;
+  var labelName;
+  var labelPhone;
+  var labelAddress;
+  var labelSubDistrict;
+  var labelDistrict;
+  var labelProvince;
+  var labelZipcode;
   var courierCode;
   int? isPrimary;
   String? createdAt;
   String? updatedAt;
 
-  Address(
+  AddressDstNewModel(
       {this.id,
       this.name,
       this.phone,
@@ -135,7 +48,7 @@ class Address {
       this.createdAt,
       this.updatedAt});
 
-  Address.fromJson(Map<String, dynamic> json) {
+  AddressDstNewModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     phone = json['phone'];

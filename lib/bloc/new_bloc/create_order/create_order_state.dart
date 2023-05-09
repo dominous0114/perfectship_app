@@ -11,6 +11,12 @@ class CreateOrderInitial extends CreateOrderState {}
 
 class CreateOrderData extends CreateOrderState {
   final String courierCode;
+  final String courierImg;
+  final String courierImgMobile;
+  final List<CourierNewModel> courierNewModels;
+  final CourierNewModel courierNewModel;
+  final List<CategoryNewModel> categories;
+  final CategoryNewModel category;
   final int type;
   final String labelName;
   final String labelPhone;
@@ -42,9 +48,15 @@ class CreateOrderData extends CreateOrderState {
   final int isBulky;
   final int jntPickup;
   final int kerryPickup;
-  final int categoryId;
+  final dynamic categoryId;
   CreateOrderData({
     required this.courierCode,
+    required this.courierImg,
+    required this.courierImgMobile,
+    required this.courierNewModels,
+    required this.courierNewModel,
+    required this.categories,
+    required this.category,
     required this.type,
     required this.labelName,
     required this.labelPhone,
@@ -81,6 +93,12 @@ class CreateOrderData extends CreateOrderState {
 
   CreateOrderData copyWith({
     String? courierCode,
+    String? courierImg,
+    String? courierImgMobile,
+    List<CourierNewModel>? courierNewModels,
+    CourierNewModel? courierNewModel,
+    List<CategoryNewModel>? categories,
+    CategoryNewModel? category,
     int? type,
     String? labelName,
     String? labelPhone,
@@ -116,6 +134,12 @@ class CreateOrderData extends CreateOrderState {
   }) {
     return CreateOrderData(
       courierCode: courierCode ?? this.courierCode,
+      courierImg: courierImg ?? this.courierImg,
+      courierImgMobile: courierImgMobile ?? this.courierImgMobile,
+      courierNewModels: courierNewModels ?? this.courierNewModels,
+      courierNewModel: courierNewModel ?? this.courierNewModel,
+      categories: categories ?? this.categories,
+      category: category ?? this.category,
       type: type ?? this.type,
       labelName: labelName ?? this.labelName,
       labelPhone: labelPhone ?? this.labelPhone,
@@ -150,4 +174,47 @@ class CreateOrderData extends CreateOrderState {
       categoryId: categoryId ?? this.categoryId,
     );
   }
+
+  @override
+  List<Object> get props => [
+        courierCode,
+        courierImg,
+        courierImgMobile,
+        courierNewModels,
+        courierNewModel,
+        categories,
+        category,
+        type,
+        labelName,
+        labelPhone,
+        labelAddress,
+        labelSubDistrict,
+        labelDistrict,
+        labelProvince,
+        labelZipcode,
+        accountName,
+        accountNumber,
+        accountBranch,
+        accountBank,
+        dstName,
+        dstPhone,
+        dstAddress,
+        dstSubDistrict,
+        dstDistrict,
+        dstProvince,
+        dstZipcode,
+        weight,
+        width,
+        length,
+        height,
+        codAmount,
+        remark,
+        isInsured,
+        productValue,
+        customerId,
+        isBulky,
+        jntPickup,
+        kerryPickup,
+        categoryId,
+      ];
 }

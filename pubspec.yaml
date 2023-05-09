@@ -35,7 +35,7 @@ dependencies:
   flutter_native_splash: ^2.1.6
   shared_preferences: ^2.0.15
   font_awesome_flutter: ^10.1.0
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.4
   easy_localization: 
   url_launcher: ^6.1.5
   dio: ^4.0.6 

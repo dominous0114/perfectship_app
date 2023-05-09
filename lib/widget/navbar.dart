@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
+import 'package:perfectship_app/bloc/new_bloc/create_order/create_order_bloc.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/config/localnoti_service.dart';
@@ -18,6 +19,7 @@ import 'package:perfectship_app/screen/profile/profile_screen.dart';
 import 'package:perfectship_app/widget/allkey.dart';
 
 import '../bloc/dropdown_courier_bloc/dropdown_courier_bloc.dart';
+import '../screen/createorder/new_widget.dart/create_order_new.dart';
 import 'custom_gradient_icon.dart';
 
 class NavigatonBar extends StatefulWidget {
@@ -34,7 +36,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
   ScrollController? scrollController;
   Timer? _scrollTimer;
   bool _hideBottomNavBar = false;
-  List<Widget> pageList = <Widget>[HomeScreen(), OrderListScreen(), CreateOrderScreen(), BillListScreen(), ProfileSreen()];
+  List<Widget> pageList = <Widget>[HomeScreen(), OrderListScreen(), CreateOrderNew(), BillListScreen(), ProfileSreen()];
 
   Future<dynamic> backgroundHandler(RemoteMessage message) async {
     LocalNotficationService.displaybackground(message);
@@ -315,8 +317,9 @@ class _NavigatonBarState extends State<NavigatonBar> {
                     });
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CreateOrderScreen()),
+                      MaterialPageRoute(builder: (context) => CreateOrderNew()),
                     );
+                    context.read<CreateOrderBloc>().add(CreateOrderInitialEvent());
                   },
                   shape: CircleBorder(),
                   fillColor: Colors.transparent,
