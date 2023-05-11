@@ -9,6 +9,7 @@ import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
 import 'package:perfectship_app/bloc/bill_detail_bloc/bill_detail_bloc.dart';
 import 'package:perfectship_app/bloc/dashboard_bloc/dashboard_bloc.dart';
 import 'package:perfectship_app/bloc/dropdown_courier_bloc/dropdown_courier_bloc.dart';
+
 import 'package:perfectship_app/bloc/new_bloc/create_order/create_order_bloc.dart';
 import 'package:perfectship_app/bloc/orders_bloc/order_bloc.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
@@ -29,6 +30,7 @@ import 'package:perfectship_app/screen/login.dart';
 import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'bloc/new_bloc/orderlist_new/orderlist_new_bloc.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -102,6 +104,9 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => CreateOrderBloc(),
           ),
+          BlocProvider(
+            create: (context) => OrderlistNewBloc(),
+          )
         ],
         child: MaterialApp(
             localizationsDelegates: [

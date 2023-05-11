@@ -33,10 +33,10 @@ class _ProfileSreenState extends State<ProfileSreen> {
         elevation: 0,
         title: Text(
           'โปรไฟล์',
-          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-              fontSize: PlatformSize(context) * 1.2,
-              fontWeight: FontWeight.bold,
-              color: Colors.white),
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium!
+              .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -64,10 +64,8 @@ class _ProfileSreenState extends State<ProfileSreen> {
               },
               child: Container(
                 height: 60,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-                padding: const EdgeInsets.only(
-                    top: 10, bottom: 10, left: 15, right: 25),
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 25),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
@@ -76,8 +74,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
                         color: Colors.grey[100]!,
                         blurRadius: 5.0,
                         spreadRadius: 0.0,
-                        offset: const Offset(
-                            2, 6), // shadow direction: bottom right
+                        offset: const Offset(2, 6), // shadow direction: bottom right
                       )
                     ],
                     border: Border.all(color: Colors.grey.shade50)),
@@ -92,8 +89,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
                     const SizedBox(
                       width: 10,
                     ),
-                    CustomTextAutoSizeforMenu(
-                        text: 'ที่อยู่ผู้ส่ง', bold: true, enable: true),
+                    CustomTextAutoSizeforMenu(text: 'ที่อยู่ผู้ส่ง', bold: true, enable: true),
                     const Spacer(),
                     Icon(
                       Icons.arrow_forward_ios,
@@ -111,13 +107,11 @@ class _ProfileSreenState extends State<ProfileSreen> {
                     baseColor: Colors.grey.shade300,
                     highlightColor: Colors.grey.shade100,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       child: Container(
                         height: 60,
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(color: Colors.black54, blurRadius: 1)
-                        ], borderRadius: BorderRadius.all(Radius.circular(16))),
+                        decoration: BoxDecoration(
+                            boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 1)], borderRadius: BorderRadius.all(Radius.circular(16))),
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: Row(
@@ -131,15 +125,12 @@ class _ProfileSreenState extends State<ProfileSreen> {
                 } else if (state is UserDataLoaded) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/verifybank',
-                          arguments: state.userdatamodel);
+                      Navigator.pushNamed(context, '/verifybank', arguments: state.userdatamodel);
                     },
                     child: Container(
                       height: 60,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2.5),
-                      padding: const EdgeInsets.only(
-                          top: 10, bottom: 10, left: 15, right: 25),
+                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                      padding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 25),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),
@@ -148,8 +139,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
                               color: Colors.grey[100]!,
                               blurRadius: 5.0,
                               spreadRadius: 0.0,
-                              offset: const Offset(
-                                  2, 6), // shadow direction: bottom right
+                              offset: const Offset(2, 6), // shadow direction: bottom right
                             )
                           ],
                           border: Border.all(color: Colors.grey.shade50)),
@@ -164,10 +154,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
                           const SizedBox(
                             width: 10,
                           ),
-                          CustomTextAutoSizeforMenu(
-                              text: 'ยืนยันบัญชีธนาคาร',
-                              bold: true,
-                              enable: true),
+                          CustomTextAutoSizeforMenu(text: 'ยืนยันบัญชีธนาคาร', bold: true, enable: true),
                           const Spacer(),
                           Icon(
                             Icons.arrow_forward_ios,
@@ -189,10 +176,8 @@ class _ProfileSreenState extends State<ProfileSreen> {
               },
               child: Container(
                 height: 60,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-                padding: const EdgeInsets.only(
-                    top: 10, bottom: 10, left: 15, right: 25),
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 25),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
@@ -201,8 +186,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
                         color: Colors.grey[100]!,
                         blurRadius: 5.0,
                         spreadRadius: 0.0,
-                        offset: const Offset(
-                            2, 6), // shadow direction: bottom right
+                        offset: const Offset(2, 6), // shadow direction: bottom right
                       )
                     ],
                     border: Border.all(color: Colors.grey.shade50)),
@@ -217,8 +201,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
                     const SizedBox(
                       width: 10,
                     ),
-                    CustomTextAutoSizeforMenu(
-                        text: 'ตั้งค่าการส่งพัสดุ', bold: true, enable: true),
+                    CustomTextAutoSizeforMenu(text: 'ตั้งค่าการส่งพัสดุ', bold: true, enable: true),
                     const Spacer(),
                     Icon(
                       Icons.arrow_forward_ios,
@@ -232,14 +215,15 @@ class _ProfileSreenState extends State<ProfileSreen> {
             GestureDetector(
               onTap: () async {
                 await GetUserDataRepository().updateFcmToken('');
-                SharedPreferences preferences =
-                    await SharedPreferences.getInstance();
+                SharedPreferences preferences = await SharedPreferences.getInstance();
                 preferences.remove('token');
                 preferences.remove('dropoff_id');
                 preferences.remove('dropoff_name');
                 preferences.remove('islogin');
                 preferences.remove('accountname');
                 preferences.remove('accountnumber');
+                preferences.remove('customerid');
+                preferences.remove('customername');
                 MaterialPageRoute route = MaterialPageRoute(
                   builder: (context) => LoginScreen(),
                 );
@@ -247,10 +231,8 @@ class _ProfileSreenState extends State<ProfileSreen> {
               },
               child: Container(
                 height: 60,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-                padding: const EdgeInsets.only(
-                    top: 10, bottom: 10, left: 15, right: 25),
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 25),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
@@ -259,8 +241,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
                         color: Colors.grey[100]!,
                         blurRadius: 5.0,
                         spreadRadius: 0.0,
-                        offset: const Offset(
-                            2, 6), // shadow direction: bottom right
+                        offset: const Offset(2, 6), // shadow direction: bottom right
                       )
                     ],
                     border: Border.all(color: Colors.grey.shade50)),
@@ -275,8 +256,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
                     const SizedBox(
                       width: 10,
                     ),
-                    CustomTextAutoSizeforMenu(
-                        text: 'ออกจากระบบ', bold: true, enable: true),
+                    CustomTextAutoSizeforMenu(text: 'ออกจากระบบ', bold: true, enable: true),
                     const Spacer(),
                     Icon(
                       Icons.arrow_forward_ios,

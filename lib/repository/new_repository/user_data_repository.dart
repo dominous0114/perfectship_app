@@ -16,7 +16,7 @@ class UserDataRepository {
       var headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
       var request = http.Request('GET', Uri.parse('${MyConstant().newDomain}/api/v1/user/getdt-user'));
       request.body = json.encode({"customer_id": customerid});
-      print('customer id =$customerid');
+      print('customer id = $customerid');
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();

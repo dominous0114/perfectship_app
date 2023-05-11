@@ -44,12 +44,13 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     );
 
     List<CategoryNewModel> categories = await CategoryNewRepository().getCategory();
+    print('user id = ${userdata.address!.userId!}');
     emit(CreateOrderData(
         courierCode: courier.code ?? '',
         courierImg: courier.logo ?? '',
         courierImgMobile: courier.logoMobile ?? '',
-        courierNewModels: courierMerge,
-        courierNewModel: courierMerge.first,
+        courierNewModels: courierActive,
+        courierNewModel: CourierNewModel(),
         categories: categories,
         category: categories.first,
         type: 2,
@@ -79,18 +80,25 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
         remark: '',
         isInsured: 0,
         productValue: 0,
-        customerId: userdata.address!.userId!,
+        customerId: userdata.id!,
         isBulky: 0,
         jntPickup: 6,
         kerryPickup: 1,
         categoryId: categories.first.id));
+    print('after = ${userdata.address!.userId!}');
   }
 
   void _onSelectCourier(SelectCourierEvent event, Emitter<CreateOrderState> emit) async {
     var state = this.state;
     if (state is CreateOrderData) {
-      print('on select event');
-      emit(state.copyWith(courierNewModel: event.courier));
+      if (event.courier.name.toString().contains('Bulky')) {
+        print('blky condition');
+        emit(state.copyWith(courierNewModel: event.courier, isBulky: 1));
+        print(state.isBulky);
+      } else {
+        print('on select event');
+        emit(state.copyWith(courierNewModel: event.courier));
+      }
     }
   }
 

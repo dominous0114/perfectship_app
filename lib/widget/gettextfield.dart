@@ -87,6 +87,7 @@ class GetTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
         errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+        errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red), borderRadius: BorderRadius.all(Radius.circular(4))),
         prefixIcon: enableIconPrefix != false
             ? Icon(
                 preIcon,
