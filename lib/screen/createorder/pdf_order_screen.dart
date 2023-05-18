@@ -17,11 +17,14 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:perfectship_app/config/constant.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../widget/custom_appbar.dart';
 import '../../widget/fontsize.dart';
+import 'new_widget/custom_share.dart';
 
 class PdfOrderScreen extends StatefulWidget {
   static const String routeName = '/pdforder';
@@ -45,9 +48,9 @@ class PdfOrderScreen extends StatefulWidget {
 }
 
 class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProviderStateMixin {
-  String title = 'A4';
-
-  String selectIndex = 'A4';
+  String title = 'A6';
+  String paperSize = 'a6';
+  PaperSizeModel selectIndex = PaperSizeModel.paperSizes.first;
 
   final GlobalKey webViewKey = GlobalKey();
   double progress = 0;
@@ -55,14 +58,16 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
   final urlController = TextEditingController();
   InAppWebViewController? webViewController;
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(useShouldOverrideUrlLoading: true, mediaPlaybackRequiresUserGesture: true, useOnDownloadStart: true),
-    android: AndroidInAppWebViewOptions(
-      useHybridComposition: true,
-    ),
-    ios: IOSInAppWebViewOptions(
-      allowsInlineMediaPlayback: true,
-    ),
-  );
+      crossPlatform: InAppWebViewOptions(
+        useShouldOverrideUrlLoading: true,
+        mediaPlaybackRequiresUserGesture: true,
+      ),
+      android: AndroidInAppWebViewOptions(
+        useHybridComposition: true,
+      ),
+      ios: IOSInAppWebViewOptions(
+        allowsInlineMediaPlayback: true,
+      ));
 
   late PullToRefreshController pullToRefreshController;
   late ContextMenu contextMenu;
@@ -79,48 +84,25 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
 
   bool isLoading = false;
 
+  late WebViewController _controller;
   var dio = Dio();
   String urlShare = 'trackId';
 
-  ReceivePort receiveport = ReceivePort();
-  final ReceivePort _port = ReceivePort();
-
-  PaperSizeModel? _papersize = PaperSizeModel.paperSizes.first;
-
-  void _onDropDownItemSelectedCategory(PaperSizeModel newSelected) {
-    setState(() {
-      _papersize = newSelected;
-      print('papersize = ${_papersize!.lower}');
-    });
-  }
+  final _key = UniqueKey();
 
   @override
   void initState() {
-    // IsolateNameServer.registerPortWithName(receiveport.sendPort, 'downloadpdf');
-
-    // receiveport.listen((message) {
-    //   setState(() {
-    //     progress = message;
-    //   });
-    // });
-    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
-    _port.listen((dynamic data) {
-      String id = data[0];
-      DownloadTaskStatus status = data[1];
-      int progress = data[2];
-      setState(() {});
-    });
-
-    FlutterDownloader.registerCallback(downloadCallback);
-
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 260),
     );
     final curvedAnimation = CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
     _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
-    url = 'https://customer.perfectship.cloud/print/${_papersize!.lower}?order=${widget.pdfData}';
+    //url = '${server.ENV}/print/$paperSize?order=${widget.pdfData}';
+    url = 'https://app-uat.perfectship.cloud/print/$paperSize?order=${widget.pdfData}';
+
     // getPDF();
+
     super.initState();
 
     contextMenu = ContextMenu(
@@ -135,7 +117,9 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                 await webViewController?.clearFocus();
               })
         ],
-        options: ContextMenuOptions(hideDefaultSystemContextMenuItems: false),
+        options: ContextMenuOptions(
+          hideDefaultSystemContextMenuItems: false,
+        ),
         onCreateContextMenu: (hitTestResult) async {
           print("onCreateContextMenu");
           print(hitTestResult.extra);
@@ -163,14 +147,10 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
     );
   }
 
-  static void downloadCallback(String id, DownloadTaskStatus status, int progress) {
-    final SendPort send = IsolateNameServer.lookupPortByName('downloader_send_port')!;
-    send.send([id, status, progress]);
-  }
-
-  Future setPaper({required String paper}) async {
+  Future setPaper({required PaperSizeModel paper}) async {
     setState(() {
-      url = 'https://customer.perfectship.cloud/print/${_papersize!.lower}?order=${widget.pdfData}';
+      paperSize = paper.lower;
+      url = 'https://app-uat.perfectship.cloud/print/$paperSize?order=${widget.pdfData}';
       urlController.text = url;
       webViewController?.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
     });
@@ -178,457 +158,375 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    // _createFileFromBase64(
-    //     String base64content, String fileName, String yourExtension) async {
-    //   var bytes = base64Decode(base64content.replaceAll('\n', ''));
-    //   final output = await getExternalStorageDirectory();
-    //   final file = File("${output!.path}/$fileName.$yourExtension");
-    //   await file.writeAsBytes(bytes.buffer.asUint8List());
-    //   print("${output.path}/${fileName}.$yourExtension");
-    //   await OpenFile.open("${output.path}/$fileName.$yourExtension");
-    //   setState(() {});
-    // }
-
-    Future<void> share() async {
-      await FlutterShare.share(
-          title: 'Example share', text: 'Example share text', linkUrl: 'https://flutter.dev/', chooserTitle: 'Example Chooser Title');
-    }
-
-    Future<void> launchURL(String url) async {
-      if (await canLaunchUrlString(
-        url,
-      )) {
-        // Passes the URL to the OS to be handled by another application.
-        await launchUrlString(url, mode: LaunchMode.externalApplication);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-
-    return !isLoading
-        ? Scaffold(
-            // drawer: myDrawer(context: context),
-            appBar: CustomAppBar(
-              title: title,
-              backArrow: true,
-              onPressArrow: () {
-                Navigator.pop(context);
-              },
-            ),
-            body: Column(
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: title,
+        backArrow: true,
+        onPressArrow: () {
+          Navigator.pop(context);
+        },
+      ),
+      body: _buildBody(context),
+      bottomNavigationBar: BottomAppBar(
+        elevation: 50,
+        color: Colors.white,
+        shape: CircularNotchedRectangle(),
+        child: GestureDetector(
+            onTap: () async {
+              if (paperSize == 'paperang' || paperSize == 'paperang_lan') {
+                //Navigator.push(context, CupertinoPageRoute(builder: (context) => PaperangScreen(xFile: url)));
+              } else if (paperSize == 'pdf') {
+                launch(url);
+              } else {
+                //saveWebViewContentAsPdf();
+                webViewController!.evaluateJavascript(source: 'window.print()');
+              }
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        "ปริ้น : ",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: PlatformSize(context),
-                            ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: DropdownButtonFormField2(
-                            isExpanded: true,
-                            hint: Row(
-                              children: [
-                                SizedBox(
-                                  width: 4,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    '--โปรดเลือกประเภทพัสดุ--',
-                                    style: TextStyle(
-                                      fontSize: PlatformSize(context),
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            value: _papersize,
-                            items: PaperSizeModel.paperSizes
-                                .map((item) => DropdownMenuItem<PaperSizeModel>(
-                                      value: item,
-                                      child: Text(
-                                        item.upper,
-                                        style: TextStyle(
-                                          fontSize: PlatformSize(context),
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              _onDropDownItemSelectedCategory(value as PaperSizeModel);
-                              setState(() {
-                                selectIndex = value.lower;
-                                title = value.upper;
-                                setPaper(paper: value.lower);
-                              });
-                            },
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              errorStyle:
-                                  Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
-                              //Add isDense true and zero Padding.
-                              //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                              isDense: true,
-                              contentPadding: EdgeInsets.zero,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        webViewController!.evaluateJavascript(source: 'window.print()');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.print,
+                                color: Colors.white,
                               ),
-                              //Add more decoration as you want here
-                              //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                            ),
-                            buttonDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: Colors.black26,
+                              SizedBox(
+                                width: 5,
                               ),
-                              color: Colors.white,
-                            ),
-                            icon: const Icon(
-                              Icons.keyboard_arrow_down_sharp,
-                              color: Colors.black45,
-                              size: 20,
-                            ),
-                            iconSize: 30,
-                            buttonHeight: 45,
-                            buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                            dropdownDecoration: BoxDecoration(
-                              border: Border.all(width: 0.1),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            dropdownMaxHeight: 250,
-                            scrollbarAlwaysShow: true,
-                            scrollbarThickness: 6,
+                              Text('ปริ้นท์', style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
+                            ],
                           ),
-                          // CustomDropdownButton2(
-                          //   hint: 'Select Item',
-                          //   buttonDecoration: BoxDecoration(
-                          //       border: Border.all(color: Colors.grey),
-                          //       borderRadius: BorderRadius.circular(10),
-                          //       color: Colors.white),
-                          //   icon: Icon(Icons.keyboard_arrow_down_rounded),
-                          //   dropdownItems: PaperSizeModel.paperSizes
-                          //       .map((e) => e.upper)
-                          //       .toList(),
-                          //   value: PaperSizeModel.paperSizes,
-                          //   onChanged: (value) {
-                          // setState(() {
-                          //   selectIndex = value!;
-                          //   title = value;
-                          //   setPaper(paper: value.toLowerCase());
-                          //     });
-                          //   },
-                          // ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: CupertinoButton(
-                            padding: EdgeInsets.all(0),
-                            child: Row(
-                              children: [
-                                Text(
-                                  ' คัดลอก',
-                                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                        fontSize: PlatformSize(context),
-                                      ),
-                                ),
-                                SizedBox(width: 5),
-                                Icon(
-                                  Icons.copy,
-                                  color: Theme.of(context).iconTheme.color,
-                                ),
-                              ],
-                            ),
-                            onPressed: () {
-                              Clipboard.setData(ClipboardData(text: url)).then((_) {
-                                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: Text(
-                                  "คัดลอก Link $url แล้ว",
-                                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context), color: Colors.white),
-                                )));
-                              });
-                            }),
-                      )
-                    ],
+                    ),
                   ),
                 ),
                 Expanded(
-                  child: Stack(
-                    children: [
-                      Hero(
-                        tag: 'download',
-                        child: InAppWebView(
-                          key: webViewKey,
-                          contextMenu: contextMenu,
-                          initialUrlRequest: URLRequest(url: Uri.parse(url)),
-                          // initialFile: "assets/index.html",
-                          initialUserScripts: UnmodifiableListView<UserScript>([]),
-                          initialOptions: options,
-                          pullToRefreshController: pullToRefreshController,
-                          onWebViewCreated: (controller) {
-                            webViewController = controller;
-                            // webViewController!.addJavaScriptHandler(
-                            //   handlerName: 'serverSideJsFuncName',
-                            //   callback: (data) async {
-                            //     if (data.isNotEmpty) {
-                            //       final String receivedFileInBase64 = data[0];
-                            //       final String receivedMimeType = data[1];
-
-                            //       // NOTE: create a method that will handle your extensions
-                            //       final String yourExtension =
-                            //           'application/pdf'; // 'pdf'
-
-                            //       _createFileFromBase64(receivedFileInBase64,
-                            //           'YourFileName', yourExtension);
-                            //     }
-                            //   },
-                            // );
-                          },
-                          onLoadStart: (controller, url) {
-                            setState(() {
-                              this.url = url.toString();
-                              urlController.text = this.url;
-                            });
-                          },
-
-                          // onDownloadStart: (controller, url) async {
-                          //   Directory? tempDir =
-                          //       await getExternalStorageDirectory();
-                          //   print("onDownload $url");
-                          //   await FlutterDownloader.enqueue(
-                          //     url: url.toString(),
-                          //     savedDir: tempDir!.path,
-                          //     showNotification: true,
-                          //     openFileFromNotification: true,
-                          //     saveInPublicStorage: true,
-                          //   );
-                          // },
-                          androidOnPermissionRequest: (controller, origin, resources) async {
-                            return PermissionRequestResponse(resources: resources, action: PermissionRequestResponseAction.GRANT);
-                          },
-                          shouldOverrideUrlLoading: (controller, navigationAction) async {
-                            var uri = navigationAction.request.url!;
-
-                            if (!["http", "https", "file", "chrome", "data", "javascript", "about"].contains(uri.scheme)) {
-                              if (await canLaunch(url)) {
-                                // Launch the App
-                                await launch(
-                                  url,
-                                  forceWebView: true,
-                                );
-                                // and cancel the request
-                                return NavigationActionPolicy.CANCEL;
-                              }
-                            }
-
-                            return NavigationActionPolicy.ALLOW;
-                          },
-                          onLoadStop: (controller, url) async {
-                            pullToRefreshController.endRefreshing();
-                            setState(() {
-                              this.url = url.toString();
-                              urlController.text = this.url;
-                            });
-                          },
-                          onLoadError: (controller, url, code, message) {
-                            pullToRefreshController.endRefreshing();
-                          },
-                          onProgressChanged: (controller, progress) {
-                            if (progress == 100) {
-                              pullToRefreshController.endRefreshing();
-                            }
-                            setState(() {
-                              this.progress = progress / 100;
-                              urlController.text = this.url;
-                            });
-                          },
-                          onUpdateVisitedHistory: (controller, url, androidIsReload) {
-                            setState(() {
-                              this.url = url.toString();
-                              urlController.text = this.url;
-                            });
-                          },
-                          onConsoleMessage: (controller, consoleMessage) {
-                            print(consoleMessage);
-                          },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        if (Platform.isAndroid) {
+                          _openOption(context);
+                          //print('xfile = ${widget.xFile}');
+                        } else {
+                          await CustomShare.shareUrl(url);
+                        }
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.blue, blurRadius: 1)]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Platform.isAndroid
+                                  ? Icon(
+                                      Icons.share,
+                                      color: Colors.blue,
+                                    )
+                                  : Icon(
+                                      CupertinoIcons.share,
+                                      color: Colors.blue,
+                                    ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text('แชร์(Share)', style: TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.bold)),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ],
-            ),
+            )),
+      ),
+    );
+  }
 
-            // bottomNavigationBar: BottomAppBar(
-            //   color: Theme.of(context).appBarTheme.backgroundColor,
-            //   child: Container(
-            //     decoration: BoxDecoration(color: Colors.white, boxShadow: [
-            //       BoxShadow(
-            //           offset: Offset.zero,
-            //           spreadRadius: .2,
-            //           color: Colors.grey.shade400)
-            //     ]),
-            //   ),
-            // ),
-
-            // onPressed: () async {
-            //           if (paperSize == 'paperang') {
-            //             if (Platform.isAndroid) {
-            //               _openJioSavaan();
-            //             } else {
-            //               launch(url);
-            //             }
-            //           } else {
-            //             webViewController!
-            //                 .evaluateJavascript(source: 'window.print()');
-            //           }
-            //         },
-
-            bottomNavigationBar: BottomAppBar(
-              color: Theme.of(context).appBarTheme.backgroundColor,
-              shape: CircularNotchedRectangle(),
-              child: Container(
-                decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black54)], color: Colors.white),
-                width: MediaQuery.of(context).size.width,
-                height: 70,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      if (_papersize!.lower == 'paperang') {
-                        if (Platform.isAndroid) {
-                          _openJioSavaan();
-                        } else {
-                          Clipboard.setData(ClipboardData(text: url)).then((_) {
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                              "คัดลอก Link $url แล้ว",
-                              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context), color: Colors.white),
-                            )));
-                          });
-                        }
-                      } else {
-                        webViewController!.evaluateJavascript(source: 'window.print()');
-                        // .evaluateJavascript(source: ('generatePDF()'));
-                        // "var today = new Date();var dd = String(today.getDate()).padStart(2, ‘0’);var mm = String(today.getMonth() + 1).padStart(2, ‘0’); //January is 0!var yyyy = today.getFullYear();today = dd + ‘-’ + mm + ‘-’ + yyyy;const element = document.getElementById(‘page’);let nbPages = 3;var opt = {margin:       0,filename:     today,image:        { type: ‘jpeg’, quality: 0.98 },html2canvas:  { scale: 2},jsPDF:        { unit: ‘mm’, format: ‘a5’, orientation: ‘p’ },pagebreak: { mode: ‘avoid-all’, after:‘.page-break’ }};html2pdf().set(opt).from(element).save();console.log(‘pdf’)");
-                      }
-                    },
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.centerLeft, colors: <Color>[
-                            Color.fromARGB(180, 41, 88, 162),
-                            Color.fromARGB(200, 43, 166, 223),
-                          ]),
+  _buildBody(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Text(
+                "ปริ้น : ",
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: PlatformSize(context),
+                    ),
+              ),
+              Expanded(
+                child: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {},
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    height: 40,
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2<PaperSizeModel>(
+                        //dropdownColor: Theme.of(context).primaryColor,
+                        dropdownElevation: 8,
+                        scrollbarRadius: const Radius.circular(40),
+                        dropdownMaxHeight: 400,
+                        scrollbarThickness: 6,
+                        scrollbarAlwaysShow: true,
+                        offset: const Offset(0, -20),
+                        dropdownDecoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: Colors.white),
+                        buttonDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
                         ),
-                        child: _papersize!.lower == 'paperang'
-                            ? Platform.isIOS
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        child: Image.network(
-                                            'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw',
-                                            scale: 15),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        'คัดลอก URL',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayLarge!
-                                            .copyWith(color: Colors.white, fontSize: PlatformSize(context) * 1.4, fontWeight: FontWeight.w900),
-                                      ),
-                                    ],
-                                  )
-                                : Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        child: Image.network(
-                                            'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw',
-                                            scale: 15),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        'แชร์ไปยัง Paperang',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .displayLarge!
-                                            .copyWith(color: Colors.white, fontSize: PlatformSize(context) * 1.4, fontWeight: FontWeight.w900),
-                                      ),
-                                    ],
-                                  )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    CupertinoIcons.printer,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'สั่งพิมพ์',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .copyWith(color: Colors.white, fontSize: PlatformSize(context) * 1.5, fontWeight: FontWeight.w900),
-                                  ),
-                                ],
-                              )),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
+                        hint: Text(
+                          "  ",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
+                        ),
+                        items: PaperSizeModel.paperSizes.map<DropdownMenuItem<PaperSizeModel>>((e) {
+                          return DropdownMenuItem(
+                            value: e,
+                            child: Text(
+                              e.upper,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline3!
+                                  .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Colors.black87),
+                            ),
+                          );
+                        }).toList(),
+                        isDense: true,
+                        onChanged: (value) {
+                          setState(() {
+                            print(value);
+                            selectIndex = value!;
+                            title = value.upper;
+                            setPaper(paper: value);
+                          });
+                        },
+                        value: selectIndex,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-          )
-        : LoadingIndicator();
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: CupertinoButton(
+                    padding: EdgeInsets.all(0),
+                    child: Row(
+                      children: [
+                        Text(
+                          ' คัดลอก',
+                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                fontSize: PlatformSize(context),
+                              ),
+                        ),
+                        SizedBox(width: 5),
+                        Icon(
+                          Icons.copy,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
+                      ],
+                    ),
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: url)).then((_) {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                          "คัดลอก Link $url แล้ว",
+                          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context), color: Colors.white),
+                        )));
+                      });
+                    }),
+              )
+            ],
+          ),
+        ),
+        Expanded(
+          child: Stack(
+            children: [
+              Hero(
+                tag: 'download',
+                child: InAppWebView(
+                  key: webViewKey,
+                  contextMenu: contextMenu,
+                  initialUrlRequest: URLRequest(url: Uri.parse(url)),
+                  // initialFile: "assets/index.html",
+                  initialUserScripts: UnmodifiableListView<UserScript>([]),
+                  initialOptions: options,
+                  pullToRefreshController: pullToRefreshController,
+
+                  onWebViewCreated: (controller) {
+                    webViewController = controller;
+                  },
+                  onLoadStart: (controller, url) {
+                    setState(() {
+                      this.url = url.toString();
+                      urlController.text = this.url;
+                    });
+                  },
+                  androidOnPermissionRequest: (controller, origin, resources) async {
+                    return PermissionRequestResponse(resources: resources, action: PermissionRequestResponseAction.GRANT);
+                  },
+                  shouldOverrideUrlLoading: (controller, navigationAction) async {
+                    var uri = navigationAction.request.url!;
+
+                    if (!["http", "https", "file", "chrome", "data", "javascript", "about"].contains(uri.scheme)) {
+                      if (await canLaunch(url)) {
+                        // Launch the App
+                        await launch(
+                          url,
+                          forceWebView: true,
+                        );
+                        // and cancel the request
+                        return NavigationActionPolicy.CANCEL;
+                      }
+                    }
+
+                    return NavigationActionPolicy.ALLOW;
+                  },
+                  onLoadStop: (controller, url) async {
+                    pullToRefreshController.endRefreshing();
+                    setState(() {
+                      this.url = url.toString();
+                      urlController.text = this.url;
+                    });
+                  },
+                  onLoadError: (controller, url, code, message) {
+                    pullToRefreshController.endRefreshing();
+                  },
+                  onProgressChanged: (controller, progress) {
+                    if (progress == 100) {
+                      pullToRefreshController.endRefreshing();
+                    }
+                    setState(() {
+                      this.progress = progress / 100;
+                      urlController.text = this.url;
+                    });
+                  },
+                  onUpdateVisitedHistory: (controller, url, androidIsReload) {
+                    setState(() {
+                      this.url = url.toString();
+                      urlController.text = this.url;
+                    });
+                  },
+                  onConsoleMessage: (controller, consoleMessage) {
+                    print(consoleMessage);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
-  _openJioSavaan() async {
-    bool isInstalled = await DeviceApps.isAppInstalled('cn.paperang.international');
-    print('isInstalled = $isInstalled');
-    if (isInstalled != false) {
-      if (Platform.isAndroid) {
-        AndroidIntent intent = AndroidIntent(action: 'action_view', data: url);
-        await intent.launchChooser('cn.paperang.international');
-      } else {
-        launch(url);
-      }
-    } else {
-      String url = Platform.isAndroid
-          ? 'https://play.google.com/store/apps/details?id=cn.paperang.international&hl=th&gl=US'
-          : 'https://apps.apple.com/th/app/paperang/id1228042625?l=th';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
+  _openOption(BuildContext context) async {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+          title: const Text('เลือกตัวเลือก'),
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw=s96-rw',
+                        width: 50,
+                      )),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Paperang',
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                ],
+              ),
+              onPressed: () async {
+                AndroidIntent intent = AndroidIntent(
+                  package: 'cn.paperang.international',
+                  action: 'action_view',
+                  data: url,
+                );
+
+                await intent.launch().catchError((e) {
+                  launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=cn.paperang.international&hl=en&gl=US'),
+                      mode: LaunchMode.externalApplication);
+                });
+              },
+            ),
+            CupertinoActionSheetAction(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        'https://play-lh.googleusercontent.com/nDKrKLdZopeZtkyV1kGK0MUF-DPzl8Z9c5rc5osYxrpRkHTdVC7Oo-vUw6mqZuSIfg=w480-h960-rw',
+                        width: 50,
+                      )),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'PeriPage',
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                      Text(
+                        '**แชร์ไปยัง PeriPage เพื่อทำรายการต่อ',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              onPressed: () async {
+                //await Future.delayed(Duration(seconds: 2));
+                await Share.share(url);
+              },
+            )
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            child: const Text('Cancel'),
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context, 'Cancel');
+            },
+          )),
+    );
   }
 }
 
@@ -663,14 +561,6 @@ class PaperSizeModel {
 
   static final paperSizes = [
     PaperSizeModel(
-      upper: 'A4',
-      lower: 'a4',
-    ),
-    PaperSizeModel(
-      upper: 'A5',
-      lower: 'a5',
-    ),
-    PaperSizeModel(
       upper: 'A6 (100x150)',
       lower: 'a6',
     ),
@@ -678,14 +568,7 @@ class PaperSizeModel {
       upper: 'A7 (100x75)',
       lower: 'a7',
     ),
-    PaperSizeModel(
-      upper: 'Paperang',
-      lower: 'paperang',
-    ),
-    PaperSizeModel(
-      upper: 'Letter',
-      lower: 'letter',
-    ),
+
     // PaperSizeModel(
     //   upper: 'PDF',
     //   lower: 'pdf',

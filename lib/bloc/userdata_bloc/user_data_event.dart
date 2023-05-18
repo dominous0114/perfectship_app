@@ -17,6 +17,30 @@ class UserdataAfterSendEvent extends UserDataEvent {
   List<Object> get props => [];
 }
 
+class UserdataOnselectBank extends UserDataEvent {
+  final BankModel bank;
+  UserdataOnselectBank({
+    required this.bank,
+  });
+  @override
+  List<Object> get props => [bank];
+}
+
+class UserdataSelectAddressEvent extends UserDataEvent {
+  final String subDistrict;
+  final String district;
+  final String province;
+  final String zipcode;
+  UserdataSelectAddressEvent({
+    required this.subDistrict,
+    required this.district,
+    required this.province,
+    required this.zipcode,
+  });
+  @override
+  List<Object> get props => [subDistrict, district, province, zipcode];
+}
+
 // class GetbankdataEvent extends UserDataEvent {
 //   final int bankId;
 //   GetbankdataEvent({

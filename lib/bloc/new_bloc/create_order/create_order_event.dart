@@ -45,3 +45,19 @@ class SelectCategoryEvent extends CreateOrderEvent {
   @override
   List<Object> get props => [category];
 }
+
+class OnSrcAddressChangeEvent extends CreateOrderEvent {
+  final String subDistrict;
+  final String district;
+  final String province;
+  final String zipcode;
+  OnSrcAddressChangeEvent({
+    required this.subDistrict,
+    required this.district,
+    required this.province,
+    required this.zipcode,
+  });
+
+  @override
+  List<Object> get props => [subDistrict, district, province, zipcode];
+}

@@ -17,12 +17,14 @@ class OrderlistNewModel {
   String? dstDistrict;
   String? dstProvince;
   String? dstZipcode;
-  int? codAmount;
-  int? codFee;
+  double? codAmount;
+  double? codFee;
   var remark;
   int? status;
   String? statusColor;
   String? statusName;
+  String? logo;
+  String? logoMobile;
 
   OrderlistNewModel(
       {this.id,
@@ -48,7 +50,9 @@ class OrderlistNewModel {
       this.remark,
       this.status,
       this.statusColor,
-      this.statusName});
+      this.statusName,
+      this.logo,
+      this.logoMobile});
 
   OrderlistNewModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -69,8 +73,8 @@ class OrderlistNewModel {
     dstDistrict = json['dst_district'];
     dstProvince = json['dst_province'];
     dstZipcode = json['dst_zipcode'];
-    codAmount = json['cod_amount'];
-    codFee = json['cod_fee'];
+    codAmount = double.parse(json['cod_amount'].toString());
+    codFee = double.parse(json['cod_fee'].toString());
     remark = json['remark'];
     status = json['status'];
     statusColor = json['status_color'];

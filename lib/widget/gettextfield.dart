@@ -67,10 +67,8 @@ class GetTextField extends StatelessWidget {
       style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
       decoration: InputDecoration(
         hintText: title,
-        hintStyle: Theme.of(context)
-            .textTheme
-            .headline4!
-            .copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+        hintStyle:
+            Theme.of(context).textTheme.headline4!.copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: 14),
         fillColor: Colors.white,
         filled: true,
         isDense: true,

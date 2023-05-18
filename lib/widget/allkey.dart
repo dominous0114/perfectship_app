@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:perfectship_app/widget/hide_navbar.dart';
 
@@ -9,4 +10,5 @@ class Allkey {
   static ScrollController homeScrollController = ScrollController();
   static bool isSelected = false;
   static bool isSelectedAll = false;
+  static bool hideBottomNavBar = false;
 }

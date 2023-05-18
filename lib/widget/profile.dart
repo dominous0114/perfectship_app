@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/repository/getuserdata_repository.dart';
+import 'package:perfectship_app/screen/new_screen/change_password.dart';
 import 'package:perfectship_app/screen/new_screen/edit_profile.dart';
 import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:shimmer/shimmer.dart';
@@ -124,7 +125,7 @@ class _ProfileState extends State<Profile> {
                                       ),
                                 ),
                                 Text(
-                                  'รหัสลูกค้า : ${state.userdatamodel.userId}',
+                                  'รหัสลูกค้า : ${state.userdatamodel.id}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline4!
@@ -146,7 +147,7 @@ class _ProfileState extends State<Profile> {
                                       color: Colors.transparent,
                                       child: InkWell(
                                         onTap: () {
-                                          Navigator.push(context, MaterialPageRoute(
+                                          Navigator.push(context, CupertinoPageRoute(
                                             builder: (context) {
                                               return EditProfile();
                                             },
@@ -182,28 +183,40 @@ class _ProfileState extends State<Profile> {
                                     SizedBox(
                                       width: 10,
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(16),
-                                          color: Colors.white,
-                                          boxShadow: [BoxShadow(color: Colors.blue, spreadRadius: 1, offset: Offset(0.2, 0.7))]),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.password,
-                                              size: 14,
+                                    Material(
+                                      color: Colors.transparent,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                builder: (context) => ChangePassword(),
+                                              ));
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(16),
+                                              color: Colors.white,
+                                              boxShadow: [BoxShadow(color: Colors.blue, spreadRadius: 1, offset: Offset(0.2, 0.7))]),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Icon(
+                                                  Icons.password,
+                                                  size: 14,
+                                                ),
+                                                SizedBox(
+                                                  width: 1,
+                                                ),
+                                                Text(
+                                                  'แก้ไขรหัสผ่าน',
+                                                  style: TextStyle(fontSize: 12, color: Colors.black54, fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
                                             ),
-                                            SizedBox(
-                                              width: 1,
-                                            ),
-                                            Text(
-                                              'แก้ไขรหัสผ่าน',
-                                              style: TextStyle(fontSize: 12, color: Colors.black54, fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ),

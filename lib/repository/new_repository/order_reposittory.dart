@@ -7,41 +7,41 @@ import 'package:http/http.dart' as http;
 
 class OrderRepository {
   SharedPreferences? preferences;
-  Future createOrder({
-    required String courierCode,
-    required int type,
-    required String labelName,
-    required String labelPhone,
-    required String labelAddress,
-    required String labelSubDistrict,
-    required String labelDistrict,
-    required String labelProvince,
-    required String labelZipcode,
-    required String accountName,
-    required String accountNumber,
-    required String accountBranch,
-    required String accountBank,
-    required String dstName,
-    required String dstPhone,
-    required String dstAddress,
-    required String dstSubDistrict,
-    required String dstDistrict,
-    required String dstProvince,
-    required String dstZipcode,
-    required double weight,
-    required double width,
-    required double length,
-    required double height,
-    required double codAmount,
-    required String remark,
-    required int isInsured,
-    required double productValue,
-    required int customerId,
-    required int isBulky,
-    required int jntPickup,
-    required int kerryPickup,
-    required int categoryId,
-  }) async {
+  Future createOrder(
+      {required String courierCode,
+      required int type,
+      required String labelName,
+      required String labelPhone,
+      required String labelAddress,
+      required String labelSubDistrict,
+      required String labelDistrict,
+      required String labelProvince,
+      required String labelZipcode,
+      required String accountName,
+      required String accountNumber,
+      required String accountBranch,
+      required String accountBank,
+      required String dstName,
+      required String dstPhone,
+      required String dstAddress,
+      required String dstSubDistrict,
+      required String dstDistrict,
+      required String dstProvince,
+      required String dstZipcode,
+      required double weight,
+      required double width,
+      required double length,
+      required double height,
+      required double codAmount,
+      required String remark,
+      required int isInsured,
+      required double productValue,
+      required int customerId,
+      required int isBulky,
+      required int jntPickup,
+      required int kerryPickup,
+      required int categoryId,
+      required int saveDstAddress}) async {
     try {
       print('on create repo');
       preferences = await SharedPreferences.getInstance();
@@ -81,7 +81,8 @@ class OrderRepository {
         "is_bulky": isBulky,
         "jnt_pickup": jntPickup,
         "kerry_pickup": kerryPickup,
-        "category_id": categoryId
+        "category_id": categoryId,
+        "save_dst_address": saveDstAddress
       });
       print(request.body);
       request.headers.addAll(headers);
@@ -110,6 +111,7 @@ class OrderRepository {
     var request = http.Request('GET', Uri.parse('${MyConstant().newDomain}/api/v1/order/get-order-list'));
     request.body = json.encode({"customer_id": customerid, "courier_code": couriercode, "status_id": status});
     request.headers.addAll(headers);
+    print(request.body);
 
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {

@@ -35,4 +35,57 @@ class UserDataRepository {
       return UserDataModel();
     }
   }
+
+  Future updateUser({
+    required int customerid,
+    required String name,
+    required String cardId,
+    required String cardUrl,
+    required String bankId,
+    required String accountName,
+    required String accountNumber,
+    required String branchNo,
+    required String bookbankUrl,
+    required String address,
+    required String subDistrict,
+    required String district,
+    required String province,
+    required String zipcode,
+  }) async {
+    preferences = await SharedPreferences.getInstance();
+    var token = preferences!.getString('token');
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    var request = http.Request('POST', Uri.parse('${MyConstant().newDomain}/api/v1/user/update-user-data'));
+    request.body = json.encode({
+      "customer_id": customerid,
+      "name": name,
+      "card_id": cardId,
+      "card_url": cardUrl,
+      "bank_id": bankId,
+      "account_name": accountName,
+      "account_number": accountNumber,
+      "branch_no": branchNo,
+      "book_bank_url": bookbankUrl,
+      "address": address,
+      "sub_district": subDistrict,
+      "district": district,
+      "province": province,
+      "zipcode": zipcode
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var res = await response.stream.bytesToString();
+      print('response = ${jsonDecode(res)}');
+      return jsonDecode(res);
+    } else {
+      var res = await response.stream.bytesToString();
+      print(response.reasonPhrase);
+      return jsonDecode(res);
+    }
+  }
 }

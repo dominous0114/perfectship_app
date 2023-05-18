@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:perfectship_app/config/constant.dart';
 import 'package:perfectship_app/model/courier_model.dart';
 import 'package:perfectship_app/model/new_model/category_new_model.dart';
@@ -21,6 +22,7 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     on<SelectAddressManulEvent>(_onSelectAddressManualEvent);
     on<OnAddressChangeEvent>(_onChageAdress);
     on<SelectCategoryEvent>(_onSelectCategory);
+    on<OnSrcAddressChangeEvent>(_onSelectSrcAddress);
   }
 
   Future<void> _onInitial(CreateOrderInitialEvent event, Emitter<CreateOrderState> emit) async {
@@ -84,7 +86,14 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
         isBulky: 0,
         jntPickup: 6,
         kerryPickup: 1,
-        categoryId: categories.first.id));
+        categoryId: categories.first.id,
+        srcaddressController: TextEditingController(text: userdata.address!.labelAddress),
+        srcdistrictController: TextEditingController(text: userdata.address!.labelDistrict),
+        srcnameController: TextEditingController(text: userdata.address!.labelName),
+        srcphoneController: TextEditingController(text: userdata.address!.labelPhone),
+        srcprovinceController: TextEditingController(text: userdata.address!.labelProvince),
+        srcsubDistrictController: TextEditingController(text: userdata.address!.labelSubDistrict),
+        srczipcodeController: TextEditingController(text: userdata.address!.labelZipcode)));
     print('after = ${userdata.address!.userId!}');
   }
 
@@ -127,6 +136,17 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     var state = this.state;
     if (state is CreateOrderData) {
       emit(state.copyWith(category: event.category, categoryId: event.category.id));
+    }
+  }
+
+  void _onSelectSrcAddress(OnSrcAddressChangeEvent event, Emitter<CreateOrderState> emit) {
+    var state = this.state;
+    if (state is CreateOrderData) {
+      emit(state.copyWith(
+          srcsubDistrictController: TextEditingController(text: event.subDistrict),
+          srcdistrictController: TextEditingController(text: event.district),
+          srcprovinceController: TextEditingController(text: event.province),
+          srczipcodeController: TextEditingController(text: event.zipcode)));
     }
   }
 }

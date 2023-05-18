@@ -8,3 +8,34 @@ abstract class OrderlistNewEvent extends Equatable {
 }
 
 class OrderlistNewInitialEvent extends OrderlistNewEvent {}
+
+class OrderlistNewSearchEvent extends OrderlistNewEvent {
+  final String keywords;
+  OrderlistNewSearchEvent({
+    required this.keywords,
+  });
+  @override
+  List<Object> get props => [keywords];
+}
+
+class OrderlistNewChangeCourierEvent extends OrderlistNewEvent {
+  final CourierNewModel courierNewModel;
+  OrderlistNewChangeCourierEvent({
+    required this.courierNewModel,
+  });
+  @override
+  List<Object> get props => [courierNewModel];
+}
+
+class OrderlistNewChangeStatusEvent extends OrderlistNewEvent {
+  final StatusModel status;
+  OrderlistNewChangeStatusEvent({
+    required this.status,
+  });
+  @override
+  List<Object> get props => [status];
+}
+
+class OrderlistNewFilterEvent extends OrderlistNewEvent {}
+
+class OrderlistNewResetEvent extends OrderlistNewEvent {}

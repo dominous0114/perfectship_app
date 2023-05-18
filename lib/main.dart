@@ -11,6 +11,7 @@ import 'package:perfectship_app/bloc/dashboard_bloc/dashboard_bloc.dart';
 import 'package:perfectship_app/bloc/dropdown_courier_bloc/dropdown_courier_bloc.dart';
 
 import 'package:perfectship_app/bloc/new_bloc/create_order/create_order_bloc.dart';
+import 'package:perfectship_app/bloc/new_bloc/navbar/navbar_bloc.dart';
 import 'package:perfectship_app/bloc/orders_bloc/order_bloc.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
@@ -106,6 +107,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => OrderlistNewBloc(),
+          ),
+          BlocProvider(
+            create: (context) => NavbarBloc(),
           )
         ],
         child: MaterialApp(
