@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+
 import 'package:perfectship_app/bloc/new_bloc/navbar/navbar_bloc.dart';
+import 'package:perfectship_app/bloc/new_bloc/tracking/tracking_bloc.dart';
 import 'package:perfectship_app/screen/createorder/new_widget/persis_delegate.dart';
 import 'package:perfectship_app/screen/orderlist/new_widget/filter_ordernew.dart';
 import 'package:perfectship_app/screen/orderlist/new_widget/testwidget.dart';
+import 'package:perfectship_app/screen/orderlist/new_widget/tracking_list.dart';
 import 'package:perfectship_app/widget/gettextfield.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 import 'package:perfectship_app/widget/status_color.dart';
@@ -189,7 +192,19 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
 
                                                 print(_selectedItems[0].id);
                                                 print(state.orderlist[0].id);
-                                              } else {}
+                                              } else {
+                                                context.read<TrackingBloc>().add(TrackingInitialEvent(track: 'ISX0000003516'));
+                                                Navigator.push(
+                                                    context,
+                                                    CupertinoPageRoute(
+                                                      builder: (context) => TrackingListScreen(
+                                                        logo: state.orderlist[index].logo!,
+                                                        logoMobile: state.orderlist[index].logoMobile!,
+                                                        statusColor: state.orderlist[index].statusColor!,
+                                                        statusText: state.orderlist[index].statusName!,
+                                                      ),
+                                                    ));
+                                              }
                                             },
                                             onLongPress: () {
                                               setState(() {
@@ -476,12 +491,12 @@ class persistentChild extends StatelessWidget {
       height: isSelect ? 0 : 50,
       duration: Duration(milliseconds: 200),
       color: Colors.white,
-      child: Row(
-        children: [
-          Expanded(
-              flex: 6,
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          children: [
+            Expanded(
+                flex: 6,
                 child: GetTextField(
                   enableIconPrefix: true,
                   preIcon: Icons.search,
@@ -489,12 +504,12 @@ class persistentChild extends StatelessWidget {
                   onChanged: (val) {
                     context.read<OrderlistNewBloc>().add(OrderlistNewSearchEvent(keywords: val));
                   },
-                ),
-              )),
-          Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
+                )),
+            SizedBox(
+              width: 2,
+            ),
+            Expanded(
+                flex: 1,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -519,9 +534,9 @@ class persistentChild extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
-              ))
-        ],
+                ))
+          ],
+        ),
       ),
     );
   }

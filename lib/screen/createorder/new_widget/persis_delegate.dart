@@ -20,7 +20,6 @@ class FloatingHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final reachedMinSize = shrinkOffset >= maxExtent - minExtent;
     return SizedBox.expand(child: reachedMinSize ? minChild : maxChild);

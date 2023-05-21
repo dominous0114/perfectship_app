@@ -143,85 +143,97 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 Row(
                                   children: [
-                                    Material(
-                                      color: Colors.transparent,
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(context, CupertinoPageRoute(
-                                            builder: (context) {
-                                              return EditProfile();
-                                            },
-                                          ));
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(16),
-                                              color: Colors.white,
-                                              boxShadow: [BoxShadow(color: Colors.blue, spreadRadius: 1, offset: Offset(0.2, 0.7))]),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  Icons.edit,
-                                                  size: 14,
-                                                ),
-                                                SizedBox(
-                                                  width: 3,
-                                                ),
-                                                Text(
-                                                  'แก้ไข',
-                                                  style: TextStyle(fontSize: 12, color: Colors.black54, fontWeight: FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Material(
-                                      color: Colors.transparent,
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              CupertinoPageRoute(
-                                                builder: (context) => ChangePassword(),
-                                              ));
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(16),
-                                              color: Colors.white,
-                                              boxShadow: [BoxShadow(color: Colors.blue, spreadRadius: 1, offset: Offset(0.2, 0.7))]),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  Icons.password,
-                                                  size: 14,
-                                                ),
-                                                SizedBox(
-                                                  width: 1,
-                                                ),
-                                                Text(
-                                                  'แก้ไขรหัสผ่าน',
-                                                  style: TextStyle(fontSize: 12, color: Colors.black54, fontWeight: FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    Expanded(
+                                        child: Text(
+                                      '${state.userdatamodel.address!.address} ${state.userdatamodel.address!.subDistrict} ${state.userdatamodel.address!.district} ${state.userdatamodel.address!.province} ${state.userdatamodel.address!.zipcode}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
+                                    )),
                                   ],
                                 )
+                                // Row(
+                                //   children: [
+                                //     Material(
+                                //       color: Colors.transparent,
+                                //       child: InkWell(
+                                //         onTap: () {
+                                //           Navigator.push(context, CupertinoPageRoute(
+                                //             builder: (context) {
+                                //               return EditProfile();
+                                //             },
+                                //           ));
+                                //         },
+                                //         child: Container(
+                                //           decoration: BoxDecoration(
+                                //               borderRadius: BorderRadius.circular(16),
+                                //               color: Colors.white,
+                                //               boxShadow: [BoxShadow(color: Colors.blue, spreadRadius: 1, offset: Offset(0.2, 0.7))]),
+                                //           child: Padding(
+                                //             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                                //             child: Row(
+                                //               mainAxisSize: MainAxisSize.min,
+                                //               children: [
+                                //                 Icon(
+                                //                   Icons.edit,
+                                //                   size: 14,
+                                //                 ),
+                                //                 SizedBox(
+                                //                   width: 3,
+                                //                 ),
+                                //                 Text(
+                                //                   'แก้ไข',
+                                //                   style: TextStyle(fontSize: 12, color: Colors.black54, fontWeight: FontWeight.bold),
+                                //                 ),
+                                //               ],
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     SizedBox(
+                                //       width: 10,
+                                //     ),
+                                //     Material(
+                                //       color: Colors.transparent,
+                                //       child: InkWell(
+                                //         onTap: () {
+                                //           Navigator.push(
+                                //               context,
+                                //               CupertinoPageRoute(
+                                //                 builder: (context) => ChangePassword(),
+                                //               ));
+                                //         },
+                                //         child: Container(
+                                //           decoration: BoxDecoration(
+                                //               borderRadius: BorderRadius.circular(16),
+                                //               color: Colors.white,
+                                //               boxShadow: [BoxShadow(color: Colors.blue, spreadRadius: 1, offset: Offset(0.2, 0.7))]),
+                                //           child: Padding(
+                                //             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                                //             child: Row(
+                                //               mainAxisSize: MainAxisSize.min,
+                                //               children: [
+                                //                 Icon(
+                                //                   Icons.password,
+                                //                   size: 14,
+                                //                 ),
+                                //                 SizedBox(
+                                //                   width: 1,
+                                //                 ),
+                                //                 Text(
+                                //                   'แก้ไขรหัสผ่าน',
+                                //                   style: TextStyle(fontSize: 12, color: Colors.black54, fontWeight: FontWeight.bold),
+                                //                 ),
+                                //               ],
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // )
                               ],
                             ),
                           ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:perfectship_app/config/constant.dart';
 import 'package:perfectship_app/model/new_model/orderlist_new_model.dart';
+import 'package:perfectship_app/model/new_model/tracking_list_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -125,6 +126,35 @@ class OrderRepository {
       print('else');
       print(response.reasonPhrase);
       return [OrderlistNewModel()];
+    }
+  }
+
+  Future<TrackingListModel> getTrack(String tracking) async {
+    preferences = await SharedPreferences.getInstance();
+    var token = preferences!.getString('token');
+    var headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'};
+    var request = http.Request('GET', Uri.parse('${MyConstant().newDomain}/api/v1/tracking'));
+    request.body = json.encode({"tracking": tracking});
+
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var res = await response.stream.bytesToString();
+      final json = jsonDecode(res) as Map<String, dynamic>;
+      final newJson = json['data'];
+
+      // Extract trace_logs field
+      final traceLogsJson = newJson['trace_logs'];
+      List<TraceLogs> traceLogs = (traceLogsJson as List).map((item) => TraceLogs.fromJson(item)).toList();
+
+      TrackingListModel list = TrackingListModel.fromJson(newJson);
+      list.traceLogs = traceLogs; // Assign trace_logs to the TrackingListModel
+
+      // print(jsonDecode(res));
+      return list;
+    } else {
+      print(response.reasonPhrase);
+      return TrackingListModel();
     }
   }
 }

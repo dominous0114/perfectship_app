@@ -99,7 +99,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
     final curvedAnimation = CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
     _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
     //url = '${server.ENV}/print/$paperSize?order=${widget.pdfData}';
-    url = 'https://app-uat.perfectship.cloud/print/$paperSize?order=${widget.pdfData}';
+    url = '${MyConstant().newDomain}/print/$paperSize?order=${widget.pdfData}';
 
     // getPDF();
 
@@ -150,7 +150,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
   Future setPaper({required PaperSizeModel paper}) async {
     setState(() {
       paperSize = paper.lower;
-      url = 'https://app-uat.perfectship.cloud/print/$paperSize?order=${widget.pdfData}';
+      url = '${MyConstant().newDomain}/print/$paperSize?order=${widget.pdfData}';
       urlController.text = url;
       webViewController?.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
     });

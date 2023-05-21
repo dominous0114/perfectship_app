@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/repository/getuserdata_repository.dart';
+import 'package:perfectship_app/screen/new_screen/change_password.dart';
+import 'package:perfectship_app/screen/new_screen/edit_profile.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,7 +62,11 @@ class _ProfileSreenState extends State<ProfileSreen> {
             Profile(),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/senderaddress');
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => EditProfile(),
+                    ));
               },
               child: Container(
                 height: 60,
@@ -83,13 +89,13 @@ class _ProfileSreenState extends State<ProfileSreen> {
                   // ignore: prefer_const_literals_to_create_immutables
                   children: [
                     Icon(
-                      CupertinoIcons.location_solid,
+                      Icons.edit,
                       color: Color.fromARGB(255, 41, 88, 162),
                     ),
                     const SizedBox(
                       width: 10,
                     ),
-                    CustomTextAutoSizeforMenu(text: 'ที่อยู่ผู้ส่ง', bold: true, enable: true),
+                    CustomTextAutoSizeforMenu(text: 'แก้ไขโปรไฟล์', bold: true, enable: true),
                     const Spacer(),
                     Icon(
                       Icons.arrow_forward_ios,
@@ -100,79 +106,83 @@ class _ProfileSreenState extends State<ProfileSreen> {
                 ),
               ),
             ),
-            BlocBuilder<UserDataBloc, UserDataState>(
-              builder: (context, state) {
-                if (state is UserDataLoading) {
-                  return Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade100,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      child: Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                            boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 1)], borderRadius: BorderRadius.all(Radius.circular(16))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                } else if (state is UserDataLoaded) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/verifybank', arguments: state.userdatamodel);
-                    },
-                    child: Container(
-                      height: 60,
-                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-                      padding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 25),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey[100]!,
-                              blurRadius: 5.0,
-                              spreadRadius: 0.0,
-                              offset: const Offset(2, 6), // shadow direction: bottom right
-                            )
-                          ],
-                          border: Border.all(color: Colors.grey.shade50)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          Icon(
-                            CupertinoIcons.creditcard,
-                            color: Color.fromARGB(255, 41, 88, 162),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          CustomTextAutoSizeforMenu(text: 'ยืนยันบัญชีธนาคาร', bold: true, enable: true),
-                          const Spacer(),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: Color.fromARGB(255, 41, 88, 162),
-                            size: 20,
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              },
-            ),
+            // BlocBuilder<UserDataBloc, UserDataState>(
+            //   builder: (context, state) {
+            //     if (state is UserDataLoading) {
+            //       return Shimmer.fromColors(
+            //         baseColor: Colors.grey.shade300,
+            //         highlightColor: Colors.grey.shade100,
+            //         child: Padding(
+            //           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            //           child: Container(
+            //             height: 60,
+            //             decoration: BoxDecoration(
+            //                 boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 1)], borderRadius: BorderRadius.all(Radius.circular(16))),
+            //             child: Padding(
+            //               padding: const EdgeInsets.all(3.0),
+            //               child: Row(
+            //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                 children: [],
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       );
+            //     } else if (state is UserDataLoaded) {
+            //       return GestureDetector(
+            //         onTap: () {
+            //           Navigator.pushNamed(context, '/verifybank', arguments: state.userdatamodel);
+            //         },
+            //         child: Container(
+            //           height: 60,
+            //           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+            //           padding: const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 25),
+            //           decoration: BoxDecoration(
+            //               color: Colors.white,
+            //               borderRadius: BorderRadius.circular(16),
+            //               boxShadow: [
+            //                 BoxShadow(
+            //                   color: Colors.grey[100]!,
+            //                   blurRadius: 5.0,
+            //                   spreadRadius: 0.0,
+            //                   offset: const Offset(2, 6), // shadow direction: bottom right
+            //                 )
+            //               ],
+            //               border: Border.all(color: Colors.grey.shade50)),
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //             // ignore: prefer_const_literals_to_create_immutables
+            //             children: [
+            //               Icon(
+            //                 CupertinoIcons.creditcard,
+            //                 color: Color.fromARGB(255, 41, 88, 162),
+            //               ),
+            //               const SizedBox(
+            //                 width: 10,
+            //               ),
+            //               CustomTextAutoSizeforMenu(text: 'ยืนยันบัญชีธนาคาร', bold: true, enable: true),
+            //               const Spacer(),
+            //               Icon(
+            //                 Icons.arrow_forward_ios,
+            //                 color: Color.fromARGB(255, 41, 88, 162),
+            //                 size: 20,
+            //               )
+            //             ],
+            //           ),
+            //         ),
+            //       );
+            //     } else {
+            //       return Container();
+            //     }
+            //   },
+            // ),
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/settingshipping');
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => ChangePassword(),
+                    ));
               },
               child: Container(
                 height: 60,
@@ -195,13 +205,13 @@ class _ProfileSreenState extends State<ProfileSreen> {
                   // ignore: prefer_const_literals_to_create_immutables
                   children: [
                     Icon(
-                      CupertinoIcons.cube_box,
+                      Icons.password,
                       color: Color.fromARGB(255, 41, 88, 162),
                     ),
                     const SizedBox(
                       width: 10,
                     ),
-                    CustomTextAutoSizeforMenu(text: 'ตั้งค่าการส่งพัสดุ', bold: true, enable: true),
+                    CustomTextAutoSizeforMenu(text: 'แก้ไขรหัสผ่าน', bold: true, enable: true),
                     const Spacer(),
                     Icon(
                       Icons.arrow_forward_ios,

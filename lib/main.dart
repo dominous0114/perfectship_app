@@ -31,7 +31,9 @@ import 'package:perfectship_app/screen/login.dart';
 import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'bloc/new_bloc/bill_list/bill_list_bloc.dart';
 import 'bloc/new_bloc/orderlist_new/orderlist_new_bloc.dart';
+import 'bloc/new_bloc/tracking/tracking_bloc.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -110,6 +112,12 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => NavbarBloc(),
+          ),
+          BlocProvider(
+            create: (context) => BillListBloc(),
+          ),
+          BlocProvider(
+            create: (context) => TrackingBloc(),
           )
         ],
         child: MaterialApp(

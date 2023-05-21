@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
+import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
+import 'package:perfectship_app/bloc/new_bloc/bill_list/bill_list_bloc.dart';
 
 import 'package:perfectship_app/bloc/new_bloc/create_order/create_order_bloc.dart';
 import 'package:perfectship_app/bloc/new_bloc/navbar/navbar_bloc.dart';
@@ -23,6 +25,7 @@ import 'package:perfectship_app/widget/allkey.dart';
 
 import '../bloc/dropdown_courier_bloc/dropdown_courier_bloc.dart';
 import '../screen/createorder/new_widget/create_order_new.dart';
+import '../screen/new_screen/bill_list_new.dart';
 import '../screen/orderlist/new_widget/order_list_new.dart';
 import 'custom_gradient_icon.dart';
 
@@ -40,7 +43,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
   ScrollController? scrollController;
   Timer? _scrollTimer;
   bool hideBottomNavBar = false;
-  List<Widget> pageList = <Widget>[HomeScreen(), OrderlistNewScreen(), CreateOrderNew(), BillListScreen(), ProfileSreen()];
+  List<Widget> pageList = <Widget>[HomeScreen(), OrderlistNewScreen(), CreateOrderNew(), BillListNew(), ProfileSreen()];
 
   Future<dynamic> backgroundHandler(RemoteMessage message) async {
     LocalNotficationService.displaybackground(message);
@@ -117,6 +120,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
     context.read<TrackBloc>().add(TrackInitialEvent());
     context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
     context.read<NavbarBloc>().add(NavbarInitialEvent());
+    context.read<BillListBloc>().add(BillListInitialEvent());
     Allkey.orderScrollController = ScrollController();
     Allkey.homeScrollController = ScrollController();
     Allkey.billScrollController = ScrollController();
