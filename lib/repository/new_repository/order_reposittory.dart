@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:perfectship_app/config/constant.dart';
+import 'package:perfectship_app/model/new_model/dashboard_new_model.dart';
 import 'package:perfectship_app/model/new_model/orderlist_new_model.dart';
 import 'package:perfectship_app/model/new_model/tracking_list_model.dart';
+import 'package:perfectship_app/screen/new_screen/dashboard_new.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -155,6 +157,31 @@ class OrderRepository {
     } else {
       print(response.reasonPhrase);
       return TrackingListModel();
+    }
+  }
+
+  Future<DashboardNewModel> getDashboard(String start, String end) async {
+    preferences = await SharedPreferences.getInstance();
+    var token = preferences!.getString('token');
+    var customerid = preferences!.getInt('customerid');
+    var headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'};
+    var request = http.Request('GET', Uri.parse('${MyConstant().newDomain}/api/v1/utility/gatdt-dashboard'));
+    request.body = json.encode({"customer_id": customerid, "start_date": "2023-05-01", "end_date": "2023-05-30"});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var res = await response.stream.bytesToString();
+      final json = jsonDecode(res) as Map<String, dynamic>;
+      final newJson = json;
+
+      DashboardNewModel list = DashboardNewModel.fromJson(newJson);
+
+      // print(jsonDecode(res));
+      return list;
+    } else {
+      print(response.reasonPhrase);
+      return DashboardNewModel();
     }
   }
 }

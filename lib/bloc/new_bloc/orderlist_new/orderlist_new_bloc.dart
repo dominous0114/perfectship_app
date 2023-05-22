@@ -58,37 +58,48 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
       (a, b) => b.createdAt!.compareTo(a.createdAt!),
     );
     print('emit');
-    emit(OrderlistNewLoaded(orderlist: ordermap, statuses: statuses, status: statuses.first, couriers: couriers, courier: couriers.first));
+    emit(OrderlistNewLoaded(
+        orderlist: ordermap,
+        statuses: statuses,
+        status: statuses.first,
+        couriers: couriers,
+        courier: couriers.first,
+        orderlisttosearch: ordermap,
+        courierstosearch: couriers));
   }
 
   void _onSearch(OrderlistNewSearchEvent event, Emitter<OrderlistNewState> emit) async {
     var state = this.state;
     if (state is OrderlistNewLoaded) {
-      await OrderRepository().getOrder(state.courier.code.toString(), state.status.id).then((value) async {
-        List<CourierNewModel> courier = await CourierNewRepository().getCourierAll();
-        for (var i = 0; i < value.length; i++) {
-          value[i].logo = courier
-              .firstWhere((element) => element.code == value[i].courierCode)
-              .logo
-              .toString()
-              .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
-          value[i].logoMobile = courier
-              .firstWhere((element) => element.code == value[i].courierCode)
-              .logoMobile
-              .toString()
-              .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
-        }
-        value.sort(
-          (a, b) => b.createdAt!.compareTo(a.createdAt!),
-        );
+      print(state.orderlisttosearch.length);
+      List<OrderlistNewModel> orders = List.from(state.orderlisttosearch); // Create a new list
 
-        value.retainWhere((element) =>
-            element.dstName.toString().toLowerCase().contains(event.keywords.toLowerCase()) ||
-            element.dstAddress.toString().toLowerCase().contains(event.keywords.toLowerCase()) ||
-            element.dstPhone.toString().toLowerCase().contains(event.keywords.toLowerCase()) ||
-            element.trackNo.toString().toLowerCase().contains(event.keywords.toLowerCase()));
-        emit(state.copyWith(orderlist: value));
-      });
+      List<CourierNewModel> courier = List.from(state.courierstosearch);
+      for (var i = 0; i < orders.length; i++) {
+        orders[i].logo = courier
+            .firstWhere((element) => element.code == orders[i].courierCode)
+            .logo
+            .toString()
+            .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+        orders[i].logoMobile = courier
+            .firstWhere((element) => element.code == orders[i].courierCode)
+            .logoMobile
+            .toString()
+            .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+      }
+      orders.sort(
+        (a, b) => b.createdAt!.compareTo(a.createdAt!),
+      );
+
+      orders.retainWhere((element) =>
+          element.dstName.toString().toLowerCase().contains(event.keywords.toLowerCase()) ||
+          element.dstAddress.toString().toLowerCase().contains(event.keywords.toLowerCase()) ||
+          element.dstPhone.toString().toLowerCase().contains(event.keywords.toLowerCase()) ||
+          element.trackNo.toString().toLowerCase().contains(event.keywords.toLowerCase()));
+      print('order ${orders.length}');
+      print('list to search ${state.orderlisttosearch.length}');
+      print('list ${state.orderlist.length}');
+      emit(state.copyWith(orderlist: orders)); // Emit the modified state with the new list
     }
   }
 

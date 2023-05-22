@@ -193,7 +193,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                 print(_selectedItems[0].id);
                                                 print(state.orderlist[0].id);
                                               } else {
-                                                context.read<TrackingBloc>().add(TrackingInitialEvent(track: 'ISX0000003516'));
+                                                context.read<TrackingBloc>().add(TrackingInitialEvent(track: state.orderlist[index].trackNo!));
                                                 Navigator.push(
                                                     context,
                                                     CupertinoPageRoute(

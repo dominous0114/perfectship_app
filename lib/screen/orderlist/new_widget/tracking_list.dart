@@ -1,7 +1,9 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:perfectship_app/model/new_model/tracking_list_model.dart';
+import 'package:perfectship_app/widget/convert_form.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 
 import '../../../bloc/new_bloc/tracking/tracking_bloc.dart';
@@ -58,12 +60,29 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                       pinned: true,
                       toolbarHeight: 60,
                       elevation: 0,
-                      title: Text(
-                        'ติดตามสถานะ',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'ติดตามสถานะ',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      leading: Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Colors.white,
+                              )),
+                        ],
                       ),
                       flexibleSpace: Container(
                         decoration: BoxDecoration(
@@ -79,6 +98,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                           ),
                         ),
                       ),
+                      actions: [],
                     ),
                   ],
               body: BlocBuilder<TrackingBloc, TrackingState>(
@@ -167,47 +187,59 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                 color: Colors.white,
                                 boxShadow: [BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)],
                               ),
-                              child: Stepper(
-                                currentStep: state.track.traceLogs!.length - 1,
-                                controlsBuilder: (context, details) {
-                                  return SizedBox.shrink();
-                                },
-                                steps: List<Step>.generate(state.track.traceLogs!.length, (int index) {
-                                  final TraceLogs log = state.track.traceLogs![index];
-                                  return Step(
-                                    isActive: index == state.track.traceLogs!.length - 1,
-                                    state: index == state.track.traceLogs!.length - 1 ? StepState.complete : StepState.indexed,
-                                    title: Text(log.statusDesc!),
-                                    content: SizedBox(
-                                      width: double.infinity,
+                              child: state.track.traceLogs!.length == 0
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: <Widget>[
-                                          Container(
-                                            height: 10.0,
-                                            color: index == state.track.traceLogs!.length - 1 ? Colors.green : Colors.grey,
-                                          ),
-                                          SizedBox(height: 8.0),
-                                          Container(
-                                            width: 20.0,
-                                            height: 20.0,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: index == state.track.traceLogs!.length - 1 ? Colors.green : Colors.grey,
-                                            ),
-                                          ),
-                                          SizedBox(height: 8.0),
-                                          if (index < state.track.traceLogs!.length - 1)
-                                            Container(
-                                              height: 2.0,
-                                              color: Colors.grey,
-                                            ),
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Lottie.asset('assets/lottie/97670-tomato-error.json', width: 80, height: 80, repeat: false),
+                                          // SizedBox(
+                                          //   width: 5,
+                                          // ),
+                                          Text('ขออภัย ไม่สามารถติดตามสถานะพัสดุนี้ได้',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              )),
                                         ],
                                       ),
+                                    )
+                                  : Stepper(
+                                      currentStep: state.track.traceLogs!.length - 1,
+                                      controlsBuilder: (context, details) {
+                                        return SizedBox.shrink();
+                                      },
+                                      steps: List<Step>.generate(state.track.traceLogs!.length, (int index) {
+                                        final TraceLogs log = state.track.traceLogs![index];
+                                        final int stepNumber = state.track.traceLogs!.length - index; // Compute the step number in reverse order
+                                        return Step(
+                                          isActive: index == 0,
+                                          state: index == 0 ? StepState.complete : StepState.disabled,
+                                          title: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              //Text('$stepNumber'), // Display the step number
+                                              Text(log.statusDesc!),
+                                              Text(convertDateTime(dateTime: log.createdAt!)),
+                                            ],
+                                          ),
+                                          content: SizedBox(
+                                            width: double.infinity,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                                              children: <Widget>[
+                                                SizedBox(height: 8.0),
+                                                if (index < state.track.traceLogs!.length - 1)
+                                                  Container(
+                                                    height: 2.0,
+                                                    color: Colors.grey,
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      }),
                                     ),
-                                  );
-                                }),
-                              ),
                             ),
                           ),
                         )

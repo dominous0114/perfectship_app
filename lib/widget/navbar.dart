@@ -10,6 +10,7 @@ import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
 import 'package:perfectship_app/bloc/new_bloc/bill_list/bill_list_bloc.dart';
 
 import 'package:perfectship_app/bloc/new_bloc/create_order/create_order_bloc.dart';
+import 'package:perfectship_app/bloc/new_bloc/dashboard/dashboard_bloc.dart';
 import 'package:perfectship_app/bloc/new_bloc/navbar/navbar_bloc.dart';
 import 'package:perfectship_app/bloc/new_bloc/orderlist_new/orderlist_new_bloc.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
@@ -19,6 +20,7 @@ import 'package:perfectship_app/repository/getuserdata_repository.dart';
 import 'package:perfectship_app/screen/billlist/billlist_screen.dart';
 import 'package:perfectship_app/screen/createorder/createorder.dart';
 import 'package:perfectship_app/screen/home/homescreen.dart';
+import 'package:perfectship_app/screen/new_screen/dashboard_new.dart';
 import 'package:perfectship_app/screen/orderlist/orderlist_screen.dart';
 import 'package:perfectship_app/screen/profile/profile_screen.dart';
 import 'package:perfectship_app/widget/allkey.dart';
@@ -43,7 +45,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
   ScrollController? scrollController;
   Timer? _scrollTimer;
   bool hideBottomNavBar = false;
-  List<Widget> pageList = <Widget>[HomeScreen(), OrderlistNewScreen(), CreateOrderNew(), BillListNew(), ProfileSreen()];
+  List<Widget> pageList = <Widget>[DashBoardNew(), OrderlistNewScreen(), CreateOrderNew(), BillListNew(), ProfileSreen()];
 
   Future<dynamic> backgroundHandler(RemoteMessage message) async {
     LocalNotficationService.displaybackground(message);
@@ -121,6 +123,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
     context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
     context.read<NavbarBloc>().add(NavbarInitialEvent());
     context.read<BillListBloc>().add(BillListInitialEvent());
+    context.read<DashboardBloc>().add(DashboardInitialEvent());
     Allkey.orderScrollController = ScrollController();
     Allkey.homeScrollController = ScrollController();
     Allkey.billScrollController = ScrollController();
