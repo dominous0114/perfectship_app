@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/shared/types.dart';
@@ -26,7 +30,12 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   final formKey = GlobalKey<FormState>();
   FocusNode searchFocus = FocusNode();
-  void _selectImage() {
+  final ImagePicker _picker = ImagePicker();
+  XFile? _imageFile;
+  String idpath = '';
+  String bookbankpath = '';
+
+  void _selectImage(String type) {
     showModalBottomSheet(
         isScrollControlled: true,
         enableDrag: true,
@@ -51,7 +60,7 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          //selectImage(1);
+                          type == 'idcard' ? selectImageId(1) : selectImageBank(1);
                           Navigator.pop(context);
                         },
                         child: Container(
@@ -89,7 +98,7 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          //selectImage(0);
+                          type == 'idcard' ? selectImageId(0) : selectImageBank(0);
                           Navigator.pop(context);
                         },
                         child: Padding(
@@ -130,6 +139,72 @@ class _EditProfileState extends State<EditProfile> {
             ),
           );
         });
+  }
+
+  selectImageId(int choose) async {
+    if (choose == 0) {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery, maxWidth: 500, maxHeight: 500);
+      setState(() {
+        _imageFile = image;
+        final byte = File(_imageFile!.path).readAsBytesSync();
+        String base64Image = "data:image/png;base64," + base64Encode(byte);
+        UserDataRepository().uploadImage(image: base64Image, type: 'idcard').then((value) {
+          setState(() {
+            idpath = value;
+            context.read<UserDataBloc>().add(UserIdcardUploadImageEvent(idcardUrl: value));
+            print('VALUE > $value');
+            print('PATH > $idpath');
+          });
+        });
+      });
+    } else {
+      final XFile? photo = await _picker.pickImage(source: ImageSource.camera, maxWidth: 500, maxHeight: 500);
+      //CameraOverlay();
+      setState(() {
+        _imageFile = photo;
+        final byte = File(_imageFile!.path).readAsBytesSync();
+        String base64Image = "data:image/png;base64," + base64Encode(byte);
+        UserDataRepository().uploadImage(image: base64Image, type: 'idcard').then((value) {
+          setState(() {
+            idpath = value;
+            context.read<UserDataBloc>().add(UserIdcardUploadImageEvent(idcardUrl: value));
+          });
+        });
+      });
+    }
+  }
+
+  selectImageBank(int choose) async {
+    if (choose == 0) {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery, maxWidth: 500, maxHeight: 500);
+      setState(() {
+        _imageFile = image;
+        final byte = File(_imageFile!.path).readAsBytesSync();
+        String base64Image = "data:image/png;base64," + base64Encode(byte);
+        UserDataRepository().uploadImage(image: base64Image, type: 'bookbank').then((value) {
+          setState(() {
+            idpath = value;
+            context.read<UserDataBloc>().add(UserBookbankUploadImageEvent(bookbankUrl: value));
+            print('VALUE > $value');
+            print('PATH > $idpath');
+          });
+        });
+      });
+    } else {
+      final XFile? photo = await _picker.pickImage(source: ImageSource.camera, maxWidth: 500, maxHeight: 500);
+      //CameraOverlay();
+      setState(() {
+        _imageFile = photo;
+        final byte = File(_imageFile!.path).readAsBytesSync();
+        String base64Image = "data:image/png;base64," + base64Encode(byte);
+        UserDataRepository().uploadImage(image: base64Image, type: 'bookbank').then((value) {
+          setState(() {
+            idpath = value;
+            context.read<UserDataBloc>().add(UserBookbankUploadImageEvent(bookbankUrl: value));
+          });
+        });
+      });
+    }
   }
 
   @override
@@ -240,6 +315,7 @@ class _EditProfileState extends State<EditProfile> {
                                             height: 5,
                                           ),
                                           Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Expanded(
                                                 flex: 1,
@@ -284,7 +360,7 @@ class _EditProfileState extends State<EditProfile> {
                                           state.userdatamodel.cardUrl == null || state.userdatamodel.cardUrl == ''
                                               ? GestureDetector(
                                                   onTap: () {
-                                                    _selectImage();
+                                                    _selectImage('idcard');
                                                   },
                                                   child: Container(
                                                     decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
@@ -319,7 +395,7 @@ class _EditProfileState extends State<EditProfile> {
                                                       padding: const EdgeInsets.only(right: 5, bottom: 5),
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          _selectImage();
+                                                          _selectImage('idcard');
                                                         },
                                                         child: Container(
                                                             decoration: BoxDecoration(
@@ -553,7 +629,7 @@ class _EditProfileState extends State<EditProfile> {
                                           state.userdatamodel.bookBankUrl == null || state.userdatamodel.bookBankUrl == ''
                                               ? GestureDetector(
                                                   onTap: () {
-                                                    _selectImage();
+                                                    _selectImage('bookbank');
                                                   },
                                                   child: Container(
                                                     decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
@@ -588,7 +664,7 @@ class _EditProfileState extends State<EditProfile> {
                                                       padding: const EdgeInsets.only(right: 5, bottom: 5),
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          _selectImage();
+                                                          _selectImage('bookbank');
                                                         },
                                                         child: Container(
                                                             decoration: BoxDecoration(

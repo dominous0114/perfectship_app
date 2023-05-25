@@ -26,6 +26,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     //on<UserdataAfterSendEvent>(_onLoadGetAftersenddata);
     on<UserdataOnselectBank>(_onselectBank);
     on<UserdataSelectAddressEvent>(_onselctAddress);
+    on<UserIdcardUploadImageEvent>(_onUploadIdcardImage);
+    on<UserBookbankUploadImageEvent>(_onUploadBookbankImage);
   }
 
   void _onLoadGetUserdata(UserDataInitialEvent event, Emitter<UserDataState> emit) async {
@@ -92,6 +94,24 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       TextEditingController zipcode = TextEditingController(text: event.zipcode);
       emit(
           state.copyWith(subDistrictController: subdistrict, districtController: district, provinceController: province, zipcodeController: zipcode));
+    }
+  }
+
+  void _onUploadIdcardImage(UserIdcardUploadImageEvent event, Emitter<UserDataState> emit) {
+    var state = this.state;
+    if (state is UserDataLoaded) {
+      UserDataModel userdata = state.userdatamodel;
+      userdata.cardUrl = event.idcardUrl;
+      emit(state.copyWith(userdatamodel: userdata));
+    }
+  }
+
+  void _onUploadBookbankImage(UserBookbankUploadImageEvent event, Emitter<UserDataState> emit) {
+    var state = this.state;
+    if (state is UserDataLoaded) {
+      UserDataModel userdata = state.userdatamodel;
+      userdata.bookBankUrl = event.bookbankUrl;
+      emit(state.copyWith(userdatamodel: userdata));
     }
   }
 }

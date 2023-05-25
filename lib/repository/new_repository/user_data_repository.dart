@@ -88,4 +88,28 @@ class UserDataRepository {
       return jsonDecode(res);
     }
   }
+
+  Future uploadImage({required String image, required String type}) async {
+    preferences = await SharedPreferences.getInstance();
+    var token = preferences!.getString('token');
+    var headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer $token',
+    };
+    var request = http.Request('POST', Uri.parse('${MyConstant().newDomain}/api/v1/utility/upload'));
+    request.bodyFields = {'image': image, 'type': type};
+    request.headers.addAll(headers);
+
+    print(request.bodyFields);
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      print('on of');
+      var res = await response.stream.bytesToString();
+      print('res = $res');
+      return res;
+    } else {
+      return response.stream.bytesToString();
+    }
+  }
 }

@@ -204,41 +204,46 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                         ],
                                       ),
                                     )
-                                  : Stepper(
-                                      currentStep: state.track.traceLogs!.length - 1,
-                                      controlsBuilder: (context, details) {
-                                        return SizedBox.shrink();
-                                      },
-                                      steps: List<Step>.generate(state.track.traceLogs!.length, (int index) {
-                                        final TraceLogs log = state.track.traceLogs![index];
-                                        final int stepNumber = state.track.traceLogs!.length - index; // Compute the step number in reverse order
-                                        return Step(
-                                          isActive: index == 0,
-                                          state: index == 0 ? StepState.complete : StepState.disabled,
-                                          title: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              //Text('$stepNumber'), // Display the step number
-                                              Text(log.statusDesc!),
-                                              Text(convertDateTime(dateTime: log.createdAt!)),
-                                            ],
-                                          ),
-                                          content: SizedBox(
-                                            width: double.infinity,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                                              children: <Widget>[
-                                                SizedBox(height: 8.0),
-                                                if (index < state.track.traceLogs!.length - 1)
-                                                  Container(
-                                                    height: 2.0,
-                                                    color: Colors.grey,
-                                                  ),
+                                  : MediaQuery.removePadding(
+                                      context: context,
+                                      removeTop: true,
+                                      removeBottom: true,
+                                      child: Stepper(
+                                        currentStep: state.track.traceLogs!.length - 1,
+                                        controlsBuilder: (context, details) {
+                                          return SizedBox.shrink();
+                                        },
+                                        steps: List<Step>.generate(state.track.traceLogs!.length, (int index) {
+                                          final TraceLogs log = state.track.traceLogs![index];
+                                          final int stepNumber = state.track.traceLogs!.length - index; // Compute the step number in reverse order
+                                          return Step(
+                                            isActive: index == 0,
+                                            state: index == 0 ? StepState.complete : StepState.disabled,
+                                            title: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                //Text('$stepNumber'), // Display the step number
+                                                Text(log.statusDesc!),
+                                                Text(convertDateTime(dateTime: log.createdAt!)),
                                               ],
                                             ),
-                                          ),
-                                        );
-                                      }),
+                                            content: SizedBox(
+                                              width: double.infinity,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                children: <Widget>[
+                                                  SizedBox(height: 8.0),
+                                                  if (index < state.track.traceLogs!.length - 1)
+                                                    Container(
+                                                      height: 2.0,
+                                                      color: Colors.grey,
+                                                    ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                      ),
                                     ),
                             ),
                           ),

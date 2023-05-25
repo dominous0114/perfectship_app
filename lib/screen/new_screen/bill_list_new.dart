@@ -28,10 +28,16 @@ class _BillListNewState extends State<BillListNew> {
   Timer? _scrollTimer;
 
   Future<void> _refresh() async {
-    print('on refersh');
-    Future bloc = context.read<BillListBloc>().stream.first;
-    context.read<BillListBloc>().add(BillListInitialEvent());
-    await bloc;
+    print('on refresh');
+
+    await Future.delayed(Duration(milliseconds: 500));
+
+    final billListBloc = context.read<BillListBloc>();
+    billListBloc.add(BillListInitialEvent());
+
+    //await billListBloc.stream.firstWhere((state) => state is BillListLoaded);
+
+    print('refreshed');
   }
 
   @override

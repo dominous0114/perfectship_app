@@ -7,7 +7,10 @@ abstract class BillListEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class BillListInitialEvent extends BillListEvent {}
+class BillListInitialEvent extends BillListEvent {
+  @override
+  List<Object> get props => [];
+}
 
 class BillListFilterDateEvent extends BillListEvent {
   final DateTime start;

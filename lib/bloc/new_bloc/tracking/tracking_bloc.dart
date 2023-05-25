@@ -13,6 +13,7 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
   }
 
   void _onGetTracking(TrackingInitialEvent event, Emitter<TrackingState> emit) async {
+    emit(TrackingLoading());
     await OrderRepository().getTrack(event.track).then((value) {
       value.traceLogs!.sort(
         (a, b) => b.createdAt!.compareTo(a.createdAt!),

@@ -22,9 +22,18 @@ class BillListBloc extends Bloc<BillListEvent, BillListState> {
     DateFormat dateFormat = DateFormat('yyyy-MM-dd');
     String startDate = dateFormat.format(firstDayOfMonth);
     String endDate = dateFormat.format(currentDay);
-    await BillNewRepository().getBill(startDate, endDate).then((value) {
+
+    try {
+      final value = await BillNewRepository().getBill(startDate, endDate);
+      print('bill val = $value');
       emit(BillListLoaded(billlist: value, enddate: currentDay, startdate: firstDayOfMonth));
-    });
+      print('emit');
+    } catch (error) {
+      //emit(BillListError(message: 'An error occurred while loading bills.'));
+      // ตรวจสอบและจัดการข้อผิดพลาดตามที่คุณต้องการทำ
+      // เช่น emit สถานะข้อผิดพลาดพร้อมกับข้อความของข้อผิดพลาด
+      print('Error: $error');
+    }
   }
 
   void _onFilterDate(BillListFilterDateEvent event, Emitter<BillListState> emit) async {

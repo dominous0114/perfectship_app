@@ -95,7 +95,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                           floating: true,
                           snap: true,
                           pinned: false,
-                          toolbarHeight: 60,
+                          toolbarHeight: MediaQuery.of(context).size.height * 0.072,
                           elevation: 0,
                           title: GestureDetector(
                             child: Row(
@@ -158,10 +158,11 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                             return LoadingShimmer();
                           } else if (state is OrderlistNewLoaded) {
                             return RefreshIndicator(
-                              onRefresh: () async {
-                                //print('refresh');
-                                await _refresh();
-                              },
+                              onRefresh: isSelect
+                                  ? () async {}
+                                  : () async {
+                                      await _refresh();
+                                    },
                               child: CustomScrollView(
                                 slivers: [
                                   SliverPersistentHeader(
@@ -393,7 +394,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
           ),
         ),
         AnimatedContainer(
-          height: isSelect ? 105 : 0,
+          height: isSelect ? MediaQuery.of(context).size.height * 0.13 : 0,
           duration: Duration(milliseconds: 200),
           child: Container(
             decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.blue, blurRadius: 1)]),
@@ -437,7 +438,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                     setState(() {
                                       _selectedItems.clear();
                                       isSelect = false;
-                                      context.read<NavbarBloc>().add(NavbarOrderScrollHideEvent());
+                                      context.read<NavbarBloc>().add(NavbarOrderScrollShowEvent());
                                     });
                                   },
                             icon: Icon(

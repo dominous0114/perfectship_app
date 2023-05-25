@@ -159,20 +159,29 @@ class _DashBoardNewState extends State<DashBoardNew> {
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 8),
-                        _buildStatisticBigRow(
-                            label: 'รายการที่สำเร็จ',
-                            value: state.dashboardNewModel.successOrder!.toString(),
-                            color: Colors.green.shade200,
-                            lottie: 'assets/lottie/78295-correct.json',
-                            sized: 35,
-                            suffix: 'รายการ'),
-                        _buildStatisticBigRow(
-                            label: 'รายการที่ยกเลิก',
-                            value: state.dashboardNewModel.cancelOrder!.toString(),
-                            color: Colors.red.shade200,
-                            lottie: 'assets/lottie/97670-tomato-error.json',
-                            suffix: 'รายการ',
-                            sized: 35),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildStatisticRow(
+                                  label: 'รายการที่สำเร็จ',
+                                  value: state.dashboardNewModel.successOrder!.toString(),
+                                  color: Colors.green.shade200,
+                                  lottie: 'assets/lottie/78295-correct.json',
+                                  //sized: 35,
+                                  suffix: 'รายการ'),
+                            ),
+                            Expanded(
+                              child: _buildStatisticRow(
+                                label: 'รายการที่ยกเลิก',
+                                value: state.dashboardNewModel.cancelOrder!.toString(),
+                                color: Colors.red.shade200,
+                                lottie: 'assets/lottie/97670-tomato-error.json',
+                                suffix: 'รายการ',
+                                //sized: 35
+                              ),
+                            ),
+                          ],
+                        ),
                         SizedBox(height: 80),
                       ],
                     ),
@@ -236,7 +245,7 @@ class _DashBoardNewState extends State<DashBoardNew> {
           children: [
             SizedBox(height: 8),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                     decoration: BoxDecoration(shape: BoxShape.circle, color: color),

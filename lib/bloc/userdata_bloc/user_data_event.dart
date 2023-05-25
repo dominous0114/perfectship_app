@@ -41,6 +41,24 @@ class UserdataSelectAddressEvent extends UserDataEvent {
   List<Object> get props => [subDistrict, district, province, zipcode];
 }
 
+class UserIdcardUploadImageEvent extends UserDataEvent {
+  final String idcardUrl;
+  UserIdcardUploadImageEvent({
+    required this.idcardUrl,
+  });
+  @override
+  List<Object> get props => [idcardUrl];
+}
+
+class UserBookbankUploadImageEvent extends UserDataEvent {
+  final String bookbankUrl;
+  UserBookbankUploadImageEvent({
+    required this.bookbankUrl,
+  });
+  @override
+  List<Object> get props => [bookbankUrl];
+}
+
 // class GetbankdataEvent extends UserDataEvent {
 //   final int bankId;
 //   GetbankdataEvent({
