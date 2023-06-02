@@ -31,6 +31,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }
 
   void _onLoadGetUserdata(UserDataInitialEvent event, Emitter<UserDataState> emit) async {
+    emit(UserDataLoading());
     print('on user bloc');
     await UserDataRepository().getUserData().then((value) async {
       await Bankrepository().getBanks().then((bank) => emit(UserDataLoaded(

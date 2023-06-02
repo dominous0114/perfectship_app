@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
-import 'package:perfectship_app/repository/getuserdata_repository.dart';
-import 'package:perfectship_app/screen/new_screen/change_password.dart';
-import 'package:perfectship_app/screen/new_screen/edit_profile.dart';
+
 import 'package:perfectship_app/widget/fontsize.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -96,7 +92,7 @@ class _ProfileState extends State<Profile> {
                                           print(token);
                                         },
                                         child: CircleAvatar(
-                                          backgroundImage: AssetImage('assets/image/circle_perfectship.png'),
+                                          backgroundImage: AssetImage('assets/image/DplusExpress-01.png'),
                                           radius: 50,
                                           backgroundColor: Colors.white,
                                         ),

@@ -1,8 +1,15 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/shared/types.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:perfectship_app/bloc/new_bloc/orderlist_new/orderlist_new_bloc.dart';
 import 'package:perfectship_app/model/new_model/tracking_list_model.dart';
+import 'package:perfectship_app/repository/new_repository/order_reposittory.dart';
 import 'package:perfectship_app/widget/convert_form.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 
@@ -32,6 +39,94 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
     'Out for Delivery',
     'Delivered',
   ];
+
+  void confirmDialog(BuildContext context, String track, TrackingLoaded state) {
+    Dialogs.materialDialog(
+        msgAlign: TextAlign.center,
+        msg: 'คุณต้องการลบรายการ $track ?',
+        title: "ลบรายการ",
+        color: Colors.white,
+        context: context,
+        actions: [
+          IconsOutlineButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            text: 'ยกเลิก',
+            textStyle: TextStyle(color: Colors.grey),
+            iconColor: Colors.grey,
+          ),
+          IconsButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              loadingDialog(context);
+              await OrderRepository()
+                  .cancelOrder(
+                      trackNo: state.track.shipping!.trackNo!,
+                      refCode: state.track.shipping!.refCode!,
+                      courierCode: state.track.shipping!.courierCode!)
+                  .then((value) {
+                if (value['status'] == true) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
+                  Fluttertoast.showToast(msg: 'ลบเรียบ้อย', gravity: ToastGravity.CENTER);
+                } else {
+                  Navigator.pop(context);
+                  responseDialog(context, value['message']);
+                }
+              });
+            },
+            text: 'ลบ',
+            iconData: Icons.delete,
+            color: Colors.red,
+            textStyle: TextStyle(color: Colors.white),
+            iconColor: Colors.white,
+          ),
+        ]);
+  }
+
+  void responseDialog(BuildContext context, String msg) {
+    Dialogs.materialDialog(
+        color: Colors.white,
+        msg: msg,
+        title: 'แจ้งเตือนจากระบบ',
+        lottieBuilder: Lottie.asset(
+          'assets/lottie/97670-tomato-error.json',
+          fit: BoxFit.contain,
+        ),
+        customView: Container(),
+        customViewPosition: CustomViewPosition.BEFORE_ACTION,
+        context: context,
+        actions: [
+          IconsButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            text: 'ปิด',
+            iconData: Icons.close,
+            color: Colors.blue,
+            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            iconColor: Colors.white,
+          ),
+        ]);
+  }
+
+  void loadingDialog(BuildContext context) {
+    Dialogs.materialDialog(
+      barrierDismissible: false,
+      color: Colors.white,
+      title: 'กำลังสร้างรายการ กรุณารอสักครู่..',
+      lottieBuilder: Lottie.asset(
+        'assets/lottie/7996-rocket-fast.json',
+        frameRate: FrameRate(60),
+      ),
+      customView: Container(),
+      customViewPosition: CustomViewPosition.BEFORE_ACTION,
+      context: context,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -175,6 +270,77 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                   ),
                                 ],
                               ),
+                            ),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, '/pdforder', arguments: state.track.shipping!.id.toString());
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [BoxShadow(color: Colors.blue.shade800, blurRadius: 1)]),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.print_rounded, color: Colors.blue.shade800),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              'ปริ้นท์',
+                                              style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      confirmDialog(context, state.track.shipping!.trackNo!, state);
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [BoxShadow(color: Colors.red.shade800, blurRadius: 1)]),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.cancel, color: Colors.red.shade800),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              'ยกเลิก',
+                                              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),

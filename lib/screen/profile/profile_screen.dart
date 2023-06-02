@@ -62,6 +62,7 @@ class _ProfileSreenState extends State<ProfileSreen> {
             Profile(),
             GestureDetector(
               onTap: () {
+                context.read<UserDataBloc>().add(UserDataInitialEvent());
                 Navigator.push(
                     context,
                     CupertinoPageRoute(

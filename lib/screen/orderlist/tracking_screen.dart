@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+//import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../widget/custom_appbar.dart';
 
@@ -47,21 +47,19 @@ class _TrackingScreenState extends State<TrackingScreen> {
       ),
       body: Stack(
         children: [
-          WebView(
-            key: _key,
-            javascriptMode: JavascriptMode.unrestricted,
-            initialUrl: '${widget.url}${widget.path}${widget.trackingNo}',
-            onPageFinished: (finish) {
-              setState(() {
-                isLoading = false;
-              });
-            },
-          ),
+          // WebView(
+          //   key: _key,
+          //   javascriptMode: JavascriptMode.unrestricted,
+          //   initialUrl: '${widget.url}${widget.path}${widget.trackingNo}',
+          //   onPageFinished: (finish) {
+          //     setState(() {
+          //       isLoading = false;
+          //     });
+          //   },
+          // ),
           isLoading
               ? Center(
-                  child: Platform.isAndroid
-                      ? CircularProgressIndicator()
-                      : CupertinoActivityIndicator(),
+                  child: Platform.isAndroid ? CircularProgressIndicator() : CupertinoActivityIndicator(),
                 )
               : Stack(),
         ],

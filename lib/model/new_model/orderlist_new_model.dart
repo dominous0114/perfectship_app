@@ -1,6 +1,7 @@
 class OrderlistNewModel {
   int? id;
   String? trackNo;
+  String? refCode;
   String? courierCode;
   String? labelName;
   String? labelPhone;
@@ -29,6 +30,7 @@ class OrderlistNewModel {
   OrderlistNewModel(
       {this.id,
       this.trackNo,
+      this.refCode,
       this.courierCode,
       this.labelName,
       this.labelPhone,
@@ -57,6 +59,7 @@ class OrderlistNewModel {
   OrderlistNewModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     trackNo = json['track_no'];
+    refCode = json['ref_code'];
     courierCode = json['courier_code'];
     labelName = json['label_name'];
     labelPhone = json['label_phone'];
@@ -85,6 +88,7 @@ class OrderlistNewModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['track_no'] = this.trackNo;
+    data['ref_code'] = this.refCode;
     data['courier_code'] = this.courierCode;
     data['label_name'] = this.labelName;
     data['label_phone'] = this.labelPhone;

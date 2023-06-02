@@ -34,6 +34,8 @@ class _EditProfileState extends State<EditProfile> {
   XFile? _imageFile;
   String idpath = '';
   String bookbankpath = '';
+  bool idloading = false;
+  bool bookbankloading = false;
 
   void _selectImage(String type) {
     showModalBottomSheet(
@@ -143,13 +145,15 @@ class _EditProfileState extends State<EditProfile> {
 
   selectImageId(int choose) async {
     if (choose == 0) {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery, maxWidth: 500, maxHeight: 500);
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery, maxWidth: 1000, maxHeight: 500);
       setState(() {
         _imageFile = image;
         final byte = File(_imageFile!.path).readAsBytesSync();
         String base64Image = "data:image/png;base64," + base64Encode(byte);
+        idloading = true;
         UserDataRepository().uploadImage(image: base64Image, type: 'idcard').then((value) {
           setState(() {
+            idloading = false;
             idpath = value;
             context.read<UserDataBloc>().add(UserIdcardUploadImageEvent(idcardUrl: value));
             print('VALUE > $value');
@@ -158,14 +162,16 @@ class _EditProfileState extends State<EditProfile> {
         });
       });
     } else {
-      final XFile? photo = await _picker.pickImage(source: ImageSource.camera, maxWidth: 500, maxHeight: 500);
+      final XFile? photo = await _picker.pickImage(source: ImageSource.camera, maxWidth: 1000, maxHeight: 500);
       //CameraOverlay();
       setState(() {
+        idloading = true;
         _imageFile = photo;
         final byte = File(_imageFile!.path).readAsBytesSync();
         String base64Image = "data:image/png;base64," + base64Encode(byte);
         UserDataRepository().uploadImage(image: base64Image, type: 'idcard').then((value) {
           setState(() {
+            idloading = false;
             idpath = value;
             context.read<UserDataBloc>().add(UserIdcardUploadImageEvent(idcardUrl: value));
           });
@@ -176,13 +182,15 @@ class _EditProfileState extends State<EditProfile> {
 
   selectImageBank(int choose) async {
     if (choose == 0) {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery, maxWidth: 500, maxHeight: 500);
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery, maxWidth: 1000, maxHeight: 500);
       setState(() {
+        bookbankloading = true;
         _imageFile = image;
         final byte = File(_imageFile!.path).readAsBytesSync();
         String base64Image = "data:image/png;base64," + base64Encode(byte);
         UserDataRepository().uploadImage(image: base64Image, type: 'bookbank').then((value) {
           setState(() {
+            bookbankloading = false;
             idpath = value;
             context.read<UserDataBloc>().add(UserBookbankUploadImageEvent(bookbankUrl: value));
             print('VALUE > $value');
@@ -191,14 +199,16 @@ class _EditProfileState extends State<EditProfile> {
         });
       });
     } else {
-      final XFile? photo = await _picker.pickImage(source: ImageSource.camera, maxWidth: 500, maxHeight: 500);
+      final XFile? photo = await _picker.pickImage(source: ImageSource.camera, maxWidth: 1000, maxHeight: 500);
       //CameraOverlay();
       setState(() {
+        bookbankloading = true;
         _imageFile = photo;
         final byte = File(_imageFile!.path).readAsBytesSync();
         String base64Image = "data:image/png;base64," + base64Encode(byte);
         UserDataRepository().uploadImage(image: base64Image, type: 'bookbank').then((value) {
           setState(() {
+            bookbankloading = false;
             idpath = value;
             context.read<UserDataBloc>().add(UserBookbankUploadImageEvent(bookbankUrl: value));
           });
@@ -357,60 +367,107 @@ class _EditProfileState extends State<EditProfile> {
                                           SizedBox(
                                             height: 5,
                                           ),
-                                          state.userdatamodel.cardUrl == null || state.userdatamodel.cardUrl == ''
-                                              ? GestureDetector(
-                                                  onTap: () {
-                                                    _selectImage('idcard');
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
-                                                    height: 120,
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                          idloading == true
+                                              ? Container(
+                                                  decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                  height: 120,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Lottie.asset(
+                                                            'assets/lottie/7996-rocket-fast.json',
+                                                            width: 50,
+                                                            height: 50,
+                                                            frameRate: FrameRate(60),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 3,
+                                                          ),
+                                                          Text('กำลังอัพโหลดภาพ..')
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ))
+                                              : state.userdatamodel.cardUrl == null || state.userdatamodel.cardUrl == ''
+                                                  ? GestureDetector(
+                                                      onTap: () {
+                                                        _selectImage('idcard');
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                        height: 120,
+                                                        child: idloading == true
+                                                            ? Row(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons.camera_alt_outlined,
+                                                                    color: Colors.blue,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 3,
+                                                                  ),
+                                                                  Text('อัพโหลดภาพ')
+                                                                ],
+                                                              )
+                                                            : Row(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons.camera_alt_outlined,
+                                                                    color: Colors.blue,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 3,
+                                                                  ),
+                                                                  Text('อัพโหลดภาพ')
+                                                                ],
+                                                              ),
+                                                      ),
+                                                    )
+                                                  : Stack(
+                                                      alignment: Alignment.bottomRight,
                                                       children: [
-                                                        Icon(
-                                                          Icons.camera_alt_outlined,
-                                                          color: Colors.blue,
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                                                          height: 120,
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.pushNamed(context, '/photo-widget',
+                                                                        arguments: state.userdatamodel.cardUrl);
+                                                                  },
+                                                                  child: Image.network(state.userdatamodel.cardUrl))
+                                                            ],
+                                                          ),
                                                         ),
-                                                        SizedBox(
-                                                          width: 3,
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(right: 5, bottom: 5),
+                                                          child: GestureDetector(
+                                                            onTap: () {
+                                                              _selectImage('idcard');
+                                                            },
+                                                            child: Container(
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.white.withOpacity(0.9),
+                                                                  borderRadius: BorderRadius.circular(8),
+                                                                  boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)],
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets.all(8.0),
+                                                                  child: Text('เลือกภาพใหม่'),
+                                                                )),
+                                                          ),
                                                         ),
-                                                        Text('อัพโหลดภาพ')
                                                       ],
                                                     ),
-                                                  ),
-                                                )
-                                              : Stack(
-                                                  alignment: Alignment.bottomRight,
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-                                                      height: 120,
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [Image.network(state.userdatamodel.cardUrl)],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(right: 5, bottom: 5),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          _selectImage('idcard');
-                                                        },
-                                                        child: Container(
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.white.withOpacity(0.9),
-                                                              borderRadius: BorderRadius.circular(8),
-                                                              boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)],
-                                                            ),
-                                                            child: Padding(
-                                                              padding: const EdgeInsets.all(8.0),
-                                                              child: Text('เลือกภาพใหม่'),
-                                                            )),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
                                         ],
                                       ),
                                     ),
@@ -626,59 +683,92 @@ class _EditProfileState extends State<EditProfile> {
                                           SizedBox(
                                             height: 5,
                                           ),
-                                          state.userdatamodel.bookBankUrl == null || state.userdatamodel.bookBankUrl == ''
-                                              ? GestureDetector(
-                                                  onTap: () {
-                                                    _selectImage('bookbank');
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
-                                                    height: 120,
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                          bookbankloading == true
+                                              ? Container(
+                                                  decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                  height: 120,
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Lottie.asset(
+                                                            'assets/lottie/7996-rocket-fast.json',
+                                                            width: 50,
+                                                            height: 50,
+                                                            frameRate: FrameRate(60),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 3,
+                                                          ),
+                                                          Text('กำลังอัพโหลดภาพ..')
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ))
+                                              : state.userdatamodel.bookBankUrl == null || state.userdatamodel.bookBankUrl == ''
+                                                  ? GestureDetector(
+                                                      onTap: () {
+                                                        _selectImage('bookbank');
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                        height: 120,
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Icon(
+                                                              Icons.camera_alt_outlined,
+                                                              color: Colors.blue,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 3,
+                                                            ),
+                                                            Text('อัพโหลดภาพ')
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : Stack(
+                                                      alignment: Alignment.bottomRight,
                                                       children: [
-                                                        Icon(
-                                                          Icons.camera_alt_outlined,
-                                                          color: Colors.blue,
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                                                          height: 120,
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.pushNamed(context, '/photo-widget',
+                                                                        arguments: state.userdatamodel.bookBankUrl);
+                                                                  },
+                                                                  child: Image.network(state.userdatamodel.bookBankUrl))
+                                                            ],
+                                                          ),
                                                         ),
-                                                        SizedBox(
-                                                          width: 3,
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(right: 5, bottom: 5),
+                                                          child: GestureDetector(
+                                                            onTap: () {
+                                                              _selectImage('bookbank');
+                                                            },
+                                                            child: Container(
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors.white.withOpacity(0.9),
+                                                                    borderRadius: BorderRadius.circular(8),
+                                                                    boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)]),
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets.all(8.0),
+                                                                  child: Text('เลือกภาพใหม่'),
+                                                                )),
+                                                          ),
                                                         ),
-                                                        Text('อัพโหลดภาพ')
                                                       ],
                                                     ),
-                                                  ),
-                                                )
-                                              : Stack(
-                                                  alignment: Alignment.bottomRight,
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-                                                      height: 120,
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [Image.network(state.userdatamodel.bookBankUrl)],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(right: 5, bottom: 5),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          _selectImage('bookbank');
-                                                        },
-                                                        child: Container(
-                                                            decoration: BoxDecoration(
-                                                                color: Colors.white.withOpacity(0.9),
-                                                                borderRadius: BorderRadius.circular(8),
-                                                                boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)]),
-                                                            child: Padding(
-                                                              padding: const EdgeInsets.all(8.0),
-                                                              child: Text('เลือกภาพใหม่'),
-                                                            )),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
                                         ],
                                       ),
                                     ),

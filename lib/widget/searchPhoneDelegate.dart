@@ -65,9 +65,7 @@ class SearchPhoneDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    context
-        .read<AddressBloc>()
-        .add(AddressFromphoneSearchEvent(keyword: query));
+    context.read<AddressBloc>().add(AddressFromphoneSearchEvent(keyword: query));
     return BlocBuilder<AddressBloc, AddressState>(
       builder: (context, state) {
         if (state is AddressLoading) {
@@ -77,8 +75,7 @@ class SearchPhoneDelegate extends SearchDelegate {
           List<AddressfromphoneModel> address1 = [];
           List<AddressfromphoneModel> address = [];
           address1.addAll(state.addressphonemodel.map((e) => e));
-          address1.retainWhere((element) =>
-              element.phone!.toLowerCase().contains(query.toLowerCase()));
+          address1.retainWhere((element) => element.phone!.toLowerCase().contains(query.toLowerCase()));
           for (int i = 0; i < address1.length; i++) {
             if (!data.contains(address1[i].name) ||
                 !data.contains(address1[i].phone) ||
@@ -122,9 +119,7 @@ class SearchPhoneDelegate extends SearchDelegate {
                         padding: const EdgeInsets.all(2.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [BoxShadow(color: Colors.black54)]),
+                              color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black54)]),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -136,30 +131,17 @@ class SearchPhoneDelegate extends SearchDelegate {
                                       flex: 3,
                                       child: Text(
                                         'คุณ : ${state.addressphonemodel[index].name}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6!
-                                            .copyWith(
-                                                fontSize:
-                                                    PlatformSize(context) *
-                                                        1.1),
+                                        style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
                                       ),
                                     ),
                                     Expanded(
                                       flex: 2,
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           Text(
                                             '${state.addressphonemodel[index].phone}',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline6!
-                                                .copyWith(
-                                                    fontSize:
-                                                        PlatformSize(context) *
-                                                            1.1),
+                                            style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
                                           ),
                                         ],
                                       ),
@@ -172,12 +154,7 @@ class SearchPhoneDelegate extends SearchDelegate {
                                       flex: 3,
                                       child: Text(
                                         'ที่อยู่ : ${state.addressphonemodel[index].address} ${state.addressphonemodel[index].subDistrict} ${state.addressphonemodel[index].district} ${state.addressphonemodel[index].province} ${state.addressphonemodel[index].zipcode}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
-                                                fontSize:
-                                                    PlatformSize(context) * .9),
+                                        style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
                                       ),
                                     ),
                                   ],

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
-import 'package:perfectship_app/bloc/bill_bloc/bill_bloc.dart';
+
 import 'package:perfectship_app/bloc/new_bloc/bill_list/bill_list_bloc.dart';
 
 import 'package:perfectship_app/bloc/new_bloc/create_order/create_order_bloc.dart';
@@ -17,11 +17,9 @@ import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/config/localnoti_service.dart';
 import 'package:perfectship_app/repository/getuserdata_repository.dart';
-import 'package:perfectship_app/screen/billlist/billlist_screen.dart';
-import 'package:perfectship_app/screen/createorder/createorder.dart';
-import 'package:perfectship_app/screen/home/homescreen.dart';
+
 import 'package:perfectship_app/screen/new_screen/dashboard_new.dart';
-import 'package:perfectship_app/screen/orderlist/orderlist_screen.dart';
+
 import 'package:perfectship_app/screen/profile/profile_screen.dart';
 import 'package:perfectship_app/widget/allkey.dart';
 
@@ -40,7 +38,7 @@ class NavigatonBar extends StatefulWidget {
 
 class _NavigatonBarState extends State<NavigatonBar> {
   int pageIndex = 0;
-  double _previousScrollOffset = 0.0;
+
   String? token;
   ScrollController? scrollController;
   Timer? _scrollTimer;

@@ -7,6 +7,7 @@ import 'package:perfectship_app/screen/billlist/pdf_bill_screen.dart';
 import 'package:perfectship_app/screen/createorder/pdf_order_screen.dart';
 import 'package:perfectship_app/screen/createorder/selectaddress_oncreate/address_on_create_screen.dart';
 import 'package:perfectship_app/screen/home/notification_screen.dart';
+import 'package:perfectship_app/screen/new_screen/image_preview.dart';
 import 'package:perfectship_app/screen/profile/screen_on_profile/add_address_screen.dart';
 import 'package:perfectship_app/screen/profile/screen_on_profile/edit_address_screen.dart';
 import 'package:perfectship_app/screen/profile/screen_on_profile/senderaddress_screen.dart';
@@ -37,6 +38,8 @@ class AppRouter {
         return SettingShippingScreen.route();
       case PdfBillScreen.routeName:
         return PdfBillScreen.route(pdfData: settings.arguments as String);
+      case PhotoWidget.routeName:
+        return PhotoWidget.route(path: settings.arguments as String);
       default:
         return _errorRoute();
     }

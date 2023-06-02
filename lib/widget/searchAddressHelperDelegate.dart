@@ -21,7 +21,6 @@ class SearchAddressDelegate extends SearchDelegate<String> {
   final TextEditingController zipcodecontroller;
   final TextEditingController typeaheadcontroller;
   BuildContext? contextPage;
-  Color _color = Colors.transparent;
 
   List<Search> searchmodel = [];
   @override
@@ -97,42 +96,24 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .headline4!
-                                                .copyWith(
-                                                    fontSize:
-                                                        PlatformSize(context),
-                                                    fontWeight:
-                                                        FontWeight.bold)),
+                                                .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
                                       ],
                                     ),
                                     content: Container(
                                       decoration: BoxDecoration(
                                           color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black45,
-                                                blurRadius: 3,
-                                                blurStyle: BlurStyle.inner)
-                                          ]),
+                                          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 3, blurStyle: BlurStyle.inner)]),
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: zlist
                                             .map((e) => GestureDetector(
                                                   onTap: () {
-                                                    districtcontroller.text =
-                                                        snapshot.data![index]
-                                                            .district;
-                                                    amphurecontroller.text =
-                                                        snapshot.data![index]
-                                                            .amphure;
-                                                    provincecontroller.text =
-                                                        snapshot.data![index]
-                                                            .province;
-                                                    typeaheadcontroller.text =
-                                                        query;
+                                                    districtcontroller.text = snapshot.data![index].district;
+                                                    amphurecontroller.text = snapshot.data![index].amphure;
+                                                    provincecontroller.text = snapshot.data![index].province;
+                                                    typeaheadcontroller.text = query;
                                                     zipcodecontroller.text = e;
                                                     close(context, 'close');
                                                     print(e);
@@ -141,13 +122,7 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                                     ListTile(
                                                       title: Text(
                                                         '$e\n${snapshot.data![index].amphure} ${snapshot.data![index].district} ${snapshot.data![index].province}',
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .headline4!
-                                                            .copyWith(
-                                                                fontSize:
-                                                                    PlatformSize(
-                                                                        context)),
+                                                        style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: PlatformSize(context)),
                                                       ),
                                                     ),
                                                     Divider(
@@ -163,11 +138,9 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                               );
                             });
                       } else {
-                        districtcontroller.text =
-                            snapshot.data![index].district;
+                        districtcontroller.text = snapshot.data![index].district;
                         amphurecontroller.text = snapshot.data![index].amphure;
-                        provincecontroller.text =
-                            snapshot.data![index].province;
+                        provincecontroller.text = snapshot.data![index].province;
                         zipcodecontroller.text = snapshot.data![index].zipcode;
                         typeaheadcontroller.text = query;
                         close(context, 'close');
@@ -180,18 +153,12 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4, horizontal: 6),
+                              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                               child: Row(
                                 children: [
                                   Text(
                                     '${snapshot.data![index].district}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline6!
-                                        .copyWith(
-                                            fontSize:
-                                                PlatformSize(context) * 1.1),
+                                    style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
                                   ),
                                   SizedBox(
                                     width: 4,
@@ -205,12 +172,7 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                   ),
                                   Text(
                                     '${snapshot.data![index].amphure}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline6!
-                                        .copyWith(
-                                            fontSize:
-                                                PlatformSize(context) * 1.1),
+                                    style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
                                   ),
                                   SizedBox(
                                     width: 4,
@@ -224,12 +186,7 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                   ),
                                   Text(
                                     '${snapshot.data![index].province}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline6!
-                                        .copyWith(
-                                            fontSize:
-                                                PlatformSize(context) * 1.1),
+                                    style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
                                   ),
                                   SizedBox(
                                     width: 4,
@@ -244,12 +201,7 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                   Expanded(
                                     child: Text(
                                       '${snapshot.data![index].zipcode}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6!
-                                          .copyWith(
-                                              fontSize:
-                                                  PlatformSize(context) * 1.1),
+                                      style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
                                     ),
                                   ),
                                 ],

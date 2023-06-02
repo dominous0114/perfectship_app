@@ -4,7 +4,6 @@ import 'package:perfectship_app/config/constant.dart';
 import 'package:perfectship_app/model/new_model/dashboard_new_model.dart';
 import 'package:perfectship_app/model/new_model/orderlist_new_model.dart';
 import 'package:perfectship_app/model/new_model/tracking_list_model.dart';
-import 'package:perfectship_app/screen/new_screen/dashboard_new.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -182,6 +181,29 @@ class OrderRepository {
     } else {
       print(response.reasonPhrase);
       return DashboardNewModel();
+    }
+  }
+
+  Future cancelOrder({required String trackNo, required String refCode, required String courierCode}) async {
+    preferences = await SharedPreferences.getInstance();
+    var token = preferences!.getString('token');
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    var request = http.Request('POST', Uri.parse('${MyConstant().newDomain}/api/v1/order/cancel-order'));
+    request.body = json.encode({"track_no": trackNo, "ref_code": refCode, "courier_code": courierCode});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var res = await response.stream.bytesToString();
+      print('response = ${jsonDecode(res)}');
+      return jsonDecode(res);
+    } else {
+      var res = await response.stream.bytesToString();
+      print(response.reasonPhrase);
+      return jsonDecode(res);
     }
   }
 }

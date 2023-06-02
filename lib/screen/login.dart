@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         FadeAnimation(
                           1.6,
                           Image.asset(
-                            'assets/image/perfect-ship-logo.png',
+                            'assets/image/DplusExpress-02.png',
                             scale: 4.5,
                           ),
                         ),

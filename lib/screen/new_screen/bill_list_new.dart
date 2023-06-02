@@ -97,14 +97,14 @@ class _BillListNewState extends State<BillListNew> {
                           child: Row(
                             children: [
                               Image.asset(
-                                'assets/image/circle_perfectship.png',
-                                scale: 5,
+                                'assets/image/DplusExpress-04.png',
+                                scale: 20,
                               ),
                               SizedBox(
                                 width: 10,
                               ),
                               Text(
-                                'รายการบิลล์',
+                                'รายการบิล',
                                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                                       fontSize: PlatformSize(context) * 1.2,
                                       fontWeight: FontWeight.bold,
@@ -267,7 +267,7 @@ class _BillListNewState extends State<BillListNew> {
                   child: GetTextField(
                     enableIconPrefix: true,
                     preIcon: Icons.search,
-                    title: 'ค้นหาจากเลขบิลล์',
+                    title: 'ค้นหาจากเลขบิล',
                     onChanged: (val) {
                       context.read<BillListBloc>().add(BillListSearchEvent(keyword: val));
                     },

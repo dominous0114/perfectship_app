@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+//import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../config/constant.dart';
 import '../../widget/custom_appbar.dart';
@@ -62,7 +62,7 @@ class _PdfBillListScreenState extends State<PdfBillListScreen> with SingleTicker
 
   bool isLoading = false;
 
-  late WebViewController _controller;
+  //late WebViewController _controller;
   var dio = Dio();
   String urlShare = 'trackId';
 

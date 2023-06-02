@@ -1,7 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
@@ -24,12 +23,10 @@ import 'package:perfectship_app/repository/address_repository.dart';
 import 'package:perfectship_app/repository/bank_repository.dart';
 import 'package:perfectship_app/repository/bill_repository.dart';
 import 'package:perfectship_app/repository/courier_repository.dart';
-import 'package:perfectship_app/repository/dashboard_repository.dart';
-import 'package:perfectship_app/repository/getuserdata_repository.dart';
+
 import 'package:perfectship_app/repository/order_repository.dart';
 import 'package:perfectship_app/repository/track_repository.dart';
-import 'package:perfectship_app/screen/login.dart';
-import 'package:perfectship_app/widget/fontsize.dart';
+
 import 'package:permission_handler/permission_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'bloc/new_bloc/bill_list/bill_list_bloc.dart';
@@ -65,7 +62,6 @@ Future<void> main() async {
     print('User declined or has not accepted permission');
   }
   // Plugin must be initialized before using
-  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   await Permission.storage.request();
 
   runApp(const MyApp());

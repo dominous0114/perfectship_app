@@ -1,6 +1,5 @@
 import UIKit
 import Flutter
-import flutter_downloader
 import FirebaseCore
 import flutter_local_notifications
 
@@ -33,7 +32,7 @@ import flutter_local_notifications
     if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
           }
-    FlutterDownloaderPlugin.setPluginRegistrantCallback(registerPlugins)
+    
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
     
@@ -53,11 +52,6 @@ import flutter_local_notifications
     }
 }
 
-private func registerPlugins(registry: FlutterPluginRegistry) {
-    if (!registry.hasPlugin("FlutterDownloaderPlugin")) {
-       FlutterDownloaderPlugin.register(with: registry.registrar(forPlugin: "FlutterDownloaderPlugin")!)
-    }
-}
 
 
 

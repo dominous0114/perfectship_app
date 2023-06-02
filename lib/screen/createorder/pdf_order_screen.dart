@@ -1,26 +1,24 @@
 import 'dart:collection';
-import 'dart:convert';
+
 import 'dart:io';
-import 'dart:isolate';
+
 import 'dart:ui';
 
 import 'package:android_intent_plus/android_intent.dart';
-import 'package:device_apps/device_apps.dart';
+
 import 'package:dio/dio.dart';
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_share/flutter_share.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:perfectship_app/config/constant.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+//import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../widget/custom_appbar.dart';
 import '../../widget/fontsize.dart';
@@ -84,7 +82,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
 
   bool isLoading = false;
 
-  late WebViewController _controller;
+  //late WebViewController _controller;
   var dio = Dio();
   String urlShare = 'trackId';
 

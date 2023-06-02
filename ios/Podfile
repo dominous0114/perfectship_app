@@ -31,29 +31,27 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  # pod 'GoogleMLKit/BarcodeScanning'
+  # pod 'Firebase/MLVisionBarcodeModel'
+
+  # pod 'MLKitCommon', :podspec => 'MLKitCommon.podspec.json'
+  # pod 'MLKitVision', :podspec => 'MLKitVision.podspec.json'
+  #pod 'GoogleMLKit/BarcodeScanning', '~> 4.0.0'
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
-
-# post_install do |installer|
-#   installer.pods_project.targets.each do |target|
-#     flutter_additional_ios_build_settings(target)
-#   end
-# end
-
-# post_install do |installer|
-#   installer.pods_project.targets.each do |target|
-#     flutter_additional_ios_build_settings(target)
-#    target.build_configurations.each do |config|
-#     config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-#    end
-#   end
-#  end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
     target.build_configurations.each do |config|
-      config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
-    end
+     config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+     config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = '$(inherited)'
+     config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+             '$(inherited)',
+             ## dart: PermissionGroup.photos
+             'PERMISSION_PHOTOS=1',
+           ]
+     end
   end
 end

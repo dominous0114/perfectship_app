@@ -33,8 +33,8 @@ class _DashBoardNewState extends State<DashBoardNew> {
                   title: Row(
                     children: [
                       Image.asset(
-                        'assets/image/circle_perfectship.png',
-                        scale: 5,
+                        'assets/image/DplusExpress-04.png',
+                        scale: 20,
                       ),
                       SizedBox(
                         width: 10,
@@ -43,13 +43,13 @@ class _DashBoardNewState extends State<DashBoardNew> {
                         onTap: () {
                           //launchUrl(Uri.parse('https://app-uat.iship.cloud/'));
                         },
-                        child: Text(
-                          'Perfect Ship',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontSize: PlatformSize(context) * 1.3, fontWeight: FontWeight.w900, color: Colors.white),
-                        ),
+                        child: Text('DPlus Express',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900,
+                              fontStyle: FontStyle.italic,
+                            )),
                       )
                     ],
                   ),
