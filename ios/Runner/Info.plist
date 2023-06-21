@@ -4,7 +4,7 @@
 	<dict>
 		<key>BGTaskSchedulerPermittedIdentifiers</key>
 		<array>
-			<string>com.perfectship.app</string>
+			<string>com.dplusexpress.app</string>
 		</array>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
