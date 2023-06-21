@@ -179,310 +179,327 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                         minChild: persistentChild(isSelect: isSelect),
                                         maxChild: persistentChild(isSelect: isSelect)),
                                   ),
-                                  SliverList(
-                                    delegate: SliverChildBuilderDelegate(
-                                      (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              if (isSelect) {
-                                                if (_selectedItems.contains(state.orderlist[index])) {
-                                                  setState(() {
-                                                    _selectedItems.removeWhere((element) => element.id == state.orderlist[index].id);
-                                                  });
-                                                } else {
-                                                  setState(() {
-                                                    _selectedItems.add(state.orderlist[index]);
-                                                  });
-                                                }
-
-                                                print(_selectedItems[0].id);
-                                                print(state.orderlist[0].id);
-                                              } else {
-                                                context.read<TrackingBloc>().add(TrackingInitialEvent(track: state.orderlist[index].trackNo!));
-                                                Navigator.push(
-                                                    context,
-                                                    CupertinoPageRoute(
-                                                      builder: (context) => TrackingListScreen(
-                                                        logo: state.orderlist[index].logo!,
-                                                        logoMobile: state.orderlist[index].logoMobile!,
-                                                        statusColor: state.orderlist[index].statusColor!,
-                                                        statusText: state.orderlist[index].statusName!,
-                                                      ),
-                                                    ));
-                                              }
-                                            },
-                                            onLongPress: () {
-                                              setState(() {
-                                                context.read<NavbarBloc>().add(NavbarOrderScrollHideEvent());
-                                                if (_selectedItems.isEmpty) {
-                                                  isSelect = true;
-                                                  //Vibration.vibrate(duration: 50);
-                                                  _selectedItems.add(state.orderlist[index]);
-                                                }
-                                              });
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(8),
-                                                color: Colors.white,
-                                                boxShadow: [
-                                                  _selectedItems.contains(state.orderlist[index])
-                                                      ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4)
-                                                      : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)
-                                                ],
-                                              ),
+                                  state.orderlist.isEmpty
+                                      ? SliverToBoxAdapter(
+                                          child: Center(
                                               child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              SizedBox(
+                                                height: MediaQuery.of(context).size.height * 0.3,
+                                              ),
+                                              Text(
+                                                'ไม่พบข้อมูล',
+                                                style: TextStyle(fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          )),
+                                        )
+                                      : SliverList(
+                                          delegate: SliverChildBuilderDelegate(
+                                            (context, index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    if (isSelect) {
+                                                      if (_selectedItems.contains(state.orderlist[index])) {
+                                                        setState(() {
+                                                          _selectedItems.removeWhere((element) => element.id == state.orderlist[index].id);
+                                                        });
+                                                      } else {
+                                                        setState(() {
+                                                          _selectedItems.add(state.orderlist[index]);
+                                                        });
+                                                      }
+
+                                                      print(_selectedItems[0].id);
+                                                      print(state.orderlist[0].id);
+                                                    } else {
+                                                      context.read<TrackingBloc>().add(TrackingInitialEvent(track: state.orderlist[index].trackNo!));
+                                                      Navigator.push(
+                                                          context,
+                                                          CupertinoPageRoute(
+                                                            builder: (context) => TrackingListScreen(
+                                                              logo: state.orderlist[index].logo!,
+                                                              logoMobile: state.orderlist[index].logoMobile!,
+                                                              statusColor: state.orderlist[index].statusColor!,
+                                                              statusText: state.orderlist[index].statusName!,
+                                                            ),
+                                                          ));
+                                                    }
+                                                  },
+                                                  onLongPress: () {
+                                                    setState(() {
+                                                      context.read<NavbarBloc>().add(NavbarOrderScrollHideEvent());
+                                                      if (_selectedItems.isEmpty) {
+                                                        isSelect = true;
+                                                        //Vibration.vibrate(duration: 50);
+                                                        _selectedItems.add(state.orderlist[index]);
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(8),
+                                                      color: Colors.white,
+                                                      boxShadow: [
+                                                        _selectedItems.contains(state.orderlist[index])
+                                                            ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4)
+                                                            : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)
+                                                      ],
+                                                    ),
+                                                    child: Column(
                                                       children: [
-                                                        Expanded(
-                                                            flex: 3,
-                                                            child: Stack(
-                                                              alignment: Alignment.center,
-                                                              children: [
-                                                                Image.network(
-                                                                  state.orderlist[index].logoMobile!,
-                                                                ),
-                                                                _selectedItems.contains(state.orderlist[index])
-                                                                    ? Lottie.asset('assets/lottie/78295-correct.json', repeat: false)
-                                                                    : SizedBox()
-                                                              ],
-                                                            )),
-                                                        Expanded(flex: 1, child: SizedBox()),
-                                                        Expanded(
-                                                          flex: 8,
-                                                          child: Column(
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: Row(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              Text(
-                                                                state.orderlist[index].trackNo!,
-                                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                              ),
-                                                              Row(
-                                                                children: [
-                                                                  Text(
-                                                                    'ผู้รับ : ',
-                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                                  ),
-                                                                  Text(
-                                                                    '${state.orderlist[index].dstName!}',
-                                                                    style: TextStyle(),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Row(
-                                                                children: [
-                                                                  Text(
-                                                                    'เบอร์โทร : ',
-                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                                  ),
-                                                                  Text(
-                                                                    '${state.orderlist[index].dstPhone!}',
-                                                                    style: TextStyle(),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Row(
-                                                                children: [
-                                                                  Text(
-                                                                    'COD : ',
-                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                                  ),
-                                                                  Text(
-                                                                    '${state.orderlist[index].codAmount!}',
-                                                                    style: TextStyle(),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Row(
-                                                                children: [
-                                                                  Text(
-                                                                    'สถานะ : ',
-                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                                  ),
-                                                                  Container(
-                                                                    decoration: BoxDecoration(
-                                                                        color: StatusColor().checkstatus(state.orderlist[index].statusColor!),
-                                                                        borderRadius: BorderRadius.circular(8)),
-                                                                    child: Padding(
-                                                                      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-                                                                      child: Text(
-                                                                        '${state.orderlist[index].statusName!}',
-                                                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                                              Expanded(
+                                                                  flex: 3,
+                                                                  child: Stack(
+                                                                    alignment: Alignment.center,
+                                                                    children: [
+                                                                      Image.network(
+                                                                        state.orderlist[index].logoMobile!,
                                                                       ),
+                                                                      _selectedItems.contains(state.orderlist[index])
+                                                                          ? Lottie.asset('assets/lottie/78295-correct.json', repeat: false)
+                                                                          : SizedBox()
+                                                                    ],
+                                                                  )),
+                                                              Expanded(flex: 1, child: SizedBox()),
+                                                              Expanded(
+                                                                flex: 8,
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text(
+                                                                      state.orderlist[index].trackNo!,
+                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                    Row(
+                                                                      children: [
+                                                                        Text(
+                                                                          'ผู้รับ : ',
+                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                        ),
+                                                                        Text(
+                                                                          '${state.orderlist[index].dstName!}',
+                                                                          style: TextStyle(),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Text(
+                                                                          'เบอร์โทร : ',
+                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                        ),
+                                                                        Text(
+                                                                          '${state.orderlist[index].dstPhone!}',
+                                                                          style: TextStyle(),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Text(
+                                                                          'COD : ',
+                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                        ),
+                                                                        Text(
+                                                                          '${state.orderlist[index].codAmount!}',
+                                                                          style: TextStyle(),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Text(
+                                                                          'สถานะ : ',
+                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                        ),
+                                                                        Container(
+                                                                          decoration: BoxDecoration(
+                                                                              color: StatusColor().checkstatus(state.orderlist[index].statusColor!),
+                                                                              borderRadius: BorderRadius.circular(8)),
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                                                                            child: Text(
+                                                                              '${state.orderlist[index].statusName!}',
+                                                                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.blueGrey.shade50,
+                                                              borderRadius:
+                                                                  BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
+                                                            child: Column(
+                                                              children: [
+                                                                Row(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text(
+                                                                      'ที่อยู่ : ',
+                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                    ),
+                                                                    Expanded(
+                                                                      flex: 9,
+                                                                      child: Text(
+                                                                        '${state.orderlist[index].dstAddress!} ${state.orderlist[index].dstSubDistrict!} ${state.orderlist[index].dstDistrict!} ${state.orderlist[index].dstProvince!} ${state.orderlist[index].dstZipcode!}',
+                                                                        style: TextStyle(),
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                        flex: 1,
+                                                                        child: PopupMenuButton(
+                                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                                                          child: Container(
+                                                                            //color: Colors.amber,
+                                                                            height: 23,
+                                                                            width: 40,
+                                                                            alignment: Alignment.centerRight,
+                                                                            child: Icon(
+                                                                              Icons.more_vert,
+                                                                            ),
+                                                                          ),
+                                                                          color: Colors.white,
+                                                                          itemBuilder: state.orderlist[index].statusName != 'รอเข้าระบบ'
+                                                                              ? (context) {
+                                                                                  return [
+                                                                                    PopupMenuItem(
+                                                                                        onTap: () {
+                                                                                          Future.delayed(
+                                                                                            Duration(milliseconds: 1),
+                                                                                            () {
+                                                                                              Navigator.pushNamed(context, '/pdforder',
+                                                                                                  arguments: state.orderlist[index].id.toString());
+                                                                                            },
+                                                                                          );
+                                                                                        },
+                                                                                        child: Row(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                          children: [
+                                                                                            Icon(
+                                                                                              CupertinoIcons.printer,
+                                                                                              color: Colors.blue.shade700,
+                                                                                            ),
+                                                                                            SizedBox(width: 5),
+                                                                                            Text('ปริ้นใบสั่งซื้อ ',
+                                                                                                style: TextStyle(
+                                                                                                  fontSize: PlatformSize(context),
+                                                                                                  fontWeight: FontWeight.w400,
+                                                                                                  color: Colors.black,
+                                                                                                ))
+                                                                                          ],
+                                                                                        )),
+                                                                                  ];
+                                                                                }
+                                                                              : (context) {
+                                                                                  return [
+                                                                                    PopupMenuItem(
+                                                                                        onTap: () {
+                                                                                          Future.delayed(
+                                                                                            Duration(milliseconds: 1),
+                                                                                            () {
+                                                                                              print(state.orderlist[index].id);
+                                                                                              Navigator.pushNamed(context, '/pdforder',
+                                                                                                  arguments: state.orderlist[index].id.toString());
+                                                                                            },
+                                                                                          );
+                                                                                        },
+                                                                                        child: Row(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                          children: [
+                                                                                            Icon(
+                                                                                              CupertinoIcons.printer,
+                                                                                              color: Colors.blue.shade700,
+                                                                                            ),
+                                                                                            SizedBox(width: 5),
+                                                                                            Text('ปริ้นใบสั่งซื้อ ',
+                                                                                                style: TextStyle(
+                                                                                                  fontSize: PlatformSize(context),
+                                                                                                  fontWeight: FontWeight.w400,
+                                                                                                  color: Colors.black,
+                                                                                                ))
+                                                                                          ],
+                                                                                        )),
+                                                                                    PopupMenuItem(
+                                                                                        onTap: () {
+                                                                                          Future.delayed(
+                                                                                            Duration(milliseconds: 1),
+                                                                                            () {
+                                                                                              confirmDialog(context, state.orderlist[index].trackNo!,
+                                                                                                  state.orderlist[index]);
+                                                                                            },
+                                                                                          );
+                                                                                        },
+                                                                                        child: Row(
+                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                          children: [
+                                                                                            Icon(
+                                                                                              CupertinoIcons.delete,
+                                                                                              color: Colors.red,
+                                                                                            ),
+                                                                                            SizedBox(width: 5),
+                                                                                            Text('ลบ ',
+                                                                                                style: TextStyle(
+                                                                                                  fontSize: PlatformSize(context),
+                                                                                                  fontWeight: FontWeight.w400,
+                                                                                                  color: Colors.black,
+                                                                                                ))
+                                                                                          ],
+                                                                                        )),
+                                                                                  ];
+                                                                                },
+                                                                        ))
+                                                                  ],
+                                                                ),
+                                                                state.orderlist[index].remark == null || state.orderlist[index].remark == ''
+                                                                    ? SizedBox()
+                                                                    : Row(
+                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(
+                                                                            'หมายเหตุ : ',
+                                                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                          ),
+                                                                          Expanded(
+                                                                            child: Text(
+                                                                              '${state.orderlist[index].remark.toString()}',
+                                                                              style: TextStyle(),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
                                                   ),
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.blueGrey.shade50,
-                                                        borderRadius:
-                                                            BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
-                                                      child: Column(
-                                                        children: [
-                                                          Row(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Text(
-                                                                'ที่อยู่ : ',
-                                                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                              ),
-                                                              Expanded(
-                                                                flex: 9,
-                                                                child: Text(
-                                                                  '${state.orderlist[index].dstAddress!} ${state.orderlist[index].dstSubDistrict!} ${state.orderlist[index].dstDistrict!} ${state.orderlist[index].dstProvince!} ${state.orderlist[index].dstZipcode!}',
-                                                                  style: TextStyle(),
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                  flex: 1,
-                                                                  child: PopupMenuButton(
-                                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                                                    child: Container(
-                                                                      //color: Colors.amber,
-                                                                      height: 23,
-                                                                      width: 40,
-                                                                      alignment: Alignment.centerRight,
-                                                                      child: Icon(
-                                                                        Icons.more_vert,
-                                                                      ),
-                                                                    ),
-                                                                    color: Colors.white,
-                                                                    itemBuilder: state.orderlist[index].statusName != 'รอเข้าระบบ'
-                                                                        ? (context) {
-                                                                            return [
-                                                                              PopupMenuItem(
-                                                                                  onTap: () {
-                                                                                    Future.delayed(
-                                                                                      Duration(milliseconds: 1),
-                                                                                      () {
-                                                                                        Navigator.pushNamed(context, '/pdforder',
-                                                                                            arguments: state.orderlist[index].id.toString());
-                                                                                      },
-                                                                                    );
-                                                                                  },
-                                                                                  child: Row(
-                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                    children: [
-                                                                                      Icon(
-                                                                                        CupertinoIcons.printer,
-                                                                                        color: Colors.blue.shade700,
-                                                                                      ),
-                                                                                      SizedBox(width: 5),
-                                                                                      Text('ปริ้นใบสั่งซื้อ ',
-                                                                                          style: TextStyle(
-                                                                                            fontSize: PlatformSize(context),
-                                                                                            fontWeight: FontWeight.w400,
-                                                                                            color: Colors.black,
-                                                                                          ))
-                                                                                    ],
-                                                                                  )),
-                                                                            ];
-                                                                          }
-                                                                        : (context) {
-                                                                            return [
-                                                                              PopupMenuItem(
-                                                                                  onTap: () {
-                                                                                    Future.delayed(
-                                                                                      Duration(milliseconds: 1),
-                                                                                      () {
-                                                                                        print(state.orderlist[index].id);
-                                                                                        Navigator.pushNamed(context, '/pdforder',
-                                                                                            arguments: state.orderlist[index].id.toString());
-                                                                                      },
-                                                                                    );
-                                                                                  },
-                                                                                  child: Row(
-                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                    children: [
-                                                                                      Icon(
-                                                                                        CupertinoIcons.printer,
-                                                                                        color: Colors.blue.shade700,
-                                                                                      ),
-                                                                                      SizedBox(width: 5),
-                                                                                      Text('ปริ้นใบสั่งซื้อ ',
-                                                                                          style: TextStyle(
-                                                                                            fontSize: PlatformSize(context),
-                                                                                            fontWeight: FontWeight.w400,
-                                                                                            color: Colors.black,
-                                                                                          ))
-                                                                                    ],
-                                                                                  )),
-                                                                              PopupMenuItem(
-                                                                                  onTap: () {
-                                                                                    Future.delayed(
-                                                                                      Duration(milliseconds: 1),
-                                                                                      () {
-                                                                                        confirmDialog(context, state.orderlist[index].trackNo!,
-                                                                                            state.orderlist[index]);
-                                                                                      },
-                                                                                    );
-                                                                                  },
-                                                                                  child: Row(
-                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                    children: [
-                                                                                      Icon(
-                                                                                        CupertinoIcons.delete,
-                                                                                        color: Colors.red,
-                                                                                      ),
-                                                                                      SizedBox(width: 5),
-                                                                                      Text('ลบ ',
-                                                                                          style: TextStyle(
-                                                                                            fontSize: PlatformSize(context),
-                                                                                            fontWeight: FontWeight.w400,
-                                                                                            color: Colors.black,
-                                                                                          ))
-                                                                                    ],
-                                                                                  )),
-                                                                            ];
-                                                                          },
-                                                                  ))
-                                                            ],
-                                                          ),
-                                                          state.orderlist[index].remark == null || state.orderlist[index].remark == ''
-                                                              ? SizedBox()
-                                                              : Row(
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    Text(
-                                                                      'หมายเหตุ : ',
-                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                                                    ),
-                                                                    Expanded(
-                                                                      child: Text(
-                                                                        '${state.orderlist[index].remark.toString()}',
-                                                                        style: TextStyle(),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                                ),
+                                              );
+                                            },
+                                            childCount: state.orderlist.length,
                                           ),
-                                        );
-                                      },
-                                      childCount: state.orderlist.length,
-                                    ),
-                                  ),
+                                        ),
                                   SliverToBoxAdapter(
                                     child: SizedBox(
                                       height: 50,
@@ -662,7 +679,7 @@ void loadingDialog(BuildContext context) {
   Dialogs.materialDialog(
     barrierDismissible: false,
     color: Colors.white,
-    title: 'กำลังสร้างรายการ กรุณารอสักครู่..',
+    title: 'กรุณารอสักครู่..',
     lottieBuilder: Lottie.asset(
       'assets/lottie/7996-rocket-fast.json',
       frameRate: FrameRate(60),

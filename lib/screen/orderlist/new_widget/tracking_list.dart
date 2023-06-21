@@ -116,7 +116,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
     Dialogs.materialDialog(
       barrierDismissible: false,
       color: Colors.white,
-      title: 'กำลังสร้างรายการ กรุณารอสักครู่..',
+      title: 'กรุณารอสักครู่..',
       lottieBuilder: Lottie.asset(
         'assets/lottie/7996-rocket-fast.json',
         frameRate: FrameRate(60),

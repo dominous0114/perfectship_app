@@ -224,7 +224,7 @@ class _EditProfileState extends State<EditProfile> {
           gradient: LinearGradient(
             colors: [
               Color.fromARGB(200, 43, 166, 223),
-              Color.fromARGB(180, 41, 88, 162),
+              Color.fromARGB(180, 12, 13, 14),
             ],
             begin: Alignment.topLeft,
             end: Alignment.topRight,
@@ -236,819 +236,759 @@ class _EditProfileState extends State<EditProfile> {
             maintainBottomViewPadding: true,
             bottom: false,
             top: false,
-            child: Scaffold(
-              extendBody: true,
-              extendBodyBehindAppBar: true,
-              body: BlocBuilder<UserDataBloc, UserDataState>(
-                builder: (context, state) {
-                  if (state is UserDataLoading) {
-                    return LoadingShimmer();
-                  } else if (state is UserDataLoaded) {
-                    return NestedScrollView(
-                        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                              SliverAppBar(
-                                floating: true,
-                                pinned: true,
-                                toolbarHeight: 60,
-                                elevation: 0,
-                                title: Text(
-                                  'แก้ไขข้อมูลผู้ส่ง',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium!
-                                      .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
-                                ),
-                                flexibleSpace: Container(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color.fromARGB(200, 43, 166, 223),
-                                        Color.fromARGB(180, 41, 88, 162),
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.topRight,
-                                      stops: [0.0, 0.8],
-                                      tileMode: TileMode.clamp,
-                                    ),
+            child: GestureDetector(
+              onTap: () {
+                FocusScope.of(context).unfocus();
+              },
+              child: Scaffold(
+                extendBody: true,
+                extendBodyBehindAppBar: true,
+                body: BlocBuilder<UserDataBloc, UserDataState>(
+                  builder: (context, state) {
+                    if (state is UserDataLoading) {
+                      return LoadingShimmer();
+                    } else if (state is UserDataLoaded) {
+                      return NestedScrollView(
+                          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                                SliverAppBar(
+                                  floating: true,
+                                  pinned: true,
+                                  toolbarHeight: 60,
+                                  elevation: 0,
+                                  title: Text(
+                                    'แก้ไขข้อมูลผู้ส่ง',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
                                   ),
-                                ),
-                              ),
-                            ],
-                        body: Form(
-                          key: formKey,
-                          child: CustomScrollView(
-                            slivers: [
-                              SliverToBoxAdapter(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
+                                  flexibleSpace: Container(
                                     decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8),
-                                        boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'ชื่อผู้ส่ง : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  controller: state.nameController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  onChanged: (v) {
-                                                    //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
-                                                  },
-                                                  preIcon: CupertinoIcons.person_alt_circle,
-                                                  enableIconPrefix: true,
-                                                  title: 'คุณ เฟอร์เฟคชิพ',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'บัตรประชาชน : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  textInputType: TextInputType.numberWithOptions(),
-                                                  maxLength: 13,
-                                                  controller: state.idcardController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  onChanged: (v) {
-                                                    //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
-                                                  },
-                                                  preIcon: Icons.credit_card,
-                                                  enableIconPrefix: true,
-                                                  title: '1234567891234',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            'ภาพบัตรประชาชน : ',
-                                            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          idloading == true
-                                              ? Container(
-                                                  decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
-                                                  height: 120,
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Lottie.asset(
-                                                            'assets/lottie/7996-rocket-fast.json',
-                                                            width: 50,
-                                                            height: 50,
-                                                            frameRate: FrameRate(60),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 3,
-                                                          ),
-                                                          Text('กำลังอัพโหลดภาพ..')
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ))
-                                              : state.userdatamodel.cardUrl == null || state.userdatamodel.cardUrl == ''
-                                                  ? GestureDetector(
-                                                      onTap: () {
-                                                        _selectImage('idcard');
-                                                      },
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
-                                                        height: 120,
-                                                        child: idloading == true
-                                                            ? Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons.camera_alt_outlined,
-                                                                    color: Colors.blue,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 3,
-                                                                  ),
-                                                                  Text('อัพโหลดภาพ')
-                                                                ],
-                                                              )
-                                                            : Row(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  Icon(
-                                                                    Icons.camera_alt_outlined,
-                                                                    color: Colors.blue,
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 3,
-                                                                  ),
-                                                                  Text('อัพโหลดภาพ')
-                                                                ],
-                                                              ),
-                                                      ),
-                                                    )
-                                                  : Stack(
-                                                      alignment: Alignment.bottomRight,
-                                                      children: [
-                                                        Container(
-                                                          decoration:
-                                                              BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
-                                                          height: 120,
-                                                          child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: [
-                                                              GestureDetector(
-                                                                  onTap: () {
-                                                                    Navigator.pushNamed(context, '/photo-widget',
-                                                                        arguments: state.userdatamodel.cardUrl);
-                                                                  },
-                                                                  child: Image.network(state.userdatamodel.cardUrl))
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding: const EdgeInsets.only(right: 5, bottom: 5),
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              _selectImage('idcard');
-                                                            },
-                                                            child: Container(
-                                                                decoration: BoxDecoration(
-                                                                  color: Colors.white.withOpacity(0.9),
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                  boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)],
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets.all(8.0),
-                                                                  child: Text('เลือกภาพใหม่'),
-                                                                )),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color.fromARGB(200, 43, 166, 223),
+                                          Color.fromARGB(180, 41, 88, 162),
                                         ],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.topRight,
+                                        stops: [0.0, 0.8],
+                                        tileMode: TileMode.clamp,
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              SliverToBoxAdapter(
+                              ],
+                          body: Form(
+                            key: formKey,
+                            child: CustomScrollView(
+                              slivers: [
+                                SliverToBoxAdapter(
                                   child: Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: Text(
-                                  '   ข้อมูลบัญชี',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              )),
-                              SliverToBoxAdapter(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8),
-                                        boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'ธนาคาร : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'ชื่อผู้ส่ง : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: DropdownButtonHideUnderline(
-                                                  child: DropdownButtonFormField2<BankModel>(
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    controller: state.nameController,
                                                     validator: (v) {
-                                                      if (v == null) {
-                                                        return 'กรุณาเลือกธนาคาร';
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
                                                       } else {
                                                         return null;
                                                       }
                                                     },
-                                                    hint: Text(
-                                                      '    เลือกธนาคาร',
-                                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black38, fontSize: 15),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                    buttonHeight: 50,
-                                                    dropdownDecoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(14),
-                                                      boxShadow: [
-                                                        BoxShadow(color: Colors.black26, spreadRadius: 0.5, blurRadius: 1),
-                                                      ],
-                                                    ),
-                                                    buttonDecoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(10),
-                                                      color: Colors.white,
-                                                      border: Border.all(color: Colors.black54),
-                                                    ),
-                                                    dropdownElevation: 8,
-                                                    scrollbarRadius: const Radius.circular(40),
-                                                    dropdownMaxHeight: 400,
-                                                    scrollbarThickness: 6,
-                                                    scrollbarAlwaysShow: true,
-                                                    offset: const Offset(0, -20),
-                                                    selectedItemHighlightColor: Colors.blue.shade50.withOpacity(.4),
-                                                    items: state.bankModel.map<DropdownMenuItem<BankModel>>((e) {
-                                                      return DropdownMenuItem(
-                                                          value: e,
-                                                          child: Container(
-                                                            child: Padding(
-                                                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                                                              child: Row(
-                                                                children: [
-                                                                  SizedBox(
-                                                                    width: 10,
-                                                                  ),
-                                                                  Text(
-                                                                    e.name ?? '',
-                                                                    style:
-                                                                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black54),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ));
-                                                    }).toList(),
-                                                    onChanged: (value) {
-                                                      //ontext.read<CreateOrderBloc>().add(OrderSelectFuze(value: value!));
-                                                      //  _onDropDownItemSelected(value!);
-                                                      print(value!.name);
-                                                      // context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: value));
-                                                      // print(state.customerId);
-
-                                                      context.read<UserDataBloc>().add(UserdataOnselectBank(bank: value));
+                                                    onChanged: (v) {
+                                                      //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
                                                     },
-                                                    value: state.bankSelect,
-                                                    buttonPadding: EdgeInsets.all(0),
+                                                    preIcon: CupertinoIcons.person_alt_circle,
+                                                    enableIconPrefix: true,
+                                                    title: 'คุณ เฟอร์เฟคชิพ',
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'ชื่อบัญชี : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'บัตรประชาชน : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  controller: state.accountNameController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  onChanged: (v) {
-                                                    //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
-                                                  },
-                                                  preIcon: Icons.credit_card,
-                                                  enableIconPrefix: true,
-                                                  title: 'ชื่อบัญชี',
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    textInputType: TextInputType.numberWithOptions(),
+                                                    maxLength: 13,
+                                                    controller: state.idcardController,
+                                                    validator: (v) {
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    onChanged: (v) {
+                                                      //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
+                                                    },
+                                                    preIcon: Icons.credit_card,
+                                                    enableIconPrefix: true,
+                                                    title: '1234567891234',
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'เลขบัญชี : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  textInputType: TextInputType.numberWithOptions(),
-                                                  controller: state.accountNoController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  onChanged: (v) {
-                                                    //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
-                                                  },
-                                                  preIcon: Icons.onetwothree_sharp,
-                                                  enableIconPrefix: true,
-                                                  title: 'เลขบัญชี',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'รหัสสาขา : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  controller: state.accountBranchController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  onChanged: (v) {
-                                                    //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
-                                                  },
-                                                  preIcon: Icons.account_balance,
-                                                  enableIconPrefix: true,
-                                                  title: 'รหัสสาขา',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            'ภาพสมุดบัญชี : ',
-                                            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          bookbankloading == true
-                                              ? Container(
-                                                  decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
-                                                  height: 120,
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Column(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Lottie.asset(
-                                                            'assets/lottie/7996-rocket-fast.json',
-                                                            width: 50,
-                                                            height: 50,
-                                                            frameRate: FrameRate(60),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 3,
-                                                          ),
-                                                          Text('กำลังอัพโหลดภาพ..')
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ))
-                                              : state.userdatamodel.bookBankUrl == null || state.userdatamodel.bookBankUrl == ''
-                                                  ? GestureDetector(
-                                                      onTap: () {
-                                                        _selectImage('bookbank');
-                                                      },
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
-                                                        height: 120,
-                                                        child: Row(
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              'ภาพบัตรประชาชน : ',
+                                              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            idloading == true
+                                                ? Container(
+                                                    decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                    height: 120,
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Column(
                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
-                                                            Icon(
-                                                              Icons.camera_alt_outlined,
-                                                              color: Colors.blue,
+                                                            Lottie.asset(
+                                                              'assets/lottie/7996-rocket-fast.json',
+                                                              width: 50,
+                                                              height: 50,
+                                                              frameRate: FrameRate(60),
                                                             ),
                                                             SizedBox(
                                                               width: 3,
                                                             ),
-                                                            Text('อัพโหลดภาพ')
+                                                            Text('กำลังอัพโหลดภาพ..')
                                                           ],
                                                         ),
-                                                      ),
-                                                    )
-                                                  : Stack(
-                                                      alignment: Alignment.bottomRight,
-                                                      children: [
-                                                        Container(
+                                                      ],
+                                                    ))
+                                                : state.userdatamodel.cardUrl == null || state.userdatamodel.cardUrl == ''
+                                                    ? GestureDetector(
+                                                        onTap: () {
+                                                          _selectImage('idcard');
+                                                        },
+                                                        child: Container(
                                                           decoration:
-                                                              BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                                                              BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                          height: 120,
+                                                          child: idloading == true
+                                                              ? Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons.camera_alt_outlined,
+                                                                      color: Colors.blue,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 3,
+                                                                    ),
+                                                                    Text('อัพโหลดภาพ')
+                                                                  ],
+                                                                )
+                                                              : Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons.camera_alt_outlined,
+                                                                      color: Colors.blue,
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 3,
+                                                                    ),
+                                                                    Text('อัพโหลดภาพ')
+                                                                  ],
+                                                                ),
+                                                        ),
+                                                      )
+                                                    : Stack(
+                                                        alignment: Alignment.bottomRight,
+                                                        children: [
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                                                            height: 120,
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                GestureDetector(
+                                                                    onTap: () {
+                                                                      Navigator.pushNamed(context, '/photo-widget',
+                                                                          arguments: state.userdatamodel.cardUrl);
+                                                                    },
+                                                                    child: Image.network(state.userdatamodel.cardUrl))
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(right: 5, bottom: 5),
+                                                            child: GestureDetector(
+                                                              onTap: () {
+                                                                _selectImage('idcard');
+                                                              },
+                                                              child: Container(
+                                                                  decoration: BoxDecoration(
+                                                                    color: Colors.white.withOpacity(0.9),
+                                                                    borderRadius: BorderRadius.circular(8),
+                                                                    boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)],
+                                                                  ),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: Text('เลือกภาพใหม่'),
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SliverToBoxAdapter(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    '   ข้อมูลบัญชี',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                )),
+                                SliverToBoxAdapter(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'ธนาคาร : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: DropdownButtonHideUnderline(
+                                                    child: DropdownButtonFormField2<BankModel>(
+                                                      validator: (v) {
+                                                        if (v == null) {
+                                                          return 'กรุณาเลือกธนาคาร';
+                                                        } else {
+                                                          return null;
+                                                        }
+                                                      },
+                                                      hint: Text(
+                                                        '    เลือกธนาคาร',
+                                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black38, fontSize: 15),
+                                                        textAlign: TextAlign.center,
+                                                      ),
+                                                      buttonHeight: 50,
+                                                      dropdownDecoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(14),
+                                                        boxShadow: [
+                                                          BoxShadow(color: Colors.black26, spreadRadius: 0.5, blurRadius: 1),
+                                                        ],
+                                                      ),
+                                                      buttonDecoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(10),
+                                                        color: Colors.white,
+                                                        border: Border.all(color: Colors.black54),
+                                                      ),
+                                                      dropdownElevation: 8,
+                                                      scrollbarRadius: const Radius.circular(40),
+                                                      dropdownMaxHeight: 400,
+                                                      scrollbarThickness: 6,
+                                                      scrollbarAlwaysShow: true,
+                                                      offset: const Offset(0, -20),
+                                                      selectedItemHighlightColor: Colors.blue.shade50.withOpacity(.4),
+                                                      items: state.bankModel.map<DropdownMenuItem<BankModel>>((e) {
+                                                        return DropdownMenuItem(
+                                                            value: e,
+                                                            child: Container(
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                                child: Row(
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: 10,
+                                                                    ),
+                                                                    Text(
+                                                                      e.name ?? '',
+                                                                      style:
+                                                                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black54),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ));
+                                                      }).toList(),
+                                                      onChanged: (value) {
+                                                        //ontext.read<CreateOrderBloc>().add(OrderSelectFuze(value: value!));
+                                                        //  _onDropDownItemSelected(value!);
+                                                        print(value!.name);
+                                                        // context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: value));
+                                                        // print(state.customerId);
+
+                                                        context.read<UserDataBloc>().add(UserdataOnselectBank(bank: value));
+                                                      },
+                                                      value: state.bankSelect,
+                                                      buttonPadding: EdgeInsets.all(0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'ชื่อบัญชี : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    controller: state.accountNameController,
+                                                    validator: (v) {
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    onChanged: (v) {
+                                                      //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
+                                                    },
+                                                    preIcon: Icons.credit_card,
+                                                    enableIconPrefix: true,
+                                                    title: 'ชื่อบัญชี',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'เลขบัญชี : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    textInputType: TextInputType.numberWithOptions(),
+                                                    controller: state.accountNoController,
+                                                    validator: (v) {
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    onChanged: (v) {
+                                                      //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
+                                                    },
+                                                    preIcon: Icons.onetwothree_sharp,
+                                                    enableIconPrefix: true,
+                                                    title: 'เลขบัญชี',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'รหัสสาขา : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    controller: state.accountBranchController,
+                                                    validator: (v) {
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    onChanged: (v) {
+                                                      //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
+                                                    },
+                                                    preIcon: Icons.account_balance,
+                                                    enableIconPrefix: true,
+                                                    title: 'รหัสสาขา',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              'ภาพสมุดบัญชี : ',
+                                              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            bookbankloading == true
+                                                ? Container(
+                                                    decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                    height: 120,
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Column(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Lottie.asset(
+                                                              'assets/lottie/7996-rocket-fast.json',
+                                                              width: 50,
+                                                              height: 50,
+                                                              frameRate: FrameRate(60),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 3,
+                                                            ),
+                                                            Text('กำลังอัพโหลดภาพ..')
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ))
+                                                : state.userdatamodel.bookBankUrl == null || state.userdatamodel.bookBankUrl == ''
+                                                    ? GestureDetector(
+                                                        onTap: () {
+                                                          _selectImage('bookbank');
+                                                        },
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
                                                           height: 120,
                                                           child: Row(
                                                             mainAxisAlignment: MainAxisAlignment.center,
                                                             children: [
-                                                              GestureDetector(
-                                                                  onTap: () {
-                                                                    Navigator.pushNamed(context, '/photo-widget',
-                                                                        arguments: state.userdatamodel.bookBankUrl);
-                                                                  },
-                                                                  child: Image.network(state.userdatamodel.bookBankUrl))
+                                                              Icon(
+                                                                Icons.camera_alt_outlined,
+                                                                color: Colors.blue,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 3,
+                                                              ),
+                                                              Text('อัพโหลดภาพ')
                                                             ],
                                                           ),
                                                         ),
-                                                        Padding(
-                                                          padding: const EdgeInsets.only(right: 5, bottom: 5),
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              _selectImage('bookbank');
-                                                            },
-                                                            child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors.white.withOpacity(0.9),
-                                                                    borderRadius: BorderRadius.circular(8),
-                                                                    boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)]),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets.all(8.0),
-                                                                  child: Text('เลือกภาพใหม่'),
-                                                                )),
+                                                      )
+                                                    : Stack(
+                                                        alignment: Alignment.bottomRight,
+                                                        children: [
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                                                            height: 120,
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                GestureDetector(
+                                                                    onTap: () {
+                                                                      Navigator.pushNamed(context, '/photo-widget',
+                                                                          arguments: state.userdatamodel.bookBankUrl);
+                                                                    },
+                                                                    child: Image.network(state.userdatamodel.bookBankUrl))
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SliverToBoxAdapter(
-                                  child: Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: Text(
-                                  '   ข้อมูลที่อยู่',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              )),
-                              SliverToBoxAdapter(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8),
-                                        boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text('ค้นหาที่อยู่', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
-                                          SizedBox(
-                                            height: 3,
-                                          ),
-                                          GetTextField(
-                                            focusNode: searchFocus,
-                                            onTap: () async {
-                                              searchFocus.unfocus();
-                                              // searchFocusNode.unfocus();
-                                              AddressSearchNewModel address =
-                                                  await showSearch(context: context, delegate: SearcgAddressNewDelegate());
-                                              print(address.amphure);
-                                              context.read<UserDataBloc>().add(UserdataSelectAddressEvent(
-                                                  subDistrict: address.district!,
-                                                  district: address.amphure!,
-                                                  province: address.province!,
-                                                  zipcode: address.zipcode!));
-                                              // context.read<CreateOrderBloc>().add(SelectAddressManulEvent(addressSearchNewModel: address));
-                                              // districtController.text = address.amphure!;
-                                              // subdistrictController.text = address.district!;
-                                              // provinceController.text = address.province!;
-                                              // zipcodeController.text = address.zipcode!;
-                                            },
-                                            textInputType: TextInputType.none,
-                                            preIcon: Icons.search,
-                                            enableIconPrefix: true,
-                                            title: 'ค้นหา จังหวัด ตำบล อำเภอ',
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'บ้านเลขที่ : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  controller: state.addressController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  onChanged: (v) {
-                                                    //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
-                                                  },
-                                                  //controller: addressController,
-                                                  preIcon: CupertinoIcons.envelope,
-                                                  enableIconPrefix: true,
-                                                  title: 'บ้านเลขที่9/8 ซอย7 หมู่6',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'ตำบล : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  controller: state.subDistrictController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  //controller: subdistrictController,
-                                                  preIcon: CupertinoIcons.house,
-                                                  textInputType: TextInputType.none,
-                                                  enableIconPrefix: true,
-                                                  title: 'ตำบล',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'อำเภอ : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  controller: state.districtController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  //controller: districtController,
-                                                  textInputType: TextInputType.none,
-                                                  preIcon: CupertinoIcons.house_fill,
-                                                  enableIconPrefix: true,
-                                                  title: 'อำเภอ',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'จังหวัด : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  controller: state.provinceController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  //controller: provinceController,
-                                                  textInputType: TextInputType.none,
-                                                  preIcon: Icons.map_rounded,
-                                                  enableIconPrefix: true,
-                                                  title: 'จังหวัด',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 1,
-                                                child: Text(
-                                                  'รหัสไปรษณีย์ : ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: GetTextField(
-                                                  controller: state.zipcodeController,
-                                                  validator: (v) {
-                                                    if (v == null || v.isEmpty) {
-                                                      return 'กรุณากรอกข้อมูล';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  //controller: zipcodeController,
-                                                  textInputType: TextInputType.none,
-                                                  preIcon: CupertinoIcons.envelope_open,
-                                                  enableIconPrefix: true,
-                                                  title: 'รหัสไปรษณีย์',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SliverToBoxAdapter(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (formKey.currentState!.validate()) {
-                                        loadingDialog(context);
-                                        UserDataRepository()
-                                            .updateUser(
-                                                customerid: state.userdatamodel.id!,
-                                                name: state.nameController.text,
-                                                cardId: state.idcardController.text,
-                                                cardUrl: state.userdatamodel.cardUrl,
-                                                bankId: state.bankSelect.id.toString(),
-                                                accountName: state.accountNameController.text,
-                                                accountNumber: state.accountNoController.text,
-                                                branchNo: state.accountBranchController.text,
-                                                bookbankUrl: state.userdatamodel.bookBankUrl,
-                                                address: state.addressController.text,
-                                                subDistrict: state.subDistrictController.text,
-                                                district: state.districtController.text,
-                                                province: state.provinceController.text,
-                                                zipcode: state.zipcodeController.text)
-                                            .then((value) {
-                                          if (value['status'] == true) {
-                                            Navigator.pop(context);
-                                            correctDialog(context, value['message']);
-                                            context.read<UserDataBloc>().add(UserDataInitialEvent());
-                                          } else {
-                                            Navigator.pop(context);
-                                            responseDialog(context, value['message']);
-                                          }
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Color.fromARGB(200, 43, 166, 223),
-                                            Color.fromARGB(180, 41, 88, 162),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(right: 5, bottom: 5),
+                                                            child: GestureDetector(
+                                                              onTap: () {
+                                                                _selectImage('bookbank');
+                                                              },
+                                                              child: Container(
+                                                                  decoration: BoxDecoration(
+                                                                      color: Colors.white.withOpacity(0.9),
+                                                                      borderRadius: BorderRadius.circular(8),
+                                                                      boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)]),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: Text('เลือกภาพใหม่'),
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                           ],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.topRight,
-                                          stops: [0.0, 0.8],
-                                          tileMode: TileMode.clamp,
                                         ),
                                       ),
+                                    ),
+                                  ),
+                                ),
+                                SliverToBoxAdapter(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    '   ข้อมูลที่อยู่',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                )),
+                                SliverToBoxAdapter(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 16),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              'บันทึก',
-                                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                                            Text('ค้นหาที่อยู่', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
+                                            SizedBox(
+                                              height: 3,
+                                            ),
+                                            GetTextField(
+                                              focusNode: searchFocus,
+                                              onTap: () async {
+                                                searchFocus.unfocus();
+                                                // searchFocusNode.unfocus();
+                                                AddressSearchNewModel address =
+                                                    await showSearch(context: context, delegate: SearcgAddressNewDelegate());
+                                                print(address.amphure);
+                                                context.read<UserDataBloc>().add(UserdataSelectAddressEvent(
+                                                    subDistrict: address.district!,
+                                                    district: address.amphure!,
+                                                    province: address.province!,
+                                                    zipcode: address.zipcode!));
+                                                // context.read<CreateOrderBloc>().add(SelectAddressManulEvent(addressSearchNewModel: address));
+                                                // districtController.text = address.amphure!;
+                                                // subdistrictController.text = address.district!;
+                                                // provinceController.text = address.province!;
+                                                // zipcodeController.text = address.zipcode!;
+                                              },
+                                              textInputType: TextInputType.none,
+                                              preIcon: Icons.search,
+                                              enableIconPrefix: true,
+                                              title: 'ค้นหา จังหวัด ตำบล อำเภอ',
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'บ้านเลขที่ : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    controller: state.addressController,
+                                                    validator: (v) {
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    onChanged: (v) {
+                                                      //context.read<CreateOrderBloc>().add(OnAddressChangeEvent(address: v));
+                                                    },
+                                                    //controller: addressController,
+                                                    preIcon: CupertinoIcons.envelope,
+                                                    enableIconPrefix: true,
+                                                    title: 'บ้านเลขที่9/8 ซอย7 หมู่6',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'ตำบล : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    controller: state.subDistrictController,
+                                                    validator: (v) {
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    //controller: subdistrictController,
+                                                    preIcon: CupertinoIcons.house,
+                                                    textInputType: TextInputType.none,
+                                                    enableIconPrefix: true,
+                                                    title: 'ตำบล',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'อำเภอ : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    controller: state.districtController,
+                                                    validator: (v) {
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    //controller: districtController,
+                                                    textInputType: TextInputType.none,
+                                                    preIcon: CupertinoIcons.house_fill,
+                                                    enableIconPrefix: true,
+                                                    title: 'อำเภอ',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'จังหวัด : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    controller: state.provinceController,
+                                                    validator: (v) {
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    //controller: provinceController,
+                                                    textInputType: TextInputType.none,
+                                                    preIcon: Icons.map_rounded,
+                                                    enableIconPrefix: true,
+                                                    title: 'จังหวัด',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'รหัสไปรษณีย์ : ',
+                                                    style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: GetTextField(
+                                                    controller: state.zipcodeController,
+                                                    validator: (v) {
+                                                      if (v == null || v.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    //controller: zipcodeController,
+                                                    textInputType: TextInputType.none,
+                                                    preIcon: CupertinoIcons.envelope_open,
+                                                    enableIconPrefix: true,
+                                                    title: 'รหัสไปรษณีย์',
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -1056,16 +996,81 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                        ));
-                  } else {
-                    return Center(
-                      child: Text('มีบางอย่างผิกพลาด'),
-                    );
-                  }
-                },
+                                SliverToBoxAdapter(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (formKey.currentState!.validate()) {
+                                          loadingDialog(context);
+                                          UserDataRepository()
+                                              .updateUser(
+                                                  customerid: state.userdatamodel.id!,
+                                                  name: state.nameController.text,
+                                                  cardId: state.idcardController.text,
+                                                  cardUrl: state.userdatamodel.cardUrl,
+                                                  bankId: state.bankSelect.id.toString(),
+                                                  accountName: state.accountNameController.text,
+                                                  accountNumber: state.accountNoController.text,
+                                                  branchNo: state.accountBranchController.text,
+                                                  bookbankUrl: state.userdatamodel.bookBankUrl,
+                                                  address: state.addressController.text,
+                                                  subDistrict: state.subDistrictController.text,
+                                                  district: state.districtController.text,
+                                                  province: state.provinceController.text,
+                                                  zipcode: state.zipcodeController.text)
+                                              .then((value) {
+                                            if (value['status'] == true) {
+                                              Navigator.pop(context);
+                                              correctDialog(context, value['message']);
+                                              context.read<UserDataBloc>().add(UserDataInitialEvent());
+                                            } else {
+                                              Navigator.pop(context);
+                                              responseDialog(context, value['message']);
+                                            }
+                                          });
+                                        }
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8),
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Color.fromARGB(200, 43, 166, 223),
+                                              Color.fromARGB(180, 41, 88, 162),
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.topRight,
+                                            stops: [0.0, 0.8],
+                                            tileMode: TileMode.clamp,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 16),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'บันทึก',
+                                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ));
+                    } else {
+                      return Center(
+                        child: Text('มีบางอย่างผิกพลาด'),
+                      );
+                    }
+                  },
+                ),
               ),
             )));
   }
