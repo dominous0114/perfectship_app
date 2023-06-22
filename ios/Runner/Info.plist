@@ -33,11 +33,11 @@
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>NSAppleMusicUsageDescription</key>
-		<string>อนุญาติให้ DPlus Express เข้าถึงกล้องถ่ายภาพ</string>
+		<string>อนุญาตให้ DPlus Express เข้าถึงกล้องถ่ายภาพ</string>
 		<key>NSCameraUsageDescription</key>
-		<string>อนุญาติให้ DPlus Express เข้าถึงกล้องถ่ายภาพ</string>
+		<string>อนุญาตให้ DPlus Express เข้าถึงกล้องถ่ายภาพ</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>อนุญาติให้ DPlus Express เข้าถึงกล้องถ่ายภาพ</string>
+		<string>อนุญาตให้ DPlus Express เข้าถึงกล้องถ่ายภาพ</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIBackgroundModes</key>

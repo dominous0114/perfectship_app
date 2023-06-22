@@ -1,4 +1,4 @@
-package com.perfectship.app
+package com.dplusexpress.app
 
 import io.flutter.embedding.android.FlutterActivity
 

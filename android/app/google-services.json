@@ -1,48 +1,49 @@
 {
   "project_info": {
-    "project_number": "727269920144",
-    "project_id": "perfectship-app",
-    "storage_bucket": "perfectship-app.appspot.com"
+    "project_number": "191639649552",
+    "project_id": "dplus-express",
+    "storage_bucket": "dplus-express.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:727269920144:android:c9c50968498deed5727715",
+        "mobilesdk_app_id": "1:191639649552:android:b90eff72f88251cf877995",
         "android_client_info": {
-          "package_name": "com.perfectship.app"
+          "package_name": "com.dplusexpress.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "727269920144-8hjcf4ijra9b07rg96c6qmi2hpccco7p.apps.googleusercontent.com",
+          "client_id": "191639649552-u340q40ip74ge5d5lop661nvs30ou9nq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.perfectship.app",
-            "certificate_hash": "3e0ff9ced337ebfb0bdf5e061170e15ed7979df3"
+            "package_name": "com.dplusexpress.app",
+            "certificate_hash": "857c2c860dd10908358ae0bbf64a15acfb4d5bc3"
           }
         },
         {
-          "client_id": "727269920144-qbjgn7b55i0514a4jhv1l390qkiftesh.apps.googleusercontent.com",
+          "client_id": "191639649552-2gj0io15d13vikh9j7kjeaf9730d0dlo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA6ePFbr5urf5paqGAB8XheGuE8OOXuDy8"
+          "current_key": "AIzaSyCsCZqFY2Sd4j7rLsy6opH7_lX5lwlNHig"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "727269920144-qbjgn7b55i0514a4jhv1l390qkiftesh.apps.googleusercontent.com",
+              "client_id": "191639649552-2gj0io15d13vikh9j7kjeaf9730d0dlo.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "727269920144-93or8fp257g95s4op2se3du9af36b1o9.apps.googleusercontent.com",
+              "client_id": "191639649552-g64ngevg7rop5unsnnobrb3e970up1gi.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.perfectship.app"
+                "bundle_id": "com.dplusexpress.app",
+                "app_store_id": "6450502384"
               }
             }
           ]
