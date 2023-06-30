@@ -76,8 +76,8 @@ class OrderlistNewModel {
     dstDistrict = json['dst_district'];
     dstProvince = json['dst_province'];
     dstZipcode = json['dst_zipcode'];
-    codAmount = double.parse(json['cod_amount'].toString());
-    codFee = double.parse(json['cod_fee'].toString());
+    codAmount = double.parse(json['cod_amount'] == null ? '0' : json['cod_amount'].toString());
+    codFee = double.parse(json['cod_fee'] == null ? '0' : json['cod_fee'].toString());
     remark = json['remark'];
     status = json['status'];
     statusColor = json['status_color'];

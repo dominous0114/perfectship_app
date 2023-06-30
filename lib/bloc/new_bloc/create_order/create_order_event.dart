@@ -46,18 +46,72 @@ class SelectCategoryEvent extends CreateOrderEvent {
   List<Object> get props => [category];
 }
 
-class OnSrcAddressChangeEvent extends CreateOrderEvent {
+class OnEditSrcDataEvent extends CreateOrderEvent {
+  final String name;
   final String subDistrict;
   final String district;
   final String province;
   final String zipcode;
-  OnSrcAddressChangeEvent({
+  OnEditSrcDataEvent({
+    required this.name,
     required this.subDistrict,
     required this.district,
     required this.province,
     required this.zipcode,
   });
+  @override
+  List<Object> get props => [subDistrict, district, province, zipcode, name];
+}
+
+class OnResetDstDataEvent extends CreateOrderEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class OnCheckBoxCodChange extends CreateOrderEvent {
+  final bool isCod;
+  OnCheckBoxCodChange({
+    required this.isCod,
+  });
+  @override
+  List<Object> get props => [isCod];
+}
+
+class OnCheckBoxInsureChange extends CreateOrderEvent {
+  final bool isInsure;
+  OnCheckBoxInsureChange({
+    required this.isInsure,
+  });
+  @override
+  List<Object> get props => [isInsure];
+}
+
+class OnRecieveSearchEvent extends CreateOrderEvent {
+  final String district;
+  final String subdistrict;
+  final String province;
+  final String zipcode;
+  final String name;
+  final String phone;
+  final String address;
+  OnRecieveSearchEvent({
+    required this.district,
+    required this.subdistrict,
+    required this.province,
+    required this.zipcode,
+    required this.name,
+    required this.phone,
+    required this.address,
+  });
 
   @override
-  List<Object> get props => [subDistrict, district, province, zipcode];
+  List<Object> get props => [
+        district,
+        subdistrict,
+        province,
+        zipcode,
+        name,
+        phone,
+        address,
+      ];
 }

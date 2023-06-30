@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:perfectship_app/config/constant.dart';
-import 'package:perfectship_app/model/courier_model.dart';
 import 'package:perfectship_app/model/new_model/category_new_model.dart';
 import 'package:perfectship_app/repository/new_repository/category_repository.dart';
 import 'package:perfectship_app/repository/new_repository/courier_repoitory.dart';
@@ -22,7 +21,11 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     on<SelectAddressManulEvent>(_onSelectAddressManualEvent);
     on<OnAddressChangeEvent>(_onChageAdress);
     on<SelectCategoryEvent>(_onSelectCategory);
-    on<OnSrcAddressChangeEvent>(_onSelectSrcAddress);
+    on<OnEditSrcDataEvent>(_onSelectSrcAddress);
+    on<OnCheckBoxCodChange>(_onCheckboxCod);
+    on<OnCheckBoxInsureChange>(_onCheckboxInsure);
+    on<OnResetDstDataEvent>(_onResetDstData);
+    on<OnRecieveSearchEvent>(_onReiveSearch);
   }
 
   Future<void> _onInitial(CreateOrderInitialEvent event, Emitter<CreateOrderState> emit) async {
@@ -63,10 +66,10 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
         labelDistrict: userdata.address!.labelDistrict!,
         labelProvince: userdata.address!.labelProvince!,
         labelZipcode: userdata.address!.labelZipcode!,
-        accountName: userdata.accountName!,
-        accountNumber: userdata.accountNumber!,
-        accountBranch: userdata.branchNo!,
-        accountBank: userdata.bankName!,
+        accountName: userdata.accountName ?? '',
+        accountNumber: userdata.accountNumber ?? '',
+        accountBranch: userdata.branchNo ?? '',
+        accountBank: userdata.bankName ?? '',
         dstName: '',
         dstPhone: '',
         dstAddress: '',
@@ -93,7 +96,19 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
         srcphoneController: TextEditingController(text: userdata.address!.labelPhone),
         srcprovinceController: TextEditingController(text: userdata.address!.labelProvince),
         srcsubDistrictController: TextEditingController(text: userdata.address!.labelSubDistrict),
-        srczipcodeController: TextEditingController(text: userdata.address!.labelZipcode)));
+        srczipcodeController: TextEditingController(text: userdata.address!.labelZipcode),
+        codController: TextEditingController(),
+        insureController: TextEditingController(),
+        isCod: false,
+        isInsure: false,
+        remarkController: TextEditingController(),
+        dstAddressController: TextEditingController(),
+        dstDistrictController: TextEditingController(),
+        dstNameController: TextEditingController(),
+        dstPhoneController: TextEditingController(),
+        dstProvinceController: TextEditingController(),
+        dstSubdistrictController: TextEditingController(),
+        dstZipcodeController: TextEditingController()));
     print('after = ${userdata.address!.userId!}');
   }
 
@@ -139,14 +154,87 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     }
   }
 
-  void _onSelectSrcAddress(OnSrcAddressChangeEvent event, Emitter<CreateOrderState> emit) {
+  void _onSelectSrcAddress(OnEditSrcDataEvent event, Emitter<CreateOrderState> emit) {
     var state = this.state;
     if (state is CreateOrderData) {
       emit(state.copyWith(
+          srcnameController: TextEditingController(text: event.name),
           srcsubDistrictController: TextEditingController(text: event.subDistrict),
           srcdistrictController: TextEditingController(text: event.district),
           srcprovinceController: TextEditingController(text: event.province),
-          srczipcodeController: TextEditingController(text: event.zipcode)));
+          srczipcodeController: TextEditingController(
+            text: event.zipcode,
+          )));
+    }
+  }
+
+  void _onResetDstData(OnResetDstDataEvent event, Emitter<CreateOrderState> emit) {
+    var state = this.state;
+    if (state is CreateOrderData) {
+      emit(state.copyWith(
+          //dstaddressController: TextEditingController(text: ''),
+          srcdistrictController: TextEditingController(text: ''),
+          srcnameController: TextEditingController(text: ''),
+          srcphoneController: TextEditingController(text: ''),
+          srcprovinceController: TextEditingController(text: ''),
+          srcsubDistrictController: TextEditingController(text: ''),
+          srczipcodeController: TextEditingController(text: ''),
+          codController: TextEditingController(text: ''),
+          insureController: TextEditingController(text: ''),
+          remarkController: TextEditingController(text: ''),
+          isCod: false,
+          isInsure: false));
+    }
+  }
+
+  void _onCheckboxCod(OnCheckBoxCodChange event, Emitter<CreateOrderState> emit) {
+    var state = this.state;
+    if (state is CreateOrderData) {
+      print('on check cod ${event.isCod}');
+      if (event.isCod) {
+        emit(state.copyWith(
+          isCod: event.isCod,
+        ));
+      } else {
+        TextEditingController controlller = TextEditingController(text: '0.0');
+        emit(state.copyWith(isCod: event.isCod, codController: controlller));
+      }
+    }
+  }
+
+  void _onCheckboxInsure(OnCheckBoxInsureChange event, Emitter<CreateOrderState> emit) {
+    var state = this.state;
+    if (state is CreateOrderData) {
+      print('on check insure ${event.isInsure}');
+      if (event.isInsure) {
+        emit(state.copyWith(
+          isInsure: event.isInsure,
+        ));
+      } else {
+        TextEditingController controlller = TextEditingController(text: '0.0');
+        emit(state.copyWith(isInsure: event.isInsure, insureController: controlller));
+      }
+    }
+  }
+
+  void _onReiveSearch(OnRecieveSearchEvent event, Emitter<CreateOrderState> emit) {
+    var state = this.state;
+    if (state is CreateOrderData) {
+      TextEditingController dstAddressController = TextEditingController(text: event.address);
+      TextEditingController dstSubdistrictController = TextEditingController(text: event.subdistrict);
+      TextEditingController dstDistrictController = TextEditingController(text: event.district);
+      TextEditingController dstProvinceController = TextEditingController(text: event.province);
+      TextEditingController dstZipcodeController = TextEditingController(text: event.zipcode);
+      TextEditingController dstNameController = TextEditingController(text: event.name);
+      TextEditingController dstPhoneController = TextEditingController(text: event.phone);
+      emit(state.copyWith(
+          dstAddressController: dstAddressController,
+          dstSubdistrictController: dstSubdistrictController,
+          dstDistrictController: dstDistrictController,
+          dstProvinceController: dstProvinceController,
+          dstZipcodeController: dstZipcodeController,
+          dstNameController: dstNameController,
+          dstPhoneController: dstPhoneController));
     }
   }
 }

@@ -71,10 +71,10 @@ class OrderRepository {
         "dst_district": dstDistrict,
         "dst_province": dstProvince,
         "dst_zipcode": dstZipcode,
-        "weight": weight,
-        "width": width,
-        "length": length,
-        "height": height,
+        "weight": 1000,
+        "width": 1,
+        "length": 1,
+        "height": 1,
         "cod_amount": codAmount,
         "remark": remark,
         "is_insured": isInsured,
@@ -84,6 +84,7 @@ class OrderRepository {
         "jnt_pickup": jntPickup,
         "kerry_pickup": kerryPickup,
         "category_id": categoryId,
+        "expressCategory": 1,
         "save_dst_address": saveDstAddress
       });
       print(request.body);
@@ -102,18 +103,19 @@ class OrderRepository {
     } catch (e, stackTrace) {
       print('create order repository exception = $e');
       print(stackTrace);
+      return false;
     }
   }
 
-  Future<List<OrderlistNewModel>> getOrder(dynamic couriercode, dynamic status) async {
+  Future<List<OrderlistNewModel>> getOrder(dynamic couriercode, dynamic status, String start, String end) async {
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
     var customerid = preferences!.getInt('customerid');
     var headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'};
     var request = http.Request('GET', Uri.parse('${MyConstant().newDomain}/api/v1/order/get-order-list'));
-    request.body = json.encode({"customer_id": customerid, "courier_code": couriercode, "status_id": status});
+    request.body = json.encode({"customer_id": customerid, "courier_code": couriercode, "status_id": status, "start_date": start, "end_date": end});
+    print('getdata body = ${request.body}');
     request.headers.addAll(headers);
-    print(request.body);
 
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
@@ -162,10 +164,13 @@ class OrderRepository {
   Future<DashboardNewModel> getDashboard(String start, String end) async {
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
+
     var customerid = preferences!.getInt('customerid');
+    print('token = $token');
+    print('customerid = $customerid');
     var headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'};
     var request = http.Request('GET', Uri.parse('${MyConstant().newDomain}/api/v1/utility/gatdt-dashboard'));
-    request.body = json.encode({"customer_id": customerid, "start_date": "2023-05-01", "end_date": "2023-05-30"});
+    request.body = json.encode({"customer_id": customerid, "start_date": start, "end_date": end});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

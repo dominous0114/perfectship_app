@@ -11,6 +11,7 @@ part 'dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(DashboardLoading()) {
     on<DashboardInitialEvent>(_onInitial);
+    on<DashboardfilterEvent>(_onFilter);
   }
 
   void _onInitial(DashboardInitialEvent event, Emitter<DashboardState> emit) async {
@@ -21,7 +22,26 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     String startDate = dateFormat.format(firstDayOfMonth);
     String endDate = dateFormat.format(currentDay);
     await OrderRepository().getDashboard(startDate, endDate).then((value) {
-      emit(DashboardLoaded(dashboardNewModel: value));
+      //var codtest = value.codAll!.replaceAll(',', '');
+      value.codAll = value.codAll!.replaceAll(',', '');
+      value.codWaiting = value.codWaiting!.replaceAll(',', '');
+      value.codSuccess = value.codSuccess!.replaceAll(',', '');
+      print('cod all = ${value.codAll}');
+      print(value.codWaiting);
+      print(value.codSuccess);
+      emit(DashboardLoaded(dashboardNewModel: value, endDate: currentDay, startDate: firstDayOfMonth));
+    });
+  }
+
+  void _onFilter(DashboardfilterEvent event, Emitter<DashboardState> emit) async {
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    String startDate = dateFormat.format(event.startDate);
+    String endDate = dateFormat.format(event.endDate);
+    await OrderRepository().getDashboard(startDate, endDate).then((value) {
+      value.codAll = value.codAll!.replaceAll(',', '');
+      value.codWaiting = value.codWaiting!.replaceAll(',', '');
+      value.codSuccess = value.codSuccess!.replaceAll(',', '');
+      emit(DashboardLoaded(dashboardNewModel: value, endDate: event.endDate, startDate: event.startDate));
     });
   }
 }

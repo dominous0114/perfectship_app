@@ -253,7 +253,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);
@@ -295,7 +295,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);

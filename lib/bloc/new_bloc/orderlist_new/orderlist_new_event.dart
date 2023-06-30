@@ -4,7 +4,7 @@ abstract class OrderlistNewEvent extends Equatable {
   const OrderlistNewEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class OrderlistNewInitialEvent extends OrderlistNewEvent {}
@@ -39,3 +39,16 @@ class OrderlistNewChangeStatusEvent extends OrderlistNewEvent {
 class OrderlistNewFilterEvent extends OrderlistNewEvent {}
 
 class OrderlistNewResetEvent extends OrderlistNewEvent {}
+
+class OrderlistNewAddDateRangeEvent extends OrderlistNewEvent {
+  final DateTime? startDate;
+  final DateTime? endDate;
+  final DateTime? focusDate;
+  OrderlistNewAddDateRangeEvent({
+    this.startDate,
+    this.endDate,
+    this.focusDate,
+  });
+  @override
+  List<Object?> get props => [startDate, endDate, focusDate];
+}

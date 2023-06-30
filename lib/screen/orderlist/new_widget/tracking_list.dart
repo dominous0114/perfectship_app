@@ -53,7 +53,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
               Navigator.pop(context);
             },
             text: 'ยกเลิก',
-            textStyle: TextStyle(color: Colors.grey),
+            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
             iconColor: Colors.grey,
           ),
           IconsButton(
@@ -70,7 +70,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                   Navigator.pop(context);
                   Navigator.pop(context);
                   context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
-                  Fluttertoast.showToast(msg: 'ลบเรียบ้อย', gravity: ToastGravity.CENTER);
+                  Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
                 } else {
                   Navigator.pop(context);
                   responseDialog(context, value['message']);
@@ -80,7 +80,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
             text: 'ลบ',
             iconData: Icons.delete,
             color: Colors.red,
-            textStyle: TextStyle(color: Colors.white),
+            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);
@@ -106,7 +106,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);

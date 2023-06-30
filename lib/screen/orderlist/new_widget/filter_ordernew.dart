@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:perfectship_app/bloc/new_bloc/orderlist_new/orderlist_new_bloc.dart';
 import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class FilterOrderNew extends StatefulWidget {
   const FilterOrderNew({Key? key}) : super(key: key);
@@ -13,6 +14,8 @@ class FilterOrderNew extends StatefulWidget {
   @override
   State<FilterOrderNew> createState() => _FilterOrderNewState();
 }
+
+CalendarFormat _calendarFormat = CalendarFormat.month;
 
 class _FilterOrderNewState extends State<FilterOrderNew> {
   @override
@@ -62,6 +65,84 @@ class _FilterOrderNewState extends State<FilterOrderNew> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    TableCalendar(
+                      headerStyle: HeaderStyle(
+                        decoration: BoxDecoration(
+                            color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+                        titleTextStyle: Theme.of(context).textTheme.headline5!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade700,
+                            ),
+                        formatButtonTextStyle: Theme.of(context).textTheme.headline5!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade700,
+                            ),
+                        leftChevronIcon: Icon(
+                          Icons.chevron_left,
+                          color: Colors.blue.shade700,
+                        ),
+                        rightChevronIcon: Icon(
+                          Icons.chevron_right,
+                          color: Colors.blue.shade700,
+                        ),
+                      ),
+                      locale: 'th',
+                      firstDay: DateTime.now().subtract(Duration(days: 730)),
+                      lastDay: DateTime.now(),
+                      focusedDay: state.focusDate,
+                      calendarFormat: _calendarFormat,
+                      rangeStartDay: state.startDate,
+                      rangeEndDay: state.endDate,
+                      enabledDayPredicate: (day) {
+                        // Disable selection of dates greater than the current date
+                        if (day.isAfter(DateTime.now())) return false;
+
+                        // Enable all other days
+                        return true;
+                      },
+                      availableCalendarFormats: const {
+                        CalendarFormat.month: '1 เดือน',
+                        // CalendarFormat.twoWeeks: '2 สัปดาห์'
+                      },
+                      selectedDayPredicate: (day) => false,
+                      rangeSelectionMode: RangeSelectionMode.toggledOn, // Add this line
+                      onFormatChanged: (format) {
+                        setState(() {
+                          _calendarFormat = format;
+                        });
+                      },
+                      onDaySelected: (selectedDay, focusedDay) {},
+                      onRangeSelected: (start, end, focusedDay) {
+                        // if (end == null) {
+                        //   context.read<OrderlistNewBloc>().add(OrderlistNewAddDateRangeEvent(
+                        //         startDate: start,
+                        //         endDate: state.endDate,
+                        //         focusDate: focusedDay,
+                        //       ));
+                        // } else {
+                        //   context.read<OrderlistNewBloc>().add(OrderlistNewAddDateRangeEvent(
+                        //         startDate: start,
+                        //         endDate: end,
+                        //         focusDate: focusedDay,
+                        //       ));
+                        // }
+
+                        if (start != null && end != null) {
+                          context.read<OrderlistNewBloc>().add(OrderlistNewAddDateRangeEvent(
+                                startDate: start,
+                                endDate: end,
+                                focusDate: focusedDay,
+                              ));
+                        } else {
+                          context.read<OrderlistNewBloc>().add(OrderlistNewAddDateRangeEvent(
+                                startDate: start,
+                                endDate: start,
+                                focusDate: focusedDay,
+                              ));
+                        }
+                        print('start = $start , end = $end , state end = ${state.endDate}');
+                      },
+                    ),
                     Text(
                       'ขนส่ง',
                       style: TextStyle(color: Colors.black54, fontSize: 18, fontWeight: FontWeight.bold),

@@ -5,13 +5,13 @@ class BillListNewModel {
   var employeeId;
   var employeeName;
   int? customerId;
-  double? amount;
+  num? amount;
   int? discount;
   int? vat;
   int? excludingVat;
-  double? totalAmount;
+  num? totalAmount;
   int? cash;
-  double? change;
+  num? change;
   int? status;
   var deletedAt;
   String? createdAt;

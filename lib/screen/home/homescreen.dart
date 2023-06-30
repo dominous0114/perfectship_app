@@ -236,8 +236,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   packs = e.data;
                 }).toList();
                 _pages = <Widget>[
-                  Shipping(shipping: packs),
-                  CreditLog(creditLog: credits),
+                  // Shipping(shipping: packs),
+                  // CreditLog(creditLog: credits),
                 ];
                 return SingleChildScrollView(
                   controller: Allkey.homeScrollController,

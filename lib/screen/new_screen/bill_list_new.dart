@@ -209,7 +209,8 @@ class _BillListNewState extends State<BillListNew> {
                                                           child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              Text('${state.billlist[index].code!}', style: TextStyle(fontWeight: FontWeight.bold)),
+                                                              Text('${state.billlist[index].code!.toString()}',
+                                                                  style: TextStyle(fontWeight: FontWeight.bold)),
                                                               Row(
                                                                 children: [
                                                                   Text('ทั้งหมด : ', style: TextStyle(fontWeight: FontWeight.bold)),

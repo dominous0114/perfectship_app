@@ -160,8 +160,7 @@ class MyApp extends StatelessWidget {
                         .copyWith(),
                     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.blue, primary: Colors.blue))
                 .copyWith(
-              textTheme:
-                  GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme.copyWith(headline6: TextStyle(fontSize: 16, color: Colors.black))),
+              textTheme: textTheme(),
 
               snackBarTheme: SnackBarThemeData(
                 contentTextStyle: GoogleFonts.notoSansThai(),
@@ -170,4 +169,17 @@ class MyApp extends StatelessWidget {
             ),
             home: CheckScreen()));
   }
+}
+
+TextTheme textTheme() {
+  return TextTheme(
+    headline1: GoogleFonts.notoSansThai(fontSize: 20, color: Colors.black),
+    headline2: GoogleFonts.notoSansThai(fontSize: 18, color: Colors.black),
+    headline3: GoogleFonts.notoSansThai(fontSize: 16, color: Colors.black),
+    headline4: GoogleFonts.notoSansThai(fontSize: 16, color: Colors.black),
+    headline5: GoogleFonts.notoSansThai(fontSize: 14, color: Colors.black),
+    headline6: GoogleFonts.notoSansThai(fontSize: 12, color: Colors.black),
+    bodyText1: GoogleFonts.notoSansThai(fontSize: 10, color: Colors.black),
+    bodyText2: GoogleFonts.notoSansThai(fontSize: 13, color: Colors.black),
+  );
 }

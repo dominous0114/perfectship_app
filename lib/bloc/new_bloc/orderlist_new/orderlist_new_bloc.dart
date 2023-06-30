@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 import 'package:perfectship_app/model/new_model/courier_new_model.dart';
 import 'package:perfectship_app/model/new_model/status_model.dart';
 import 'package:perfectship_app/repository/new_repository/courier_repoitory.dart';
@@ -20,10 +21,17 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
     on<OrderlistNewChangeStatusEvent>(_onChangeStatus);
     on<OrderlistNewFilterEvent>(_onFilter);
     on<OrderlistNewResetEvent>(_onReset);
+    on<OrderlistNewAddDateRangeEvent>(_onAddRageDate);
   }
 
   void _onInitail(OrderlistNewInitialEvent event, Emitter<OrderlistNewState> emit) async {
-    List<OrderlistNewModel> orderlist = await OrderRepository().getOrder('all', 'all');
+    DateTime now = DateTime.now();
+    DateTime firstDayOfMonth = DateTime(now.year, now.month, 1);
+    DateTime currentDay = DateTime(now.year, now.month, now.day);
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    String startDate = dateFormat.format(firstDayOfMonth);
+    String endDate = dateFormat.format(currentDay);
+    List<OrderlistNewModel> orderlist = await OrderRepository().getOrder('all', 'all', startDate, endDate);
     List<StatusModel> status = await StatusRepository().getStatus();
     StatusModel allstatus = StatusModel(code: 'all', color: 'primary', id: 'all', name: 'ทั้งหมด');
     List<StatusModel> statuses = [allstatus, ...status];
@@ -65,7 +73,10 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
         couriers: couriers,
         courier: couriers.first,
         orderlisttosearch: ordermap,
-        courierstosearch: couriers));
+        courierstosearch: couriers,
+        startDate: firstDayOfMonth,
+        endDate: currentDay,
+        focusDate: currentDay));
   }
 
   void _onSearch(OrderlistNewSearchEvent event, Emitter<OrderlistNewState> emit) async {
@@ -120,7 +131,10 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
   void _onFilter(OrderlistNewFilterEvent event, Emitter<OrderlistNewState> emit) async {
     var state = this.state;
     if (state is OrderlistNewLoaded) {
-      List<OrderlistNewModel> orderlist = await OrderRepository().getOrder(state.courier.code.toString(), state.status.id);
+      DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+      String startDate = dateFormat.format(state.startDate);
+      String endDate = dateFormat.format(state.endDate);
+      List<OrderlistNewModel> orderlist = await OrderRepository().getOrder(state.courier.code.toString(), state.status.id, startDate, endDate);
       List<CourierNewModel> courier = await CourierNewRepository().getCourierAll();
 
       for (var i = 0; i < orderlist.length; i++) {
@@ -147,6 +161,13 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
     var state = this.state;
     if (state is OrderlistNewLoaded) {
       add(OrderlistNewInitialEvent());
+    }
+  }
+
+  void _onAddRageDate(OrderlistNewAddDateRangeEvent event, Emitter<OrderlistNewState> emit) async {
+    var state = this.state;
+    if (state is OrderlistNewLoaded) {
+      emit(state.copyWith(focusDate: event.focusDate, startDate: event.startDate, endDate: event.endDate));
     }
   }
 }

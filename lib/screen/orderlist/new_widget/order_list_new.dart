@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/shared/types.dart';
@@ -179,6 +180,22 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                         minChild: persistentChild(isSelect: isSelect),
                                         maxChild: persistentChild(isSelect: isSelect)),
                                   ),
+                                  SliverToBoxAdapter(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'ทั้งหมด ${state.orderlist.length} รายการ',
+                                            style: Theme.of(context).textTheme.headline6,
+                                          ),
+                                          Text(
+                                              '${DateFormat('dd/MM/yyyy').format(state.startDate)} - ${DateFormat('dd/MM/yyyy').format(state.endDate)}')
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                   state.orderlist.isEmpty
                                       ? SliverToBoxAdapter(
                                           child: Center(
@@ -288,7 +305,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                         ),
                                                                         Text(
                                                                           '${state.orderlist[index].dstName!}',
-                                                                          style: TextStyle(),
+                                                                          style: TextStyle(fontSize: 14),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -300,7 +317,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                         ),
                                                                         Text(
                                                                           '${state.orderlist[index].dstPhone!}',
-                                                                          style: TextStyle(),
+                                                                          style: TextStyle(fontSize: 14),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -312,7 +329,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                         ),
                                                                         Text(
                                                                           '${state.orderlist[index].codAmount!}',
-                                                                          style: TextStyle(),
+                                                                          style: TextStyle(fontSize: 14),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -362,111 +379,108 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                       flex: 9,
                                                                       child: Text(
                                                                         '${state.orderlist[index].dstAddress!} ${state.orderlist[index].dstSubDistrict!} ${state.orderlist[index].dstDistrict!} ${state.orderlist[index].dstProvince!} ${state.orderlist[index].dstZipcode!}',
-                                                                        style: TextStyle(),
+                                                                        style: TextStyle(fontSize: 14),
                                                                       ),
                                                                     ),
                                                                     Expanded(
                                                                         flex: 1,
-                                                                        child: PopupMenuButton(
-                                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                                                          child: Container(
-                                                                            //color: Colors.amber,
-                                                                            height: 23,
-                                                                            width: 40,
-                                                                            alignment: Alignment.centerRight,
-                                                                            child: Icon(
-                                                                              Icons.more_vert,
+                                                                        child: IgnorePointer(
+                                                                          ignoring: isSelect,
+                                                                          child: PopupMenuButton(
+                                                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                                                            child: Container(
+                                                                              //color: Colors.amber,
+                                                                              height: 23,
+                                                                              width: 40,
+                                                                              alignment: Alignment.centerRight,
+                                                                              child: Icon(
+                                                                                Icons.more_vert,
+                                                                              ),
                                                                             ),
+                                                                            color: Colors.white,
+                                                                            itemBuilder: state.orderlist[index].statusName != 'รอเข้าระบบ'
+                                                                                ? (context) {
+                                                                                    return [
+                                                                                      PopupMenuItem(
+                                                                                          onTap: () {
+                                                                                            Future.delayed(
+                                                                                              Duration(milliseconds: 1),
+                                                                                              () {
+                                                                                                Navigator.pushNamed(context, '/pdforder',
+                                                                                                    arguments: state.orderlist[index].id.toString());
+                                                                                              },
+                                                                                            );
+                                                                                          },
+                                                                                          child: Row(
+                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Icon(
+                                                                                                CupertinoIcons.printer,
+                                                                                                color: Colors.blue.shade700,
+                                                                                              ),
+                                                                                              SizedBox(width: 5),
+                                                                                              Text('ปริ้นใบสั่งซื้อ ',
+                                                                                                  style: TextStyle(
+                                                                                                    fontSize: PlatformSize(context),
+                                                                                                    fontWeight: FontWeight.w400,
+                                                                                                    color: Colors.black,
+                                                                                                  ))
+                                                                                            ],
+                                                                                          )),
+                                                                                    ];
+                                                                                  }
+                                                                                : (context) {
+                                                                                    return [
+                                                                                      PopupMenuItem(
+                                                                                          onTap: () {
+                                                                                            Future.delayed(
+                                                                                              Duration(milliseconds: 1),
+                                                                                              () {
+                                                                                                print(state.orderlist[index].id);
+                                                                                                Navigator.pushNamed(context, '/pdforder',
+                                                                                                    arguments: state.orderlist[index].id.toString());
+                                                                                              },
+                                                                                            );
+                                                                                          },
+                                                                                          child: Row(
+                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Icon(
+                                                                                                CupertinoIcons.printer,
+                                                                                                color: Colors.blue.shade700,
+                                                                                              ),
+                                                                                              SizedBox(width: 5),
+                                                                                              Text('ปริ้นใบสั่งซื้อ ',
+                                                                                                  style: Theme.of(context).textTheme.headline5)
+                                                                                            ],
+                                                                                          )),
+                                                                                      PopupMenuItem(
+                                                                                          onTap: () {
+                                                                                            Future.delayed(
+                                                                                              Duration(milliseconds: 1),
+                                                                                              () {
+                                                                                                confirmDialog(
+                                                                                                    context,
+                                                                                                    state.orderlist[index].trackNo!,
+                                                                                                    state.orderlist[index]);
+                                                                                              },
+                                                                                            );
+                                                                                          },
+                                                                                          child: Row(
+                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Icon(
+                                                                                                CupertinoIcons.delete,
+                                                                                                color: Colors.red,
+                                                                                              ),
+                                                                                              SizedBox(width: 5),
+                                                                                              Text('ลบ ',
+                                                                                                  style: Theme.of(context).textTheme.headline5)
+                                                                                            ],
+                                                                                          )),
+                                                                                    ];
+                                                                                  },
                                                                           ),
-                                                                          color: Colors.white,
-                                                                          itemBuilder: state.orderlist[index].statusName != 'รอเข้าระบบ'
-                                                                              ? (context) {
-                                                                                  return [
-                                                                                    PopupMenuItem(
-                                                                                        onTap: () {
-                                                                                          Future.delayed(
-                                                                                            Duration(milliseconds: 1),
-                                                                                            () {
-                                                                                              Navigator.pushNamed(context, '/pdforder',
-                                                                                                  arguments: state.orderlist[index].id.toString());
-                                                                                            },
-                                                                                          );
-                                                                                        },
-                                                                                        child: Row(
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Icon(
-                                                                                              CupertinoIcons.printer,
-                                                                                              color: Colors.blue.shade700,
-                                                                                            ),
-                                                                                            SizedBox(width: 5),
-                                                                                            Text('ปริ้นใบสั่งซื้อ ',
-                                                                                                style: TextStyle(
-                                                                                                  fontSize: PlatformSize(context),
-                                                                                                  fontWeight: FontWeight.w400,
-                                                                                                  color: Colors.black,
-                                                                                                ))
-                                                                                          ],
-                                                                                        )),
-                                                                                  ];
-                                                                                }
-                                                                              : (context) {
-                                                                                  return [
-                                                                                    PopupMenuItem(
-                                                                                        onTap: () {
-                                                                                          Future.delayed(
-                                                                                            Duration(milliseconds: 1),
-                                                                                            () {
-                                                                                              print(state.orderlist[index].id);
-                                                                                              Navigator.pushNamed(context, '/pdforder',
-                                                                                                  arguments: state.orderlist[index].id.toString());
-                                                                                            },
-                                                                                          );
-                                                                                        },
-                                                                                        child: Row(
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Icon(
-                                                                                              CupertinoIcons.printer,
-                                                                                              color: Colors.blue.shade700,
-                                                                                            ),
-                                                                                            SizedBox(width: 5),
-                                                                                            Text('ปริ้นใบสั่งซื้อ ',
-                                                                                                style: TextStyle(
-                                                                                                  fontSize: PlatformSize(context),
-                                                                                                  fontWeight: FontWeight.w400,
-                                                                                                  color: Colors.black,
-                                                                                                ))
-                                                                                          ],
-                                                                                        )),
-                                                                                    PopupMenuItem(
-                                                                                        onTap: () {
-                                                                                          Future.delayed(
-                                                                                            Duration(milliseconds: 1),
-                                                                                            () {
-                                                                                              confirmDialog(context, state.orderlist[index].trackNo!,
-                                                                                                  state.orderlist[index]);
-                                                                                            },
-                                                                                          );
-                                                                                        },
-                                                                                        child: Row(
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Icon(
-                                                                                              CupertinoIcons.delete,
-                                                                                              color: Colors.red,
-                                                                                            ),
-                                                                                            SizedBox(width: 5),
-                                                                                            Text('ลบ ',
-                                                                                                style: TextStyle(
-                                                                                                  fontSize: PlatformSize(context),
-                                                                                                  fontWeight: FontWeight.w400,
-                                                                                                  color: Colors.black,
-                                                                                                ))
-                                                                                          ],
-                                                                                        )),
-                                                                                  ];
-                                                                                },
                                                                         ))
                                                                   ],
                                                                 ),
@@ -482,7 +496,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                           Expanded(
                                                                             child: Text(
                                                                               '${state.orderlist[index].remark.toString()}',
-                                                                              style: TextStyle(),
+                                                                              style: TextStyle(fontSize: 14),
                                                                             ),
                                                                           ),
                                                                         ],
@@ -502,7 +516,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                         ),
                                   SliverToBoxAdapter(
                                     child: SizedBox(
-                                      height: 50,
+                                      height: 120,
                                     ),
                                   )
                                 ],
@@ -622,7 +636,7 @@ void confirmDialog(BuildContext context, String track, OrderlistNewModel model) 
             Navigator.pop(context);
           },
           text: 'ยกเลิก',
-          textStyle: TextStyle(color: Colors.grey),
+          textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
           iconColor: Colors.grey,
         ),
         IconsButton(
@@ -643,7 +657,7 @@ void confirmDialog(BuildContext context, String track, OrderlistNewModel model) 
           text: 'ลบ',
           iconData: Icons.delete,
           color: Colors.red,
-          textStyle: TextStyle(color: Colors.white),
+          textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
           iconColor: Colors.white,
         ),
       ]);
@@ -669,7 +683,7 @@ void responseDialog(BuildContext context, String msg) {
           text: 'ปิด',
           iconData: Icons.close,
           color: Colors.blue,
-          textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
           iconColor: Colors.white,
         ),
       ]);

@@ -17,6 +17,9 @@ class OrderlistNewLoaded extends OrderlistNewState {
   final List<CourierNewModel> couriers;
   final List<CourierNewModel> courierstosearch;
   final CourierNewModel courier;
+  final DateTime startDate;
+  final DateTime endDate;
+  final DateTime focusDate;
 
   OrderlistNewLoaded({
     required this.orderlist,
@@ -26,27 +29,48 @@ class OrderlistNewLoaded extends OrderlistNewState {
     required this.couriers,
     required this.courierstosearch,
     required this.courier,
+    required this.startDate,
+    required this.endDate,
+    required this.focusDate,
   });
 
   @override
-  List<Object> get props => [orderlist, statuses, status, couriers, courier, orderlisttosearch, courierstosearch];
+  List<Object> get props => [
+        orderlist,
+        statuses,
+        status,
+        couriers,
+        courier,
+        orderlisttosearch,
+        courierstosearch,
+        startDate,
+        endDate,
+        focusDate,
+      ];
 
   OrderlistNewLoaded copyWith({
     List<OrderlistNewModel>? orderlist,
+    List<OrderlistNewModel>? orderlisttosearch,
     List<StatusModel>? statuses,
     StatusModel? status,
     List<CourierNewModel>? couriers,
-    CourierNewModel? courier,
-    List<OrderlistNewModel>? orderlisttosearch,
     List<CourierNewModel>? courierstosearch,
+    CourierNewModel? courier,
+    DateTime? startDate,
+    DateTime? endDate,
+    DateTime? focusDate,
   }) {
     return OrderlistNewLoaded(
-        orderlist: orderlist ?? this.orderlist,
-        statuses: statuses ?? this.statuses,
-        status: status ?? this.status,
-        couriers: couriers ?? this.couriers,
-        courier: courier ?? this.courier,
-        orderlisttosearch: orderlisttosearch ?? this.orderlisttosearch,
-        courierstosearch: courierstosearch ?? this.courierstosearch);
+      orderlist: orderlist ?? this.orderlist,
+      orderlisttosearch: orderlisttosearch ?? this.orderlisttosearch,
+      statuses: statuses ?? this.statuses,
+      status: status ?? this.status,
+      couriers: couriers ?? this.couriers,
+      courierstosearch: courierstosearch ?? this.courierstosearch,
+      courier: courier ?? this.courier,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      focusDate: focusDate ?? this.focusDate,
+    );
   }
 }

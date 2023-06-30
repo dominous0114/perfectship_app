@@ -43,7 +43,11 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
           accountNameController: TextEditingController(text: value.accountName),
           accountNoController: TextEditingController(text: value.accountNumber),
           addressController: TextEditingController(text: value.address!.labelAddress),
-          bankSelect: bank.firstWhere((element) => element.id == value.bankId),
+          bankSelect: value.bankId == 0
+              ? bank.first
+              : bank.firstWhere(
+                  (element) => element.id == value.bankId,
+                ),
           districtController: TextEditingController(text: value.address!.district),
           idcardController: TextEditingController(text: value.cardId),
           nameController: TextEditingController(text: value.name),
