@@ -35,7 +35,7 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
     List<StatusModel> status = await StatusRepository().getStatus();
     StatusModel allstatus = StatusModel(code: 'all', color: 'primary', id: 'all', name: 'ทั้งหมด');
     List<StatusModel> statuses = [allstatus, ...status];
-    List<CourierNewModel> courier = await CourierNewRepository().getCourierAll();
+    List<CourierNewModel> courier = await CourierNewRepository().getCourierNew();
     courier.removeAt(0);
     CourierNewModel allcourier = CourierNewModel(id: 'all', name: 'ทั้งหมด', code: 'all');
     List<CourierNewModel> couriers = [allcourier, ...courier];
@@ -135,7 +135,7 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
       String startDate = dateFormat.format(state.startDate);
       String endDate = dateFormat.format(state.endDate);
       List<OrderlistNewModel> orderlist = await OrderRepository().getOrder(state.courier.code.toString(), state.status.id, startDate, endDate);
-      List<CourierNewModel> courier = await CourierNewRepository().getCourierAll();
+      List<CourierNewModel> courier = await CourierNewRepository().getCourierNew();
 
       for (var i = 0; i < orderlist.length; i++) {
         orderlist[i].logo = courier

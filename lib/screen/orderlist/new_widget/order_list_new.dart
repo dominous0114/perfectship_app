@@ -647,7 +647,7 @@ void confirmDialog(BuildContext context, String track, OrderlistNewModel model) 
               if (value['status'] == true) {
                 Navigator.pop(context);
                 context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
-                Fluttertoast.showToast(msg: 'ลบเรียบ้อย', gravity: ToastGravity.CENTER);
+                Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
               } else {
                 Navigator.pop(context);
                 responseDialog(context, value['message']);

@@ -172,32 +172,19 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     var state = this.state;
     if (state is CreateOrderData) {
       print('on reset event');
-      // Clear the text in each controller
-      TextEditingController dstaddressController = TextEditingController();
-      TextEditingController srcdistrictController = TextEditingController();
-      TextEditingController srcnameController = TextEditingController();
-      TextEditingController srcphoneController = TextEditingController();
-      TextEditingController srcprovinceController = TextEditingController();
-      TextEditingController srcsubDistrictController = TextEditingController();
-      TextEditingController srczipcodeController = TextEditingController();
-      TextEditingController codController = TextEditingController();
-      TextEditingController insureController = TextEditingController();
-      TextEditingController remarkController = TextEditingController();
-
       emit(state.copyWith(
-        //dstaddressController: dstaddressController,
-        srcdistrictController: srcdistrictController,
-        srcnameController: srcnameController,
-        srcphoneController: srcphoneController,
-        srcprovinceController: srcprovinceController,
-        srcsubDistrictController: srcsubDistrictController,
-        srczipcodeController: srczipcodeController,
-        codController: codController,
-        insureController: insureController,
-        remarkController: remarkController,
-        isCod: false,
-        isInsure: false,
-      ));
+          dstAddressController: TextEditingController(text: ''),
+          dstDistrictController: TextEditingController(text: ''),
+          dstNameController: TextEditingController(text: ''),
+          dstPhoneController: TextEditingController(text: ''),
+          dstProvinceController: TextEditingController(text: ''),
+          dstSubdistrictController: TextEditingController(text: ''),
+          dstZipcodeController: TextEditingController(text: ''),
+          codController: TextEditingController(text: ''),
+          insureController: TextEditingController(text: ''),
+          remarkController: TextEditingController(text: ''),
+          isCod: false,
+          isInsure: false));
     }
   }
 
