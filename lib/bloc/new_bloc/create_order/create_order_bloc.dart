@@ -171,19 +171,33 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
   void _onResetDstData(OnResetDstDataEvent event, Emitter<CreateOrderState> emit) {
     var state = this.state;
     if (state is CreateOrderData) {
+      print('on reset event');
+      // Clear the text in each controller
+      TextEditingController dstaddressController = TextEditingController();
+      TextEditingController srcdistrictController = TextEditingController();
+      TextEditingController srcnameController = TextEditingController();
+      TextEditingController srcphoneController = TextEditingController();
+      TextEditingController srcprovinceController = TextEditingController();
+      TextEditingController srcsubDistrictController = TextEditingController();
+      TextEditingController srczipcodeController = TextEditingController();
+      TextEditingController codController = TextEditingController();
+      TextEditingController insureController = TextEditingController();
+      TextEditingController remarkController = TextEditingController();
+
       emit(state.copyWith(
-          //dstaddressController: TextEditingController(text: ''),
-          srcdistrictController: TextEditingController(text: ''),
-          srcnameController: TextEditingController(text: ''),
-          srcphoneController: TextEditingController(text: ''),
-          srcprovinceController: TextEditingController(text: ''),
-          srcsubDistrictController: TextEditingController(text: ''),
-          srczipcodeController: TextEditingController(text: ''),
-          codController: TextEditingController(text: ''),
-          insureController: TextEditingController(text: ''),
-          remarkController: TextEditingController(text: ''),
-          isCod: false,
-          isInsure: false));
+        //dstaddressController: dstaddressController,
+        srcdistrictController: srcdistrictController,
+        srcnameController: srcnameController,
+        srcphoneController: srcphoneController,
+        srcprovinceController: srcprovinceController,
+        srcsubDistrictController: srcsubDistrictController,
+        srczipcodeController: srczipcodeController,
+        codController: codController,
+        insureController: insureController,
+        remarkController: remarkController,
+        isCod: false,
+        isInsure: false,
+      ));
     }
   }
 

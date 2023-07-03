@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:perfectship_app/widget/fontsize.dart';
 
-class GetTextField extends StatelessWidget {
-  GetTextField(
+class GetTextFieldMultiLine extends StatelessWidget {
+  GetTextFieldMultiLine(
       {Key? key,
       this.title,
       this.preIcon,
@@ -24,6 +22,7 @@ class GetTextField extends StatelessWidget {
       this.enableIconPrefix = false,
       this.labelText,
       this.enabled = true,
+      this.suffixText,
       this.border})
       : super(key: key);
   final String? Function(String?)? validator;
@@ -45,7 +44,7 @@ class GetTextField extends StatelessWidget {
   final bool? enableIconPrefix;
   final String? labelText;
   final double? border;
-
+  final String? suffixText;
   bool? enabled;
 
   @override
@@ -63,30 +62,36 @@ class GetTextField extends StatelessWidget {
       onTap: onTap,
       onSaved: onSaved,
       enabled: enabled,
-      textInputAction: textInputAction,
-      style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
+      textInputAction: TextInputAction.newline, // Set textInputAction to done
+      maxLines: 5, // Restrict input to a single line
+      style: Theme.of(context).textTheme.headline5!,
       decoration: InputDecoration(
-        focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red), borderRadius: BorderRadius.all(Radius.circular(4))),
-        hintText: title,
-        hintStyle:
-            Theme.of(context).textTheme.headline4!.copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: 14),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
+        counterStyle: Theme.of(context).textTheme.headline6,
+        //suffixIcon: Text('kg'),
+        suffixText: suffixText == null ? null : suffixText,
+        hintText: '${title}',
+        hintStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Theme.of(context).focusColor.withOpacity(.5), fontWeight: FontWeight.bold),
         fillColor: Colors.white,
         filled: true,
         isDense: true,
-        contentPadding: EdgeInsets.all(2),
+        contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
-            borderRadius: BorderRadius.circular(10)),
-        suffixIcon: IconButton(
-          icon: Icon(
-            enableSuffixIcon != false ? sufIcon : null,
-            color: Colors.grey[500],
-          ),
-          onPressed: visiblePress,
+          borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
+          borderRadius: BorderRadius.circular(10),
         ),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue.shade200),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
         errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
-        errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red), borderRadius: BorderRadius.all(Radius.circular(4))),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+          borderRadius: BorderRadius.all(Radius.circular(4)),
+        ),
         prefixIcon: enableIconPrefix != false
             ? Icon(
                 preIcon,

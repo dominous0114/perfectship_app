@@ -58,9 +58,8 @@ class _SelectCourierScreenState extends State<SelectCourierScreen> {
                           boxShadow: [
                             BoxShadow(
                               color: state.courierNewModel.code == state.courierNewModels[index].code ? Colors.blue : Colors.grey[100]!,
-                              blurRadius: 5.0,
-                              spreadRadius: 0.0,
-                              offset: const Offset(2, 6), // shadow direction: bottom right
+                              blurRadius: 0.0,
+                              spreadRadius: 1.5,
                             )
                           ],
                         ),

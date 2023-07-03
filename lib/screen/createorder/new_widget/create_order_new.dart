@@ -24,6 +24,7 @@ import 'package:perfectship_app/screen/createorder/new_widget/search_address_del
 import 'package:perfectship_app/screen/createorder/new_widget/search_dst_delegate.dart';
 import 'package:perfectship_app/screen/createorder/new_widget/select_courier.dart';
 import 'package:perfectship_app/screen/new_screen/edit_profile.dart';
+import 'package:perfectship_app/widget/gettexfield_multiline.dart';
 
 import 'package:perfectship_app/widget/gettextfield.dart';
 import 'package:shimmer/shimmer.dart';
@@ -43,13 +44,19 @@ class CreateOrderNew extends StatefulWidget {
 class _CreateOrderNewState extends State<CreateOrderNew> {
   final fromKey = GlobalKey<FormState>();
   final dialogform = GlobalKey<FormState>();
+  final expkey = GlobalKey<FormState>();
   final Color primaryColor = Color.fromARGB(235, 53, 136, 195);
   FocusNode searchFocusNode = FocusNode();
   FocusNode searchSrcFocusNode = FocusNode();
+  FocusNode extNode = FocusNode();
 
   bool isCod = false;
   bool isInsure = false;
   bool isSave = true;
+  bool isExtract = false;
+  bool loadingExt = false;
+  TextEditingController _extractController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -491,9 +498,15 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                               child: GestureDetector(
                                                 onTap: () {
                                                   //showMultilineTextFieldDialog(context);
+                                                  setState(() {
+                                                    isExtract = !isExtract;
+                                                  });
                                                 },
                                                 child: Container(
-                                                  decoration: BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.circular(8)),
+                                                  decoration: BoxDecoration(
+                                                      color: isExtract ? Colors.amber : Colors.white,
+                                                      borderRadius: BorderRadius.circular(8),
+                                                      border: isExtract ? null : Border.all(color: Colors.amber, width: 0.5)),
                                                   child: Padding(
                                                     padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 8),
                                                     child: Row(
@@ -501,14 +514,17 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                       children: [
                                                         Icon(
                                                           CupertinoIcons.layers_alt,
-                                                          color: Colors.white,
+                                                          color: isExtract ? Colors.white : Colors.amber,
                                                         ),
                                                         SizedBox(
                                                           width: 3,
                                                         ),
                                                         Text(
                                                           'คัดแยก',
-                                                          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                                                          style: TextStyle(
+                                                              color: isExtract ? Colors.white : Colors.amber,
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.bold),
                                                         ),
                                                       ],
                                                     ),
@@ -563,6 +579,112 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                           height: 3,
                                         ),
                                         Divider(),
+                                        AnimatedContainer(
+                                          duration: Duration(milliseconds: 300),
+                                          height: isExtract ? 210 : 0,
+                                          child: SingleChildScrollView(
+                                            child: Form(
+                                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                                              key: expkey,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                  GetTextFieldMultiLine(
+                                                    validator: (value) {
+                                                      if (value == null || value.isEmpty) {
+                                                        return 'กรุณากรอกข้อมูล';
+                                                      }
+                                                      return null;
+                                                    },
+                                                    focusNode: extNode,
+                                                    controller: _extractController,
+                                                    title:
+                                                        'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321\n**N19-2 กล่องสุ่ม999(1กล่อง)\nCOD100',
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              _extractController.text =
+                                                                  'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321\n**N19-2 กล่องสุ่ม999(1กล่อง)\nCOD100';
+                                                            });
+                                                          },
+                                                          child: Text(
+                                                            'ตัวอย่าง',
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .headline5!
+                                                                .copyWith(fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+                                                          )),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            _extractController.clear();
+                                                          },
+                                                          child: Text(
+                                                            'ล้าง',
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .headline5!
+                                                                .copyWith(fontWeight: FontWeight.bold, color: Colors.red),
+                                                          )),
+                                                      loadingExt == true
+                                                          ? SizedBox(width: 18, height: 18, child: CircularProgressIndicator())
+                                                          : TextButton(
+                                                              onPressed: () async {
+                                                                if (expkey.currentState!.validate()) {
+                                                                  setState(() {
+                                                                    loadingExt = true;
+                                                                  });
+                                                                  print('pass');
+                                                                  await AddressNewRepository().getNormalize(_extractController.text).then((value) {
+                                                                    if (value.status == true) {
+                                                                      context.read<CreateOrderBloc>().add(OnRecieveSearchEvent(
+                                                                          district: value.amphure!,
+                                                                          subdistrict: value.district!,
+                                                                          province: value.province!,
+                                                                          zipcode: value.zipcode!,
+                                                                          name: value.name!,
+                                                                          phone: value.phone!,
+                                                                          address: value.cutAll!));
+
+                                                                      setState(() {
+                                                                        loadingExt = false;
+                                                                        isExtract = !isExtract;
+                                                                        extNode.unfocus();
+                                                                        _extractController.clear();
+                                                                        Fluttertoast.showToast(msg: 'คัดแยกเรียบร้อย', gravity: ToastGravity.CENTER);
+                                                                      });
+                                                                    } else {
+                                                                      loadingExt = false;
+                                                                      extNode.requestFocus();
+                                                                      responseDialog(context, 'ไม่สามารถคัดแยกได้');
+                                                                    }
+                                                                  });
+                                                                  // context
+                                                                  //     .read<CreateOrderBloc>()
+                                                                  //     .add(OrderNormalizeEvent(context, _extractController.text));
+                                                                  // setState(() {
+                                                                  //   isExtract = !isExtract;
+                                                                  //   extNode.unfocus();
+                                                                  // });
+                                                                } else {
+                                                                  extNode.requestFocus();
+                                                                }
+                                                              },
+                                                              child: Text('คัดแยก',
+                                                                  style: Theme.of(context)
+                                                                      .textTheme
+                                                                      .headline5!
+                                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.blue))),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                         Text('ค้นหาที่อยู่ผู้รับ', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
                                         GetTextField(
                                           focusNode: searchFocusNode,
@@ -579,9 +701,9 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                 subdistrict: address.district!,
                                                 province: address.province!,
                                                 zipcode: address.zipcode!,
-                                                name: state.dstName,
-                                                phone: state.dstPhone,
-                                                address: state.dstAddress));
+                                                name: state.dstNameController.text,
+                                                phone: state.dstPhoneController.text,
+                                                address: state.dstAddressController.text));
                                           },
                                           textInputType: TextInputType.none,
                                           preIcon: Icons.search,
@@ -1093,38 +1215,43 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                             '  หมายเหตุ',
                                             style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
                                           ),
-                                          Container(
-                                            //height: 100,
-                                            decoration: BoxDecoration(
-                                              color: Theme.of(context).scaffoldBackgroundColor,
-                                              // borderRadius: BorderRadius.circular(6),
-                                              // border: Border.all(color: _nodeText13.hasFocus ? Colors.blue.shade400 : Colors.grey.shade400),
-                                            ),
-                                            child: TextFormField(
-                                              minLines: 5,
-                                              maxLines: 5,
-                                              keyboardType: TextInputType.multiline,
-                                              controller: state.remarkController,
-                                              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context)),
-                                              decoration: new InputDecoration(
-                                                fillColor: Colors.white,
-                                                focusedBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: Colors.blue), borderRadius: BorderRadius.circular(4)),
-                                                enabledBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
-                                                    borderRadius: BorderRadius.circular(10)),
-                                                contentPadding: const EdgeInsets.all(5),
-                                                hintText: '  หมายเหตุ',
-                                                hintStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText1!
-                                                    .copyWith(fontSize: PlatformSize(context), color: Colors.grey),
-                                                border: InputBorder.none,
-                                              ),
-                                              onChanged: (v) {
-                                                //context.read<CreateOrderBloc>().add(OrderRemarkChangeEvent(v));
-                                              },
-                                            ),
+                                          // Container(
+                                          //   //height: 100,
+                                          //   decoration: BoxDecoration(
+                                          //     color: Theme.of(context).scaffoldBackgroundColor,
+                                          //     // borderRadius: BorderRadius.circular(6),
+                                          //     // border: Border.all(color: _nodeText13.hasFocus ? Colors.blue.shade400 : Colors.grey.shade400),
+                                          //   ),
+                                          //   child: TextFormField(
+                                          //     minLines: 5,
+                                          //     maxLines: 5,
+                                          //     keyboardType: TextInputType.multiline,
+                                          //     controller: state.remarkController,
+                                          //     style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context)),
+                                          //     decoration: new InputDecoration(
+                                          //       fillColor: Colors.white,
+                                          //       focusedBorder: OutlineInputBorder(
+                                          //           borderSide: BorderSide(color: Colors.blue), borderRadius: BorderRadius.circular(4)),
+                                          //       enabledBorder: OutlineInputBorder(
+                                          //           borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
+                                          //           borderRadius: BorderRadius.circular(10)),
+                                          //       contentPadding: const EdgeInsets.all(5),
+                                          //       hintText: '  หมายเหตุ',
+                                          //       hintStyle: Theme.of(context)
+                                          //           .textTheme
+                                          //           .bodyText1!
+                                          //           .copyWith(fontSize: PlatformSize(context), color: Colors.grey),
+                                          //       border: InputBorder.none,
+                                          //     ),
+                                          //     onChanged: (v) {
+                                          //       //context.read<CreateOrderBloc>().add(OrderRemarkChangeEvent(v));
+                                          //     },
+                                          //   ),
+                                          // ),
+                                          GetTextFieldMultiLine(
+                                            textInputType: TextInputType.multiline,
+                                            controller: state.remarkController,
+                                            title: '  หมายเหตุ',
                                           ),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.start,
