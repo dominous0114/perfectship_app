@@ -15,7 +15,7 @@ class SearchTrackDeletfate extends SearchDelegate {
   String initend = DateFormat('yyyy-MM-dd').format(DateTime.now());
   String path = '/tracking?track=';
   BuildContext? contextPage;
-  Color _color = Colors.transparent;
+ 
   String get searchFieldLabel => "กรอกหมายเลขพัสดุ";
 
   Future<void> scan(ScanMode scanMode, BuildContext context) async {

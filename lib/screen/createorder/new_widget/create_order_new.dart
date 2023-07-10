@@ -598,8 +598,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                     },
                                                     focusNode: extNode,
                                                     controller: _extractController,
-                                                    title:
-                                                        'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321\n**N19-2 กล่องสุ่ม999(1กล่อง)\nCOD100',
+                                                    title: 'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321',
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -607,8 +606,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                       TextButton(
                                                           onPressed: () {
                                                             setState(() {
-                                                              _extractController.text =
-                                                                  'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321\n**N19-2 กล่องสุ่ม999(1กล่อง)\nCOD100';
+                                                              _extractController.text = 'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321';
                                                             });
                                                           },
                                                           child: Text(
@@ -1514,6 +1512,16 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                 child: InkWell(
                                   splashColor: Colors.blue.shade300,
                                   onTap: () {
+                                    bool checkcontain = false;
+                                    String word = "Bulky";
+
+                                    RegExp regex = RegExp(r"\b" + word + r"\b");
+                                    if (regex.hasMatch(state.courierNewModel.name)) {
+                                      checkcontain = true;
+                                    }
+                                    print(state.courierNewModel.name);
+                                    print('checkcontain = $checkcontain');
+
                                     if (fromKey.currentState!.validate()) {
                                       if (state.courierNewModel.code == null) {
                                         Fluttertoast.showToast(msg: 'กรุณาเลือกขนส่ง', gravity: ToastGravity.CENTER);
@@ -1521,6 +1529,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                         try {
                                           loadingDialog(context);
                                           print('on create id = ${state.customerId}');
+                                          print(checkcontain);
                                           OrderRepository()
                                               .createOrder(
                                                   courierCode: state.courierNewModel.code,
@@ -1543,7 +1552,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                   dstDistrict: state.dstDistrictController.text,
                                                   dstProvince: state.dstProvinceController.text,
                                                   dstZipcode: state.dstZipcodeController.text,
-                                                  weight: 1000,
+                                                  weight: checkcontain ? 5100 : 1000,
                                                   width: 1,
                                                   length: 1,
                                                   height: 1,
@@ -1770,7 +1779,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                         hoverColor: Colors.white,
                         border: OutlineInputBorder(borderSide: BorderSide()),
                         hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 12),
-                        hintText: 'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321\n**N19-2 กล่องสุ่ม999(1กล่อง)\nCOD100',
+                        hintText: 'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321',
                       ),
                     ),
                   ),

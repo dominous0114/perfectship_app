@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:perfectship_app/bloc/new_bloc/create_order/create_order_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/model/new_model/bank_new_model.dart';
+import 'package:perfectship_app/model/new_model/category_new_model.dart';
+import 'package:perfectship_app/model/new_model/courier_new_model.dart';
 import 'package:perfectship_app/repository/new_repository/user_data_repository.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 
@@ -278,6 +281,217 @@ class _EditProfileState extends State<EditProfile> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              CupertinoIcons.cube_box,
+                                              color: Colors.blue.shade900,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              'ประเภทพัสดุเรื่มต้น ',
+                                              style: TextStyle(color: Colors.blue.shade900, fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: DropdownButtonHideUnderline(
+                                                child: DropdownButtonFormField2<CategoryNewModel>(
+                                                  validator: (v) {
+                                                    if (v == null) {
+                                                      return 'กรุณาเลือกประเภทพัสดุ';
+                                                    } else {
+                                                      return null;
+                                                    }
+                                                  },
+                                                  hint: Text(
+                                                    '    เลือกประเภทพัสดุ',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline5!
+                                                        .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  buttonHeight: 50,
+                                                  dropdownDecoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(14),
+                                                    boxShadow: [
+                                                      BoxShadow(color: Colors.black26, spreadRadius: 0.5, blurRadius: 1),
+                                                    ],
+                                                  ),
+                                                  buttonDecoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Colors.white,
+                                                    border: Border.all(color: Colors.black54),
+                                                  ),
+                                                  dropdownElevation: 8,
+                                                  scrollbarRadius: const Radius.circular(40),
+                                                  dropdownMaxHeight: 400,
+                                                  scrollbarThickness: 6,
+                                                  scrollbarAlwaysShow: true,
+                                                  offset: const Offset(0, -20),
+                                                  selectedItemHighlightColor: Colors.blue.shade50.withOpacity(.4),
+                                                  items: state.categories.map<DropdownMenuItem<CategoryNewModel>>((e) {
+                                                    return DropdownMenuItem(
+                                                        value: e,
+                                                        child: Container(
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                            child: Row(
+                                                              children: [
+                                                                SizedBox(
+                                                                  width: 10,
+                                                                ),
+                                                                Text(
+                                                                  e.name ?? '',
+                                                                  style: Theme.of(context)
+                                                                      .textTheme
+                                                                      .headline5!
+                                                                      .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ));
+                                                  }).toList(),
+                                                  onChanged: (value) {
+                                                    //ontext.read<CreateOrderBloc>().add(OrderSelectFuze(value: value!));
+                                                    //  _onDropDownItemSelected(value!);
+                                                    print(value!.name);
+                                                    // context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: value));
+                                                    // print(state.customerId);
+
+                                                    context.read<UserDataBloc>().add(UserdataSelectCategoryEvent(categoryNewModel: value));
+                                                  },
+                                                  value: state.category,
+                                                  buttonPadding: EdgeInsets.all(0),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              Icons.local_shipping_rounded,
+                                              color: Colors.blue.shade900,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              'ขนส่งเริ่มต้น',
+                                              style: TextStyle(
+                                                color: Colors.blue.shade900,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: DropdownButtonHideUnderline(
+                                                child: DropdownButtonFormField2<CourierNewModel>(
+                                                  validator: (v) {
+                                                    if (v == null) {
+                                                      return 'กรุณาเลือกขนส่งเริ่มต้น';
+                                                    } else {
+                                                      return null;
+                                                    }
+                                                  },
+                                                  hint: Text(
+                                                    '    เลือกขนส่งเริ่มต้น',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline5!
+                                                        .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  buttonHeight: 50,
+                                                  dropdownDecoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(14),
+                                                    boxShadow: [
+                                                      BoxShadow(color: Colors.black26, spreadRadius: 0.5, blurRadius: 1),
+                                                    ],
+                                                  ),
+                                                  buttonDecoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Colors.white,
+                                                    border: Border.all(color: Colors.black54),
+                                                  ),
+                                                  dropdownElevation: 8,
+                                                  scrollbarRadius: const Radius.circular(40),
+                                                  dropdownMaxHeight: 400,
+                                                  scrollbarThickness: 6,
+                                                  scrollbarAlwaysShow: true,
+                                                  offset: const Offset(0, -20),
+                                                  selectedItemHighlightColor: Colors.blue.shade50.withOpacity(.4),
+                                                  items: state.couriers.map<DropdownMenuItem<CourierNewModel>>((e) {
+                                                    return DropdownMenuItem(
+                                                        value: e,
+                                                        child: Container(
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                                                            child: Row(
+                                                              children: [
+                                                                CachedNetworkImage(
+                                                                  imageUrl: e.logo,
+                                                                  fit: BoxFit.cover,
+                                                                  width: 75,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Text(
+                                                                  e.name ?? '',
+                                                                  style: Theme.of(context)
+                                                                      .textTheme
+                                                                      .headline5!
+                                                                      .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ));
+                                                  }).toList(),
+                                                  onChanged: (value) {
+                                                    //ontext.read<CreateOrderBloc>().add(OrderSelectFuze(value: value!));
+                                                    //  _onDropDownItemSelected(value!);
+                                                    print(value!.name);
+                                                    // context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: value));
+                                                    // print(state.customerId);
+
+                                                    context.read<UserDataBloc>().add(UserdataSelectCourierEvent(courier: value));
+                                                  },
+                                                  value: state.courier,
+                                                  buttonPadding: EdgeInsets.all(0),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -1007,18 +1221,25 @@ class _EditProfileState extends State<EditProfile> {
                                               subDistrict: state.subDistrictController.text,
                                               district: state.districtController.text,
                                               province: state.provinceController.text,
-                                              zipcode: state.zipcodeController.text)
+                                              zipcode: state.zipcodeController.text,
+                                              categoryid: state.category.id.toString(),
+                                              couriercode: state.courier!.code.toString())
                                           .then((value) {
+                                        print(state.category.toJson());
                                         if (value['status'] == true) {
                                           Navigator.pop(context);
                                           correctDialog(context, value['message']);
                                           context.read<UserDataBloc>().add(UserDataInitialEvent());
-                                          context.read<CreateOrderBloc>().add(OnEditSrcDataEvent(
-                                              name: state.nameController.text,
-                                              subDistrict: state.subDistrictController.text,
-                                              district: state.districtController.text,
-                                              province: state.provinceController.text,
-                                              zipcode: state.zipcodeController.text));
+                                          // context.read<CreateOrderBloc>().add(OnEditSrcDataEvent(
+                                          //     name: state.nameController.text,
+                                          //     subDistrict: state.subDistrictController.text,
+                                          //     district: state.districtController.text,
+                                          //     province: state.provinceController.text,
+                                          //     zipcode: state.zipcodeController.text,
+                                          //     category: state.category,
+                                          //     courier: state.courier!,
+                                          //     categories: state.categories));
+                                          context.read<CreateOrderBloc>().add(CreateOrderInitialEvent());
                                         } else {
                                           Navigator.pop(context);
                                           responseDialog(context, value['message']);

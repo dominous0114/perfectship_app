@@ -36,7 +36,7 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
     StatusModel allstatus = StatusModel(code: 'all', color: 'primary', id: 'all', name: 'ทั้งหมด');
     List<StatusModel> statuses = [allstatus, ...status];
     List<CourierNewModel> courier = await CourierNewRepository().getCourierNew();
-    courier.removeAt(0);
+
     CourierNewModel allcourier = CourierNewModel(id: 'all', name: 'ทั้งหมด', code: 'all');
     List<CourierNewModel> couriers = [allcourier, ...courier];
     List<OrderlistNewModel> ordermap = orderlist;

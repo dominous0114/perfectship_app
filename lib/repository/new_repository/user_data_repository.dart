@@ -36,22 +36,23 @@ class UserDataRepository {
     }
   }
 
-  Future updateUser({
-    required int customerid,
-    required String name,
-    required String cardId,
-    required String cardUrl,
-    required String bankId,
-    required String accountName,
-    required String accountNumber,
-    required String branchNo,
-    required String bookbankUrl,
-    required String address,
-    required String subDistrict,
-    required String district,
-    required String province,
-    required String zipcode,
-  }) async {
+  Future updateUser(
+      {required int customerid,
+      required String name,
+      required String cardId,
+      required String cardUrl,
+      required String bankId,
+      required String accountName,
+      required String accountNumber,
+      required String branchNo,
+      required String bookbankUrl,
+      required String address,
+      required String subDistrict,
+      required String district,
+      required String province,
+      required String zipcode,
+      required String categoryid,
+      required String couriercode}) async {
     preferences = await SharedPreferences.getInstance();
     var token = preferences!.getString('token');
     var headers = {
@@ -73,8 +74,11 @@ class UserDataRepository {
       "sub_district": subDistrict,
       "district": district,
       "province": province,
-      "zipcode": zipcode
+      "zipcode": zipcode,
+      "category_id": categoryid,
+      "courier_code": couriercode
     });
+    print('edit profile body = ${request.body}');
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

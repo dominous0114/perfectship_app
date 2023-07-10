@@ -145,6 +145,123 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
     );
   }
 
+  void _selectPrint() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        enableDrag: true,
+        isDismissible: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        )),
+        context: context,
+        builder: (context) {
+          return SafeArea(
+            child: StatefulBuilder(
+              builder: (BuildContext context, setState) {
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          AndroidIntent intent = AndroidIntent(
+                            action: 'action_view',
+                            data: url, // Facebook app URL scheme
+                            package: 'cn.paperang.international', // Package name of the Facebook app
+                          );
+                          intent.launch().catchError((e) {
+                            launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=cn.paperang.international&hl=en&gl=US'),
+                                mode: LaunchMode.externalApplication);
+
+                            Navigator.pop(context);
+                          });
+                        },
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Container(
+                              decoration: BoxDecoration(),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw=s96-rw',
+                                        width: 50,
+                                      )),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    'Paperang',
+                                    style: Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Divider(),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          //context.loaderOverlay.show();
+                          await Future.delayed(Duration(seconds: 2));
+                          await Share.share(url);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Container(
+                            decoration: BoxDecoration(),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      'https://play-lh.googleusercontent.com/nDKrKLdZopeZtkyV1kGK0MUF-DPzl8Z9c5rc5osYxrpRkHTdVC7Oo-vUw6mqZuSIfg=w480-h960-rw',
+                                      width: 50,
+                                    )),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'PeriPage',
+                                      style: Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      '**แชร์ไปยังแอพพลิเคชั่น PeriPage เพื่อทำรายการต่อ',
+                                      style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        });
+  }
+
   Future setPaper({required PaperSizeModel paper}) async {
     setState(() {
       paperSize = paper.lower;
@@ -184,29 +301,32 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        webViewController!.evaluateJavascript(source: 'window.print()');
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.print,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text('ปริ้นท์', style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
-                            ],
+                Visibility(
+                  visible: paperSize == 'paperang' ? false : true,
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          webViewController!.evaluateJavascript(source: 'window.print()');
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.print,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text('ปริ้นท์', style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -219,7 +339,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                     child: GestureDetector(
                       onTap: () async {
                         if (Platform.isAndroid) {
-                          _openOption(context);
+                          _selectPrint();
                           //print('xfile = ${widget.xFile}');
                         } else {
                           await CustomShare.shareUrl(url);
@@ -566,6 +686,8 @@ class PaperSizeModel {
       upper: 'A7 (100x75)',
       lower: 'a7',
     ),
+
+    PaperSizeModel(upper: 'Paperang', lower: 'paperang')
 
     // PaperSizeModel(
     //   upper: 'PDF',

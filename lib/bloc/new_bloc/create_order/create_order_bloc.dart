@@ -42,22 +42,27 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
       print(courierActive[i].logo.toString());
     }
     List<CourierNewModel> courierMerge = [couriers.first, ...courierActive];
-
     CourierNewModel courier = couriers.firstWhere(
       (element) => element.code == userdata.address!.courierCode,
       orElse: () => CourierNewModel(),
     );
+    if (courier.logo != null) {
+      courier.logo = courier.logo.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+    }
 
     List<CategoryNewModel> categories = await CategoryNewRepository().getCategory();
+    CategoryNewModel category = categories.firstWhere((element) => element.id == userdata.categoryId, orElse: () {
+      return categories.first;
+    });
     print('user id = ${userdata.address!.userId!}');
     emit(CreateOrderData(
         courierCode: courier.code ?? '',
         courierImg: courier.logo ?? '',
         courierImgMobile: courier.logoMobile ?? '',
         courierNewModels: courierActive,
-        courierNewModel: CourierNewModel(),
+        courierNewModel: courier,
         categories: categories,
-        category: categories.first,
+        category: category,
         type: 2,
         labelName: userdata.address!.labelName!,
         labelPhone: userdata.address!.labelPhone!,
@@ -164,7 +169,10 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
           srcprovinceController: TextEditingController(text: event.province),
           srczipcodeController: TextEditingController(
             text: event.zipcode,
-          )));
+          ),
+          category: event.category,
+          categoryId: event.category.id,
+          courierNewModel: event.courier));
     }
   }
 

@@ -52,15 +52,21 @@ class OnEditSrcDataEvent extends CreateOrderEvent {
   final String district;
   final String province;
   final String zipcode;
+  final CourierNewModel courier;
+  final CategoryNewModel category;
+  final List<CategoryNewModel> categories;
   OnEditSrcDataEvent({
     required this.name,
     required this.subDistrict,
     required this.district,
     required this.province,
     required this.zipcode,
+    required this.courier,
+    required this.category,
+    required this.categories,
   });
   @override
-  List<Object> get props => [subDistrict, district, province, zipcode, name];
+  List<Object> get props => [subDistrict, district, province, zipcode, name, category, courier, categories];
 }
 
 class OnResetDstDataEvent extends CreateOrderEvent {

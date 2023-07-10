@@ -1,6 +1,7 @@
 class UserDataModel {
   int? id;
   int? userId;
+  int? categoryId;
   String? name;
   String? phone;
   String? password;
@@ -21,6 +22,7 @@ class UserDataModel {
   UserDataModel(
       {this.id,
       this.userId,
+      this.categoryId,
       this.name,
       this.phone,
       this.password,
@@ -41,6 +43,7 @@ class UserDataModel {
   UserDataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
+    categoryId = json['category_id'];
     name = json['name'];
     phone = json['phone'];
     password = json['password'];
@@ -63,6 +66,7 @@ class UserDataModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['user_id'] = this.userId;
+    data['category_id'] = this.categoryId;
     data['name'] = this.name;
     data['phone'] = this.phone;
     data['password'] = this.password;

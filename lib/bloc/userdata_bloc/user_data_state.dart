@@ -32,23 +32,29 @@ class UserDataLoaded extends UserDataState {
   final TextEditingController provinceController;
   final TextEditingController zipcodeController;
   final BankModel bankSelect;
-  UserDataLoaded(
-      {required this.userdatamodel,
-      required this.bankModel,
-      required this.nameController,
-      required this.idcardController,
-      required this.accountNameController,
-      required this.accountNoController,
-      required this.accountBranchController,
-      required this.addressController,
-      required this.subDistrictController,
-      required this.districtController,
-      required this.provinceController,
-      required this.zipcodeController,
-      required this.bankSelect});
-  // final UserCreditModel usercreditmodel;
-  // final List<Banks> bank;
-  // final SrcAddressModel srcaddressmodel;
+  final List<CategoryNewModel> categories;
+  final CategoryNewModel category;
+  final CourierNewModel? courier;
+  final List<CourierNewModel> couriers;
+  UserDataLoaded({
+    required this.userdatamodel,
+    required this.bankModel,
+    required this.nameController,
+    required this.idcardController,
+    required this.accountNameController,
+    required this.accountNoController,
+    required this.accountBranchController,
+    required this.addressController,
+    required this.subDistrictController,
+    required this.districtController,
+    required this.provinceController,
+    required this.zipcodeController,
+    required this.bankSelect,
+    required this.category,
+    required this.categories,
+    required this.courier,
+    required this.couriers,
+  });
 
   @override
   List<Object> get props => [
@@ -64,7 +70,11 @@ class UserDataLoaded extends UserDataState {
         districtController,
         provinceController,
         zipcodeController,
-        bankSelect
+        bankSelect,
+        category,
+        categories,
+        courier!,
+        couriers
 
         // usercreditmodel,
         // bank,
@@ -83,7 +93,11 @@ class UserDataLoaded extends UserDataState {
       TextEditingController? districtController,
       TextEditingController? provinceController,
       TextEditingController? zipcodeController,
-      BankModel? bankSelect}) {
+      BankModel? bankSelect,
+      List<CategoryNewModel>? categories,
+      CategoryNewModel? category,
+      CourierNewModel? courier,
+      List<CourierNewModel>? couriers}) {
     return UserDataLoaded(
         userdatamodel: userdatamodel ?? this.userdatamodel,
         bankModel: bankModel ?? this.bankModel,
@@ -97,7 +111,11 @@ class UserDataLoaded extends UserDataState {
         districtController: districtController ?? this.districtController,
         provinceController: provinceController ?? this.provinceController,
         zipcodeController: zipcodeController ?? this.zipcodeController,
-        bankSelect: bankSelect ?? this.bankSelect);
+        bankSelect: bankSelect ?? this.bankSelect,
+        categories: categories ?? this.categories,
+        category: category ?? this.category,
+        courier: courier ?? this.courier,
+        couriers: couriers ?? this.couriers);
   }
 }
 

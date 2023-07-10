@@ -59,6 +59,20 @@ class UserBookbankUploadImageEvent extends UserDataEvent {
   List<Object> get props => [bookbankUrl];
 }
 
+class UserdataSelectCategoryEvent extends UserDataEvent {
+  final CategoryNewModel categoryNewModel;
+  UserdataSelectCategoryEvent({
+    required this.categoryNewModel,
+  });
+}
+
+class UserdataSelectCourierEvent extends UserDataEvent {
+  final CourierNewModel courier;
+  UserdataSelectCourierEvent({
+    required this.courier,
+  });
+}
+
 // class GetbankdataEvent extends UserDataEvent {
 //   final int bankId;
 //   GetbankdataEvent({

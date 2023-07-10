@@ -71,7 +71,7 @@ class OrderRepository {
         "dst_district": dstDistrict,
         "dst_province": dstProvince,
         "dst_zipcode": dstZipcode,
-        "weight": 1000,
+        "weight": weight,
         "width": 1,
         "length": 1,
         "height": 1,

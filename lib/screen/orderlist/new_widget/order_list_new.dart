@@ -419,7 +419,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                                 color: Colors.blue.shade700,
                                                                                               ),
                                                                                               SizedBox(width: 5),
-                                                                                              Text('ปริ้นใบสั่งซื้อ ',
+                                                                                              Text('ปริ้นท์ใบปะหน้า ',
                                                                                                   style: TextStyle(
                                                                                                     fontSize: PlatformSize(context),
                                                                                                     fontWeight: FontWeight.w400,
@@ -450,7 +450,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                                 color: Colors.blue.shade700,
                                                                                               ),
                                                                                               SizedBox(width: 5),
-                                                                                              Text('ปริ้นใบสั่งซื้อ ',
+                                                                                              Text('ปริ้นท์ใบปะหน้า ',
                                                                                                   style: Theme.of(context).textTheme.headline5)
                                                                                             ],
                                                                                           )),
