@@ -250,10 +250,7 @@ class _EditProfileState extends State<EditProfile> {
                   elevation: 0,
                   title: Text(
                     'แก้ไขข้อมูลผู้ส่ง',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium!
-                        .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                   flexibleSpace: Container(
                     decoration: BoxDecoration(
@@ -284,10 +281,7 @@ class _EditProfileState extends State<EditProfile> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -321,10 +315,7 @@ class _EditProfileState extends State<EditProfile> {
                                                   },
                                                   hint: Text(
                                                     '    เลือกประเภทพัสดุ',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline5!
-                                                        .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                                    style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                   buttonHeight: 50,
@@ -359,10 +350,7 @@ class _EditProfileState extends State<EditProfile> {
                                                                 ),
                                                                 Text(
                                                                   e.name ?? '',
-                                                                  style: Theme.of(context)
-                                                                      .textTheme
-                                                                      .headline5!
-                                                                      .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                  style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
                                                                 )
                                                               ],
                                                             ),
@@ -418,10 +406,7 @@ class _EditProfileState extends State<EditProfile> {
                                                   },
                                                   hint: Text(
                                                     '    เลือกขนส่งเริ่มต้น',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline5!
-                                                        .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                                    style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                   buttonHeight: 50,
@@ -455,16 +440,16 @@ class _EditProfileState extends State<EditProfile> {
                                                                   imageUrl: e.logo,
                                                                   fit: BoxFit.cover,
                                                                   width: 75,
+                                                                  errorWidget: (context, url, error) {
+                                                                    return Icon(CupertinoIcons.cube_box);
+                                                                  },
                                                                 ),
                                                                 SizedBox(
                                                                   width: 5,
                                                                 ),
                                                                 Text(
                                                                   e.name ?? '',
-                                                                  style: Theme.of(context)
-                                                                      .textTheme
-                                                                      .headline5!
-                                                                      .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                  style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
                                                                 )
                                                               ],
                                                             ),
@@ -495,10 +480,7 @@ class _EditProfileState extends State<EditProfile> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -645,16 +627,14 @@ class _EditProfileState extends State<EditProfile> {
                                                     alignment: Alignment.bottomRight,
                                                     children: [
                                                       Container(
-                                                        decoration:
-                                                            BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                                                        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
                                                         height: 120,
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             GestureDetector(
                                                                 onTap: () {
-                                                                  Navigator.pushNamed(context, '/photo-widget',
-                                                                      arguments: state.userdatamodel.cardUrl);
+                                                                  Navigator.pushNamed(context, '/photo-widget', arguments: state.userdatamodel.cardUrl);
                                                                 },
                                                                 child: Image.network(state.userdatamodel.cardUrl))
                                                           ],
@@ -695,10 +675,7 @@ class _EditProfileState extends State<EditProfile> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -726,10 +703,7 @@ class _EditProfileState extends State<EditProfile> {
                                                   },
                                                   hint: Text(
                                                     '    เลือกธนาคาร',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline5!
-                                                        .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                                    style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                   buttonHeight: 50,
@@ -764,10 +738,7 @@ class _EditProfileState extends State<EditProfile> {
                                                                 ),
                                                                 Text(
                                                                   e.name ?? '',
-                                                                  style: Theme.of(context)
-                                                                      .textTheme
-                                                                      .headline5!
-                                                                      .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                  style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
                                                                 )
                                                               ],
                                                             ),
@@ -948,16 +919,14 @@ class _EditProfileState extends State<EditProfile> {
                                                     alignment: Alignment.bottomRight,
                                                     children: [
                                                       Container(
-                                                        decoration:
-                                                            BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                                                        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
                                                         height: 120,
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             GestureDetector(
                                                                 onTap: () {
-                                                                  Navigator.pushNamed(context, '/photo-widget',
-                                                                      arguments: state.userdatamodel.bookBankUrl);
+                                                                  Navigator.pushNamed(context, '/photo-widget', arguments: state.userdatamodel.bookBankUrl);
                                                                 },
                                                                 child: Image.network(state.userdatamodel.bookBankUrl))
                                                           ],
@@ -970,10 +939,7 @@ class _EditProfileState extends State<EditProfile> {
                                                             _selectImage('bookbank');
                                                           },
                                                           child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.white.withOpacity(0.9),
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                  boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)]),
+                                                              decoration: BoxDecoration(color: Colors.white.withOpacity(0.9), borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)]),
                                                               child: Padding(
                                                                 padding: const EdgeInsets.all(8.0),
                                                                 child: Text('เลือกภาพใหม่'),
@@ -997,10 +963,7 @@ class _EditProfileState extends State<EditProfile> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -1017,11 +980,7 @@ class _EditProfileState extends State<EditProfile> {
                                             // searchFocusNode.unfocus();
                                             AddressSearchNewModel address = await showSearch(context: context, delegate: SearcgAddressNewDelegate());
                                             print(address.amphure);
-                                            context.read<UserDataBloc>().add(UserdataSelectAddressEvent(
-                                                subDistrict: address.district!,
-                                                district: address.amphure!,
-                                                province: address.province!,
-                                                zipcode: address.zipcode!));
+                                            context.read<UserDataBloc>().add(UserdataSelectAddressEvent(subDistrict: address.district!, district: address.amphure!, province: address.province!, zipcode: address.zipcode!));
                                             // context.read<CreateOrderBloc>().add(SelectAddressManulEvent(addressSearchNewModel: address));
                                             // districtController.text = address.amphure!;
                                             // subdistrictController.text = address.district!;

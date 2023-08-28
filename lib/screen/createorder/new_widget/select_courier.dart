@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -72,6 +73,7 @@ class _SelectCourierScreenState extends State<SelectCourierScreen> {
                                 children: [
                                   CachedNetworkImage(
                                     imageUrl: state.courierNewModels[index].logo,
+                                    errorWidget: (context, url, error) => Icon(CupertinoIcons.cube_box),
                                     width: 80,
                                   ),
                                   SizedBox(

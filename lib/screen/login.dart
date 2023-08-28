@@ -71,8 +71,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         FadeAnimation(
                           1.6,
                           Image.asset(
-                            'assets/image/DplusExpress-02.png',
-                            scale: 4.5,
+                            'assets/image/DTracking.png',
+                            scale: 2,
                           ),
                         ),
                         SizedBox(
@@ -82,10 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             1.8,
                             Container(
                               padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [BoxShadow(color: Color.fromRGBO(143, 148, 251, .2), blurRadius: 20.0, offset: Offset(0, 10))]),
+                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [BoxShadow(color: Color.fromRGBO(143, 148, 251, .2), blurRadius: 20.0, offset: Offset(0, 10))]),
                               child: Column(
                                 children: <Widget>[
                                   Padding(
@@ -101,20 +98,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                         return null;
                                       },
                                       controller: _phonecontroller,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
+                                      style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
                                       decoration: InputDecoration(
                                           counterText: '',
                                           label: Text(
                                             'เบอร์โทรศัพท์',
                                           ),
                                           labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
-                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                                              color: Color.fromARGB(255, 28, 19, 19).withOpacity(.5),
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: PlatformSize(context)),
+                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Color.fromARGB(255, 28, 19, 19).withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
                                           fillColor: Colors.white,
                                           filled: true,
                                           isDense: true,
@@ -122,13 +113,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.blue.shade200),
-                                              borderRadius: BorderRadius.all(Radius.circular(4))),
-                                          errorStyle: Theme.of(context)
-                                              .textTheme
-                                              .headline4!
-                                              .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+                                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
+                                          errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                           prefixIcon: Icon(
                                             CupertinoIcons.phone_circle,
                                             color: Colors.blue,
@@ -146,10 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         return null;
                                       },
                                       controller: _passwordcontroller,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
+                                      style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
                                       decoration: InputDecoration(
                                           suffixIcon: IconButton(
                                               onPressed: () {
@@ -162,8 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             'รหัสผ่าน',
                                           ),
                                           labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
-                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                                              color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
                                           fillColor: Colors.white,
                                           filled: true,
                                           isDense: true,
@@ -171,13 +153,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.blue.shade200),
-                                              borderRadius: BorderRadius.all(Radius.circular(4))),
-                                          errorStyle: Theme.of(context)
-                                              .textTheme
-                                              .headline4!
-                                              .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+                                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
+                                          errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                           prefixIcon: Icon(
                                             CupertinoIcons.lock_circle,
                                             color: Colors.blue,
@@ -194,17 +171,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                         return null;
                                       },
                                       controller: _refcontroller,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
+                                      style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
                                       decoration: InputDecoration(
                                           label: Text(
                                             'รหัสอ้างอิง',
                                           ),
                                           labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
-                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(
-                                              color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
                                           fillColor: Colors.white,
                                           filled: true,
                                           isDense: true,
@@ -212,13 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(color: Colors.blue.shade200),
-                                              borderRadius: BorderRadius.all(Radius.circular(4))),
-                                          errorStyle: Theme.of(context)
-                                              .textTheme
-                                              .headline4!
-                                              .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+                                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
+                                          errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                           prefixIcon: Icon(
                                             CupertinoIcons.ticket,
                                             color: Colors.blue,
@@ -241,10 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         setState(() {
                                           loginload = true;
                                         });
-                                        SigninRepository()
-                                            .senddataSignin(
-                                                phone: _phonecontroller.text, password: _passwordcontroller.text, ref: _refcontroller.text)
-                                            .then((value) async {
+                                        SigninRepository().senddataSignin(phone: _phonecontroller.text, password: _passwordcontroller.text, ref: _refcontroller.text).then((value) async {
                                           if (value['status'] == true) {
                                             SharedPreferences preferences = await SharedPreferences.getInstance();
                                             print(value);

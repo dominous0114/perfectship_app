@@ -97,8 +97,8 @@ class _BillListNewState extends State<BillListNew> {
                           child: Row(
                             children: [
                               Image.asset(
-                                'assets/image/DplusExpress-04.png',
-                                scale: 20,
+                                'assets/image/DTracking.png',
+                                scale: 10,
                               ),
                               SizedBox(
                                 width: 10,
@@ -144,8 +144,7 @@ class _BillListNewState extends State<BillListNew> {
                             slivers: [
                               SliverPersistentHeader(
                                 pinned: true,
-                                delegate: FloatingHeaderDelegate(
-                                    minHeight: 50, maxHeight: 50, minChild: persistentChild(state), maxChild: persistentChild(state)),
+                                delegate: FloatingHeaderDelegate(minHeight: 50, maxHeight: 50, minChild: persistentChild(state), maxChild: persistentChild(state)),
                               ),
                               SliverToBoxAdapter(
                                 child: SizedBox(
@@ -183,10 +182,7 @@ class _BillListNewState extends State<BillListNew> {
                                                   ));
                                             },
                                             child: Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                    color: Colors.white,
-                                                    boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white, boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: Row(
@@ -209,8 +205,7 @@ class _BillListNewState extends State<BillListNew> {
                                                           child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              Text('${state.billlist[index].code!.toString()}',
-                                                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                                                              Text('${state.billlist[index].code!.toString()}', style: TextStyle(fontWeight: FontWeight.bold)),
                                                               Row(
                                                                 children: [
                                                                   Text('ทั้งหมด : ', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -220,8 +215,7 @@ class _BillListNewState extends State<BillListNew> {
                                                               Row(
                                                                 children: [
                                                                   Text('วันที่ : ', style: TextStyle(fontWeight: FontWeight.bold)),
-                                                                  Text('${convertDateTime(dateTime: state.billlist[index].updatedAt.toString())}',
-                                                                      style: TextStyle()),
+                                                                  Text('${convertDateTime(dateTime: state.billlist[index].updatedAt.toString())}', style: TextStyle()),
                                                                 ],
                                                               ),
                                                             ],

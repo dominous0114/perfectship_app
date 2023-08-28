@@ -59,7 +59,7 @@
     <application
         android:extractNativeLibs="false"
         android:icon="@mipmap/launcher_icon"
-        android:label="DPlus Express"
+        android:label="D Tracking"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">

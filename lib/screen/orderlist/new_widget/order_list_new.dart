@@ -108,8 +108,8 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  'assets/image/DplusExpress-04.png',
-                                  scale: 20,
+                                  'assets/image/DTracking.png',
+                                  scale: 10,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -174,11 +174,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                 slivers: [
                                   SliverPersistentHeader(
                                     pinned: true,
-                                    delegate: FloatingHeaderDelegate(
-                                        minHeight: isSelect ? 0 : 50,
-                                        maxHeight: isSelect ? 0 : 50,
-                                        minChild: persistentChild(isSelect: isSelect),
-                                        maxChild: persistentChild(isSelect: isSelect)),
+                                    delegate: FloatingHeaderDelegate(minHeight: isSelect ? 0 : 50, maxHeight: isSelect ? 0 : 50, minChild: persistentChild(isSelect: isSelect), maxChild: persistentChild(isSelect: isSelect)),
                                   ),
                                   SliverToBoxAdapter(
                                     child: Padding(
@@ -190,8 +186,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                             'ทั้งหมด ${state.orderlist.length} รายการ',
                                             style: Theme.of(context).textTheme.headline6,
                                           ),
-                                          Text(
-                                              '${DateFormat('dd/MM/yyyy').format(state.startDate)} - ${DateFormat('dd/MM/yyyy').format(state.endDate)}')
+                                          Text('${DateFormat('dd/MM/yyyy').format(state.startDate)} - ${DateFormat('dd/MM/yyyy').format(state.endDate)}')
                                         ],
                                       ),
                                     ),
@@ -261,11 +256,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(8),
                                                       color: Colors.white,
-                                                      boxShadow: [
-                                                        _selectedItems.contains(state.orderlist[index])
-                                                            ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4)
-                                                            : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)
-                                                      ],
+                                                      boxShadow: [_selectedItems.contains(state.orderlist[index]) ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4) : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)],
                                                     ),
                                                     child: Column(
                                                       children: [
@@ -282,9 +273,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                       Image.network(
                                                                         state.orderlist[index].logoMobile!,
                                                                       ),
-                                                                      _selectedItems.contains(state.orderlist[index])
-                                                                          ? Lottie.asset('assets/lottie/78295-correct.json', repeat: false)
-                                                                          : SizedBox()
+                                                                      _selectedItems.contains(state.orderlist[index]) ? Lottie.asset('assets/lottie/78295-correct.json', repeat: false) : SizedBox()
                                                                     ],
                                                                   )),
                                                               Expanded(flex: 1, child: SizedBox()),
@@ -340,9 +329,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                                                         ),
                                                                         Container(
-                                                                          decoration: BoxDecoration(
-                                                                              color: StatusColor().checkstatus(state.orderlist[index].statusColor!),
-                                                                              borderRadius: BorderRadius.circular(8)),
+                                                                          decoration: BoxDecoration(color: StatusColor().checkstatus(state.orderlist[index].statusColor!), borderRadius: BorderRadius.circular(8)),
                                                                           child: Padding(
                                                                             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
                                                                             child: Text(
@@ -360,10 +347,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                           ),
                                                         ),
                                                         Container(
-                                                          decoration: BoxDecoration(
-                                                              color: Colors.blueGrey.shade50,
-                                                              borderRadius:
-                                                                  BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
+                                                          decoration: BoxDecoration(color: Colors.blueGrey.shade50, borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
                                                           child: Padding(
                                                             padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
                                                             child: Column(
@@ -406,8 +390,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                             Future.delayed(
                                                                                               Duration(milliseconds: 1),
                                                                                               () {
-                                                                                                Navigator.pushNamed(context, '/pdforder',
-                                                                                                    arguments: state.orderlist[index].id.toString());
+                                                                                                Navigator.pushNamed(context, '/pdforder', arguments: state.orderlist[index].id.toString());
                                                                                               },
                                                                                             );
                                                                                           },
@@ -437,8 +420,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                               Duration(milliseconds: 1),
                                                                                               () {
                                                                                                 print(state.orderlist[index].id);
-                                                                                                Navigator.pushNamed(context, '/pdforder',
-                                                                                                    arguments: state.orderlist[index].id.toString());
+                                                                                                Navigator.pushNamed(context, '/pdforder', arguments: state.orderlist[index].id.toString());
                                                                                               },
                                                                                             );
                                                                                           },
@@ -450,8 +432,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                                 color: Colors.blue.shade700,
                                                                                               ),
                                                                                               SizedBox(width: 5),
-                                                                                              Text('ปริ้นท์ใบปะหน้า ',
-                                                                                                  style: Theme.of(context).textTheme.headline5)
+                                                                                              Text('ปริ้นท์ใบปะหน้า ', style: Theme.of(context).textTheme.headline5)
                                                                                             ],
                                                                                           )),
                                                                                       PopupMenuItem(
@@ -459,10 +440,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                             Future.delayed(
                                                                                               Duration(milliseconds: 1),
                                                                                               () {
-                                                                                                confirmDialog(
-                                                                                                    context,
-                                                                                                    state.orderlist[index].trackNo!,
-                                                                                                    state.orderlist[index]);
+                                                                                                confirmDialog(context, state.orderlist[index].trackNo!, state.orderlist[index]);
                                                                                               },
                                                                                             );
                                                                                           },
@@ -474,8 +452,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                                 color: Colors.red,
                                                                                               ),
                                                                                               SizedBox(width: 5),
-                                                                                              Text('ลบ ',
-                                                                                                  style: Theme.of(context).textTheme.headline5)
+                                                                                              Text('ลบ ', style: Theme.of(context).textTheme.headline5)
                                                                                             ],
                                                                                           )),
                                                                                     ];
@@ -624,43 +601,37 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
 }
 
 void confirmDialog(BuildContext context, String track, OrderlistNewModel model) {
-  Dialogs.materialDialog(
-      msgAlign: TextAlign.center,
-      msg: 'คุณต้องการลบรายการ $track ?',
-      title: "ลบรายการ",
-      color: Colors.white,
-      context: context,
-      actions: [
-        IconsOutlineButton(
-          onPressed: () {
+  Dialogs.materialDialog(msgAlign: TextAlign.center, msg: 'คุณต้องการลบรายการ $track ?', title: "ลบรายการ", color: Colors.white, context: context, actions: [
+    IconsOutlineButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      text: 'ยกเลิก',
+      textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+      iconColor: Colors.grey,
+    ),
+    IconsButton(
+      onPressed: () async {
+        Navigator.pop(context);
+        loadingDialog(context);
+        await OrderRepository().cancelOrder(trackNo: model.trackNo!, refCode: model.refCode!, courierCode: model.courierCode!).then((value) {
+          if (value['status'] == true) {
             Navigator.pop(context);
-          },
-          text: 'ยกเลิก',
-          textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
-          iconColor: Colors.grey,
-        ),
-        IconsButton(
-          onPressed: () async {
+            context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
+            Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
+          } else {
             Navigator.pop(context);
-            loadingDialog(context);
-            await OrderRepository().cancelOrder(trackNo: model.trackNo!, refCode: model.refCode!, courierCode: model.courierCode!).then((value) {
-              if (value['status'] == true) {
-                Navigator.pop(context);
-                context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
-                Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
-              } else {
-                Navigator.pop(context);
-                responseDialog(context, value['message']);
-              }
-            });
-          },
-          text: 'ลบ',
-          iconData: Icons.delete,
-          color: Colors.red,
-          textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-          iconColor: Colors.white,
-        ),
-      ]);
+            responseDialog(context, value['message']);
+          }
+        });
+      },
+      text: 'ลบ',
+      iconData: Icons.delete,
+      color: Colors.red,
+      textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+      iconColor: Colors.white,
+    ),
+  ]);
 }
 
 void responseDialog(BuildContext context, String msg) {
