@@ -18,7 +18,7 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '9'
+    flutterVersionCode = '10'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
@@ -52,7 +52,7 @@ android {
         applicationId "com.dplusexpress.app"
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 9
+        versionCode 10
         versionName flutterVersionName
         multiDexEnabled true
     }
