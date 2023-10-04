@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:perfectship_app/bloc/address_bloc/address_bloc.dart';
 
 import 'package:perfectship_app/bloc/new_bloc/bill_list/bill_list_bloc.dart';
@@ -22,6 +23,7 @@ import 'package:perfectship_app/screen/new_screen/dashboard_new.dart';
 
 import 'package:perfectship_app/screen/profile/profile_screen.dart';
 import 'package:perfectship_app/widget/allkey.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../bloc/dropdown_courier_bloc/dropdown_courier_bloc.dart';
 import '../screen/createorder/new_widget/create_order_new.dart';
@@ -43,6 +45,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
   ScrollController? scrollController;
   Timer? _scrollTimer;
   bool hideBottomNavBar = false;
+  final newVersion = NewVersionPlus(iOSId: 'com.dplusexpress.app', androidId: 'com.dplusexpress.app', iOSAppStoreCountry: 'th');
   List<Widget> pageList = <Widget>[DashBoardNew(), OrderlistNewScreen(), CreateOrderNew(), BillListNew(), ProfileSreen()];
 
   Future<dynamic> backgroundHandler(RemoteMessage message) async {
@@ -89,10 +92,43 @@ class _NavigatonBarState extends State<NavigatonBar> {
     }
   }
 
+  advancedStatusCheck(NewVersionPlus newVersion) async {
+    final status = await newVersion.getVersionStatus();
+    print('local ${status!.localVersion}');
+    print('store ${status.storeVersion}');
+    if (status != null) {
+      if (status.canUpdate) {
+        newVersion.showUpdateDialog(
+          context: context,
+          allowDismissal: true,
+          versionStatus: status,
+
+          //dialogTitle: 'Available',
+          dialogTitle: 'เวอร์ชั่นใหม่พร้อมใช้งาน',
+          //dialogText: 'New Version',
+          dialogText: 'คุณสามารถอัปเดตจาก \n${status.localVersion} ไปยัง ${status.storeVersion}',
+          updateButtonText: 'อัปเดต',
+          dismissButtonText: 'ภายหลัง',
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     print('init navbar');
+    final ver = VersionStatus(
+      appStoreLink: '',
+      localVersion: '',
+      storeVersion: '',
+      releaseNotes: '',
+      originalStoreVersion: '',
+    );
+    print(ver);
+    const simpleBehavior = true;
+    advancedStatusCheck(newVersion);
     LocalNotficationService.initialize(context);
+
     // FirebaseMessaging.instance.getInitialMessage().then((value) {
     //   print('on init');
     //   Navigator.pushNamed(context, '/notification');

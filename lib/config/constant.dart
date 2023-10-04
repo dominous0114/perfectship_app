@@ -3,6 +3,7 @@ class MyConstant {
   String domainprint = 'https://app.iship.cloud';
 
   // String newDomain = 'https://app-uat.perfectship.cloud';
-  String newDomain = 'https://app-uat.dplusexpress.com';
+  // String newDomain = 'https://app-uat.dplusexpress.com';
+  String newDomain = 'https://app.dplusexpress.com';
   MyConstant();
 }
