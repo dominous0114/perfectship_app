@@ -176,7 +176,9 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                             package: 'cn.paperang.international', // Package name of the Facebook app
                           );
                           intent.launch().catchError((e) {
-                            launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=cn.paperang.international&hl=en&gl=US'),
+                            launchUrl(
+                                Uri.parse(
+                                    'https://play.google.com/store/apps/details?id=cn.paperang.international&hl=en&gl=US'),
                                 mode: LaunchMode.externalApplication);
 
                             Navigator.pop(context);
@@ -240,7 +242,8 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                                   children: [
                                     Text(
                                       'PeriPage',
-                                      style: Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold),
+                                      style:
+                                          Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       '**แชร์ไปยังแอพพลิเคชั่น PeriPage เพื่อทำรายการต่อ',
@@ -267,7 +270,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
       paperSize = paper.lower;
       url = '${MyConstant().newDomain}/print/$paperSize?order=${widget.pdfData}';
       urlController.text = url;
-      webViewController?.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
+      webViewController?.loadUrl(urlRequest: URLRequest(url: WebUri.uri(Uri.parse(url))));
     });
   }
 
@@ -324,7 +327,8 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                                 SizedBox(
                                   width: 5,
                                 ),
-                                Text('ปริ้นท์', style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
+                                Text('ปริ้นท์',
+                                    style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
                               ],
                             ),
                           ),
@@ -347,7 +351,9 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.blue, blurRadius: 1)]),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [BoxShadow(color: Colors.blue, blurRadius: 1)]),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -365,7 +371,8 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                               SizedBox(
                                 width: 5,
                               ),
-                              Text('แชร์(Share)', style: TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.bold)),
+                              Text('แชร์(Share)',
+                                  style: TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
@@ -414,26 +421,20 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                         buttonDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                         ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                            fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
                         hint: Text(
                           "  ",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
                         ),
                         items: PaperSizeModel.paperSizes.map<DropdownMenuItem<PaperSizeModel>>((e) {
                           return DropdownMenuItem(
                             value: e,
                             child: Text(
                               e.upper,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Colors.black87),
+                              style: Theme.of(context).textTheme.headline3!.copyWith(
+                                  fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Colors.black87),
                             ),
                           );
                         }).toList(),
@@ -477,7 +478,10 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(
                           "คัดลอก Link $url แล้ว",
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context), color: Colors.white),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: PlatformSize(context), color: Colors.white),
                         )));
                       });
                     }),
@@ -493,7 +497,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                 child: InAppWebView(
                   key: webViewKey,
                   contextMenu: contextMenu,
-                  initialUrlRequest: URLRequest(url: Uri.parse(url)),
+                  initialUrlRequest: URLRequest(url: WebUri.uri(Uri.parse(url))),
                   // initialFile: "assets/index.html",
                   initialUserScripts: UnmodifiableListView<UserScript>([]),
                   initialOptions: options,
@@ -509,7 +513,8 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                     });
                   },
                   androidOnPermissionRequest: (controller, origin, resources) async {
-                    return PermissionRequestResponse(resources: resources, action: PermissionRequestResponseAction.GRANT);
+                    return PermissionRequestResponse(
+                        resources: resources, action: PermissionRequestResponseAction.GRANT);
                   },
                   shouldOverrideUrlLoading: (controller, navigationAction) async {
                     var uri = navigationAction.request.url!;
@@ -598,7 +603,8 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                 );
 
                 await intent.launch().catchError((e) {
-                  launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=cn.paperang.international&hl=en&gl=US'),
+                  launchUrl(
+                      Uri.parse('https://play.google.com/store/apps/details?id=cn.paperang.international&hl=en&gl=US'),
                       mode: LaunchMode.externalApplication);
                 });
               },

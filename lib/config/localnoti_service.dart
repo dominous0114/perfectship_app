@@ -10,22 +10,17 @@ onSelectNotification(NotificationResponse notificationResponse) async {
 }
 
 class LocalNotficationService {
-  static final FlutterLocalNotificationsPlugin _notificationplugin =
-      FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin _notificationplugin = FlutterLocalNotificationsPlugin();
 
   static void initialize(BuildContext context) async {
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: AndroidInitializationSettings("@mipmap/launcher_icon"),
-            iOS: DarwinInitializationSettings(
-                requestAlertPermission: true,
-                requestBadgePermission: true,
-                requestSoundPermission: true));
+    final InitializationSettings initializationSettings = InitializationSettings(
+        android: AndroidInitializationSettings("@mipmap/launcher_icon"),
+        iOS: DarwinInitializationSettings(
+            requestAlertPermission: true, requestBadgePermission: true, requestSoundPermission: true));
     final NotificationAppLaunchDetails? notificationAppLaunchDetails =
         await _notificationplugin.getNotificationAppLaunchDetails();
 
-    final didNotificationLaunchApp =
-        notificationAppLaunchDetails?.didNotificationLaunchApp ?? false;
+    final didNotificationLaunchApp = notificationAppLaunchDetails?.didNotificationLaunchApp ?? false;
     if (didNotificationLaunchApp) {
       var payload = notificationAppLaunchDetails!.notificationResponse;
       onSelectNotification(payload!);
@@ -48,14 +43,10 @@ class LocalNotficationService {
       final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
       final NotificationDetails notificationDetails = NotificationDetails(
-          android: AndroidNotificationDetails(
-              'perfectship-shipping', 'แจ้งเตือนการสถานะพัสดุ',
-              importance: Importance.max,
-              priority: Priority.high,
-              icon: "@mipmap/launcher_icon"),
+          android: AndroidNotificationDetails('perfectship-shipping', 'แจ้งเตือนการสถานะพัสดุ',
+              importance: Importance.max, priority: Priority.high, icon: "@mipmap/launcher_icon"),
           iOS: DarwinNotificationDetails());
-      await _notificationplugin.show(id, message.data['title'],
-          '${message.data['body']}', notificationDetails);
+      await _notificationplugin.show(id, message.data['title'], '${message.data['body']}', notificationDetails);
     } on Exception catch (e) {
       print(e);
     }
@@ -82,14 +73,10 @@ class LocalNotficationService {
     final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     RemoteNotification? remoteNotification = message.notification;
     final NotificationDetails notificationDetails = NotificationDetails(
-        android: AndroidNotificationDetails(
-            'perfectship-shipping', 'แจ้งเตือนการสถานะพัสดุ',
-            importance: Importance.max,
-            priority: Priority.high,
-            icon: "@mipmap/launcher_icon"),
+        android: AndroidNotificationDetails('perfectship-shipping', 'แจ้งเตือนการสถานะพัสดุ',
+            importance: Importance.max, priority: Priority.high, icon: "@mipmap/launcher_icon"),
         iOS: DarwinNotificationDetails());
 
-    await _notificationplugin.show(id, message.data['title'],
-        '${message.data['body']}', notificationDetails);
+    await _notificationplugin.show(id, message.data['title'], '${message.data['body']}', notificationDetails);
   }
 }

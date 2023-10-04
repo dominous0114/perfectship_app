@@ -45,7 +45,10 @@ dependencies:
   dropdown_button2: ^1.6.0
   equatable: ^2.0.3
   keyboard_actions: ^4.1.0
-  flutter_inappwebview: ^5.4.3+7
+  flutter_inappwebview:
+    git:
+      url: https://github.com/Estrelio/flutter_inappwebview.git
+      ref: fix-xcode-17
   path_provider: ^2.0.15
   device_apps: ^2.2.0
   android_intent_plus: ^3.1.1+1

@@ -168,7 +168,8 @@ class _PdfBillListScreenState extends State<PdfBillListScreen> with SingleTicker
                               SizedBox(
                                 width: 5,
                               ),
-                              Text('ปริ้นท์', style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
+                              Text('ปริ้นท์',
+                                  style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
@@ -337,7 +338,7 @@ class _PdfBillListScreenState extends State<PdfBillListScreen> with SingleTicker
                 child: InAppWebView(
                   key: webViewKey,
                   contextMenu: contextMenu,
-                  initialUrlRequest: URLRequest(url: Uri.parse(url)),
+                  initialUrlRequest: URLRequest(url: WebUri.uri(Uri.parse(url))),
                   // initialFile: "assets/index.html",
                   initialUserScripts: UnmodifiableListView<UserScript>([]),
                   initialOptions: options,
@@ -353,7 +354,8 @@ class _PdfBillListScreenState extends State<PdfBillListScreen> with SingleTicker
                     });
                   },
                   androidOnPermissionRequest: (controller, origin, resources) async {
-                    return PermissionRequestResponse(resources: resources, action: PermissionRequestResponseAction.GRANT);
+                    return PermissionRequestResponse(
+                        resources: resources, action: PermissionRequestResponseAction.GRANT);
                   },
                   shouldOverrideUrlLoading: (controller, navigationAction) async {
                     var uri = navigationAction.request.url!;

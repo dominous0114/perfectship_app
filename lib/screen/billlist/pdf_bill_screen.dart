@@ -33,8 +33,7 @@ class PdfBillScreen extends StatefulWidget {
   State<PdfBillScreen> createState() => _PdfBillScreenState();
 }
 
-class _PdfBillScreenState extends State<PdfBillScreen>
-    with SingleTickerProviderStateMixin {
+class _PdfBillScreenState extends State<PdfBillScreen> with SingleTickerProviderStateMixin {
   String title = '80mm';
   String paperSize = 'print';
 
@@ -46,9 +45,7 @@ class _PdfBillScreenState extends State<PdfBillScreen>
   InAppWebViewController? webViewController;
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
-        useShouldOverrideUrlLoading: true,
-        mediaPlaybackRequiresUserGesture: true,
-        useOnDownloadStart: true),
+        useShouldOverrideUrlLoading: true, mediaPlaybackRequiresUserGesture: true, useOnDownloadStart: true),
     android: AndroidInAppWebViewOptions(
       useHybridComposition: true,
     ),
@@ -90,8 +87,7 @@ class _PdfBillScreenState extends State<PdfBillScreen>
       vsync: this,
       duration: Duration(milliseconds: 260),
     );
-    final curvedAnimation =
-        CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
+    final curvedAnimation = CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
     _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
     url = 'https://customer.perfectship.cloud/order/${paperSize}/238652';
     print('url print = $url');
@@ -119,13 +115,8 @@ class _PdfBillScreenState extends State<PdfBillScreen>
           print("onHideContextMenu");
         },
         onContextMenuActionItemClicked: (contextMenuItemClicked) async {
-          var id = (Platform.isAndroid)
-              ? contextMenuItemClicked.androidId
-              : contextMenuItemClicked.iosId;
-          print("onContextMenuActionItemClicked: " +
-              id.toString() +
-              " " +
-              contextMenuItemClicked.title);
+          var id = (Platform.isAndroid) ? contextMenuItemClicked.androidId : contextMenuItemClicked.iosId;
+          print("onContextMenuActionItemClicked: " + id.toString() + " " + contextMenuItemClicked.title);
         });
 
     pullToRefreshController = PullToRefreshController(
@@ -136,8 +127,7 @@ class _PdfBillScreenState extends State<PdfBillScreen>
         if (Platform.isAndroid) {
           webViewController?.reload();
         } else if (Platform.isIOS) {
-          webViewController?.loadUrl(
-              urlRequest: URLRequest(url: await webViewController?.getUrl()));
+          webViewController?.loadUrl(urlRequest: URLRequest(url: await webViewController?.getUrl()));
         }
       },
     );
@@ -146,10 +136,9 @@ class _PdfBillScreenState extends State<PdfBillScreen>
   Future setPaper({required String paper}) async {
     setState(() {
       paperSize = paper;
-      url =
-          'https://customer.perfectship.cloud/order/${paperSize}/${widget.pdfData}';
+      url = 'https://customer.perfectship.cloud/order/${paperSize}/${widget.pdfData}';
       urlController.text = url;
-      webViewController?.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
+      webViewController?.loadUrl(urlRequest: URLRequest(url: WebUri.uri(Uri.parse(url))));
     });
   }
 
@@ -216,8 +205,7 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                                     ))
                                 .toList(),
                             onChanged: (value) {
-                              _onDropDownItemSelectedCategory(
-                                  value as PaperSizeModel);
+                              _onDropDownItemSelectedCategory(value as PaperSizeModel);
                               setState(() {
                                 selectIndex = value.lower;
                                 title = value.upper;
@@ -229,10 +217,7 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                               errorStyle: Theme.of(context)
                                   .textTheme
                                   .headline4!
-                                  .copyWith(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
+                                  .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                               //Add isDense true and zero Padding.
                               //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
                               isDense: true,
@@ -257,8 +242,7 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                             ),
                             iconSize: 30,
                             buttonHeight: 45,
-                            buttonPadding:
-                                const EdgeInsets.only(left: 20, right: 10),
+                            buttonPadding: const EdgeInsets.only(left: 20, right: 10),
                             dropdownDecoration: BoxDecoration(
                               border: Border.all(width: 0.1),
                               color: Colors.white,
@@ -297,10 +281,7 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                               children: [
                                 Text(
                                   ' คัดลอก',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
+                                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
                                         fontSize: PlatformSize(context),
                                       ),
                                 ),
@@ -312,20 +293,15 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                               ],
                             ),
                             onPressed: () {
-                              Clipboard.setData(ClipboardData(text: url))
-                                  .then((_) {
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                        content: Text(
+                              Clipboard.setData(ClipboardData(text: url)).then((_) {
+                                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text(
                                   "คัดลอก Link $url แล้ว",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
-                                      .copyWith(
-                                          fontSize: PlatformSize(context),
-                                          color: Colors.white),
+                                      .copyWith(fontSize: PlatformSize(context), color: Colors.white),
                                 )));
                               });
                             }),
@@ -341,10 +317,9 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                         child: InAppWebView(
                           key: webViewKey,
                           contextMenu: contextMenu,
-                          initialUrlRequest: URLRequest(url: Uri.parse(url)),
+                          initialUrlRequest: URLRequest(url: WebUri.uri(Uri.parse(url))),
                           // initialFile: "assets/index.html",
-                          initialUserScripts:
-                              UnmodifiableListView<UserScript>([]),
+                          initialUserScripts: UnmodifiableListView<UserScript>([]),
                           initialOptions: options,
                           pullToRefreshController: pullToRefreshController,
                           onWebViewCreated: (controller) {
@@ -385,25 +360,15 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                           //     saveInPublicStorage: true,
                           //   );
                           // },
-                          androidOnPermissionRequest:
-                              (controller, origin, resources) async {
+                          androidOnPermissionRequest: (controller, origin, resources) async {
                             return PermissionRequestResponse(
-                                resources: resources,
-                                action: PermissionRequestResponseAction.GRANT);
+                                resources: resources, action: PermissionRequestResponseAction.GRANT);
                           },
-                          shouldOverrideUrlLoading:
-                              (controller, navigationAction) async {
+                          shouldOverrideUrlLoading: (controller, navigationAction) async {
                             var uri = navigationAction.request.url!;
 
-                            if (![
-                              "http",
-                              "https",
-                              "file",
-                              "chrome",
-                              "data",
-                              "javascript",
-                              "about"
-                            ].contains(uri.scheme)) {
+                            if (!["http", "https", "file", "chrome", "data", "javascript", "about"]
+                                .contains(uri.scheme)) {
                               if (await canLaunch(url)) {
                                 // Launch the App
                                 await launch(
@@ -436,8 +401,7 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                               urlController.text = this.url;
                             });
                           },
-                          onUpdateVisitedHistory:
-                              (controller, url, androidIsReload) {
+                          onUpdateVisitedHistory: (controller, url, androidIsReload) {
                             setState(() {
                               this.url = url.toString();
                               urlController.text = this.url;
@@ -483,30 +447,25 @@ class _PdfBillScreenState extends State<PdfBillScreen>
               color: Theme.of(context).appBarTheme.backgroundColor,
               shape: CircularNotchedRectangle(),
               child: Container(
-                decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(color: Colors.black54)],
-                    color: Colors.white),
+                decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black54)], color: Colors.white),
                 width: MediaQuery.of(context).size.width,
                 height: 70,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      webViewController!
-                          .evaluateJavascript(source: 'window.print()');
+                      webViewController!.evaluateJavascript(source: 'window.print()');
                       // .evaluateJavascript(source: ('generatePDF()'));
                       // "var today = new Date();var dd = String(today.getDate()).padStart(2, ‘0’);var mm = String(today.getMonth() + 1).padStart(2, ‘0’); //January is 0!var yyyy = today.getFullYear();today = dd + ‘-’ + mm + ‘-’ + yyyy;const element = document.getElementById(‘page’);let nbPages = 3;var opt = {margin:       0,filename:     today,image:        { type: ‘jpeg’, quality: 0.98 },html2canvas:  { scale: 2},jsPDF:        { unit: ‘mm’, format: ‘a5’, orientation: ‘p’ },pagebreak: { mode: ‘avoid-all’, after:‘.page-break’ }};html2pdf().set(opt).from(element).save();console.log(‘pdf’)");
                     },
                     child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.centerLeft,
-                              colors: <Color>[
-                                Color.fromARGB(180, 41, 88, 162),
-                                Color.fromARGB(200, 43, 166, 223),
-                              ]),
+                          gradient:
+                              LinearGradient(begin: Alignment.topCenter, end: Alignment.centerLeft, colors: <Color>[
+                            Color.fromARGB(180, 41, 88, 162),
+                            Color.fromARGB(200, 43, 166, 223),
+                          ]),
                         ),
                         child: _papersize!.lower == 'paperang'
                             ? Row(
@@ -514,8 +473,7 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
+                                    borderRadius: BorderRadius.all(Radius.circular(8)),
                                     child: Image.network(
                                         'https://play-lh.googleusercontent.com/49MUDDMLwLdAUbU3YsJz9TH1AGtc2OisjKJCLiPsx0MrNI1th0Co4Jqzy-8zlcrjNw',
                                         scale: 15),
@@ -525,14 +483,10 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                                   ),
                                   Text(
                                     'แชร์ไปยัง Paperang',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayLarge!
-                                        .copyWith(
-                                            color: Colors.white,
-                                            fontSize:
-                                                PlatformSize(context) * 1.4,
-                                            fontWeight: FontWeight.w900),
+                                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                        color: Colors.white,
+                                        fontSize: PlatformSize(context) * 1.4,
+                                        fontWeight: FontWeight.w900),
                                   ),
                                 ],
                               )
@@ -549,14 +503,10 @@ class _PdfBillScreenState extends State<PdfBillScreen>
                                   ),
                                   Text(
                                     'สั่งพิมพ์',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .copyWith(
-                                            color: Colors.white,
-                                            fontSize:
-                                                PlatformSize(context) * 1.5,
-                                            fontWeight: FontWeight.w900),
+                                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                                        color: Colors.white,
+                                        fontSize: PlatformSize(context) * 1.5,
+                                        fontWeight: FontWeight.w900),
                                   ),
                                 ],
                               )),
@@ -578,9 +528,7 @@ class LoadingIndicator extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Platform.isAndroid
-                  ? CircularProgressIndicator()
-                  : CupertinoActivityIndicator(),
+              Platform.isAndroid ? CircularProgressIndicator() : CupertinoActivityIndicator(),
               Text(
                 'กำลังโหลด',
                 style: Theme.of(context).textTheme.headline3,
