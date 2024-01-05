@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>727269920144-93or8fp257g95s4op2se3du9af36b1o9.apps.googleusercontent.com</string>
+	<string>191639649552-g64ngevg7rop5unsnnobrb3e970up1gi.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.727269920144-93or8fp257g95s4op2se3du9af36b1o9</string>
+	<string>com.googleusercontent.apps.191639649552-g64ngevg7rop5unsnnobrb3e970up1gi</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBec17Omnfd7uV1q8ZcNf6ktl-ufY9zJLs</string>
+	<string>AIzaSyA5S1yfC8Cwcofg9UP-jzl6jpgdYHdSaFo</string>
 	<key>GCM_SENDER_ID</key>
-	<string>727269920144</string>
+	<string>191639649552</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.dplusexpress.app</string>
 	<key>PROJECT_ID</key>
-	<string>perfectship-app</string>
+	<string>dplus-express</string>
 	<key>STORAGE_BUCKET</key>
-	<string>perfectship-app.appspot.com</string>
+	<string>dplus-express.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:727269920144:ios:9dd178245128b1d0727715</string>
+	<string>1:191639649552:ios:86dc0ff2a5852b28877995</string>
 </dict>
 </plist>

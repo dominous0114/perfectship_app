@@ -76,6 +76,7 @@ class LocalNotficationService {
         android: AndroidNotificationDetails('perfectship-shipping', 'แจ้งเตือนการสถานะพัสดุ',
             importance: Importance.max, priority: Priority.high, icon: "@mipmap/launcher_icon"),
         iOS: DarwinNotificationDetails());
+    print('display bg');
 
     await _notificationplugin.show(id, message.data['title'], '${message.data['body']}', notificationDetails);
   }

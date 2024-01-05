@@ -148,6 +148,7 @@ class _NavigatonBarState extends State<NavigatonBar> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       print('on open');
+      print(event.data);
       // Navigator.pushNamed(context, '/notification');
 
       // setState(() {

@@ -51,9 +51,10 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  FirebaseMessaging.onBackgroundMessage(backgroundHandlersss);
+  //FirebaseMessaging.onBackgroundMessage(backgroundHandlersss);
   var _messaging = FirebaseMessaging.instance;
-  NotificationSettings settings = await _messaging.requestPermission(alert: true, badge: true, provisional: true, sound: true);
+  NotificationSettings settings =
+      await _messaging.requestPermission(alert: true, badge: true, provisional: true, sound: true);
 
   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
     print('User granted permission');
@@ -99,8 +100,10 @@ class MyApp extends StatelessWidget {
             create: (context) => OrderBloc(orderRepository: OrderRepository()),
           ),
           BlocProvider(
-            create: (context) =>
-                TrackBloc(orderRepository: OrderRepository(), trackRepository: TrackRepository(), courierRepository: CourierRepository()),
+            create: (context) => TrackBloc(
+                orderRepository: OrderRepository(),
+                trackRepository: TrackRepository(),
+                courierRepository: CourierRepository()),
           ),
           BlocProvider(
             create: (context) => CreateOrderBloc(),
@@ -147,7 +150,9 @@ class MyApp extends StatelessWidget {
                     primarySwatch: Colors.blue,
                     inputDecorationTheme: InputDecorationTheme(
                       border: InputBorder.none,
-                      hintStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme).bodyMedium!.copyWith(fontSize: 16),
+                      hintStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme)
+                          .bodyMedium!
+                          .copyWith(fontSize: 16),
                     ),
                     useMaterial3: false,
                     secondaryHeaderColor: Colors.blue,
@@ -156,8 +161,12 @@ class MyApp extends StatelessWidget {
                     appBarTheme: AppBarTheme(
                             elevation: 0,
                             backgroundColor: Colors.white,
-                            toolbarTextStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme).bodyText2!.copyWith(fontSize: 16),
-                            titleTextStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme).headline6!.copyWith(fontSize: 16))
+                            toolbarTextStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme)
+                                .bodyText2!
+                                .copyWith(fontSize: 16),
+                            titleTextStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme)
+                                .headline6!
+                                .copyWith(fontSize: 16))
                         .copyWith(),
                     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.blue, primary: Colors.blue))
                 .copyWith(
