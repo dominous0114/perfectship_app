@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/shared/types.dart';
@@ -26,12 +27,36 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'เปลี่ยนรหัสผ่าน',
-        backArrow: true,
-        onPressArrow: () {
-          Navigator.pop(context);
-        },
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.black54,
+          ),
+        ),
+        title: Text(
+          'เปลี่นนรหัสผ่าน',
+          style: TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black54)]
+              // gradient: LinearGradient(
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter,
+              //   colors: <Color>[
+              //     Color.fromARGB(200, 43, 166, 223).withAlpha(255),
+              //     Color.fromARGB(180, 41, 88, 162).withAlpha(162),
+              //   ],
+              // ),
+              //color: Color.fromARGB(200, 43, 166, 223),
+              ),
+        ),
+        elevation: 0,
+        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: Form(
         key: formKey,

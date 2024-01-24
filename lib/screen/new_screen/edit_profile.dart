@@ -250,7 +250,9 @@ class _EditProfileState extends State<EditProfile> {
                   elevation: 0,
                   automaticallyImplyLeading: false,
                   leading: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
                         color: Colors.black54,

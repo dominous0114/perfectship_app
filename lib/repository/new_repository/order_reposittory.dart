@@ -198,6 +198,7 @@ class OrderRepository {
     };
     var request = http.Request('POST', Uri.parse('${MyConstant().newDomain}/api/v1/order/cancel-order'));
     request.body = json.encode({"track_no": trackNo, "ref_code": refCode, "courier_code": courierCode});
+    print('cancel body = ${request.body}');
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

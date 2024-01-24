@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: <Widget>[
                         Image.asset(
-                          'assets/image/DTracking.png',
+                          'assets/image/th_post_logo_2.png',
                           scale: 2,
                         ),
 
