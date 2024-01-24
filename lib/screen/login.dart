@@ -68,199 +68,196 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.all(20.0),
                     child: Column(
                       children: <Widget>[
-                        FadeAnimation(
-                          1.6,
-                          Image.asset(
-                            'assets/image/DTracking.png',
-                            scale: 2,
-                          ),
+                        Image.asset(
+                          'assets/image/DTracking.png',
+                          scale: 2,
                         ),
+
                         SizedBox(
                           height: 20,
                         ),
-                        FadeAnimation(
-                            1.8,
-                            Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [BoxShadow(color: Color.fromRGBO(143, 148, 251, .2), blurRadius: 20.0, offset: Offset(0, 10))]),
-                              child: Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TextFormField(
-                                      maxLength: 10,
-                                      focusNode: _nodephone,
-                                      keyboardType: TextInputType.phone,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'กรุณากรอกข้อมูลให้ครบถ้วน';
-                                        }
-                                        return null;
-                                      },
-                                      controller: _phonecontroller,
-                                      style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
-                                      decoration: InputDecoration(
-                                          counterText: '',
-                                          label: Text(
-                                            'เบอร์โทรศัพท์',
-                                          ),
-                                          labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
-                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Color.fromARGB(255, 28, 19, 19).withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
-                                          fillColor: Colors.white,
-                                          filled: true,
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(2),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
-                                          ),
-                                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
-                                          errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
-                                          prefixIcon: Icon(
-                                            CupertinoIcons.phone_circle,
-                                            color: Colors.blue,
-                                          )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TextFormField(
-                                      obscureText: obsecure,
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'กรุณากรอกข้อมูลให้ครบถ้วน';
-                                        }
-                                        return null;
-                                      },
-                                      controller: _passwordcontroller,
-                                      style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
-                                      decoration: InputDecoration(
-                                          suffixIcon: IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  obsecure = !obsecure;
-                                                });
-                                              },
-                                              icon: obsecure == true ? Icon(Icons.visibility) : Icon(Icons.visibility_off)),
-                                          label: Text(
-                                            'รหัสผ่าน',
-                                          ),
-                                          labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
-                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
-                                          fillColor: Colors.white,
-                                          filled: true,
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(2),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
-                                          ),
-                                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
-                                          errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
-                                          prefixIcon: Icon(
-                                            CupertinoIcons.lock_circle,
-                                            color: Colors.blue,
-                                          )),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TextFormField(
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return 'กรุณากรอกข้อมูลให้ครบถ้วน';
-                                        }
-                                        return null;
-                                      },
-                                      controller: _refcontroller,
-                                      style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
-                                      decoration: InputDecoration(
-                                          label: Text(
-                                            'รหัสอ้างอิง',
-                                          ),
-                                          labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
-                                          hintStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
-                                          fillColor: Colors.white,
-                                          filled: true,
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(2),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
-                                          ),
-                                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
-                                          errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
-                                          prefixIcon: Icon(
-                                            CupertinoIcons.ticket,
-                                            color: Colors.blue,
-                                          )),
-                                    ),
-                                  )
-                                ],
+
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration:
+                              BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [BoxShadow(color: Color.fromRGBO(143, 148, 251, .2), blurRadius: 20.0, offset: Offset(0, 10))]),
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  maxLength: 10,
+                                  focusNode: _nodephone,
+                                  keyboardType: TextInputType.phone,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'กรุณากรอกข้อมูลให้ครบถ้วน';
+                                    }
+                                    return null;
+                                  },
+                                  controller: _phonecontroller,
+                                  style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
+                                  decoration: InputDecoration(
+                                      counterText: '',
+                                      label: Text(
+                                        'เบอร์โทรศัพท์',
+                                      ),
+                                      labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
+                                      hintStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Color.fromARGB(255, 28, 19, 19).withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.all(2),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
+                                      ),
+                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
+                                      errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+                                      prefixIcon: Icon(
+                                        CupertinoIcons.phone_circle,
+                                        color: Colors.blue,
+                                      )),
+                                ),
                               ),
-                            )),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  obscureText: obsecure,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'กรุณากรอกข้อมูลให้ครบถ้วน';
+                                    }
+                                    return null;
+                                  },
+                                  controller: _passwordcontroller,
+                                  style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
+                                  decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              obsecure = !obsecure;
+                                            });
+                                          },
+                                          icon: obsecure == true ? Icon(Icons.visibility) : Icon(Icons.visibility_off)),
+                                      label: Text(
+                                        'รหัสผ่าน',
+                                      ),
+                                      labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
+                                      hintStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.all(2),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
+                                      ),
+                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
+                                      errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+                                      prefixIcon: Icon(
+                                        CupertinoIcons.lock_circle,
+                                        color: Colors.blue,
+                                      )),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'กรุณากรอกข้อมูลให้ครบถ้วน';
+                                    }
+                                    return null;
+                                  },
+                                  controller: _refcontroller,
+                                  style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.black87, fontWeight: FontWeight.normal, fontSize: PlatformSize(context)),
+                                  decoration: InputDecoration(
+                                      label: Text(
+                                        'รหัสอ้างอิง',
+                                      ),
+                                      labelStyle: TextStyle(fontSize: PlatformSize(context), color: Colors.black54),
+                                      hintStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.all(2),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
+                                      ),
+                                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
+                                      errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+                                      prefixIcon: Icon(
+                                        CupertinoIcons.ticket,
+                                        color: Colors.blue,
+                                      )),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                         SizedBox(
                           height: 30,
                         ),
-                        FadeAnimation(
-                            2,
-                            GestureDetector(
-                              onTap: loginload == true
-                                  ? null
-                                  : () {
-                                      if (_formKey.currentState!.validate()) {
+
+                        GestureDetector(
+                          onTap: loginload == true
+                              ? null
+                              : () {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      loginload = true;
+                                    });
+                                    SigninRepository().senddataSignin(phone: _phonecontroller.text, password: _passwordcontroller.text, ref: _refcontroller.text).then((value) async {
+                                      if (value['status'] == true) {
+                                        SharedPreferences preferences = await SharedPreferences.getInstance();
+                                        print(value);
+                                        preferences.setString('token', value['data']['token']);
+                                        preferences.setInt('customerid', value['data']['customer_id']);
+                                        preferences.setString('customername', value['data']['customer_name']);
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigatonBar()));
+                                        // preferences.setString(
+                                        //     'dropoff_name',
+                                        //     value['data']
+                                        //         ['dropoff_member_name']);
+                                        preferences.setBool('islogin', true);
+                                        // Navigator.pushReplacement(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             NavigatonBar()));
                                         setState(() {
-                                          loginload = true;
+                                          loginload = false;
                                         });
-                                        SigninRepository().senddataSignin(phone: _phonecontroller.text, password: _passwordcontroller.text, ref: _refcontroller.text).then((value) async {
-                                          if (value['status'] == true) {
-                                            SharedPreferences preferences = await SharedPreferences.getInstance();
-                                            print(value);
-                                            preferences.setString('token', value['data']['token']);
-                                            preferences.setInt('customerid', value['data']['customer_id']);
-                                            preferences.setString('customername', value['data']['customer_name']);
-                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigatonBar()));
-                                            // preferences.setString(
-                                            //     'dropoff_name',
-                                            //     value['data']
-                                            //         ['dropoff_member_name']);
-                                            preferences.setBool('islogin', true);
-                                            // Navigator.pushReplacement(
-                                            //     context,
-                                            //     MaterialPageRoute(
-                                            //         builder: (context) =>
-                                            //             NavigatonBar()));
-                                            setState(() {
-                                              loginload = false;
-                                            });
-                                          } else if (value['status'] == false) {
-                                            print(value);
-                                            Fluttertoast.showToast(
-                                              msg: value['message'],
-                                              gravity: ToastGravity.CENTER,
-                                            );
-                                            setState(() {
-                                              loginload = false;
-                                            });
-                                          }
+                                      } else if (value['status'] == false) {
+                                        print(value);
+                                        Fluttertoast.showToast(
+                                          msg: value['message'],
+                                          gravity: ToastGravity.CENTER,
+                                        );
+                                        setState(() {
+                                          loginload = false;
                                         });
                                       }
-                                    },
-                              child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    gradient: LinearGradient(colors: [
-                                      Color.fromARGB(255, 19, 125, 193),
-                                      Color.fromARGB(255, 25, 192, 236),
-                                    ])),
-                                child: Center(
-                                  child: loginload == true
-                                      ? CustomProgessIndicator(Colors.white, 18)
-                                      : Text(
-                                          "เข้าสู่ระบบ",
-                                          style: TextStyle(fontSize: PlatformSize(context), color: Colors.white, fontWeight: FontWeight.bold),
-                                        ),
-                                ),
-                              ),
-                            )),
+                                    });
+                                  }
+                                },
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(colors: [
+                                  Color.fromARGB(255, 19, 125, 193),
+                                  Color.fromARGB(255, 25, 192, 236),
+                                ])),
+                            child: Center(
+                              child: loginload == true
+                                  ? CustomProgessIndicator(Colors.white, 18)
+                                  : Text(
+                                      "เข้าสู่ระบบ",
+                                      style: TextStyle(fontSize: PlatformSize(context), color: Colors.white, fontWeight: FontWeight.bold),
+                                    ),
+                            ),
+                          ),
+                        ),
                         SizedBox(
                           height: 70,
                         ),

@@ -939,7 +939,8 @@ class _EditProfileState extends State<EditProfile> {
                                                             _selectImage('bookbank');
                                                           },
                                                           child: Container(
-                                                              decoration: BoxDecoration(color: Colors.white.withOpacity(0.9), borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)]),
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors.white.withOpacity(0.9), borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)]),
                                                               child: Padding(
                                                                 padding: const EdgeInsets.all(8.0),
                                                                 child: Text('เลือกภาพใหม่'),
@@ -980,7 +981,9 @@ class _EditProfileState extends State<EditProfile> {
                                             // searchFocusNode.unfocus();
                                             AddressSearchNewModel address = await showSearch(context: context, delegate: SearcgAddressNewDelegate());
                                             print(address.amphure);
-                                            context.read<UserDataBloc>().add(UserdataSelectAddressEvent(subDistrict: address.district!, district: address.amphure!, province: address.province!, zipcode: address.zipcode!));
+                                            context
+                                                .read<UserDataBloc>()
+                                                .add(UserdataSelectAddressEvent(subDistrict: address.district!, district: address.amphure!, province: address.province!, zipcode: address.zipcode!));
                                             // context.read<CreateOrderBloc>().add(SelectAddressManulEvent(addressSearchNewModel: address));
                                             // districtController.text = address.amphure!;
                                             // subdistrictController.text = address.district!;
@@ -1170,12 +1173,12 @@ class _EditProfileState extends State<EditProfile> {
                                               customerid: state.userdatamodel.id!,
                                               name: state.nameController.text,
                                               cardId: state.idcardController.text,
-                                              cardUrl: state.userdatamodel.cardUrl,
+                                              cardUrl: state.userdatamodel.cardUrl ?? "",
                                               bankId: state.bankSelect.id.toString(),
                                               accountName: state.accountNameController.text,
                                               accountNumber: state.accountNoController.text,
                                               branchNo: state.accountBranchController.text,
-                                              bookbankUrl: state.userdatamodel.bookBankUrl,
+                                              bookbankUrl: state.userdatamodel.bookBankUrl ?? "",
                                               address: state.addressController.text,
                                               subDistrict: state.subDistrictController.text,
                                               district: state.districtController.text,
