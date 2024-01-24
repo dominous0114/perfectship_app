@@ -35,24 +35,25 @@ class _ProfileSreenState extends State<ProfileSreen> {
         elevation: 0,
         title: Text(
           'โปรไฟล์',
-          style: Theme.of(context)
-              .textTheme
-              .headlineMedium!
-              .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                fontSize: PlatformSize(context) * 1.2,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+              ),
         ),
         flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(200, 43, 166, 223),
-                Color.fromARGB(180, 41, 88, 162),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.topRight,
-              stops: [0.0, 0.8],
-              tileMode: TileMode.clamp,
-            ),
-          ),
+          decoration: BoxDecoration(color: Colors.white
+              // gradient: LinearGradient(
+              //   colors: [
+              //     Color.fromARGB(200, 43, 166, 223),
+              //     Color.fromARGB(180, 41, 88, 162),
+              //   ],
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.topRight,
+              //   stops: [0.0, 0.8],
+              //   tileMode: TileMode.clamp,
+              // ),
+              ),
         ),
       ),
       body: SingleChildScrollView(

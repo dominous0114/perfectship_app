@@ -43,39 +43,32 @@ class _DashBoardNewState extends State<DashBoardNew> {
                     title: Row(
                       children: [
                         Image.asset(
-                          'assets/image/DTracking.png',
-                          scale: 10,
+                          'assets/image/th_post_logo_1.png',
+                          scale: 1.5,
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            //launchUrl(Uri.parse('https://app-uat.iship.cloud/'));
-                          },
-                          child: Text('D Tracking',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w900,
-                                fontStyle: FontStyle.italic,
-                              )),
-                        )
                       ],
                     ),
                     flexibleSpace: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(200, 43, 166, 223),
-                            Color.fromARGB(180, 41, 88, 162),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.topRight,
-                          stops: [0.0, 0.8],
-                          tileMode: TileMode.clamp,
-                        ),
-                      ),
+                      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                        BoxShadow(
+                          color: Colors.black54,
+                          blurRadius: 0.5,
+                        )
+                      ]
+
+                          // gradient: LinearGradient(
+                          //   colors: [
+                          //    w
+                          //   ],
+                          //   begin: Alignment.topLeft,
+                          //   end: Alignment.topRight,
+                          //   stops: [0.0, 0.8],
+                          //   tileMode: TileMode.clamp,
+                          // ),
+                          ),
                     ),
                     actions: [
                       IconButton(

@@ -77,18 +77,18 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
     return Stack(
       children: [
         Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(200, 43, 166, 223),
-                Color.fromARGB(180, 41, 88, 162),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.topRight,
-              stops: [0.0, 0.8],
-              tileMode: TileMode.clamp,
-            ),
-          ),
+          decoration: BoxDecoration(color: Colors.white
+              // gradient: LinearGradient(
+              //   colors: [
+              //     Color.fromARGB(200, 43, 166, 223),
+              //     Color.fromARGB(180, 41, 88, 162),
+              //   ],
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.topRight,
+              //   stops: [0.0, 0.8],
+              //   tileMode: TileMode.clamp,
+              // ),
+              ),
           child: SafeArea(
             bottom: false,
             child: Scaffold(
@@ -108,8 +108,8 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  'assets/image/DTracking.png',
-                                  scale: 10,
+                                  'assets/image/th_post_logo_2.png',
+                                  scale: 7,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -119,25 +119,30 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                                         fontSize: PlatformSize(context) * 1.2,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                        color: Colors.black54,
                                       ),
                                 )
                               ],
                             ),
                           ),
                           flexibleSpace: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromARGB(200, 43, 166, 223),
-                                  Color.fromARGB(180, 41, 88, 162),
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.topRight,
-                                stops: [0.0, 0.8],
-                                tileMode: TileMode.clamp,
-                              ),
-                            ),
+                            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                              BoxShadow(
+                                color: Colors.black54,
+                                blurRadius: 0.5,
+                              )
+                            ]
+                                // gradient: LinearGradient(
+                                //   colors: [
+                                //     Color.fromARGB(200, 43, 166, 223),
+                                //     Color.fromARGB(180, 41, 88, 162),
+                                //   ],
+                                //   begin: Alignment.topLeft,
+                                //   end: Alignment.topRight,
+                                //   stops: [0.0, 0.8],
+                                //   tileMode: TileMode.clamp,
+                                // ),
+                                ),
                           ),
                           actions: [
                             IconButton(
@@ -174,7 +179,8 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                 slivers: [
                                   SliverPersistentHeader(
                                     pinned: true,
-                                    delegate: FloatingHeaderDelegate(minHeight: isSelect ? 0 : 50, maxHeight: isSelect ? 0 : 50, minChild: persistentChild(isSelect: isSelect), maxChild: persistentChild(isSelect: isSelect)),
+                                    delegate:
+                                        FloatingHeaderDelegate(minHeight: isSelect ? 0 : 50, maxHeight: isSelect ? 0 : 50, minChild: persistentChild(isSelect: isSelect), maxChild: persistentChild(isSelect: isSelect)),
                                   ),
                                   SliverToBoxAdapter(
                                     child: Padding(
@@ -256,7 +262,11 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(8),
                                                       color: Colors.white,
-                                                      boxShadow: [_selectedItems.contains(state.orderlist[index]) ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4) : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)],
+                                                      boxShadow: [
+                                                        _selectedItems.contains(state.orderlist[index])
+                                                            ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4)
+                                                            : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)
+                                                      ],
                                                     ),
                                                     child: Column(
                                                       children: [

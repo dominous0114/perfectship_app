@@ -15,10 +15,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final Shader linearGradient = LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: <Color>[Colors.lightBlueAccent.shade100, Colors.lightBlue.shade600]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+  final Shader linearGradient =
+      LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[Colors.lightBlueAccent.shade100, Colors.lightBlue.shade600]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,10 +53,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        height: 110),
+                    child: Container(decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))), width: MediaQuery.of(context).size.width * 0.6, height: 110),
                   )
                 ],
               ),
@@ -86,17 +81,17 @@ class _ProfileState extends State<Profile> {
                                   Column(
                                     children: [
                                       GestureDetector(
-                                        onTap: () async {
-                                          FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-                                          String? token = await firebaseMessaging.getToken();
-                                          print(token);
-                                        },
-                                        child: CircleAvatar(
-                                          backgroundImage: AssetImage('assets/image/DplusExpress-01.png'),
-                                          radius: 50,
-                                          backgroundColor: Colors.white,
-                                        ),
-                                      ),
+                                          onTap: () async {
+                                            FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+                                            String? token = await firebaseMessaging.getToken();
+                                            print(token);
+                                          },
+                                          child: Container(
+                                              width: 100,
+                                              height: 100,
+                                              child: Image.asset(
+                                                'assets/image/th_post_profile.png',
+                                              ))),
                                     ],
                                   ),
                                 ],
@@ -122,17 +117,11 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 Text(
                                   'รหัสลูกค้า : ${state.userdatamodel.id}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
+                                  style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
                                 ),
                                 Text(
                                   'เบอร์ : ${state.userdatamodel.phone}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
+                                  style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -142,10 +131,7 @@ class _ProfileState extends State<Profile> {
                                     Expanded(
                                         child: Text(
                                       '${state.userdatamodel.address!.address} ${state.userdatamodel.address!.subDistrict} ${state.userdatamodel.address!.district} ${state.userdatamodel.address!.province} ${state.userdatamodel.address!.zipcode}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
+                                      style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
                                     )),
                                   ],
                                 )

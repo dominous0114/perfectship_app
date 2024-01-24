@@ -61,16 +61,15 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        // gradient: LinearGradient(
-        //   begin: Alignment.topCenter,
-        //   end: Alignment.bottomCenter,
-        //   colors: <Color>[
-        //     Color.fromARGB(200, 43, 166, 223).withAlpha(223),
-        //     Color.fromARGB(180, 41, 88, 162).withAlpha(162),
-        //   ],
-        // ),
-        color: Color.fromARGB(200, 43, 166, 223).withAlpha(255),
-      ),
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: <Color>[
+          //     Color.fromARGB(200, 43, 166, 223).withAlpha(223),
+          //     Color.fromARGB(180, 41, 88, 162).withAlpha(162),
+          //   ],
+          // ),
+          color: Colors.white),
       child: SafeArea(
         bottom: false,
         child: GestureDetector(
@@ -85,24 +84,27 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back_ios_new),
+                icon: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.black54,
+                ),
               ),
               title: Text(
                 'สร้างรายการพัสดุ',
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
               ),
               flexibleSpace: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: <Color>[
-                      Color.fromARGB(200, 43, 166, 223).withAlpha(255),
-                      Color.fromARGB(180, 41, 88, 162).withAlpha(162),
-                    ],
-                  ),
-                  //color: Color.fromARGB(200, 43, 166, 223),
-                ),
+                decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black54)]
+                    // gradient: LinearGradient(
+                    //   begin: Alignment.topCenter,
+                    //   end: Alignment.bottomCenter,
+                    //   colors: <Color>[
+                    //     Color.fromARGB(200, 43, 166, 223).withAlpha(255),
+                    //     Color.fromARGB(180, 41, 88, 162).withAlpha(162),
+                    //   ],
+                    // ),
+                    //color: Color.fromARGB(200, 43, 166, 223),
+                    ),
               ),
               elevation: 0,
               centerTitle: true,
@@ -325,10 +327,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                               ),
                                               Text(
                                                 state.courierNewModel.name == null ? 'กรุณาเลือกขนส่ง' : '${state.courierNewModel.name}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5!
-                                                    .copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
                                               ),
                                               //CustomTextAutoSizeforMenu(text: 'แก้ไขรหัสผ่าน', bold: true, enable: true),
                                               const Spacer(),
@@ -504,9 +503,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                 },
                                                 child: Container(
                                                   decoration: BoxDecoration(
-                                                      color: isExtract ? Colors.amber : Colors.white,
-                                                      borderRadius: BorderRadius.circular(8),
-                                                      border: isExtract ? null : Border.all(color: Colors.amber, width: 0.5)),
+                                                      color: isExtract ? Colors.amber : Colors.white, borderRadius: BorderRadius.circular(8), border: isExtract ? null : Border.all(color: Colors.amber, width: 0.5)),
                                                   child: Padding(
                                                     padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 8),
                                                     child: Row(
@@ -521,10 +518,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                         ),
                                                         Text(
                                                           'คัดแยก',
-                                                          style: TextStyle(
-                                                              color: isExtract ? Colors.white : Colors.amber,
-                                                              fontSize: 14,
-                                                              fontWeight: FontWeight.bold),
+                                                          style: TextStyle(color: isExtract ? Colors.white : Colors.amber, fontSize: 14, fontWeight: FontWeight.bold),
                                                         ),
                                                       ],
                                                     ),
@@ -611,10 +605,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                           },
                                                           child: Text(
                                                             'ตัวอย่าง',
-                                                            style: Theme.of(context)
-                                                                .textTheme
-                                                                .headline5!
-                                                                .copyWith(fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+                                                            style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.blue.shade800),
                                                           )),
                                                       TextButton(
                                                           onPressed: () {
@@ -622,10 +613,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                           },
                                                           child: Text(
                                                             'ล้าง',
-                                                            style: Theme.of(context)
-                                                                .textTheme
-                                                                .headline5!
-                                                                .copyWith(fontWeight: FontWeight.bold, color: Colors.red),
+                                                            style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.red),
                                                           )),
                                                       loadingExt == true
                                                           ? SizedBox(width: 18, height: 18, child: CircularProgressIndicator())
@@ -671,11 +659,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                                   extNode.requestFocus();
                                                                 }
                                                               },
-                                                              child: Text('คัดแยก',
-                                                                  style: Theme.of(context)
-                                                                      .textTheme
-                                                                      .headline5!
-                                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.blue))),
+                                                              child: Text('คัดแยก', style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.blue))),
                                                     ],
                                                   )
                                                 ],
@@ -997,9 +981,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                     ),
                                     Row(
                                       children: [
-                                        Expanded(
-                                            flex: 1,
-                                            child: Text('ประเภทพัสดุ ', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold))),
+                                        Expanded(flex: 1, child: Text('ประเภทพัสดุ ', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold))),
                                         Expanded(
                                           flex: 4,
                                           child: Container(
@@ -1030,13 +1012,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                       value: e,
                                                       child: Container(
                                                         child: Row(
-                                                          children: [
-                                                            Text(e.name ?? '',
-                                                                style: Theme.of(context)
-                                                                    .textTheme
-                                                                    .headline5!
-                                                                    .copyWith(color: Colors.black54, fontWeight: FontWeight.bold))
-                                                          ],
+                                                          children: [Text(e.name ?? '', style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold))],
                                                         ),
                                                       ));
                                                 }).toList(),
@@ -1264,10 +1240,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                               ),
                                               Text(
                                                 'เก็บเงินปลายทาง (ถ้ามี)',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5!
-                                                    .copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
                                               ),
                                             ],
                                           ),
@@ -1366,11 +1339,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                               SizedBox(
                                                 width: 15,
                                               ),
-                                              Text('ซื้อประกัน',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline5!
-                                                      .copyWith(color: Colors.black87, fontWeight: FontWeight.bold)),
+                                              Text('ซื้อประกัน', style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black87, fontWeight: FontWeight.bold)),
                                             ],
                                           ),
                                           AnimatedContainer(
@@ -1559,9 +1528,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                   codAmount: double.parse(state.codController.text.isEmpty ? '0' : state.codController.text),
                                                   remark: state.remarkController.text,
                                                   isInsured: state.isInsure == true ? 1 : 0,
-                                                  productValue: state.isInsure == false
-                                                      ? 0.0
-                                                      : double.parse(state.insureController.text.isEmpty ? '0' : state.insureController.text),
+                                                  productValue: state.isInsure == false ? 0.0 : double.parse(state.insureController.text.isEmpty ? '0' : state.insureController.text),
                                                   customerId: state.customerId,
                                                   isBulky: state.isBulky,
                                                   jntPickup: 6,
@@ -1799,13 +1766,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                 await AddressNewRepository().getNormalize(controller.text).then((value) {
                                   if (value.status == true) {
                                     context.read<CreateOrderBloc>().add(OnRecieveSearchEvent(
-                                        district: value.amphure!,
-                                        subdistrict: value.district!,
-                                        province: value.province!,
-                                        zipcode: value.zipcode!,
-                                        name: value.name!,
-                                        phone: value.phone!,
-                                        address: value.cutAll!));
+                                        district: value.amphure!, subdistrict: value.district!, province: value.province!, zipcode: value.zipcode!, name: value.name!, phone: value.phone!, address: value.cutAll!));
                                     setState(() {
                                       // dstnameController.text = value.name!;
                                       // addressController.text = value.cutAll!;

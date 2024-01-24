@@ -248,23 +248,38 @@ class _EditProfileState extends State<EditProfile> {
                 appBar: AppBar(
                   toolbarHeight: 60,
                   elevation: 0,
+                  automaticallyImplyLeading: false,
+                  leading: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Colors.black54,
+                      )),
                   title: Text(
                     'แก้ไขข้อมูลผู้ส่ง',
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                          fontSize: PlatformSize(context) * 1.2,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54,
+                        ),
                   ),
                   flexibleSpace: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(200, 43, 166, 223),
-                          Color.fromARGB(180, 41, 88, 162),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.topRight,
-                        stops: [0.0, 0.8],
-                        tileMode: TileMode.clamp,
-                      ),
-                    ),
+                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                      BoxShadow(
+                        color: Colors.black54,
+                      )
+                    ]
+                        // gradient: LinearGradient(
+                        //   colors: [
+                        //     Color.fromARGB(200, 43, 166, 223),
+                        //     Color.fromARGB(180, 41, 88, 162),
+                        //   ],
+                        //   begin: Alignment.topLeft,
+                        //   end: Alignment.topRight,
+                        //   stops: [0.0, 0.8],
+                        //   tileMode: TileMode.clamp,
+                        // ),
+                        ),
                   ),
                 ),
                 body: BlocBuilder<UserDataBloc, UserDataState>(
