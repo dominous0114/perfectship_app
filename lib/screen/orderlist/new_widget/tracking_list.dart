@@ -1,4 +1,5 @@
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -18,8 +19,7 @@ import '../../../widget/fontsize.dart';
 import '../../../widget/status_color.dart';
 
 class TrackingListScreen extends StatefulWidget {
-  const TrackingListScreen({Key? key, required this.logo, required this.logoMobile, required this.statusColor, required this.statusText})
-      : super(key: key);
+  const TrackingListScreen({Key? key, required this.logo, required this.logoMobile, required this.statusColor, required this.statusText}) : super(key: key);
 
   final String logo;
   final String logoMobile;
@@ -41,49 +41,38 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
   ];
 
   void confirmDialog(BuildContext context, String track, TrackingLoaded state) {
-    Dialogs.materialDialog(
-        msgAlign: TextAlign.center,
-        msg: 'คุณต้องการลบรายการ $track ?',
-        title: "ลบรายการ",
-        color: Colors.white,
-        context: context,
-        actions: [
-          IconsOutlineButton(
-            onPressed: () {
+    Dialogs.materialDialog(msgAlign: TextAlign.center, msg: 'คุณต้องการลบรายการ $track ?', title: "ลบรายการ", color: Colors.white, context: context, actions: [
+      IconsOutlineButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        text: 'ยกเลิก',
+        textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+        iconColor: Colors.grey,
+      ),
+      IconsButton(
+        onPressed: () async {
+          Navigator.pop(context);
+          loadingDialog(context);
+          await OrderRepository().cancelOrder(trackNo: state.track.shipping!.trackNo!, refCode: state.track.shipping!.refCode!, courierCode: state.track.shipping!.courierCode!).then((value) {
+            if (value['status'] == true) {
               Navigator.pop(context);
-            },
-            text: 'ยกเลิก',
-            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
-            iconColor: Colors.grey,
-          ),
-          IconsButton(
-            onPressed: () async {
               Navigator.pop(context);
-              loadingDialog(context);
-              await OrderRepository()
-                  .cancelOrder(
-                      trackNo: state.track.shipping!.trackNo!,
-                      refCode: state.track.shipping!.refCode!,
-                      courierCode: state.track.shipping!.courierCode!)
-                  .then((value) {
-                if (value['status'] == true) {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                  context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
-                  Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
-                } else {
-                  Navigator.pop(context);
-                  responseDialog(context, value['message']);
-                }
-              });
-            },
-            text: 'ลบ',
-            iconData: Icons.delete,
-            color: Colors.red,
-            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-            iconColor: Colors.white,
-          ),
-        ]);
+              context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
+              Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
+            } else {
+              Navigator.pop(context);
+              responseDialog(context, value['message']);
+            }
+          });
+        },
+        text: 'ลบ',
+        iconData: Icons.delete,
+        color: Colors.red,
+        textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+        iconColor: Colors.white,
+      ),
+    ]);
   }
 
   void responseDialog(BuildContext context, String msg) {
@@ -160,10 +149,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                         children: [
                           Text(
                             'ติดตามสถานะ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
                         ],
                       ),
@@ -250,8 +236,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                                   ),
                                                   Container(
-                                                    decoration: BoxDecoration(
-                                                        color: StatusColor().checkstatus(widget.statusColor), borderRadius: BorderRadius.circular(8)),
+                                                    decoration: BoxDecoration(color: StatusColor().checkstatus(widget.statusColor), borderRadius: BorderRadius.circular(8)),
                                                     child: Padding(
                                                       padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
                                                       child: Text(
@@ -285,10 +270,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                       Navigator.pushNamed(context, '/pdforder', arguments: state.track.shipping!.id.toString());
                                     },
                                     child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
-                                          boxShadow: [BoxShadow(color: Colors.blue.shade800, blurRadius: 1)]),
+                                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.blue.shade800, blurRadius: 1)]),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -317,10 +299,7 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                       confirmDialog(context, state.track.shipping!.trackNo!, state);
                                     },
                                     child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
-                                          boxShadow: [BoxShadow(color: Colors.red.shade800, blurRadius: 1)]),
+                                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.red.shade800, blurRadius: 1)]),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -348,70 +327,103 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.white,
-                                boxShadow: [BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)],
-                              ),
-                              child: state.track.traceLogs!.length == 0
-                                  ? Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Lottie.asset('assets/lottie/97670-tomato-error.json', width: 80, height: 80, repeat: false),
-                                          // SizedBox(
-                                          //   width: 5,
-                                          // ),
-                                          Text('ขออภัย ไม่สามารถติดตามสถานะพัสดุนี้ได้',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                        ],
-                                      ),
-                                    )
-                                  : MediaQuery.removePadding(
-                                      context: context,
-                                      removeTop: true,
-                                      removeBottom: true,
-                                      child: Stepper(
-                                        currentStep: state.track.traceLogs!.length - 1,
-                                        controlsBuilder: (context, details) {
-                                          return SizedBox.shrink();
-                                        },
-                                        steps: List<Step>.generate(state.track.traceLogs!.length, (int index) {
-                                          final TraceLogs log = state.track.traceLogs![index];
-                                          final int stepNumber = state.track.traceLogs!.length - index; // Compute the step number in reverse order
-                                          return Step(
-                                            isActive: index == 0,
-                                            state: index == 0 ? StepState.complete : StepState.disabled,
-                                            title: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.white,
+                                  boxShadow: [BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)],
+                                ),
+                                child: state.track.shipping == null
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Lottie.asset('assets/lottie/97670-tomato-error.json', width: 80, height: 80, repeat: false),
+                                            // SizedBox(
+                                            //   width: 5,
+                                            // ),
+                                            Text('ขออภัย ไม่สามารถติดตามสถานะพัสดุนี้ได้',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                )),
+                                          ],
+                                        ),
+                                      )
+                                    : state.track.traceLogs!.isEmpty
+                                        ? Container(
+                                            // Dummy stepper for when traceLogs is empty
+                                            child: Column(
                                               children: [
-                                                //Text('$stepNumber'), // Display the step number
-                                                Text(log.statusDesc!),
-                                                Text(convertDateTime(dateTime: log.createdAt!)),
+                                                Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                          shape: BoxShape.circle,
+                                                          color: Colors.grey,
+                                                        ),
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.all(6.0),
+                                                          child: Icon(
+                                                            CupertinoIcons.cube_box_fill,
+                                                            size: 14,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Text('พัสดุรอเข้าระบบ')
+                                                    ],
+                                                  ),
+                                                ),
                                               ],
                                             ),
-                                            content: SizedBox(
-                                              width: double.infinity,
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                                children: <Widget>[
-                                                  SizedBox(height: 8.0),
-                                                  if (index < state.track.traceLogs!.length - 1)
-                                                    Container(
-                                                      height: 2.0,
-                                                      color: Colors.grey,
+                                          )
+                                        : MediaQuery.removePadding(
+                                            context: context,
+                                            removeTop: true,
+                                            removeBottom: true,
+                                            child: Stepper(
+                                              // The rest of your existing Stepper code when traceLogs is not empty
+                                              physics: NeverScrollableScrollPhysics(),
+                                              currentStep: state.track.traceLogs!.length - 1,
+                                              controlsBuilder: (context, details) {
+                                                return SizedBox.shrink();
+                                              },
+                                              steps: List<Step>.generate(state.track.traceLogs!.length, (int index) {
+                                                final TraceLogs log = state.track.traceLogs![index];
+                                                final int stepNumber = state.track.traceLogs!.length - index;
+                                                return Step(
+                                                  isActive: index == 0,
+                                                  state: index == 0 ? StepState.complete : StepState.disabled,
+                                                  title: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SelectableText(log.statusDesc!),
+                                                      SelectableText(log.createdAt!),
+                                                    ],
+                                                  ),
+                                                  content: SizedBox(
+                                                    width: double.infinity,
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                      children: <Widget>[
+                                                        SizedBox(height: 8.0),
+                                                        if (index < state.track.traceLogs!.length - 1)
+                                                          Container(
+                                                            height: 2.0,
+                                                            color: Colors.grey,
+                                                          ),
+                                                      ],
                                                     ),
-                                                ],
-                                              ),
+                                                  ),
+                                                );
+                                              }),
                                             ),
-                                          );
-                                        }),
-                                      ),
-                                    ),
-                            ),
+                                          )),
                           ),
                         )
                       ],
