@@ -542,7 +542,7 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                       child: Row(
                         children: [
                           Image.asset(
-                            'assets/image/DplusExpress-02.png',
+                            'assets/image/th_post_logo_2.png',
                             scale: 20,
                           ),
                           _selectedItems.length == 0
