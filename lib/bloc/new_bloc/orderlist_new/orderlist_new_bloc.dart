@@ -35,22 +35,24 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
     List<StatusModel> status = await StatusRepository().getStatus();
     StatusModel allstatus = StatusModel(code: 'all', color: 'primary', id: 'all', name: 'ทั้งหมด');
     List<StatusModel> statuses = [allstatus, ...status];
-    List<CourierNewModel> courier = await CourierNewRepository().getCourierNew();
+    List<CourierNewModel> courier = await CourierNewRepository().getCourierAll();
+    courier.removeAt(0);
 
     CourierNewModel allcourier = CourierNewModel(id: 'all', name: 'ทั้งหมด', code: 'all');
     List<CourierNewModel> couriers = [allcourier, ...courier];
     List<OrderlistNewModel> ordermap = orderlist;
     for (var i = 0; i < ordermap.length; i++) {
       ordermap[i].logo = couriers
-          .firstWhere((element) => element.code == ordermap[i].courierCode)
+          .firstWhere(
+            (element) => element.code == ordermap[i].courierCode,
+          )
           .logo
           .toString()
           .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
-      ordermap[i].logoMobile = couriers
-          .firstWhere((element) => element.code == ordermap[i].courierCode)
-          .logoMobile
-          .toString()
-          .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+      ordermap[i].logoMobile = couriers.firstWhere((element) => element.code == ordermap[i].courierCode).logoMobile.toString().replaceAll(
+            RegExp(r'../../..'),
+            '${MyConstant().newDomain}',
+          );
     }
 
     for (var i = 0; i < couriers.length; i++) {
@@ -87,16 +89,8 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
 
       List<CourierNewModel> courier = List.from(state.courierstosearch);
       for (var i = 0; i < orders.length; i++) {
-        orders[i].logo = courier
-            .firstWhere((element) => element.code == orders[i].courierCode)
-            .logo
-            .toString()
-            .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
-        orders[i].logoMobile = courier
-            .firstWhere((element) => element.code == orders[i].courierCode)
-            .logoMobile
-            .toString()
-            .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+        orders[i].logo = courier.firstWhere((element) => element.code == orders[i].courierCode).logo.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+        orders[i].logoMobile = courier.firstWhere((element) => element.code == orders[i].courierCode).logoMobile.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
       }
       orders.sort(
         (a, b) => b.createdAt!.compareTo(a.createdAt!),
@@ -138,16 +132,8 @@ class OrderlistNewBloc extends Bloc<OrderlistNewEvent, OrderlistNewState> {
       List<CourierNewModel> courier = await CourierNewRepository().getCourierNew();
 
       for (var i = 0; i < orderlist.length; i++) {
-        orderlist[i].logo = courier
-            .firstWhere((element) => element.code == orderlist[i].courierCode)
-            .logo
-            .toString()
-            .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
-        orderlist[i].logoMobile = courier
-            .firstWhere((element) => element.code == orderlist[i].courierCode)
-            .logoMobile
-            .toString()
-            .replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+        orderlist[i].logo = courier.firstWhere((element) => element.code == orderlist[i].courierCode).logo.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+        orderlist[i].logoMobile = courier.firstWhere((element) => element.code == orderlist[i].courierCode).logoMobile.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
       }
 
       orderlist.sort(

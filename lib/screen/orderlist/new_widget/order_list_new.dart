@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -174,7 +175,8 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                 slivers: [
                                   SliverPersistentHeader(
                                     pinned: true,
-                                    delegate: FloatingHeaderDelegate(minHeight: isSelect ? 0 : 50, maxHeight: isSelect ? 0 : 50, minChild: persistentChild(isSelect: isSelect), maxChild: persistentChild(isSelect: isSelect)),
+                                    delegate:
+                                        FloatingHeaderDelegate(minHeight: isSelect ? 0 : 50, maxHeight: isSelect ? 0 : 50, minChild: persistentChild(isSelect: isSelect), maxChild: persistentChild(isSelect: isSelect)),
                                   ),
                                   SliverToBoxAdapter(
                                     child: Padding(
@@ -256,7 +258,11 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(8),
                                                       color: Colors.white,
-                                                      boxShadow: [_selectedItems.contains(state.orderlist[index]) ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4) : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)],
+                                                      boxShadow: [
+                                                        _selectedItems.contains(state.orderlist[index])
+                                                            ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4)
+                                                            : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)
+                                                      ],
                                                     ),
                                                     child: Column(
                                                       children: [
@@ -292,9 +298,11 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                           'ผู้รับ : ',
                                                                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                                                         ),
-                                                                        Text(
-                                                                          '${state.orderlist[index].dstName!}',
-                                                                          style: TextStyle(fontSize: 14),
+                                                                        Expanded(
+                                                                          child: Text(
+                                                                            '${state.orderlist[index].dstName!}',
+                                                                            style: TextStyle(fontSize: 14),
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),

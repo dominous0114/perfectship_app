@@ -35,9 +35,9 @@
 		<key>NSAppleMusicUsageDescription</key>
 		<string>อนุญาตให้ D Tracking เข้าถึงกล้องถ่ายภาพเพื่อบันทึกภาพสมุดบีญชีและบัตรประชาชน</string>
 		<key>NSCameraUsageDescription</key>
-		<string>อนุญาตให้  D Tracking เข้าถึงกล้องถ่ายภาพเพื่อบันทึกภาพสมุดบีญชีและบัตรประชาชน</string>
+		<string>อนุญาตให้ D Tracking เข้าถึงกล้องถ่ายภาพเพื่อบันทึกภาพสมุดบีญชีและบัตรประชาชน</string>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>อนุญาตให้  D Tracking เข้าถึงกล้องแกลเลอรี่เพื่อบันทึกภาพสมุดบีญชีและบัตรประชาชน</string>
+		<string>อนุญาตให้ D Tracking เข้าถึงกล้องแกลเลอรี่เพื่อบันทึกภาพสมุดบีญชีและบัตรประชาชน</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIBackgroundModes</key>

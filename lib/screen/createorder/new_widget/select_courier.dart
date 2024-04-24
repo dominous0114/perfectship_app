@@ -67,29 +67,28 @@ class _SelectCourierScreenState extends State<SelectCourierScreen> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  CachedNetworkImage(
-                                    imageUrl: state.courierNewModels[index].logo,
-                                    errorWidget: (context, url, error) => Icon(CupertinoIcons.cube_box),
-                                    width: 80,
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Text(
-                                    state.courierNewModels[index].name,
-                                    style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black87),
-                                  ),
-                                ],
+                              CachedNetworkImage(
+                                imageUrl: state.courierNewModels[index].logo,
+                                errorWidget: (context, url, error) => Icon(CupertinoIcons.cube_box),
+                                width: 80,
                               ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  state.courierNewModels[index].name,
+                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black87),
+                                ),
+                              ),
+                              Spacer(),
                               Icon(
                                 Icons.arrow_forward_ios,
                                 color: Color.fromARGB(255, 67, 80, 101),
                                 size: 20,
-                              )
+                              ),
                             ],
                           ),
                         )),

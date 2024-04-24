@@ -397,6 +397,7 @@ class _EditProfileState extends State<EditProfile> {
                                             Expanded(
                                               child: DropdownButtonHideUnderline(
                                                 child: DropdownButtonFormField2<CourierNewModel>(
+                                                  isExpanded: true,
                                                   validator: (v) {
                                                     if (v == null) {
                                                       return 'กรุณาเลือกขนส่งเริ่มต้น';
@@ -447,9 +448,11 @@ class _EditProfileState extends State<EditProfile> {
                                                                 SizedBox(
                                                                   width: 5,
                                                                 ),
-                                                                Text(
-                                                                  e.name ?? '',
-                                                                  style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    e.name ?? '',
+                                                                    style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                  ),
                                                                 )
                                                               ],
                                                             ),
