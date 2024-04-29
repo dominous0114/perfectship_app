@@ -33,12 +33,14 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     List<CourierNewModel> couriers = await CourierNewRepository().getCourierAll();
 
     List<CourierNewModel> courierActive = await CourierNewRepository().getCourierNew();
+    courierActive.removeWhere((element) => element.code == 'NoCourier');
     for (var i = 0; i < courierActive.length; i++) {
       if (courierActive[i].logo != null) {
         print('on if');
         courierActive[i].logo = courierActive[i].logo.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
         courierActive[i].logoMobile = courierActive[i].logoMobile.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
       }
+      print(courierActive[i].code.toString());
       print(courierActive[i].logo.toString());
     }
     List<CourierNewModel> courierMerge = [couriers.first, ...courierActive];
@@ -136,10 +138,7 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     if (state is CreateOrderData) {
       print('on select address');
       emit(state.copyWith(
-          dstDistrict: event.addressSearchNewModel.amphure,
-          dstSubDistrict: event.addressSearchNewModel.district,
-          dstProvince: event.addressSearchNewModel.province,
-          dstZipcode: event.addressSearchNewModel.zipcode));
+          dstDistrict: event.addressSearchNewModel.amphure, dstSubDistrict: event.addressSearchNewModel.district, dstProvince: event.addressSearchNewModel.province, dstZipcode: event.addressSearchNewModel.zipcode));
     }
   }
 

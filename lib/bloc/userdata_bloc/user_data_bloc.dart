@@ -44,11 +44,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       await Bankrepository().getBanks().then((bank) async {
         await CategoryNewRepository().getCategory().then((cate) async {
           await CourierNewRepository().getCourierNew().then((cour) async {
+            cour.removeWhere((element) => element.code == 'NoCourier');
             for (var i = 0; i < cour.length; i++) {
               if (cour[i].logo != null) {
                 cour[i].logo = cour[i].logo.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
                 cour[i].logoMobile = cour[i].logoMobile.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
               }
+              print(cour[i].code.toString());
               print(cour[i].logo.toString());
             }
             emit(UserDataLoaded(
@@ -139,8 +141,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
       TextEditingController district = TextEditingController(text: event.district);
       TextEditingController province = TextEditingController(text: event.province);
       TextEditingController zipcode = TextEditingController(text: event.zipcode);
-      emit(
-          state.copyWith(subDistrictController: subdistrict, districtController: district, provinceController: province, zipcodeController: zipcode));
+      emit(state.copyWith(subDistrictController: subdistrict, districtController: district, provinceController: province, zipcodeController: zipcode));
     }
   }
 

@@ -70,7 +70,7 @@ class _SelectCourierScreenState extends State<SelectCourierScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               CachedNetworkImage(
-                                imageUrl: state.courierNewModels[index].logo,
+                                imageUrl: state.courierNewModels[index].logo.toString(),
                                 errorWidget: (context, url, error) => Icon(CupertinoIcons.cube_box),
                                 width: 80,
                               ),

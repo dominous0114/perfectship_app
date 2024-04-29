@@ -238,13 +238,15 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                             child: GestureDetector(
                               onTap: () async {
                                 print('tap');
-                                CourierNewModel cour = await Navigator.push(
+                                CourierNewModel? cour = await Navigator.push(
                                     context,
                                     CupertinoPageRoute(
                                       builder: (context) => SelectCourierScreen(),
                                     ));
 
-                                context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: cour));
+                                if (cour != null) {
+                                  context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: cour));
+                                }
                               },
                               child: Container(
                                 decoration: BoxDecoration(

@@ -438,7 +438,7 @@ class _EditProfileState extends State<EditProfile> {
                                                             child: Row(
                                                               children: [
                                                                 CachedNetworkImage(
-                                                                  imageUrl: e.logo,
+                                                                  imageUrl: e.logo.toString(),
                                                                   fit: BoxFit.cover,
                                                                   width: 75,
                                                                   errorWidget: (context, url, error) {
