@@ -240,13 +240,15 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                             child: GestureDetector(
                               onTap: () async {
                                 print('tap');
-                                CourierNewModel cour = await Navigator.push(
+                                CourierNewModel? cour = await Navigator.push(
                                     context,
                                     CupertinoPageRoute(
                                       builder: (context) => SelectCourierScreen(),
                                     ));
 
-                                context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: cour));
+                                if (cour != null) {
+                                  context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: cour));
+                                }
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -329,6 +331,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                 state.courierNewModel.name == null ? 'กรุณาเลือกขนส่ง' : '${state.courierNewModel.name}',
                                                 style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
                                               ),
+                                              // Text(state.courierNewModel.code),
                                               //CustomTextAutoSizeforMenu(text: 'แก้ไขรหัสผ่าน', bold: true, enable: true),
                                               const Spacer(),
                                               Icon(

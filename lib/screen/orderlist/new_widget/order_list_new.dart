@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -297,14 +298,17 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                                                     ),
                                                                     Row(
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                                       children: [
                                                                         Text(
                                                                           'ผู้รับ : ',
                                                                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                                                         ),
-                                                                        Text(
-                                                                          '${state.orderlist[index].dstName!}',
-                                                                          style: TextStyle(fontSize: 14),
+                                                                        Expanded(
+                                                                          child: Text(
+                                                                            '${state.orderlist[index].dstName!}',
+                                                                            style: TextStyle(fontSize: 14),
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),

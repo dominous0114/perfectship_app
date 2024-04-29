@@ -32,7 +32,10 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     UserDataModel userdata = await UserDataRepository().getUserData();
     List<CourierNewModel> couriers = await CourierNewRepository().getCourierAll();
 
-    List<CourierNewModel> courierActive = await CourierNewRepository().getCourierNew();
+    List<CourierNewModel> couriersNew = await CourierNewRepository().getCourierNew();
+    List<CourierNewModel> courierActive = [];
+    courierActive = couriersNew.where((element) => element.name.toString().contains('ไปรษณีย์ไทย')).toList();
+    print('courier active = ${courierActive.length}');
     for (var i = 0; i < courierActive.length; i++) {
       if (courierActive[i].logo != null) {
         print('on if');
@@ -43,7 +46,7 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     }
     List<CourierNewModel> courierMerge = [couriers.first, ...courierActive];
     CourierNewModel courier = couriers.firstWhere(
-      (element) => element.code == userdata.address!.courierCode,
+      (element) => element.code.toString().toLowerCase().contains('thaipost'),
       orElse: () => CourierNewModel(),
     );
     if (courier.logo != null) {
@@ -136,10 +139,7 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     if (state is CreateOrderData) {
       print('on select address');
       emit(state.copyWith(
-          dstDistrict: event.addressSearchNewModel.amphure,
-          dstSubDistrict: event.addressSearchNewModel.district,
-          dstProvince: event.addressSearchNewModel.province,
-          dstZipcode: event.addressSearchNewModel.zipcode));
+          dstDistrict: event.addressSearchNewModel.amphure, dstSubDistrict: event.addressSearchNewModel.district, dstProvince: event.addressSearchNewModel.province, dstZipcode: event.addressSearchNewModel.zipcode));
     }
   }
 
