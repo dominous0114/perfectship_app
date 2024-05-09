@@ -173,6 +173,8 @@ class OrderRepository {
     request.body = json.encode({"customer_id": customerid, "start_date": start, "end_date": end});
     request.headers.addAll(headers);
 
+    print('dash board body = ${request.body}  ');
+
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       var res = await response.stream.bytesToString();

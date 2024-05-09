@@ -45,15 +45,8 @@ class _NavigatonBarState extends State<NavigatonBar> {
   ScrollController? scrollController;
   Timer? _scrollTimer;
   bool hideBottomNavBar = false;
-  final newVersion =
-      NewVersionPlus(iOSId: 'com.dplusexpress.app', androidId: 'com.dplusexpress.app', iOSAppStoreCountry: 'th');
-  List<Widget> pageList = <Widget>[
-    DashBoardNew(),
-    OrderlistNewScreen(),
-    CreateOrderNew(),
-    BillListNew(),
-    ProfileSreen()
-  ];
+  final newVersion = NewVersionPlus(iOSId: 'com.dplusexpress.app', androidId: 'com.dplusexpress.app', iOSAppStoreCountry: 'th');
+  List<Widget> pageList = <Widget>[DashBoardNew(), OrderlistNewScreen(), CreateOrderNew(), BillListNew(), ProfileSreen()];
 
   Future<dynamic> backgroundHandler(RemoteMessage message) async {
     LocalNotficationService.displaybackground(message);

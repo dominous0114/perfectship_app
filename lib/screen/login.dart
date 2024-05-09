@@ -70,18 +70,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: <Widget>[
                         GestureDetector(
-                          // onLongPress: () async {
-                          //   SharedPreferences preferences = await SharedPreferences.getInstance();
-                          //   preferences.setString('token', 'aixOiMy0Ad2CHMrgB7za2t9zbpNkdzajSgPwniZilY2esHtun184Cv5ACarvVl9DJf6Spr00zf4tGsa1kXaNZ7xPVbgjnT4wiWhN');
-                          //   preferences.setInt('customerid', 127870);
-                          //   preferences.setString('customername', 'ทดสอบ');
-                          //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigatonBar()));
-                          //   // preferences.setString(
-                          //   //     'dropoff_name',
-                          //   //     value['data']
-                          //   //         ['dropoff_member_name']);
-                          //   preferences.setBool('islogin', true);
-                          // },
+                          onLongPress: () async {
+                            SharedPreferences preferences = await SharedPreferences.getInstance();
+                            preferences.setString('token', 'aixOiMy0Ad2CHMrgB7za2t9zbpNkdzajSgPwniZilY2esHtun184Cv5ACarvVl9DJf6Spr00zf4tGsa1kXaNZ7xPVbgjnT4wiWhN');
+                            preferences.setInt('customerid', 127870);
+                            preferences.setString('customername', 'ทดสอบ');
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigatonBar()));
+                            // preferences.setString(
+                            //     'dropoff_name',
+                            //     value['data']
+                            //         ['dropoff_member_name']);
+                            preferences.setBool('islogin', true);
+                          },
                           child: Image.asset(
                             'assets/image/DTracking.png',
                             scale: 2,
