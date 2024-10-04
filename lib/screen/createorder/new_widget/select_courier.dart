@@ -58,7 +58,9 @@ class _SelectCourierScreenState extends State<SelectCourierScreen> {
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
-                              color: state.courierNewModel.code == state.courierNewModels[index].code ? Colors.blue : Colors.grey[100]!,
+                              color: state.courierNewModel.code == state.courierNewModels[index].code
+                                  ? Colors.blue
+                                  : Colors.grey[100]!,
                               blurRadius: 0.0,
                               spreadRadius: 1.5,
                             )
@@ -80,7 +82,10 @@ class _SelectCourierScreenState extends State<SelectCourierScreen> {
                               Expanded(
                                 child: Text(
                                   state.courierNewModels[index].name,
-                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black87),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black87),
                                 ),
                               ),
                               Spacer(),

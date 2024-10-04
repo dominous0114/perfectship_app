@@ -18,8 +18,7 @@ class AddAddressScreen extends StatefulWidget {
 
   static Route route() {
     return PageRouteBuilder(
-        settings: const RouteSettings(name: routeName),
-        pageBuilder: (_, __, ___) => AddAddressScreen());
+        settings: const RouteSettings(name: routeName), pageBuilder: (_, __, ___) => AddAddressScreen());
   }
 
   @override
@@ -102,12 +101,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'ตัวช่วยค้นหาที่อยู่ (ตำบล / อำเภอ / จังหวัด / รหัสไปรษณีย์)',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162),
-                                  ),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                fontSize: PlatformSize(context),
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 41, 88, 162),
+                              ),
                         ),
                       ],
                     ),
@@ -141,12 +139,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'ชื่อผู้ส่ง',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162),
-                                  ),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                fontSize: PlatformSize(context),
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 41, 88, 162),
+                              ),
                         ),
                       ],
                     ),
@@ -176,12 +173,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'เบอร์โทร',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162),
-                                  ),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                fontSize: PlatformSize(context),
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 41, 88, 162),
+                              ),
                         ),
                       ],
                     ),
@@ -214,12 +210,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'เลขที่ ',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162),
-                                  ),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                fontSize: PlatformSize(context),
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 41, 88, 162),
+                              ),
                         ),
                       ],
                     ),
@@ -249,12 +244,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'ตำบล / แขวง',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162),
-                                  ),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                fontSize: PlatformSize(context),
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 41, 88, 162),
+                              ),
                         ),
                       ],
                     ),
@@ -284,12 +278,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'อำเภอ / เขต',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162),
-                                  ),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                fontSize: PlatformSize(context),
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 41, 88, 162),
+                              ),
                         ),
                       ],
                     ),
@@ -319,12 +312,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'จังหวัด',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162),
-                                  ),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                fontSize: PlatformSize(context),
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 41, 88, 162),
+                              ),
                         ),
                       ],
                     ),
@@ -354,12 +346,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'รหัสไปรษณีย์',
-                          style:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162),
-                                  ),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                fontSize: PlatformSize(context),
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 41, 88, 162),
+                              ),
                         ),
                       ],
                     ),
@@ -392,8 +383,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               child: CupertinoButton(
                                   color: Color.fromARGB(255, 41, 88, 162),
                                   onPressed: () {},
-                                  child:
-                                      CustomProgessIndicator(Colors.white, 20)),
+                                  child: CustomProgessIndicator(Colors.white, 20)),
                             ),
                           );
                         } else if (state is AddressLoaded) {
@@ -406,27 +396,23 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     print('object');
-                                    context.read<AddressBloc>().add(
-                                        AddAddressEvent(
-                                            name: _namecontroller,
-                                            phone: _phonecontroller,
-                                            address: _addresscontroller,
-                                            subdistrict: _subdistrictController,
-                                            district: _districtController,
-                                            province: _provinceController,
-                                            zipcode: _zipcodeController,
-                                            typeahead: _typeaheadcontroller,
-                                            context: context));
+                                    context.read<AddressBloc>().add(AddAddressEvent(
+                                        name: _namecontroller,
+                                        phone: _phonecontroller,
+                                        address: _addresscontroller,
+                                        subdistrict: _subdistrictController,
+                                        district: _districtController,
+                                        province: _provinceController,
+                                        zipcode: _zipcodeController,
+                                        typeahead: _typeaheadcontroller,
+                                        context: context));
                                   }
                                 },
                                 child: Text('บันทึกข้อมูล',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3!
-                                        .copyWith(
-                                            color: Colors.white,
-                                            fontSize: PlatformSize(context),
-                                            fontWeight: FontWeight.bold)),
+                                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                        color: Colors.white,
+                                        fontSize: PlatformSize(context),
+                                        fontWeight: FontWeight.bold)),
                               ),
                             ),
                           );

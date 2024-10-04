@@ -64,17 +64,20 @@ class GetTextFieldMultiLine extends StatelessWidget {
       enabled: enabled,
       textInputAction: TextInputAction.newline, // Set textInputAction to done
       maxLines: 5, // Restrict input to a single line
-      style: Theme.of(context).textTheme.headline5!,
+      style: Theme.of(context).textTheme.headlineSmall!,
       decoration: InputDecoration(
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
-        counterStyle: Theme.of(context).textTheme.headline6,
+        counterStyle: Theme.of(context).textTheme.titleLarge,
         //suffixIcon: Text('kg'),
         suffixText: suffixText == null ? null : suffixText,
         hintText: '${title}',
-        hintStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Theme.of(context).focusColor.withOpacity(.5), fontWeight: FontWeight.bold),
+        hintStyle: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .copyWith(color: Theme.of(context).focusColor.withOpacity(.5), fontWeight: FontWeight.bold),
         fillColor: Colors.white,
         filled: true,
         isDense: true,
@@ -87,7 +90,10 @@ class GetTextFieldMultiLine extends StatelessWidget {
           borderSide: BorderSide(color: Colors.blue.shade200),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        errorStyle: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+        errorStyle: Theme.of(context)
+            .textTheme
+            .headlineMedium!
+            .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
           borderRadius: BorderRadius.all(Radius.circular(4)),

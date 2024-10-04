@@ -43,8 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     context.read<DashboardBloc>().add(DashboardInitialEvent());
-    firstTimeController =
-        TextEditingController(text: "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
+    firstTimeController = TextEditingController(
+        text: "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
     _controller.addListener(() {
       setState(() {
         _currentPage = _controller.page!.round();
@@ -60,12 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Expanded(
             child: TextFormField(
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context)),
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: PlatformSize(context)),
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(0, 10, 20, 0),
                   enabled: false,
                   hintText: 'YYYY-MM-DD',
-                  hintStyle: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context)),
+                  hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: PlatformSize(context)),
                   prefixIcon: Icon(
                     Icons.timelapse_rounded,
                     color: Theme.of(context).iconTheme.color,
@@ -103,9 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       saveText: 'เสร็จ',
                       builder: (BuildContext context, Widget? child) {
                         return Theme(
-                          data: ThemeData(
-                            backgroundColor: Color(0xFF009CDB),
-                          ),
+                          data: ThemeData(),
                           child: child!,
                         );
                       });
@@ -116,7 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       String formattedDate2 = DateFormat('yyyy-MM-dd').format(_endDate);
                       String formattedDate = DateFormat('yyyy-MM-dd').format(_startDate);
                       firstTimeController.text = '$formattedDate - $formattedDate2';
-                      context.read<DashboardBloc>().add(FilterDateTimeGraphEvent(start_date: formattedDate, end_date: formattedDate2));
+                      context
+                          .read<DashboardBloc>()
+                          .add(FilterDateTimeGraphEvent(start_date: formattedDate, end_date: formattedDate2));
                     });
                   }
                 },
@@ -156,10 +156,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Text(
                           'Perfect Ship',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontSize: PlatformSize(context) * 1.3, fontWeight: FontWeight.w900, color: Colors.white),
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontSize: PlatformSize(context) * 1.3, fontWeight: FontWeight.w900, color: Colors.white),
                         ),
                       )
                     ],
@@ -188,8 +186,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     IconButton(
                         onPressed: () {
                           context.read<TrackBloc>().add(TrackInitialEvent());
-                          context.read<TrackBloc>().add(
-                              TrackSearchHomeEvent(keyword: '', start: '2021-01-01', end: initend, courier: 'all', printing: 'all', order: 'all'));
+                          context.read<TrackBloc>().add(TrackSearchHomeEvent(
+                              keyword: '',
+                              start: '2021-01-01',
+                              end: initend,
+                              courier: 'all',
+                              printing: 'all',
+                              order: 'all'));
                           showSearch(context: context, delegate: SearchTrackDeletfate());
                         },
                         icon: Icon(
@@ -281,7 +284,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 left: -10,
                                 child: IconButton(
                                   onPressed: () {
-                                    _controller.previousPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                                    _controller.previousPage(
+                                        duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
                                   },
                                   icon: Icon(
                                     Icons.arrow_back_ios_sharp,
@@ -343,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                   Text(
                                                     '${buttons[index]}',
-                                                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                                                           fontSize: PlatformSize(context),
                                                           color: _currentPage == index ? Colors.white : Colors.black,
                                                         ),
@@ -396,7 +400,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Text('Statistics',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText1!
+                                              .bodyLarge!
                                               .copyWith(fontSize: PlatformSize(context) * 1.2, color: Colors.white)),
                                     ],
                                   ),
@@ -430,19 +434,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     SizedBox(width: 10),
                                                     Text(
                                                       statistics[0].name,
-                                                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge!
+                                                          .copyWith(fontSize: PlatformSize(context) * .9),
                                                     ),
                                                     SizedBox(height: 10),
                                                     statistics[0].name == 'ชำระปลายทาง'
                                                         ? Text(
                                                             '${statistics[0].total} บาท',
-                                                            style:
-                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge!
+                                                                .copyWith(fontSize: PlatformSize(context) * .9),
                                                           )
                                                         : Text(
                                                             statistics[0].total,
-                                                            style:
-                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge!
+                                                                .copyWith(fontSize: PlatformSize(context) * .9),
                                                           ),
                                                   ],
                                                 ),
@@ -458,19 +469,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     SizedBox(width: 10),
                                                     Text(
                                                       statistics[1].name,
-                                                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge!
+                                                          .copyWith(fontSize: PlatformSize(context) * .9),
                                                     ),
                                                     SizedBox(height: 10),
                                                     statistics[1].name == 'ชำระปลายทาง'
                                                         ? Text(
                                                             '${statistics[1].total} บาท',
-                                                            style:
-                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge!
+                                                                .copyWith(fontSize: PlatformSize(context) * .9),
                                                           )
                                                         : Text(
                                                             statistics[1].total,
-                                                            style:
-                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge!
+                                                                .copyWith(fontSize: PlatformSize(context) * .9),
                                                           ),
                                                   ],
                                                 ),
@@ -486,19 +504,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     SizedBox(width: 10),
                                                     Text(
                                                       statistics[2].name,
-                                                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge!
+                                                          .copyWith(fontSize: PlatformSize(context) * .9),
                                                     ),
                                                     SizedBox(height: 10),
                                                     statistics[2].name == 'ชำระปลายทาง'
                                                         ? Text(
                                                             '${statistics[2].total} บาท',
-                                                            style:
-                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge!
+                                                                .copyWith(fontSize: PlatformSize(context) * .9),
                                                           )
                                                         : Text(
                                                             statistics[1].total,
-                                                            style:
-                                                                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge!
+                                                                .copyWith(fontSize: PlatformSize(context) * .9),
                                                           ),
                                                   ],
                                                 ),
@@ -567,7 +592,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             //       .name,
                                             //   style: Theme.of(context)
                                             //       .textTheme
-                                            //       .bodyText1!
+                                            //       .bodyLarge!
                                             //       .copyWith(fontSize: PlatformSize(context) * .9),
                                             // ),
                                             // SizedBox(
@@ -577,11 +602,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             //         'ชำระปลายทาง'
                                             //     ? Text(
                                             //         '${statistics[index].total} บาท',
-                                            //         style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                            //         style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: PlatformSize(context) * .9),
                                             //       )
                                             //     : Text(
                                             //         statistics[index].total,
-                                            //         style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * .9),
+                                            //         style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: PlatformSize(context) * .9),
                                             //       ),
                                             //                         ],
                                             //                       ),
@@ -606,7 +631,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: 5,
                                             ),
                                             Text('10 จังหวัดส่งของมากที่สุด',
-                                                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context) * 1.2)),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge!
+                                                    .copyWith(fontSize: PlatformSize(context) * 1.2)),
                                           ],
                                         ),
                                         // ListView.builder(
@@ -647,24 +675,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         //     Colors.grey,
                                                         leading: Text(
                                                           '${index + 1}',
-                                                          style: Theme.of(context)
-                                                              .textTheme
-                                                              .bodyText1!
-                                                              .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                                              fontSize: PlatformSize(context),
+                                                              fontWeight: FontWeight.normal),
                                                         ),
                                                         title: Text(
                                                           '${e.dstProvince!}',
-                                                          style: Theme.of(context)
-                                                              .textTheme
-                                                              .bodyText1!
-                                                              .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                                              fontSize: PlatformSize(context),
+                                                              fontWeight: FontWeight.normal),
                                                         ),
                                                         trailing: Text(
                                                           '${e.totalPack!.toString()} รายการ',
-                                                          style: Theme.of(context)
-                                                              .textTheme
-                                                              .bodyText1!
-                                                              .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                                              fontSize: PlatformSize(context),
+                                                              fontWeight: FontWeight.normal),
                                                         ),
                                                       ),
                                                       Divider()

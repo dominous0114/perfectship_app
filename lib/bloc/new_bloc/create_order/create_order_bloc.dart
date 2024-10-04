@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:perfectship_app/config/constant.dart';
 import 'package:perfectship_app/model/new_model/category_new_model.dart';
+import 'package:perfectship_app/model/new_model/product_create_model.dart';
 import 'package:perfectship_app/repository/new_repository/category_repository.dart';
 import 'package:perfectship_app/repository/new_repository/courier_repoitory.dart';
 import 'package:perfectship_app/repository/new_repository/user_data_repository.dart';
@@ -26,6 +27,9 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     on<OnCheckBoxInsureChange>(_onCheckboxInsure);
     on<OnResetDstDataEvent>(_onResetDstData);
     on<OnRecieveSearchEvent>(_onReiveSearch);
+    on<AddProductCreateEvent>(_mapAddProductCreateEventToState);
+    on<editProductCreateEvent>(_mapUpdateProductCreateEventToState);
+    on<deleteProductCreateEvent>(_mapDeleteProductCreateEventToState);
   }
 
   Future<void> _onInitial(CreateOrderInitialEvent event, Emitter<CreateOrderState> emit) async {
@@ -37,8 +41,10 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     for (var i = 0; i < courierActive.length; i++) {
       if (courierActive[i].logo != null) {
         print('on if');
-        courierActive[i].logo = courierActive[i].logo.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
-        courierActive[i].logoMobile = courierActive[i].logoMobile.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+        courierActive[i].logo =
+            courierActive[i].logo.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
+        courierActive[i].logoMobile =
+            courierActive[i].logoMobile.toString().replaceAll(RegExp(r'../../..'), '${MyConstant().newDomain}');
       }
       print(courierActive[i].code.toString());
       print(courierActive[i].logo.toString());
@@ -107,6 +113,7 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
         codController: TextEditingController(),
         insureController: TextEditingController(),
         isCod: false,
+        products: [],
         isInsure: false,
         remarkController: TextEditingController(),
         dstAddressController: TextEditingController(),
@@ -138,7 +145,10 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
     if (state is CreateOrderData) {
       print('on select address');
       emit(state.copyWith(
-          dstDistrict: event.addressSearchNewModel.amphure, dstSubDistrict: event.addressSearchNewModel.district, dstProvince: event.addressSearchNewModel.province, dstZipcode: event.addressSearchNewModel.zipcode));
+          dstDistrict: event.addressSearchNewModel.amphure,
+          dstSubDistrict: event.addressSearchNewModel.district,
+          dstProvince: event.addressSearchNewModel.province,
+          dstZipcode: event.addressSearchNewModel.zipcode));
     }
   }
 
@@ -191,7 +201,8 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
           insureController: TextEditingController(text: ''),
           remarkController: TextEditingController(text: ''),
           isCod: false,
-          isInsure: false));
+          isInsure: false,
+          products: []));
     }
   }
 
@@ -243,6 +254,39 @@ class CreateOrderBloc extends Bloc<CreateOrderEvent, CreateOrderState> {
           dstZipcodeController: dstZipcodeController,
           dstNameController: dstNameController,
           dstPhoneController: dstPhoneController));
+    }
+  }
+
+  void _mapAddProductCreateEventToState(AddProductCreateEvent event, Emitter<CreateOrderState> emit) async {
+    var state = this.state;
+    if (state is CreateOrderData) {
+      List<ProductCreateModel> productCreate = List.from(state.products);
+      productCreate.add(event.productCreate);
+      emit(state.copyWith(
+        products: productCreate,
+      ));
+    }
+  }
+
+  void _mapUpdateProductCreateEventToState(editProductCreateEvent event, Emitter<CreateOrderState> emit) async {
+    var state = this.state;
+    if (state is CreateOrderData) {
+      List<ProductCreateModel> productCreate = List.from(state.products);
+      productCreate[event.index] = event.productCreate;
+      emit(state.copyWith(
+        products: productCreate,
+      ));
+    }
+  }
+
+  void _mapDeleteProductCreateEventToState(deleteProductCreateEvent event, Emitter<CreateOrderState> emit) async {
+    var state = this.state;
+    if (state is CreateOrderData) {
+      List<ProductCreateModel> productCreate = List.from(state.products);
+      productCreate.removeAt(event.index);
+      emit(state.copyWith(
+        products: productCreate,
+      ));
     }
   }
 }

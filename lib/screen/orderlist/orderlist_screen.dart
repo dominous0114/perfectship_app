@@ -9,16 +9,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:perfectship_app/bloc/track_bloc/track_bloc.dart';
 import 'package:perfectship_app/config/constant.dart';
-import 'package:perfectship_app/repository/track_repository.dart';
 import 'package:perfectship_app/screen/orderlist/tracking_screen.dart';
 import 'package:perfectship_app/widget/allkey.dart';
-import 'package:perfectship_app/widget/custom_appbar.dart';
 import 'package:perfectship_app/widget/shimmerloading.dart';
 import 'package:intl/intl.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:perfectship_app/widget/navbar.dart';
 
-import '../../config/convert_date_time.dart';
 import '../../model/printstatus_model.dart';
 import '../../widget/fontsize.dart';
 
@@ -84,8 +80,9 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
   buildSearch(BuildContext context, int total, TrackLoaded state) {
     return Allkey.isSelected == true
         ? Container(
-            decoration:
-                BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .2, color: Colors.grey.shade400)]),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .2, color: Colors.grey.shade400)]),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
               child: Row(
@@ -119,7 +116,10 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                               ),
                               Text(
                                 'ทั้งหมด',
-                                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context), color: Colors.black),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(fontSize: PlatformSize(context), color: Colors.black),
                               )
                             ],
                           ),
@@ -157,12 +157,17 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                               child: Container(
                                   height: 60,
                                   decoration: BoxDecoration(
-                                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
-                                        Color.fromARGB(180, 41, 88, 162),
-                                        Color.fromARGB(200, 43, 166, 223),
-                                      ]),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: <Color>[
+                                            Color.fromARGB(180, 41, 88, 162),
+                                            Color.fromARGB(200, 43, 166, 223),
+                                          ]),
                                       borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
+                                      boxShadow: [
+                                        BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)
+                                      ]),
                                   child: Center(
                                       child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -177,10 +182,10 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                       ),
                                       Text(
                                         'พิมพ์  ${_selectedItems.length} รายการ',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .copyWith(fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.bold, color: Colors.white),
+                                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                            fontSize: PlatformSize(context) * 1.1,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
                                       )
                                     ],
                                   ))),
@@ -204,7 +209,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                         height: 50,
                         width: 50,
                         decoration: BoxDecoration(
-                            gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
+                            gradient:
+                                LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
                               Color.fromARGB(200, 43, 166, 223),
                               Color.fromARGB(180, 41, 88, 162),
                             ]),
@@ -222,8 +228,9 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
             ),
           )
         : Container(
-            decoration:
-                BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .2, color: Colors.grey.shade400)]),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .2, color: Colors.grey.shade400)]),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
               child: Row(
@@ -282,15 +289,18 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                     },
                                     child: Text(
                                       'ล้าง',
-                                      style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.blue, fontSize: PlatformSize(context)),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium!
+                                          .copyWith(color: Colors.blue, fontSize: PlatformSize(context)),
                                     ),
                                   ),
                                   border: InputBorder.none,
                                   hintText: 'ค้นหา',
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: PlatformSize(context))),
+                                  hintStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: PlatformSize(context))),
                             ),
                           ),
                         )
@@ -303,17 +313,17 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                 total == 0
                                     ? Text(
                                         'ไม่พบรายการ',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.black),
+                                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                            fontSize: PlatformSize(context) * 1.2,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
                                       )
                                     : Text(
                                         'ทั้งหมด $total รายการ',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.black),
+                                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                            fontSize: PlatformSize(context) * 1.2,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
                                       ),
                               ],
                             ),
@@ -347,10 +357,13 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                               height: 50,
                               width: 50,
                               decoration: BoxDecoration(
-                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
-                                    Color.fromARGB(200, 43, 166, 223),
-                                    Color.fromARGB(180, 41, 88, 162),
-                                  ]),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: <Color>[
+                                        Color.fromARGB(200, 43, 166, 223),
+                                        Color.fromARGB(180, 41, 88, 162),
+                                      ]),
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                               child: Center(
@@ -370,10 +383,13 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                               height: 50,
                               width: 50,
                               decoration: BoxDecoration(
-                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: <Color>[
-                                    Color.fromARGB(180, 41, 88, 162),
-                                    Color.fromARGB(200, 43, 166, 223),
-                                  ]),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: <Color>[
+                                        Color.fromARGB(180, 41, 88, 162),
+                                        Color.fromARGB(200, 43, 166, 223),
+                                      ]),
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                               child: Center(
@@ -398,8 +414,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
     print(_endDate.toString());
     _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
 
-    firstTimeController =
-        TextEditingController(text: "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
+    firstTimeController = TextEditingController(
+        text: "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
     super.initState();
   }
 
@@ -439,13 +455,19 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                         ),
                         Text(
                           'แจ้งเตือน',
-                          style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     content: Text(
                       'คุณต้องลบรายการนี้หรือไม่',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.normal),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.normal),
                     ),
                     actions: <CupertinoDialogAction>[
                       CupertinoDialogAction(
@@ -468,10 +490,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                         },
                         child: Text(
                           'ตกลง',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.blue),
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.blue),
                         ),
                       ),
                       CupertinoDialogAction(
@@ -481,10 +501,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                         },
                         child: Text(
                           'ยกเลิก',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.red),
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.red),
                         ),
                       ),
                     ],
@@ -531,10 +549,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                 ),
                 Text(
                   'กรองข้อมูล',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * 1.2, color: Colors.white),
+                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                      fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * 1.2, color: Colors.white),
                 ),
                 TextButton(
                   onPressed: () {
@@ -544,7 +560,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                       _startDate = DateTime(DateTime.now().year, DateTime.now().month, 1);
                       _endDate = DateTime.now();
                       firstTimeController = TextEditingController(
-                          text: "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
+                          text:
+                              "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
                       //searchFocusNode = FocusNode();
                       _printed = Printed.printed.first;
                       print('printed = ${_printed!.statusName}');
@@ -556,7 +573,7 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                     'รีเซ็ท',
                     style: Theme.of(context)
                         .textTheme
-                        .headline4!
+                        .headlineMedium!
                         .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context), color: Colors.white),
                   ),
                 ),
@@ -582,7 +599,10 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
               ),
               Text(
                 '   ขนส่ง',
-                style: Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!
+                    .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
               ),
             ],
           ),
@@ -599,12 +619,15 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
         children: [
           Expanded(
             child: TextFormField(
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context)),
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: PlatformSize(context)),
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(0, 10, 20, 0),
                   enabled: false,
                   hintText: 'YYYY-MM-DD',
-                  hintStyle: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.grey, fontSize: PlatformSize(context)),
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(color: Colors.grey, fontSize: PlatformSize(context)),
                   prefixIcon: Icon(
                     Icons.timelapse_rounded,
                     color: Colors.grey,
@@ -634,9 +657,7 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                   saveText: 'เสร็จ',
                   builder: (BuildContext context, Widget? child) {
                     return Theme(
-                      data: ThemeData(
-                        backgroundColor: Color(0xFF009CDB),
-                      ),
+                      data: ThemeData(),
                       child: child!,
                     );
                   });
@@ -710,7 +731,7 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                 'นำไปใช้',
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1!
+                    .bodyLarge!
                     .copyWith(fontSize: PlatformSize(context) * 1.4, fontWeight: FontWeight.bold, color: Colors.white),
               )),
         ));
@@ -739,10 +760,12 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                     },
                     child: Container(
                       margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
+                      decoration:
+                          BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
                         BoxShadow(
                             offset: Offset.zero,
-                            color: colorcourier = state.courier[index] == state.courierSelected ? Colors.blue : Colors.black26,
+                            color: colorcourier =
+                                state.courier[index] == state.courierSelected ? Colors.blue : Colors.black26,
                             blurRadius: state.courier[index] == state.courierSelected ? 2 : 1,
                             spreadRadius: 0)
                       ]),
@@ -763,7 +786,10 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                           ),
                           Text(
                             state.courier[index].name!,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: PlatformSize(context) * .9, fontWeight: FontWeight.bold),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(fontSize: PlatformSize(context) * .9, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -790,7 +816,10 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
               ),
               Text(
                 '   สถานะ',
-                style: Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!
+                    .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
               ),
             ],
           ),
@@ -823,10 +852,12 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                     },
                     child: Container(
                       margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
+                      decoration:
+                          BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
                         BoxShadow(
                             offset: Offset.zero,
-                            color: colorstatus = state.ordermodel[index] == state.statusSelected ? Colors.blue : Colors.black26,
+                            color: colorstatus =
+                                state.ordermodel[index] == state.statusSelected ? Colors.blue : Colors.black26,
                             blurRadius: state.ordermodel[index] == state.statusSelected ? 2 : 1)
                       ]),
                       child: Column(
@@ -835,7 +866,10 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                         children: [
                           Text(
                             state.ordermodel[index].name!,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: PlatformSize(context) * .9, fontWeight: FontWeight.bold),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(fontSize: PlatformSize(context) * .9, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -862,7 +896,10 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
               ),
               Text(
                 '   สถานะพิมพ์',
-                style: Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall!
+                    .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
               ),
             ],
           ),
@@ -897,7 +934,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                     },
                     child: Container(
                       margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
+                      decoration:
+                          BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
                         BoxShadow(
                             offset: Offset.zero,
                             color: colorstatusprint = Printed.printed[index] == _printed ? Colors.blue : Colors.black26,
@@ -909,7 +947,10 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                         children: [
                           Text(
                             Printed.printed[index].statusName,
-                            style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -1036,10 +1077,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                   ),
                   Text(
                     'รายการพัสดุ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium!
-                        .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
                   )
                 ],
               ),
@@ -1077,7 +1116,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                               _startDate = DateTime(DateTime.now().year, DateTime.now().month, 1);
                               _endDate = DateTime.now();
                               firstTimeController = TextEditingController(
-                                  text: "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
+                                  text:
+                                      "${DateFormat('yyyy-MM-dd').format(_startDate)} -\t ${DateFormat('yyyy-MM-dd').format(_endDate)}");
                               //searchFocusNode = FocusNode();
                               _printed = Printed.printed.first;
                               print('printed = ${_printed!.statusName}');
@@ -1102,7 +1142,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                           ? ActionPane(extentRatio: 2 / 5, motion: DrawerMotion(), children: [
                                               SlidableAction(
                                                 onPressed: (context) {
-                                                  Navigator.pushNamed(context, '/pdforder', arguments: state.trackmodel[index].id.toString());
+                                                  Navigator.pushNamed(context, '/pdforder',
+                                                      arguments: state.trackmodel[index].id.toString());
 
                                                   context.read<TrackBloc>().add(TrackFilterEvent(
                                                       start: DateFormat('yyyy-MM-dd').format(_startDate),
@@ -1121,7 +1162,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                               ? ActionPane(extentRatio: 3 / 5, motion: DrawerMotion(), children: [
                                                   SlidableAction(
                                                     onPressed: (context) {
-                                                      Navigator.pushNamed(context, '/pdforder', arguments: state.trackmodel[index].id.toString());
+                                                      Navigator.pushNamed(context, '/pdforder',
+                                                          arguments: state.trackmodel[index].id.toString());
 
                                                       context.read<TrackBloc>().add(TrackFilterEvent(
                                                           start: DateFormat('yyyy-MM-dd').format(_startDate),
@@ -1137,8 +1179,11 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                   ),
                                                   SlidableAction(
                                                     onPressed: (context) {
-                                                      _showAlertDelete(context, state.trackmodel[index].id.toString(),
-                                                          state.trackmodel[index].courierCode!, state.trackmodel[index].refCode!);
+                                                      _showAlertDelete(
+                                                          context,
+                                                          state.trackmodel[index].id.toString(),
+                                                          state.trackmodel[index].courierCode!,
+                                                          state.trackmodel[index].refCode!);
                                                     },
                                                     label: 'ยกเลิก',
                                                     icon: CupertinoIcons.delete,
@@ -1149,7 +1194,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                               : ActionPane(extentRatio: 2 / 5, motion: DrawerMotion(), children: [
                                                   SlidableAction(
                                                     onPressed: (context) {
-                                                      Navigator.pushNamed(context, '/pdforder', arguments: state.trackmodel[index].id.toString());
+                                                      Navigator.pushNamed(context, '/pdforder',
+                                                          arguments: state.trackmodel[index].id.toString());
 
                                                       context.read<TrackBloc>().add(TrackFilterEvent(
                                                           start: DateFormat('yyyy-MM-dd').format(_startDate),
@@ -1178,7 +1224,8 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                             ? () {
                                                 setState(() {
                                                   if (_selectedItems.contains(state.trackmodel[index].id)) {
-                                                    _selectedItems.removeWhere((val) => val == state.trackmodel[index].id);
+                                                    _selectedItems
+                                                        .removeWhere((val) => val == state.trackmodel[index].id);
                                                   } else {
                                                     _selectedItems.add(state.trackmodel[index].id);
                                                   }
@@ -1199,7 +1246,9 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) => TrackingScreen(
-                                                              url: url, path: '/tracking?track=', trackingNo: state.trackmodel[index].trackNo!)));
+                                                              url: url,
+                                                              path: '/tracking?track=',
+                                                              trackingNo: state.trackmodel[index].trackNo!)));
                                                 }
                                               },
                                         child: Container(
@@ -1248,18 +1297,23 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                             children: [
                                                               Text(
                                                                 'เลขพัสดุ : ',
-                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                    fontWeight: FontWeight.bold,
-                                                                    color: Colors.black87,
-                                                                    fontSize: PlatformSize(context)),
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        fontWeight: FontWeight.bold,
+                                                                        color: Colors.black87,
+                                                                        fontSize: PlatformSize(context)),
                                                               ),
                                                               Expanded(
                                                                 child: Text(
                                                                   '${state.trackmodel[index].trackNo}',
                                                                   style: Theme.of(context)
                                                                       .textTheme
-                                                                      .headline4!
-                                                                      .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                                      .headlineMedium!
+                                                                      .copyWith(
+                                                                          color: Colors.black87,
+                                                                          fontSize: PlatformSize(context)),
                                                                 ),
                                                               ),
                                                             ],
@@ -1268,17 +1322,22 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                             children: [
                                                               Text(
                                                                 'ผู้รับ : ',
-                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                    fontWeight: FontWeight.bold,
-                                                                    color: Colors.black87,
-                                                                    fontSize: PlatformSize(context)),
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        fontWeight: FontWeight.bold,
+                                                                        color: Colors.black87,
+                                                                        fontSize: PlatformSize(context)),
                                                               ),
                                                               Text(
                                                                 '${state.trackmodel[index].dstName}',
                                                                 style: Theme.of(context)
                                                                     .textTheme
-                                                                    .headline4!
-                                                                    .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        color: Colors.black87,
+                                                                        fontSize: PlatformSize(context)),
                                                               ),
                                                             ],
                                                           ),
@@ -1286,17 +1345,22 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                             children: [
                                                               Text(
                                                                 'เบอร์โทร : ',
-                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                    fontWeight: FontWeight.bold,
-                                                                    color: Colors.black87,
-                                                                    fontSize: PlatformSize(context)),
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        fontWeight: FontWeight.bold,
+                                                                        color: Colors.black87,
+                                                                        fontSize: PlatformSize(context)),
                                                               ),
                                                               Text(
                                                                 '${state.trackmodel[index].dstPhone}',
                                                                 style: Theme.of(context)
                                                                     .textTheme
-                                                                    .headline4!
-                                                                    .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        color: Colors.black87,
+                                                                        fontSize: PlatformSize(context)),
                                                               ),
                                                             ],
                                                           ),
@@ -1304,19 +1368,23 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                             children: [
                                                               Text(
                                                                 'วันที่ : ',
-                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                    fontWeight: FontWeight.bold,
-                                                                    color: Colors.black87,
-                                                                    fontSize: PlatformSize(context)),
-                                                              ),
-                                                              Text(
-                                                                DateFormat.yMd('th')
-                                                                    .add_jms()
-                                                                    .format(DateTime.parse('${state.trackmodel[index].createdAt}')),
                                                                 style: Theme.of(context)
                                                                     .textTheme
-                                                                    .headline4!
-                                                                    .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        fontWeight: FontWeight.bold,
+                                                                        color: Colors.black87,
+                                                                        fontSize: PlatformSize(context)),
+                                                              ),
+                                                              Text(
+                                                                DateFormat.yMd('th').add_jms().format(DateTime.parse(
+                                                                    '${state.trackmodel[index].createdAt}')),
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        color: Colors.black87,
+                                                                        fontSize: PlatformSize(context)),
                                                               ),
                                                             ],
                                                           ),
@@ -1324,17 +1392,22 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                             children: [
                                                               Text(
                                                                 'COD : ',
-                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                    fontWeight: FontWeight.bold,
-                                                                    color: Colors.black87,
-                                                                    fontSize: PlatformSize(context)),
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        fontWeight: FontWeight.bold,
+                                                                        color: Colors.black87,
+                                                                        fontSize: PlatformSize(context)),
                                                               ),
                                                               Text(
                                                                 '${state.trackmodel[index].codAmount}',
                                                                 style: Theme.of(context)
                                                                     .textTheme
-                                                                    .headline4!
-                                                                    .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        color: Colors.black87,
+                                                                        fontSize: PlatformSize(context)),
                                                               ),
                                                             ],
                                                           ),
@@ -1347,7 +1420,9 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                               Container(
                                                 decoration: BoxDecoration(
                                                     color: Colors.blueGrey.shade100,
-                                                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
+                                                    borderRadius: BorderRadius.only(
+                                                        bottomLeft: Radius.circular(8),
+                                                        bottomRight: Radius.circular(8))),
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(4.0),
                                                   child: Column(
@@ -1357,16 +1432,20 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                         children: [
                                                           Text(
                                                             'ที่อยู่ : ',
-                                                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
+                                                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                                                fontWeight: FontWeight.bold,
+                                                                color: Colors.black87,
+                                                                fontSize: PlatformSize(context)),
                                                           ),
                                                           Expanded(
                                                             child: Text(
                                                               '${state.trackmodel[index].dstAddress} ${state.trackmodel[index].dstZipcode}',
                                                               style: Theme.of(context)
                                                                   .textTheme
-                                                                  .headline4!
-                                                                  .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                                  .headlineMedium!
+                                                                  .copyWith(
+                                                                      color: Colors.black87,
+                                                                      fontSize: PlatformSize(context)),
                                                             ),
                                                           ),
                                                         ],
@@ -1378,18 +1457,23 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                               children: [
                                                                 Text(
                                                                   'หมายเหตุ : ',
-                                                                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                      fontWeight: FontWeight.bold,
-                                                                      color: Colors.black87,
-                                                                      fontSize: PlatformSize(context)),
+                                                                  style: Theme.of(context)
+                                                                      .textTheme
+                                                                      .headlineMedium!
+                                                                      .copyWith(
+                                                                          fontWeight: FontWeight.bold,
+                                                                          color: Colors.black87,
+                                                                          fontSize: PlatformSize(context)),
                                                                 ),
                                                                 Expanded(
                                                                   child: Text(
                                                                     '${state.trackmodel[index].remark}',
                                                                     style: Theme.of(context)
                                                                         .textTheme
-                                                                        .headline4!
-                                                                        .copyWith(color: Colors.black87, fontSize: PlatformSize(context)),
+                                                                        .headlineMedium!
+                                                                        .copyWith(
+                                                                            color: Colors.black87,
+                                                                            fontSize: PlatformSize(context)),
                                                                   ),
                                                                 ),
                                                               ],
@@ -1398,24 +1482,31 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                         children: [
                                                           Text(
                                                             'สถานะ : ',
-                                                            style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                fontWeight: FontWeight.bold, color: Colors.black87, fontSize: PlatformSize(context)),
+                                                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                                                fontWeight: FontWeight.bold,
+                                                                color: Colors.black87,
+                                                                fontSize: PlatformSize(context)),
                                                           ),
                                                           SizedBox(
                                                             width: 5,
                                                           ),
                                                           Container(
                                                             decoration: BoxDecoration(
-                                                                color: Color(_getColorFromHex(state.trackmodel[index].statusColor!)).withOpacity(.75),
+                                                                color: Color(_getColorFromHex(
+                                                                        state.trackmodel[index].statusColor!))
+                                                                    .withOpacity(.75),
                                                                 borderRadius: BorderRadius.all(Radius.circular(8))),
                                                             child: Padding(
                                                               padding: const EdgeInsets.all(4.0),
                                                               child: Text(
                                                                 state.trackmodel[index].statusName!,
-                                                                style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                    fontWeight: FontWeight.bold,
-                                                                    color: Colors.white,
-                                                                    fontSize: PlatformSize(context)),
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headlineMedium!
+                                                                    .copyWith(
+                                                                        fontWeight: FontWeight.bold,
+                                                                        color: Colors.white,
+                                                                        fontSize: PlatformSize(context)),
                                                               ),
                                                             ),
                                                           ),
@@ -1426,10 +1517,14 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                             decoration: BoxDecoration(
                                                                 boxShadow: [
                                                                   BoxShadow(
-                                                                      color: state.trackmodel[index].printCount! > 0 ? Colors.black54 : Colors.white,
+                                                                      color: state.trackmodel[index].printCount! > 0
+                                                                          ? Colors.black54
+                                                                          : Colors.white,
                                                                       blurRadius: 0.5)
                                                                 ],
-                                                                color: state.trackmodel[index].printCount! > 0 ? Colors.white : Colors.black54,
+                                                                color: state.trackmodel[index].printCount! > 0
+                                                                    ? Colors.white
+                                                                    : Colors.black54,
                                                                 borderRadius: BorderRadius.all(Radius.circular(8))),
                                                             child: Padding(
                                                                 padding: const EdgeInsets.all(4.0),
@@ -1439,10 +1534,13 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                                     print(Allkey.isSelected);
                                                                     Allkey.isSelected == true
                                                                         ? setState(() {
-                                                                            if (_selectedItems.contains(state.trackmodel[index].id)) {
-                                                                              _selectedItems.removeWhere((val) => val == state.trackmodel[index].id);
+                                                                            if (_selectedItems
+                                                                                .contains(state.trackmodel[index].id)) {
+                                                                              _selectedItems.removeWhere((val) =>
+                                                                                  val == state.trackmodel[index].id);
                                                                             } else {
-                                                                              _selectedItems.add(state.trackmodel[index].id);
+                                                                              _selectedItems
+                                                                                  .add(state.trackmodel[index].id);
                                                                             }
                                                                           })
                                                                         : pushprint(
@@ -1454,15 +1552,18 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                                       ? Row(
                                                                           children: [
                                                                             badges.Badge(
-                                                                              padding: EdgeInsets.all(1),
-                                                                              position: BadgePosition(bottom: 13, start: 14),
-                                                                              elevation: 1,
+                                                                              badgeStyle: BadgeStyle(
+                                                                                padding: EdgeInsets.all(1),
+                                                                                elevation: 1,
+                                                                                badgeColor: Colors.white,
+                                                                              ),
+                                                                              position: BadgePosition.bottomStart(
+                                                                                  bottom: 13, start: 14),
                                                                               badgeContent: Icon(
                                                                                 CupertinoIcons.checkmark_alt,
                                                                                 color: Colors.green,
                                                                                 size: 14,
                                                                               ),
-                                                                              badgeColor: Colors.white,
                                                                               child: Icon(
                                                                                 Icons.print_rounded,
                                                                                 color: Colors.black54,
@@ -1473,10 +1574,13 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                                             ),
                                                                             Text(
                                                                               'พิมพ์แล้ว',
-                                                                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  color: Colors.black54,
-                                                                                  fontSize: PlatformSize(context)),
+                                                                              style: Theme.of(context)
+                                                                                  .textTheme
+                                                                                  .headlineMedium!
+                                                                                  .copyWith(
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      color: Colors.black54,
+                                                                                      fontSize: PlatformSize(context)),
                                                                             ),
                                                                           ],
                                                                         )
@@ -1491,10 +1595,13 @@ class _OrderListScreenState extends State<OrderListScreen> with TickerProviderSt
                                                                             ),
                                                                             Text(
                                                                               'รอพิมพ์',
-                                                                              style: Theme.of(context).textTheme.headline4!.copyWith(
-                                                                                  fontWeight: FontWeight.bold,
-                                                                                  color: Colors.white,
-                                                                                  fontSize: PlatformSize(context)),
+                                                                              style: Theme.of(context)
+                                                                                  .textTheme
+                                                                                  .headlineMedium!
+                                                                                  .copyWith(
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      color: Colors.white,
+                                                                                      fontSize: PlatformSize(context)),
                                                                             ),
                                                                           ],
                                                                         ),

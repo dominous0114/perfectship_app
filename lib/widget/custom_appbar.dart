@@ -46,10 +46,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: Text(
           title,
-          style: Theme.of(context).textTheme.headline3!.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: PlatformSize(context) * 1.2),
+          style: Theme.of(context)
+              .textTheme
+              .displaySmall!
+              .copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * 1.2),
         ),
         actions: [
           addButton == true

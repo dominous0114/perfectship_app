@@ -187,10 +187,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                   width: 5,
                                 ),
                                 Text('ตัวช่วยแยกที่อยู่',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3!
-                                        .copyWith(fontWeight: FontWeight.bold, color: Colors.black, fontSize: PlatformSize(context))),
+                                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: PlatformSize(context))),
                               ],
                             ),
                             TextButton(
@@ -199,10 +199,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                     'คุณ Perfectship \n0891234567 \nบ้านเลขที่ 11/22 ถนนเพลินจิต \nแขวงลุมพินี เขตปทุมวัน \nกรุงเทพมหานคร 10330';
                               },
                               child: Text('ใช้ตัวอย่าง',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline3!
-                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: PlatformSize(context))),
+                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                      fontSize: PlatformSize(context))),
                             )
                           ],
                         ),
@@ -211,12 +211,12 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                         children: [
                           CupertinoTextField(
                             //padding: const EdgeInsets.all(0),
-                            placeholder: 'คุณ Perfectship \n0891234567 \nบ้านเลขที่ 11/22 ถนนเพลินจิต \nแขวงลุมพินี เขตปทุมวัน \nกรุงเทพมหานคร 10330',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4!
-                                .copyWith(fontWeight: FontWeight.bold, color: Colors.black, fontSize: PlatformSize(context)),
-                            placeholderStyle: Theme.of(context).textTheme.headline4!.copyWith(fontSize: PlatformSize(context)),
+                            placeholder:
+                                'คุณ Perfectship \n0891234567 \nบ้านเลขที่ 11/22 ถนนเพลินจิต \nแขวงลุมพินี เขตปทุมวัน \nกรุงเทพมหานคร 10330',
+                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                fontWeight: FontWeight.bold, color: Colors.black, fontSize: PlatformSize(context)),
+                            placeholderStyle:
+                                Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: PlatformSize(context)),
                             keyboardType: TextInputType.multiline,
                             textInputAction: TextInputAction.newline,
                             minLines: 10,
@@ -268,10 +268,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             }
                           },
                           child: Text("ตกลง",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: PlatformSize(context))),
+                              style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                  fontWeight: FontWeight.bold, color: Colors.blue, fontSize: PlatformSize(context))),
                         ),
                         CupertinoDialogAction(
                           onPressed: () {
@@ -279,10 +277,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             extractController.text = '';
                           },
                           child: Text("ยกเลิก",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(fontWeight: FontWeight.bold, color: Colors.red, fontSize: PlatformSize(context))),
+                              style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                  fontWeight: FontWeight.bold, color: Colors.red, fontSize: PlatformSize(context))),
                         ),
                       ],
                     );
@@ -437,7 +433,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
               //                           'เครดิต ${state.usercreditmodel.credit} บาท ',
               //                           style: Theme.of(context)
               //                               .textTheme
-              //                               .headline3!
+              //                               .displaySmall!
               //                               .copyWith(
               //                                 fontSize: PlatformSize(context),
               //                                 fontWeight: FontWeight.bold,
@@ -446,7 +442,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
               //                           'สร้างได้ ${state.usercreditmodel.orderAmount} รายการ',
               //                           style: Theme.of(context)
               //                               .textTheme
-              //                               .headline3!
+              //                               .displaySmall!
               //                               .copyWith(
               //                                 fontSize: PlatformSize(context),
               //                                 fontWeight: FontWeight.bold,
@@ -475,7 +471,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                         child: Container(
                           height: 95,
                           decoration: BoxDecoration(
-                              boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 1)], borderRadius: BorderRadius.all(Radius.circular(8))),
+                              boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 1)],
+                              borderRadius: BorderRadius.all(Radius.circular(8))),
                           child: Padding(
                             padding: const EdgeInsets.all(3.0),
                             child: Row(
@@ -513,7 +510,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                           stops: [0.0, 0.8],
                                           tileMode: TileMode.clamp,
                                         ),
-                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(8), topRight: Radius.circular(8))),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
@@ -531,7 +529,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                               Text(
                                                 'ผู้ส่ง (ที่อยู่แสดงบนใบปะหน้า)',
                                                 style: TextStyle(
-                                                    color: Colors.white, fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.bold),
+                                                    color: Colors.white,
+                                                    fontSize: PlatformSize(context) * 1.1,
+                                                    fontWeight: FontWeight.bold),
                                               ),
                                             ],
                                           ),
@@ -552,7 +552,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                             ),
                                             Text(
                                               'คุณยังไม่มีมี่อยู่เริ่มต้น กรุณาเพิ่มที่อยู่เริ่มต้น',
-                                              style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                              style: TextStyle(
+                                                  fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
                                             ),
                                           ],
                                         ),
@@ -593,7 +594,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                                     Text(
                                                       'กดเพื่อเลือกที่อยู่',
                                                       style: TextStyle(
-                                                          fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Colors.white),
+                                                          fontSize: PlatformSize(context),
+                                                          fontWeight: FontWeight.bold,
+                                                          color: Colors.white),
                                                     ),
                                                   ],
                                                 ),
@@ -645,7 +648,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                                     stops: [0.0, 0.8],
                                                     tileMode: TileMode.clamp,
                                                   ),
-                                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+                                                  borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(8), topRight: Radius.circular(8))),
                                               child: Padding(
                                                 padding: const EdgeInsets.all(8.0),
                                                 child: Row(
@@ -681,11 +685,15 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                                     children: [
                                                       Text(
                                                         'ชื่อ :',
-                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
+                                                        style: TextStyle(
+                                                            fontSize: PlatformSize(context),
+                                                            fontWeight: FontWeight.bold),
                                                       ),
                                                       Text(
                                                         ' ${list.first.name} (${list.first.phone})',
-                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                                        style: TextStyle(
+                                                            fontSize: PlatformSize(context),
+                                                            fontWeight: FontWeight.normal),
                                                       )
                                                     ],
                                                   ),
@@ -693,11 +701,15 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                                     children: [
                                                       Text(
                                                         'ที่อยู่ :',
-                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
+                                                        style: TextStyle(
+                                                            fontSize: PlatformSize(context),
+                                                            fontWeight: FontWeight.bold),
                                                       ),
                                                       Text(
                                                         ' ${list.first.address} ${list.first.subDistrict} ${list.first.district} ${list.first.province} ${list.first.zipcode}',
-                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                                        style: TextStyle(
+                                                            fontSize: PlatformSize(context),
+                                                            fontWeight: FontWeight.normal),
                                                       )
                                                     ],
                                                   ),
@@ -727,7 +739,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                           child: Container(
                             height: 210,
                             decoration: BoxDecoration(
-                                boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 2)], borderRadius: BorderRadius.all(Radius.circular(10))),
+                                boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 2)],
+                                borderRadius: BorderRadius.all(Radius.circular(10))),
                             child: Padding(
                               padding: const EdgeInsets.all(3.0),
                               child: Row(
@@ -763,7 +776,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                   stops: [0.0, 0.8],
                                   tileMode: TileMode.clamp,
                                 ),
-                                borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+                                borderRadius:
+                                    BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
                             child: Padding(
                               padding: const EdgeInsets.all(10),
                               child: Row(
@@ -781,7 +795,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                       ),
                                       Text(
                                         'ข้อมูลการจัดส่ง',
-                                        style: TextStyle(color: Colors.white, fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: PlatformSize(context) * 1.1,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
@@ -793,10 +810,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             padding: const EdgeInsets.all(4.0),
                             child: Text(
                               'ขนส่ง',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                              style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 41, 88, 162)),
                             ),
                           ),
                           Padding(
@@ -864,9 +881,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                               ))
                                           .toList(),
                                       onChanged: (value) {
-                                        context
-                                            .read<DropdownCourierBloc>()
-                                            .add(DropDropdownCourierSelectCourierEvent(couriermodel: value as CourierModel));
+                                        context.read<DropdownCourierBloc>().add(
+                                            DropDropdownCourierSelectCourierEvent(couriermodel: value as CourierModel));
 
                                         courcode = value.code!;
 
@@ -880,7 +896,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         fillColor: Colors.white,
                                         errorStyle: Theme.of(context)
                                             .textTheme
-                                            .headline4!
+                                            .headlineMedium!
                                             .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                         //Add isDense true and zero Padding.
                                         //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
@@ -892,29 +908,33 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         //Add more decoration as you want here
                                         //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                                       ),
-                                      buttonDecoration: BoxDecoration(
+                                      buttonStyleData: ButtonStyleData(
+                                          decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
                                         border: Border.all(
                                           color: Colors.black26,
                                         ),
                                         color: Colors.white,
+                                      )),
+                                      iconStyleData: IconStyleData(
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down_sharp,
+                                          color: Colors.black45,
+                                          size: 20,
+                                        ),
+                                        iconSize: 30,
                                       ),
-                                      icon: const Icon(
-                                        Icons.keyboard_arrow_down_sharp,
-                                        color: Colors.black45,
-                                        size: 20,
-                                      ),
-                                      iconSize: 30,
-                                      buttonHeight: 45,
-                                      buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                                      dropdownDecoration: BoxDecoration(
-                                        border: Border.all(width: 0.1),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      dropdownMaxHeight: 250,
-                                      scrollbarAlwaysShow: true,
-                                      scrollbarThickness: 6,
+                                      dropdownStyleData: DropdownStyleData(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(width: 0.1),
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          maxHeight: 250,
+                                          scrollbarTheme: ScrollbarThemeData(
+                                            interactive: true,
+                                            thickness: WidgetStateProperty.all(6),
+                                          )),
                                     ),
                                   ),
                                 ),
@@ -925,10 +945,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             padding: const EdgeInsets.all(4.0),
                             child: Text(
                               'ประเภทพัสดุ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                              style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 41, 88, 162)),
                             ),
                           ),
                           Padding(
@@ -980,9 +1000,8 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                               ))
                                           .toList(),
                                       onChanged: (value) {
-                                        context
-                                            .read<DropdownCourierBloc>()
-                                            .add(DropDropdownCourierSelectCategoryEvent(productCategory: value as ProductCategory));
+                                        context.read<DropdownCourierBloc>().add(DropDropdownCourierSelectCategoryEvent(
+                                            productCategory: value as ProductCategory));
                                         procat = value.id;
 
                                         // _onDropDownItemSelectedCategory(
@@ -992,7 +1011,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         fillColor: Colors.white,
                                         errorStyle: Theme.of(context)
                                             .textTheme
-                                            .headline4!
+                                            .headlineMedium!
                                             .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                         //Add isDense true and zero Padding.
                                         //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
@@ -1004,29 +1023,33 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         //Add more decoration as you want here
                                         //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                                       ),
-                                      buttonDecoration: BoxDecoration(
+                                      buttonStyleData: ButtonStyleData(
+                                          decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
                                         border: Border.all(
                                           color: Colors.black26,
                                         ),
                                         color: Colors.white,
+                                      )),
+                                      iconStyleData: IconStyleData(
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down_sharp,
+                                          color: Colors.black45,
+                                          size: 20,
+                                        ),
+                                        iconSize: 30,
                                       ),
-                                      icon: const Icon(
-                                        Icons.keyboard_arrow_down_sharp,
-                                        color: Colors.black45,
-                                        size: 20,
-                                      ),
-                                      iconSize: 30,
-                                      buttonHeight: 45,
-                                      buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                                      dropdownDecoration: BoxDecoration(
-                                        border: Border.all(width: 0.1),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      dropdownMaxHeight: 250,
-                                      scrollbarAlwaysShow: true,
-                                      scrollbarThickness: 6,
+                                      dropdownStyleData: DropdownStyleData(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(width: 0.1),
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          maxHeight: 250,
+                                          scrollbarTheme: ScrollbarThemeData(
+                                            interactive: true,
+                                            thickness: WidgetStateProperty.all(6),
+                                          )),
                                     ),
                                   ),
                                 ),
@@ -1079,7 +1102,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                   ),
                                   Text(
                                     'ผู้รับ (ที่อยู่ในการจัดส่ง)',
-                                    style: TextStyle(color: Colors.white, fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: PlatformSize(context) * 1.1,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -1097,15 +1123,19 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               children: [
                                 Text(
                                   'ค้นหาที่อยู่ผู้รับ',
-                                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      fontSize: PlatformSize(context),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 41, 88, 162)),
                                 ),
                                 GestureDetector(
                                   onTap: () {
                                     systemExtract(context, extractController, loadextract);
                                   },
                                   child: Container(
-                                    decoration: BoxDecoration(color: Colors.amber.shade600, borderRadius: BorderRadius.all(Radius.circular(8))),
+                                    decoration: BoxDecoration(
+                                        color: Colors.amber.shade600,
+                                        borderRadius: BorderRadius.all(Radius.circular(8))),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(children: [
@@ -1117,10 +1147,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                           width: 5,
                                         ),
                                         Text('ตัวช่วยแยกที่อยู่',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline3!
-                                                .copyWith(color: Colors.white, fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
+                                            style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                                color: Colors.white,
+                                                fontSize: PlatformSize(context),
+                                                fontWeight: FontWeight.bold)),
                                       ]),
                                     ),
                                   ),
@@ -1155,10 +1185,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             ),
                             Text(
                               'ตัวช่วยค้นหาที่อยู่ (ตำบล / อำเภอ / จังหวัด / รหัสไปรษณีย์)',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                              style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 41, 88, 162)),
                             ),
                             SizedBox(
                               height: 10,
@@ -1185,10 +1215,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             ),
                             Text(
                               'ชื่อผู้รับ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                              style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                  fontSize: PlatformSize(context),
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 41, 88, 162)),
                             ),
                             SizedBox(
                               height: 10,
@@ -1213,8 +1243,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               children: [
                                 Text(
                                   'เบอร์โทร',
-                                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      fontSize: PlatformSize(context),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 41, 88, 162)),
                                 ),
                               ],
                             ),
@@ -1243,8 +1275,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               children: [
                                 Text(
                                   'บ้านเลขที่',
-                                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      fontSize: PlatformSize(context),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 41, 88, 162)),
                                 ),
                               ],
                             ),
@@ -1269,8 +1303,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               children: [
                                 Text(
                                   'ตำบล / แขวง',
-                                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      fontSize: PlatformSize(context),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 41, 88, 162)),
                                 ),
                               ],
                             ),
@@ -1295,8 +1331,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               children: [
                                 Text(
                                   'อำเภอ / เขต',
-                                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      fontSize: PlatformSize(context),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 41, 88, 162)),
                                 ),
                               ],
                             ),
@@ -1321,8 +1359,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               children: [
                                 Text(
                                   'จังหวัด',
-                                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      fontSize: PlatformSize(context),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 41, 88, 162)),
                                 ),
                               ],
                             ),
@@ -1347,8 +1387,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               children: [
                                 Text(
                                   'รหัสไปรษณีย์',
-                                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      fontSize: PlatformSize(context),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 41, 88, 162)),
                                 ),
                               ],
                             ),
@@ -1377,8 +1419,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                               children: [
                                 Text(
                                   'หมายเหตุ (ถ้ามี)',
-                                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                                      fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Color.fromARGB(255, 41, 88, 162)),
+                                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                      fontSize: PlatformSize(context),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 41, 88, 162)),
                                 ),
                               ],
                             ),
@@ -1388,10 +1432,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                             TextFormField(
                               decoration: InputDecoration(
                                 hintText: '',
-                                hintStyle: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(color: Colors.grey[500]!.withOpacity(.5), fontWeight: FontWeight.bold, fontSize: PlatformSize(context)),
+                                hintStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                    color: Colors.grey[500]!.withOpacity(.5),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: PlatformSize(context)),
                                 fillColor: Colors.white,
                                 filled: true,
                                 isDense: true,
@@ -1400,9 +1444,12 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                   borderSide: BorderSide(width: 0.7, color: Colors.grey), //<-- SEE HERE
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.blue.shade200), borderRadius: BorderRadius.all(Radius.circular(4))),
-                                errorStyle:
-                                    Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+                                    borderSide: BorderSide(color: Colors.blue.shade200),
+                                    borderRadius: BorderRadius.all(Radius.circular(4))),
+                                errorStyle: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                               ),
                               textInputAction: TextInputAction.done,
                               minLines: 5,
@@ -1421,10 +1468,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                     ExpansionTile(
                                       title: Text(
                                         'เก็บเงินปลายทาง (ถ้ามี)',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline3!
-                                            .copyWith(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: PlatformSize(context)),
+                                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black54,
+                                            fontSize: PlatformSize(context)),
                                       ),
                                       trailing: SizedBox(),
                                       onExpansionChanged: _onExpansionChanged,
@@ -1465,10 +1512,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                     ExpansionTile(
                                       title: Text(
                                         'ซื้อประกันสินค้า',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline3!
-                                            .copyWith(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: PlatformSize(context)),
+                                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black54,
+                                            fontSize: PlatformSize(context)),
                                       ),
                                       trailing: SizedBox(),
                                       onExpansionChanged: _onExpansionInsuChanged,
@@ -1520,10 +1567,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                 child: ExpansionTile(
                                   title: Text(
                                     'บันทึกที่อยู่ผู้รับ',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3!
-                                        .copyWith(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: PlatformSize(context)),
+                                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black54,
+                                        fontSize: PlatformSize(context)),
                                   ),
                                   trailing: SizedBox(),
                                   onExpansionChanged: _onExpansionSaveAddressChanged,
@@ -1545,7 +1592,9 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                   return Container(
                                     width: MediaQuery.of(context).size.width,
                                     child: CupertinoButton(
-                                        color: Color.fromARGB(255, 41, 88, 162), onPressed: () {}, child: CustomProgessIndicator(Colors.white, 20)),
+                                        color: Color.fromARGB(255, 41, 88, 162),
+                                        onPressed: () {},
+                                        child: CustomProgessIndicator(Colors.white, 20)),
                                   );
                                 } else if (state is OrderInitial) {
                                   // print(
@@ -1556,7 +1605,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                       color: Color.fromARGB(255, 41, 88, 162),
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
-                                          if (labelname == '' || labelphone == '' || labeladdress == '' || labelzipcode == '') {
+                                          if (labelname == '' ||
+                                              labelphone == '' ||
+                                              labeladdress == '' ||
+                                              labelzipcode == '') {
                                             Fluttertoast.showToast(msg: 'กรุณาตรวจสอบที่อยู่ผู้ส่ง');
                                           } else {
                                             context.read<UserDataBloc>().add(UserdataAfterSendEvent());
@@ -1596,10 +1648,10 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                                         }
                                       },
                                       child: Text('บันทึกรายการ',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline3!
-                                              .copyWith(color: Colors.white, fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
+                                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                              color: Colors.white,
+                                              fontSize: PlatformSize(context),
+                                              fontWeight: FontWeight.bold)),
                                     ),
                                   );
                                 } else {

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:perfectship_app/bloc/new_bloc/create_order/create_order_bloc.dar
 import 'package:perfectship_app/bloc/new_bloc/orderlist_new/orderlist_new_bloc.dart';
 import 'package:perfectship_app/bloc/userdata_bloc/user_data_bloc.dart';
 import 'package:perfectship_app/model/new_model/category_new_model.dart';
+import 'package:perfectship_app/model/new_model/product_create_model.dart';
 import 'package:perfectship_app/repository/new_repository/address_repository.dart';
 
 import 'package:perfectship_app/model/new_model/courier_new_model.dart';
@@ -24,10 +26,13 @@ import 'package:perfectship_app/screen/createorder/new_widget/search_address_del
 import 'package:perfectship_app/screen/createorder/new_widget/search_dst_delegate.dart';
 import 'package:perfectship_app/screen/createorder/new_widget/select_courier.dart';
 import 'package:perfectship_app/screen/new_screen/edit_profile.dart';
+import 'package:perfectship_app/widget/custom_dialog.dart';
 import 'package:perfectship_app/widget/gettexfield_multiline.dart';
 
 import 'package:perfectship_app/widget/gettextfield.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../model/new_model/address_search_new_model.dart';
 import '../../../model/new_model/static_model/search_phone.dart';
@@ -56,6 +61,8 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
   bool isExtract = false;
   bool loadingExt = false;
   TextEditingController _extractController = TextEditingController();
+
+  SharedPreferences? sharePrefs;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +153,10 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                             ),
                                             Text(
                                               'ข้อมูลของผู้ส่ง (${state.customerId})',
-                                              style: TextStyle(color: Colors.blue.shade800, fontWeight: FontWeight.bold, fontSize: 15),
+                                              style: TextStyle(
+                                                  color: Colors.blue.shade800,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
                                             ),
                                           ],
                                         ),
@@ -174,11 +184,11 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                       children: [
                                         Text(
                                           'ชื่อ : ',
-                                          style: Theme.of(context).textTheme.headline6,
+                                          style: Theme.of(context).textTheme.titleLarge,
                                         ),
                                         Text(
                                           '${state.srcnameController.text}',
-                                          style: Theme.of(context).textTheme.headline6,
+                                          style: Theme.of(context).textTheme.titleLarge,
                                         ),
                                       ],
                                     ),
@@ -186,11 +196,11 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                       children: [
                                         Text(
                                           'เบอร์โทร : ',
-                                          style: Theme.of(context).textTheme.headline6,
+                                          style: Theme.of(context).textTheme.titleLarge,
                                         ),
                                         Text(
                                           '${state.srcphoneController.text}',
-                                          style: Theme.of(context).textTheme.headline6,
+                                          style: Theme.of(context).textTheme.titleLarge,
                                         ),
                                       ],
                                     ),
@@ -199,12 +209,12 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                       children: [
                                         Text(
                                           'ที่อยู่ : ',
-                                          style: Theme.of(context).textTheme.headline6,
+                                          style: Theme.of(context).textTheme.titleLarge,
                                         ),
                                         Expanded(
                                           child: Text(
                                             '${state.srcaddressController.text} ${state.srcsubDistrictController.text} ${state.srcdistrictController.text} ${state.srcprovinceController.text} ${state.srczipcodeController.text}',
-                                            style: Theme.of(context).textTheme.headline6,
+                                            style: Theme.of(context).textTheme.titleLarge,
                                           ),
                                         ),
                                       ],
@@ -272,11 +282,15 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                             ),
                                             Text(
                                               'เลือกขนส่ง',
-                                              style: TextStyle(color: Colors.blue.shade800, fontWeight: FontWeight.bold, fontSize: 15),
+                                              style: TextStyle(
+                                                  color: Colors.blue.shade800,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
                                             ),
                                             Text(
                                               ' **',
-                                              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 15),
+                                              style: TextStyle(
+                                                  color: Colors.red, fontWeight: FontWeight.bold, fontSize: 15),
                                             ),
                                           ],
                                         ),
@@ -327,8 +341,13 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  state.courierNewModel.name == null ? 'กรุณาเลือกขนส่ง' : '${state.courierNewModel.name}',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                  state.courierNewModel.name == null
+                                                      ? 'กรุณาเลือกขนส่ง'
+                                                      : '${state.courierNewModel.name}',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
                                                 ),
                                               ),
                                               //CustomTextAutoSizeforMenu(text: 'แก้ไขรหัสผ่าน', bold: true, enable: true),
@@ -353,7 +372,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                         //     hint: Text(
                                         //       '    --กรุณาเลือกขนส่ง--',
                                         //       style:
-                                        //           Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                        //           Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
                                         //       textAlign: TextAlign.center,
                                         //     ),
                                         //     buttonHeight: 55,
@@ -400,7 +419,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                         //                     e.name ?? '',
                                         //                     style: Theme.of(context)
                                         //                         .textTheme
-                                        //                         .headline5!
+                                        //                         .headlineSmall!
                                         //                         .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
                                         //                   )
                                         //                 ],
@@ -482,7 +501,10 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                           ),
                                                           Text(
                                                             'ข้อมูลของผู้รับ',
-                                                            style: TextStyle(color: Colors.blue.shade800, fontWeight: FontWeight.bold, fontSize: 15),
+                                                            style: TextStyle(
+                                                                color: Colors.blue.shade800,
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: 15),
                                                           ),
                                                         ],
                                                       ),
@@ -505,7 +527,11 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                 },
                                                 child: Container(
                                                   decoration: BoxDecoration(
-                                                      color: isExtract ? Colors.amber : Colors.white, borderRadius: BorderRadius.circular(8), border: isExtract ? null : Border.all(color: Colors.amber, width: 0.5)),
+                                                      color: isExtract ? Colors.amber : Colors.white,
+                                                      borderRadius: BorderRadius.circular(8),
+                                                      border: isExtract
+                                                          ? null
+                                                          : Border.all(color: Colors.amber, width: 0.5)),
                                                   child: Padding(
                                                     padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 8),
                                                     child: Row(
@@ -520,7 +546,10 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                         ),
                                                         Text(
                                                           'คัดแยก',
-                                                          style: TextStyle(color: isExtract ? Colors.white : Colors.amber, fontSize: 14, fontWeight: FontWeight.bold),
+                                                          style: TextStyle(
+                                                              color: isExtract ? Colors.white : Colors.amber,
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.bold),
                                                         ),
                                                       ],
                                                     ),
@@ -535,7 +564,8 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                               flex: 2,
                                               child: GestureDetector(
                                                 onTap: () async {
-                                                  SearchPhoneModel search = await showSearch(context: context, delegate: SearchDstNewDelegate());
+                                                  SearchPhoneModel search = await showSearch(
+                                                      context: context, delegate: SearchDstNewDelegate());
                                                   context.read<CreateOrderBloc>().add(OnRecieveSearchEvent(
                                                       district: search.district,
                                                       subdistrict: search.subDistrict,
@@ -546,7 +576,8 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                       address: search.address));
                                                 },
                                                 child: Container(
-                                                  decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8)),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.blue, borderRadius: BorderRadius.circular(8)),
                                                   child: Padding(
                                                     padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 8),
                                                     child: Row(
@@ -561,7 +592,10 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                         ),
                                                         Text(
                                                           'ค้นหา',
-                                                          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                                                          style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.bold),
                                                         ),
                                                       ],
                                                     ),
@@ -602,12 +636,15 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                       TextButton(
                                                           onPressed: () {
                                                             setState(() {
-                                                              _extractController.text = 'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321';
+                                                              _extractController.text =
+                                                                  'นายทดสอบ ระบบ\n91/83 สายไหม สายไหม 10220\n0987654321';
                                                             });
                                                           },
                                                           child: Text(
                                                             'ตัวอย่าง',
-                                                            style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+                                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                                                fontWeight: FontWeight.bold,
+                                                                color: Colors.blue.shade800),
                                                           )),
                                                       TextButton(
                                                           onPressed: () {
@@ -615,10 +652,12 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                           },
                                                           child: Text(
                                                             'ล้าง',
-                                                            style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.red),
+                                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                                                fontWeight: FontWeight.bold, color: Colors.red),
                                                           )),
                                                       loadingExt == true
-                                                          ? SizedBox(width: 18, height: 18, child: CircularProgressIndicator())
+                                                          ? SizedBox(
+                                                              width: 18, height: 18, child: CircularProgressIndicator())
                                                           : TextButton(
                                                               onPressed: () async {
                                                                 if (expkey.currentState!.validate()) {
@@ -626,23 +665,28 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                                     loadingExt = true;
                                                                   });
                                                                   print('pass');
-                                                                  await AddressNewRepository().getNormalize(_extractController.text).then((value) {
+                                                                  await AddressNewRepository()
+                                                                      .getNormalize(_extractController.text)
+                                                                      .then((value) {
                                                                     if (value.status == true) {
-                                                                      context.read<CreateOrderBloc>().add(OnRecieveSearchEvent(
-                                                                          district: value.amphure!,
-                                                                          subdistrict: value.district!,
-                                                                          province: value.province!,
-                                                                          zipcode: value.zipcode!,
-                                                                          name: value.name!,
-                                                                          phone: value.phone!,
-                                                                          address: value.cutAll!));
+                                                                      context.read<CreateOrderBloc>().add(
+                                                                          OnRecieveSearchEvent(
+                                                                              district: value.amphure!,
+                                                                              subdistrict: value.district!,
+                                                                              province: value.province!,
+                                                                              zipcode: value.zipcode!,
+                                                                              name: value.name!,
+                                                                              phone: value.phone!,
+                                                                              address: value.cutAll!));
 
                                                                       setState(() {
                                                                         loadingExt = false;
                                                                         isExtract = !isExtract;
                                                                         extNode.unfocus();
                                                                         _extractController.clear();
-                                                                        Fluttertoast.showToast(msg: 'คัดแยกเรียบร้อย', gravity: ToastGravity.CENTER);
+                                                                        Fluttertoast.showToast(
+                                                                            msg: 'คัดแยกเรียบร้อย',
+                                                                            gravity: ToastGravity.CENTER);
                                                                       });
                                                                     } else {
                                                                       loadingExt = false;
@@ -661,7 +705,13 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                                   extNode.requestFocus();
                                                                 }
                                                               },
-                                                              child: Text('คัดแยก', style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.blue))),
+                                                              child: Text('คัดแยก',
+                                                                  style: Theme.of(context)
+                                                                      .textTheme
+                                                                      .headlineSmall!
+                                                                      .copyWith(
+                                                                          fontWeight: FontWeight.bold,
+                                                                          color: Colors.blue))),
                                                     ],
                                                   )
                                                 ],
@@ -669,13 +719,17 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                             ),
                                           ),
                                         ),
-                                        Text('ค้นหาที่อยู่ผู้รับ', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
+                                        Text('ค้นหาที่อยู่ผู้รับ',
+                                            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
                                         GetTextField(
                                           focusNode: searchFocusNode,
                                           onTap: () async {
                                             searchFocusNode.unfocus();
-                                            AddressSearchNewModel address = await showSearch(context: context, delegate: SearcgAddressNewDelegate());
-                                            context.read<CreateOrderBloc>().add(SelectAddressManulEvent(addressSearchNewModel: address));
+                                            AddressSearchNewModel address = await showSearch(
+                                                context: context, delegate: SearcgAddressNewDelegate());
+                                            context
+                                                .read<CreateOrderBloc>()
+                                                .add(SelectAddressManulEvent(addressSearchNewModel: address));
                                             // districtController.text = address.amphure!;
                                             // subdistrictController.text = address.district!;
                                             // provinceController.text = address.province!;
@@ -971,7 +1025,10 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                             ),
                                             Text(
                                               'พัสดุ',
-                                              style: TextStyle(color: Colors.blue.shade800, fontWeight: FontWeight.bold, fontSize: 15),
+                                              style: TextStyle(
+                                                  color: Colors.blue.shade800,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
                                             ),
                                           ],
                                         ),
@@ -983,7 +1040,10 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                     ),
                                     Row(
                                       children: [
-                                        Expanded(flex: 1, child: Text('ประเภทพัสดุ ', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold))),
+                                        Expanded(
+                                            flex: 1,
+                                            child: Text('ประเภทพัสดุ ',
+                                                style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold))),
                                         Expanded(
                                           flex: 4,
                                           child: Container(
@@ -993,40 +1053,41 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                               borderRadius: BorderRadius.circular(10),
                                             ),
                                             child: DropdownButtonHideUnderline(
-                                              child: DropdownButton2<CategoryNewModel>(
-                                                buttonHeight: 40,
-                                                dropdownDecoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(14),
-                                                  boxShadow: [
-                                                    BoxShadow(color: Colors.black26, spreadRadius: 0.5, blurRadius: 1),
-                                                  ],
+                                              child: DropdownButton<CategoryNewModel>(
+                                                isExpanded: true,
+                                                icon: Icon(Icons.arrow_drop_down),
+                                                iconSize: 24,
+                                                elevation: 16,
+                                                style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                underline: Container(
+                                                  height: 2,
+                                                  color: Colors.blueAccent,
                                                 ),
-                                                buttonDecoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: Colors.white),
-                                                dropdownElevation: 8,
-                                                scrollbarRadius: const Radius.circular(40),
-                                                dropdownMaxHeight: 400,
-                                                scrollbarThickness: 6,
-                                                scrollbarAlwaysShow: true,
-                                                offset: const Offset(0, -20),
-                                                selectedItemHighlightColor: Colors.blue.shade50.withOpacity(.4),
                                                 items: state.categories.map<DropdownMenuItem<CategoryNewModel>>((e) {
-                                                  return DropdownMenuItem(
+                                                  return DropdownMenuItem<CategoryNewModel>(
                                                       value: e,
-                                                      child: Container(
-                                                        child: Row(
-                                                          children: [Text(e.name ?? '', style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold))],
-                                                        ),
+                                                      child: Row(
+                                                        children: [
+                                                          Text(e.name ?? '',
+                                                              style: Theme.of(context)
+                                                                  .textTheme
+                                                                  .headlineSmall!
+                                                                  .copyWith(
+                                                                      color: Colors.black54,
+                                                                      fontWeight: FontWeight.bold))
+                                                        ],
                                                       ));
                                                 }).toList(),
                                                 onChanged: (value) {
-                                                  context.read<CreateOrderBloc>().add(SelectCategoryEvent(category: value!));
+                                                  context
+                                                      .read<CreateOrderBloc>()
+                                                      .add(SelectCategoryEvent(category: value!));
                                                 },
                                                 value: state.category,
-                                                underline: SizedBox(),
                                               ),
                                             ),
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                     // Row(
@@ -1177,7 +1238,10 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                               ),
                                               Text(
                                                 'อื่นๆ..',
-                                                style: TextStyle(color: Colors.blue.shade800, fontWeight: FontWeight.bold, fontSize: 15),
+                                                style: TextStyle(
+                                                    color: Colors.blue.shade800,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
                                               ),
                                             ],
                                           ),
@@ -1203,7 +1267,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                           //     maxLines: 5,
                                           //     keyboardType: TextInputType.multiline,
                                           //     controller: state.remarkController,
-                                          //     style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context)),
+                                          //     style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: PlatformSize(context)),
                                           //     decoration: new InputDecoration(
                                           //       fillColor: Colors.white,
                                           //       focusedBorder: OutlineInputBorder(
@@ -1215,7 +1279,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                           //       hintText: '  หมายเหตุ',
                                           //       hintStyle: Theme.of(context)
                                           //           .textTheme
-                                          //           .bodyText1!
+                                          //           .bodyLarge!
                                           //           .copyWith(fontSize: PlatformSize(context), color: Colors.grey),
                                           //       border: InputBorder.none,
                                           //     ),
@@ -1229,26 +1293,68 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                             controller: state.remarkController,
                                             title: '  หมายเหตุ',
                                           ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Checkbox(
-                                                  value: state.isCod,
-                                                  onChanged: (value) {
-                                                    context.read<CreateOrderBloc>().add(OnCheckBoxCodChange(isCod: value!));
-                                                  }),
-                                              SizedBox(
-                                                width: 15,
-                                              ),
-                                              Text(
-                                                'เก็บเงินปลายทาง (ถ้ามี)',
-                                                style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
-                                              ),
-                                            ],
+                                          GestureDetector(
+                                            onTap: () async {
+                                              sharePrefs = await SharedPreferences.getInstance();
+                                              bool? condition = sharePrefs!.getBool('is_cod_condition');
+                                              if (state.isCod == false) {
+                                                if (condition == false || condition == null) {
+                                                  CustomDialog().showAlertCODConditionDialog(
+                                                      context: context,
+                                                      onPressed: () {
+                                                        sharePrefs!.setBool('is_cod_condition', true);
+                                                        Navigator.pop(context);
+                                                      },
+                                                      onCancel: () {
+                                                        Navigator.pop(context);
+                                                      });
+                                                }
+                                              }
+                                              context
+                                                  .read<CreateOrderBloc>()
+                                                  .add(OnCheckBoxCodChange(isCod: !state.isCod));
+                                            },
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Checkbox(
+                                                    value: state.isCod,
+                                                    onChanged: (value) async {
+                                                      sharePrefs = await SharedPreferences.getInstance();
+                                                      bool? condition = sharePrefs!.getBool('is_cod_condition');
+                                                      if (value == true) {
+                                                        if (condition == false || condition == null) {
+                                                          CustomDialog().showAlertCODConditionDialog(
+                                                              context: context,
+                                                              onPressed: () {
+                                                                sharePrefs!.setBool('is_cod_condition', true);
+                                                                Navigator.pop(context);
+                                                              },
+                                                              onCancel: () {
+                                                                Navigator.pop(context);
+                                                              });
+                                                        }
+                                                      }
+                                                      context
+                                                          .read<CreateOrderBloc>()
+                                                          .add(OnCheckBoxCodChange(isCod: value!));
+                                                    }),
+                                                SizedBox(
+                                                  width: 15,
+                                                ),
+                                                Text(
+                                                  'เก็บเงินปลายทาง (ถ้ามี)',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          AnimatedContainer(
+                                          AnimatedSize(
                                             duration: Duration(milliseconds: 300),
-                                            height: state.isCod ? null : 0,
+                                            curve: Curves.easeInOut,
                                             child: Visibility(
                                               visible: state.isCod,
                                               child: GetTextField(
@@ -1268,6 +1374,160 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                 preIcon: Icons.local_shipping_rounded,
                                                 enableIconPrefix: true,
                                                 title: 'เก็บเงินปลายทาง (COD)',
+                                              ),
+                                            ),
+                                          ),
+                                          AnimatedSize(
+                                            duration: Duration(milliseconds: 300),
+                                            curve: Curves.easeInOut,
+                                            child: Visibility(
+                                              visible: state.isCod,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(top: 10),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      border: Border.all(),
+                                                      borderRadius: BorderRadius.circular(8)),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Column(
+                                                      children: [
+                                                        RichText(
+                                                          text: TextSpan(
+                                                            text:
+                                                                '***ข้อมูลสินค้านี้จะทำการส่งให้ทางขนส่งตามมาตราการส่งดี (Dee-Delivery) ของ สคบ',
+                                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                                                color: Colors.red, fontWeight: FontWeight.bold),
+                                                            children: <TextSpan>[
+                                                              TextSpan(
+                                                                text: ' รายละเอียดเพิ่มเติม',
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .headlineSmall!
+                                                                    .copyWith(
+                                                                        color: Colors.blue.shade700,
+                                                                        fontWeight: FontWeight.bold),
+                                                                recognizer: TapGestureRecognizer()
+                                                                  ..onTap = () {
+                                                                    launchUrl(Uri.parse(
+                                                                        'https://www.ocpb.go.th/news_view.php?nid=15465'));
+                                                                  },
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Divider(),
+                                                        state.products.isEmpty
+                                                            ? TextButton(
+                                                                onPressed: () {
+                                                                  addProductModal(context);
+                                                                },
+                                                                child: Text(
+                                                                  '+ เพิ่มสินค้า',
+                                                                  style: Theme.of(context)
+                                                                      .textTheme
+                                                                      .headlineSmall!
+                                                                      .copyWith(
+                                                                          color: Colors.blue.shade700,
+                                                                          fontWeight: FontWeight.bold),
+                                                                ))
+                                                            : Column(
+                                                                children: [
+                                                                  ListView.builder(
+                                                                    physics: NeverScrollableScrollPhysics(),
+                                                                    padding: EdgeInsets.zero,
+                                                                    shrinkWrap: true,
+                                                                    itemCount: state.products.length,
+                                                                    itemBuilder: (context, index) {
+                                                                      return Padding(
+                                                                        padding:
+                                                                            const EdgeInsets.symmetric(vertical: 2),
+                                                                        child: GestureDetector(
+                                                                          onTap: () {
+                                                                            addProductModal(context,
+                                                                                productCreateModel:
+                                                                                    state.products[index],
+                                                                                index: index);
+                                                                          },
+                                                                          child: Container(
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(8),
+                                                                                color: Colors.grey.shade200,
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.symmetric(
+                                                                                    horizontal: 8, vertical: 8),
+                                                                                child: Row(
+                                                                                  children: [
+                                                                                    Expanded(
+                                                                                      child: Text(
+                                                                                        '${state.products[index].productName} (${state.products[index].productPrice}฿) ${state.products[index].productQTY} ชิ้น',
+                                                                                        style: Theme.of(context)
+                                                                                            .textTheme
+                                                                                            .headlineMedium!
+                                                                                            .copyWith(
+                                                                                                color: Colors.black87,
+                                                                                                fontWeight:
+                                                                                                    FontWeight.bold),
+                                                                                      ),
+                                                                                    ),
+                                                                                    GestureDetector(
+                                                                                      onTap: () {
+                                                                                        CustomDialog().showRemoveDialog(
+                                                                                          context: context,
+                                                                                          msg:
+                                                                                              'ต้องการลบสินค้านี้ใช่หรือไม่',
+                                                                                          onPressed: () {
+                                                                                            context
+                                                                                                .read<CreateOrderBloc>()
+                                                                                                .add(
+                                                                                                  deleteProductCreateEvent(
+                                                                                                    index: index,
+                                                                                                  ),
+                                                                                                );
+                                                                                            Navigator.pop(context);
+                                                                                          },
+                                                                                          title: 'ลบสินค้า',
+                                                                                        );
+                                                                                      },
+                                                                                      child: Container(
+                                                                                        decoration: BoxDecoration(),
+                                                                                        width: 30,
+                                                                                        child: Icon(
+                                                                                          Icons.delete,
+                                                                                          color: Colors.red,
+                                                                                        ),
+                                                                                      ),
+                                                                                    )
+                                                                                  ],
+                                                                                ),
+                                                                              )),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                  state.products.length >= 10
+                                                                      ? SizedBox()
+                                                                      : TextButton(
+                                                                          onPressed: () {
+                                                                            addProductModal(context);
+                                                                          },
+                                                                          child: Text(
+                                                                            '+ เพิ่มสินค้า',
+                                                                            style: Theme.of(context)
+                                                                                .textTheme
+                                                                                .headlineSmall!
+                                                                                .copyWith(
+                                                                                    color: Colors.blue.shade700,
+                                                                                    fontWeight: FontWeight.bold),
+                                                                          ))
+                                                                ],
+                                                              )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -1303,7 +1563,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                           //           'เก็บเงินปลายทาง (ถ้ามี)',
                                           //           style: Theme.of(context)
                                           //               .textTheme
-                                          //               .headline5!
+                                          //               .headlineSmall!
                                           //               .copyWith(color: Colors.black87, fontWeight: FontWeight.bold),
                                           //         ),
                                           //       ],
@@ -1336,12 +1596,18 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                               Checkbox(
                                                   value: state.isInsure,
                                                   onChanged: (value) {
-                                                    context.read<CreateOrderBloc>().add(OnCheckBoxInsureChange(isInsure: value!));
+                                                    context
+                                                        .read<CreateOrderBloc>()
+                                                        .add(OnCheckBoxInsureChange(isInsure: value!));
                                                   }),
                                               SizedBox(
                                                 width: 15,
                                               ),
-                                              Text('ซื้อประกัน', style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black87, fontWeight: FontWeight.bold)),
+                                              Text('ซื้อประกัน',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(color: Colors.black87, fontWeight: FontWeight.bold)),
                                             ],
                                           ),
                                           AnimatedContainer(
@@ -1400,7 +1666,7 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                           //         Text('ซื้อประกัน',
                                           //             style: Theme.of(context)
                                           //                 .textTheme
-                                          //                 .headline5!
+                                          //                 .headlineSmall!
                                           //                 .copyWith(color: Colors.black87, fontWeight: FontWeight.bold)),
                                           //       ],
                                           //     ),
@@ -1443,7 +1709,8 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                                     }),
                                                 Text(
                                                   '    บันทึกที่อยู่ผู้รับ',
-                                                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
+                                                  style: TextStyle(
+                                                      color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
                                                 ),
                                               ],
                                             ),
@@ -1497,70 +1764,23 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                       if (state.courierNewModel.code == null) {
                                         Fluttertoast.showToast(msg: 'กรุณาเลือกขนส่ง', gravity: ToastGravity.CENTER);
                                       } else {
-                                        try {
-                                          loadingDialog(context);
-                                          print('on create id = ${state.customerId}');
-                                          print(checkcontain);
-                                          OrderRepository()
-                                              .createOrder(
-                                                  courierCode: state.courierNewModel.code,
-                                                  type: 2,
-                                                  labelName: state.srcnameController.text,
-                                                  labelPhone: state.srcphoneController.text,
-                                                  labelAddress: state.srcaddressController.text,
-                                                  labelSubDistrict: state.srcsubDistrictController.text,
-                                                  labelDistrict: state.srcdistrictController.text,
-                                                  labelProvince: state.srcprovinceController.text,
-                                                  labelZipcode: state.srczipcodeController.text,
-                                                  accountName: state.accountName,
-                                                  accountNumber: state.accountNumber,
-                                                  accountBranch: state.accountBranch,
-                                                  accountBank: state.accountBank,
-                                                  dstName: state.dstNameController.text,
-                                                  dstPhone: state.dstPhoneController.text,
-                                                  dstAddress: state.dstAddressController.text,
-                                                  dstSubDistrict: state.dstSubdistrictController.text,
-                                                  dstDistrict: state.dstDistrictController.text,
-                                                  dstProvince: state.dstProvinceController.text,
-                                                  dstZipcode: state.dstZipcodeController.text,
-                                                  weight: checkcontain ? 5100 : 1000,
-                                                  width: 1,
-                                                  length: 1,
-                                                  height: 1,
-                                                  codAmount: double.parse(state.codController.text.isEmpty ? '0' : state.codController.text),
-                                                  remark: state.remarkController.text,
-                                                  isInsured: state.isInsure == true ? 1 : 0,
-                                                  productValue: state.isInsure == false ? 0.0 : double.parse(state.insureController.text.isEmpty ? '0' : state.insureController.text),
-                                                  customerId: state.customerId,
-                                                  isBulky: state.isBulky,
-                                                  jntPickup: 6,
-                                                  kerryPickup: 0,
-                                                  categoryId: state.category.id!,
-                                                  saveDstAddress: isSave ? 1 : 0)
-                                              .then((value) {
-                                            if (value is bool) {
-                                              // Error occurred, close loading dialog and show error message
-                                              Navigator.pop(context);
-                                              responseDialog(context, 'เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาติดต่อผู้ดูแล');
-                                            } else {
-                                              if (value['status'] == true) {
-                                                context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
-                                                context.read<CreateOrderBloc>().add(OnResetDstDataEvent());
-                                                Navigator.pop(context);
-                                                correctDialog(context, value['message']);
-                                              } else if (value['status'] == false) {
-                                                Navigator.pop(context);
-                                                responseDialog(context, value['message']);
-                                              } else {
-                                                Navigator.pop(context);
-                                                responseDialog(context, 'เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาติดต่อผู้ดูแล');
-                                              }
+                                        if (state.isCod) {
+                                          if (state.products.isEmpty) {
+                                            CustomDialog().showAlertNormalDialog(
+                                                context: context,
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                msg: 'กรุณาเพิ่มสินค้าก่อนสร้างรายการ');
+                                          } else {
+                                            if (fromKey.currentState!.validate()) {
+                                              createOrder(context, state, checkcontain);
                                             }
-                                          });
-                                        } catch (e) {
-                                          print('create order exception = $e');
-                                          Navigator.pop(context);
-                                          responseDialog(context, 'เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาติดต่อผู้ดูแล');
+                                          }
+                                        } else {
+                                          if (fromKey.currentState!.validate()) {
+                                            createOrder(context, state, checkcontain);
+                                          }
                                         }
                                       }
                                     }
@@ -1621,6 +1841,463 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
     );
   }
 
+  void createOrder(BuildContext context, CreateOrderData state, bool checkcontain) {
+    try {
+      loadingDialog(context);
+      print('on create id = ${state.customerId}');
+      print(checkcontain);
+      OrderRepository()
+          .createOrder(
+              courierCode: state.courierNewModel.code,
+              type: 2,
+              labelName: state.srcnameController.text,
+              labelPhone: state.srcphoneController.text,
+              labelAddress: state.srcaddressController.text,
+              labelSubDistrict: state.srcsubDistrictController.text,
+              labelDistrict: state.srcdistrictController.text,
+              labelProvince: state.srcprovinceController.text,
+              labelZipcode: state.srczipcodeController.text,
+              accountName: state.accountName,
+              accountNumber: state.accountNumber,
+              accountBranch: state.accountBranch,
+              accountBank: state.accountBank,
+              dstName: state.dstNameController.text,
+              dstPhone: state.dstPhoneController.text,
+              dstAddress: state.dstAddressController.text,
+              dstSubDistrict: state.dstSubdistrictController.text,
+              dstDistrict: state.dstDistrictController.text,
+              dstProvince: state.dstProvinceController.text,
+              dstZipcode: state.dstZipcodeController.text,
+              weight: checkcontain ? 5100 : 1000,
+              width: 1,
+              length: 1,
+              height: 1,
+              codAmount: double.parse(state.codController.text.isEmpty ? '0' : state.codController.text),
+              remark: state.remarkController.text,
+              isInsured: state.isInsure == true ? 1 : 0,
+              productValue: state.isInsure == false
+                  ? 0.0
+                  : double.parse(state.insureController.text.isEmpty ? '0' : state.insureController.text),
+              customerId: state.customerId,
+              isBulky: state.isBulky,
+              jntPickup: 6,
+              kerryPickup: 0,
+              categoryId: state.category.id!,
+              saveDstAddress: isSave ? 1 : 0,
+              products: state.products)
+          .then((value) {
+        if (value is bool) {
+          // Error occurred, close loading dialog and show error message
+          Navigator.pop(context);
+          responseDialog(context, 'เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาติดต่อผู้ดูแล');
+        } else {
+          if (value['status'] == true) {
+            context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
+            context.read<CreateOrderBloc>().add(OnResetDstDataEvent());
+            Navigator.pop(context);
+            correctDialog(context, value['message']);
+          } else if (value['status'] == false) {
+            Navigator.pop(context);
+            responseDialog(context, value['message']);
+          } else {
+            Navigator.pop(context);
+            responseDialog(context, 'เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาติดต่อผู้ดูแล');
+          }
+        }
+      });
+    } catch (e) {
+      print('create order exception = $e');
+      Navigator.pop(context);
+      responseDialog(context, 'เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาติดต่อผู้ดูแล');
+    }
+  }
+
+  void addProductModal(BuildContext context, {ProductCreateModel? productCreateModel, int? index}) {
+    final formKey = GlobalKey<FormState>();
+    TextEditingController nameController = TextEditingController(text: productCreateModel?.productName ?? '');
+    TextEditingController qtyController = TextEditingController(text: productCreateModel?.productQTY ?? '');
+    TextEditingController weightController = TextEditingController(text: productCreateModel?.productWeight ?? '');
+    TextEditingController widthController = TextEditingController(text: productCreateModel?.productWidth ?? '');
+    TextEditingController lengthController = TextEditingController(text: productCreateModel?.productLength ?? '');
+    TextEditingController heightController = TextEditingController(text: productCreateModel?.productHeight ?? '');
+    TextEditingController colorController = TextEditingController(text: productCreateModel?.productColor ?? '');
+    TextEditingController priceController = TextEditingController(text: productCreateModel?.productPrice ?? '');
+    TextEditingController remarkController = TextEditingController(text: productCreateModel?.productRemark ?? '');
+    showModalBottomSheet(
+      backgroundColor: Colors.white,
+      enableDrag: true,
+      showDragHandle: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+      ),
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: GestureDetector(
+                  onTap: () {
+                    print('tap');
+                    FocusScope.of(context).unfocus();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom,
+                    ),
+                    child: Form(
+                      key: formKey,
+                      child: Container(
+                        decoration: BoxDecoration(),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.add_shopping_cart_outlined,
+                                    size: 30,
+                                    color: Theme.of(context).iconTheme.color,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    productCreateModel != null ? 'แก้ไขสินค้า' : 'เพิ่มสินค้า',
+                                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              Divider(
+                                color: Theme.of(context).focusColor,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text('ชื่อสินค้า : ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(fontWeight: FontWeight.bold))),
+                                  Expanded(
+                                      flex: 2,
+                                      child: GetTextField(
+                                        controller: nameController,
+                                        title: 'ชื่อสินค้า',
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'กรุณากรอกข้อมูลให้ถูกต้อง';
+                                          }
+                                          return null;
+                                        },
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text('จำนวน : ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(fontWeight: FontWeight.bold))),
+                                  Expanded(
+                                      flex: 2,
+                                      child: GetTextField(
+                                        controller: qtyController,
+                                        title: 'จำนวน',
+                                        textInputType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'กรุณากรอกข้อมูลให้ถูกต้อง';
+                                          }
+                                          return null;
+                                        },
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text('กว้าง : ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(fontWeight: FontWeight.bold))),
+                                  Expanded(
+                                      flex: 2,
+                                      child: GetTextField(
+                                        controller: widthController,
+                                        title: 'กว้าง',
+                                        textInputType: TextInputType.numberWithOptions(decimal: true),
+                                        suffixText: 'cm',
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'กรุณากรอกข้อมูลให้ถูกต้อง';
+                                          }
+                                          return null;
+                                        },
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text('ยาว : ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(fontWeight: FontWeight.bold))),
+                                  Expanded(
+                                      flex: 2,
+                                      child: GetTextField(
+                                        controller: lengthController,
+                                        title: 'ยาว',
+                                        textInputType: TextInputType.numberWithOptions(decimal: true),
+                                        suffixText: 'cm',
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'กรุณากรอกข้อมูลให้ถูกต้อง';
+                                          }
+                                          return null;
+                                        },
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text('สูง : ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(fontWeight: FontWeight.bold))),
+                                  Expanded(
+                                      flex: 2,
+                                      child: GetTextField(
+                                        controller: heightController,
+                                        title: 'สูง',
+                                        textInputType: TextInputType.numberWithOptions(decimal: true),
+                                        suffixText: 'cm',
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'กรุณากรอกข้อมูลให้ถูกต้อง';
+                                          }
+                                          return null;
+                                        },
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text('น้ำหนัก : ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(fontWeight: FontWeight.bold))),
+                                  Expanded(
+                                      flex: 2,
+                                      child: GetTextField(
+                                        controller: weightController,
+                                        title: 'น้ำหนัก',
+                                        textInputType: TextInputType.numberWithOptions(decimal: true),
+                                        suffixText: 'kg',
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'กรุณากรอกข้อมูลให้ถูกต้อง';
+                                          }
+                                          return null;
+                                        },
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text('สี : ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(fontWeight: FontWeight.bold))),
+                                  Expanded(
+                                      flex: 2,
+                                      child: GetTextField(
+                                        controller: colorController,
+                                        title: 'สี',
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'กรุณากรอกข้อมูลให้ถูกต้อง';
+                                          }
+                                          return null;
+                                        },
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text('ราคา : ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(fontWeight: FontWeight.bold))),
+                                  Expanded(
+                                      flex: 2,
+                                      child: GetTextField(
+                                        controller: priceController,
+                                        title: 'ราคา',
+                                        textInputType: TextInputType.numberWithOptions(decimal: true),
+                                        suffixText: '฿',
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'กรุณากรอกข้อมูลให้ถูกต้อง';
+                                          }
+                                          return null;
+                                        },
+                                      ))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('หมายเหตุ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall!
+                                          .copyWith(fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              GetTextFieldMultiLine(
+                                controller: remarkController,
+                                title: 'หมายเหตุ',
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              CupertinoButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    if (productCreateModel != null) {
+                                      context.read<CreateOrderBloc>().add(editProductCreateEvent(
+                                          index: index!,
+                                          productCreate: ProductCreateModel(
+                                            productName: nameController.text,
+                                            productQTY: qtyController.text,
+                                            productWidth: widthController.text,
+                                            productLength: lengthController.text,
+                                            productHeight: heightController.text,
+                                            productWeight: weightController.text,
+                                            productColor: colorController.text,
+                                            productPrice: priceController.text,
+                                            productRemark: remarkController.text,
+                                          )));
+                                      Navigator.pop(context);
+                                    } else {
+                                      context.read<CreateOrderBloc>().add(AddProductCreateEvent(
+                                              productCreate: ProductCreateModel(
+                                            productName: nameController.text,
+                                            productQTY: qtyController.text,
+                                            productWidth: widthController.text,
+                                            productLength: lengthController.text,
+                                            productHeight: heightController.text,
+                                            productWeight: weightController.text,
+                                            productColor: colorController.text,
+                                            productPrice: priceController.text,
+                                            productRemark: remarkController.text,
+                                          )));
+                                      Navigator.pop(context);
+                                    }
+                                  }
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: primaryColor,
+                                    // gradient: LinearGradient(
+                                    //     begin: Alignment.topCenter,
+                                    //     end: Alignment.bottomCenter,
+                                    //     colors: <Color>[
+                                    //       Theme.of(context)
+                                    //           .cupertinoOverrideTheme!
+                                    //           .textTheme!
+                                    //           .dateTimePickerTextStyle
+                                    //           .color!,
+                                    //       Theme.of(context).cupertinoOverrideTheme!.textTheme!.pickerTextStyle.color!
+                                    //     ]),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 12),
+                                        child: Text(
+                                          productCreateModel != null ? 'แก้ไขสินค้า' : 'เพิ่มสินค้า',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   void responseDialog(BuildContext context, String msg) {
     Dialogs.materialDialog(
         color: Colors.white,
@@ -1641,7 +2318,8 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle:
+                Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);
@@ -1682,7 +2360,8 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle:
+                Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);
@@ -1768,7 +2447,13 @@ class _CreateOrderNewState extends State<CreateOrderNew> {
                                 await AddressNewRepository().getNormalize(controller.text).then((value) {
                                   if (value.status == true) {
                                     context.read<CreateOrderBloc>().add(OnRecieveSearchEvent(
-                                        district: value.amphure!, subdistrict: value.district!, province: value.province!, zipcode: value.zipcode!, name: value.name!, phone: value.phone!, address: value.cutAll!));
+                                        district: value.amphure!,
+                                        subdistrict: value.district!,
+                                        province: value.province!,
+                                        zipcode: value.zipcode!,
+                                        name: value.name!,
+                                        phone: value.phone!,
+                                        address: value.cutAll!));
                                     setState(() {
                                       // dstnameController.text = value.name!;
                                       // addressController.text = value.cutAll!;

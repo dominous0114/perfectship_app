@@ -144,7 +144,11 @@ class _BillListNewState extends State<BillListNew> {
                             slivers: [
                               SliverPersistentHeader(
                                 pinned: true,
-                                delegate: FloatingHeaderDelegate(minHeight: 50, maxHeight: 50, minChild: persistentChild(state), maxChild: persistentChild(state)),
+                                delegate: FloatingHeaderDelegate(
+                                    minHeight: 50,
+                                    maxHeight: 50,
+                                    minChild: persistentChild(state),
+                                    maxChild: persistentChild(state)),
                               ),
                               SliverToBoxAdapter(
                                 child: SizedBox(
@@ -178,11 +182,15 @@ class _BillListNewState extends State<BillListNew> {
                                               Navigator.push(
                                                   context,
                                                   CupertinoPageRoute(
-                                                    builder: (context) => PdfBillListScreen(pdfData: state.billlist[index].id.toString()),
+                                                    builder: (context) =>
+                                                        PdfBillListScreen(pdfData: state.billlist[index].id.toString()),
                                                   ));
                                             },
                                             child: Container(
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white, boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    color: Colors.white,
+                                                    boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: Row(
@@ -190,7 +198,8 @@ class _BillListNewState extends State<BillListNew> {
                                                       Expanded(
                                                         flex: 1,
                                                         child: Container(
-                                                          decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blue.shade100),
+                                                          decoration: BoxDecoration(
+                                                              shape: BoxShape.circle, color: Colors.blue.shade100),
                                                           child: Padding(
                                                             padding: const EdgeInsets.all(8.0),
                                                             child: Icon(Icons.edit_note_rounded),
@@ -205,17 +214,23 @@ class _BillListNewState extends State<BillListNew> {
                                                           child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              Text('${state.billlist[index].code!.toString()}', style: TextStyle(fontWeight: FontWeight.bold)),
+                                                              Text('${state.billlist[index].code!.toString()}',
+                                                                  style: TextStyle(fontWeight: FontWeight.bold)),
                                                               Row(
                                                                 children: [
-                                                                  Text('ทั้งหมด : ', style: TextStyle(fontWeight: FontWeight.bold)),
-                                                                  Text('${state.billlist[index].amount!}฿', style: TextStyle()),
+                                                                  Text('ทั้งหมด : ',
+                                                                      style: TextStyle(fontWeight: FontWeight.bold)),
+                                                                  Text('${state.billlist[index].amount!}฿',
+                                                                      style: TextStyle()),
                                                                 ],
                                                               ),
                                                               Row(
                                                                 children: [
-                                                                  Text('วันที่ : ', style: TextStyle(fontWeight: FontWeight.bold)),
-                                                                  Text('${convertDateTime(dateTime: state.billlist[index].updatedAt.toString())}', style: TextStyle()),
+                                                                  Text('วันที่ : ',
+                                                                      style: TextStyle(fontWeight: FontWeight.bold)),
+                                                                  Text(
+                                                                      '${convertDateTime(dateTime: state.billlist[index].updatedAt.toString())}',
+                                                                      style: TextStyle()),
                                                                 ],
                                                               ),
                                                             ],
@@ -289,15 +304,15 @@ class _BillListNewState extends State<BillListNew> {
                           saveText: 'เสร็จ',
                           builder: (BuildContext context, Widget? child) {
                             return Theme(
-                              data: ThemeData(
-                                backgroundColor: Color(0xFF009CDB),
-                              ),
+                              data: ThemeData(),
                               child: child!,
                             );
                           });
                       if (picked != null) {
                         setState(() {
-                          context.read<BillListBloc>().add(BillListFilterDateEvent(start: picked.start, end: picked.end));
+                          context
+                              .read<BillListBloc>()
+                              .add(BillListFilterDateEvent(start: picked.start, end: picked.end));
                         });
                       }
                     },

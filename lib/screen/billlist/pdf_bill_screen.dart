@@ -162,14 +162,14 @@ class _PdfBillScreenState extends State<PdfBillScreen> with SingleTickerProvider
                     children: [
                       Text(
                         "ปริ้น : ",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               fontSize: PlatformSize(context),
                             ),
                       ),
                       Expanded(
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          child: DropdownButtonFormField2(
+                          child: DropdownButtonFormField<PaperSizeModel>(
                             isExpanded: true,
                             hint: Row(
                               children: [
@@ -216,24 +216,13 @@ class _PdfBillScreenState extends State<PdfBillScreen> with SingleTickerProvider
                               fillColor: Colors.white,
                               errorStyle: Theme.of(context)
                                   .textTheme
-                                  .headline4!
+                                  .headlineMedium!
                                   .copyWith(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
-                              //Add isDense true and zero Padding.
-                              //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
                               isDense: true,
                               contentPadding: EdgeInsets.zero,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              //Add more decoration as you want here
-                              //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                            ),
-                            buttonDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: Colors.black26,
-                              ),
-                              color: Colors.white,
                             ),
                             icon: const Icon(
                               Icons.keyboard_arrow_down_sharp,
@@ -241,36 +230,15 @@ class _PdfBillScreenState extends State<PdfBillScreen> with SingleTickerProvider
                               size: 20,
                             ),
                             iconSize: 30,
-                            buttonHeight: 45,
-                            buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                            dropdownDecoration: BoxDecoration(
-                              border: Border.all(width: 0.1),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            dropdownMaxHeight: 250,
-                            scrollbarAlwaysShow: true,
-                            scrollbarThickness: 6,
+                            // dropdownMaxHeight: 250,
+                            // dropdownDecoration: BoxDecoration(
+                            //   border: Border.all(width: 0.1),
+                            //   color: Colors.white,
+                            //   borderRadius: BorderRadius.circular(8),
+                            // ),
+                            // scrollbarAlwaysShow: true,
+                            // scrollbarThickness: 6,
                           ),
-                          // CustomDropdownButton2(
-                          //   hint: 'Select Item',
-                          //   buttonDecoration: BoxDecoration(
-                          //       border: Border.all(color: Colors.grey),
-                          //       borderRadius: BorderRadius.circular(10),
-                          //       color: Colors.white),
-                          //   icon: Icon(Icons.keyboard_arrow_down_rounded),
-                          //   dropdownItems: PaperSizeModel.paperSizes
-                          //       .map((e) => e.upper)
-                          //       .toList(),
-                          //   value: PaperSizeModel.paperSizes,
-                          //   onChanged: (value) {
-                          // setState(() {
-                          //   selectIndex = value!;
-                          //   title = value;
-                          //   setPaper(paper: value.toLowerCase());
-                          //     });
-                          //   },
-                          // ),
                         ),
                       ),
                       Padding(
@@ -281,7 +249,7 @@ class _PdfBillScreenState extends State<PdfBillScreen> with SingleTickerProvider
                               children: [
                                 Text(
                                   ' คัดลอก',
-                                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                                         fontSize: PlatformSize(context),
                                       ),
                                 ),
@@ -300,7 +268,7 @@ class _PdfBillScreenState extends State<PdfBillScreen> with SingleTickerProvider
                                   "คัดลอก Link $url แล้ว",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText1!
+                                      .bodyLarge!
                                       .copyWith(fontSize: PlatformSize(context), color: Colors.white),
                                 )));
                               });
@@ -503,7 +471,7 @@ class _PdfBillScreenState extends State<PdfBillScreen> with SingleTickerProvider
                                   ),
                                   Text(
                                     'สั่งพิมพ์',
-                                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
                                         color: Colors.white,
                                         fontSize: PlatformSize(context) * 1.5,
                                         fontWeight: FontWeight.w900),
@@ -531,7 +499,7 @@ class LoadingIndicator extends StatelessWidget {
               Platform.isAndroid ? CircularProgressIndicator() : CupertinoActivityIndicator(),
               Text(
                 'กำลังโหลด',
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.displaySmall,
               )
             ],
           ),

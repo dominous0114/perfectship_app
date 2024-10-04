@@ -11,7 +11,7 @@ class DashboardChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-      series: <ChartSeries>[
+      series: <CartesianSeries>[
         ColumnSeries<Data, String>(
           dataSource: <Data>[
             Data('COD Waiting', double.parse(dashboardData.codWaiting ?? '0')),

@@ -14,8 +14,7 @@ import '../../../widget/searchAddressHelperDelegate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditAddressScreen extends StatefulWidget {
-  const EditAddressScreen({Key? key, required this.addressModel})
-      : super(key: key);
+  const EditAddressScreen({Key? key, required this.addressModel}) : super(key: key);
   static const String routeName = '/editaddress';
   final AddressModel addressModel;
 
@@ -106,13 +105,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'ตัวช่วยค้นหาที่อยู่ (ตำบล / อำเภอ / จังหวัด / รหัสไปรษณีย์)',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade300),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade300),
                         ),
                       ],
                     ),
@@ -145,13 +141,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'ชื่อผู้ส่ง',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade300),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade300),
                         ),
                       ],
                     ),
@@ -181,13 +174,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'เบอร์โทร',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade300),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade300),
                         ),
                       ],
                     ),
@@ -220,13 +210,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'เลขที่ ',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade300),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade300),
                         ),
                       ],
                     ),
@@ -256,13 +243,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'ตำบล / แขวง',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade300),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade300),
                         ),
                       ],
                     ),
@@ -292,13 +276,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'อำเภอ / เขต',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade300),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade300),
                         ),
                       ],
                     ),
@@ -328,13 +309,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'จังหวัด',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade300),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade300),
                         ),
                       ],
                     ),
@@ -364,13 +342,10 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         SizedBox(width: 10),
                         Text(
                           'รหัสไปรษณีย์',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade300),
+                          style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                              fontSize: PlatformSize(context),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade300),
                         ),
                       ],
                     ),
@@ -403,8 +378,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                               child: CupertinoButton(
                                   color: Colors.blue.shade300,
                                   onPressed: () {},
-                                  child:
-                                      CustomProgessIndicator(Colors.white, 20)),
+                                  child: CustomProgessIndicator(Colors.white, 20)),
                             ),
                           );
                         } else if (state is AddressLoaded) {
@@ -416,28 +390,23 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                                 color: Colors.blue.shade300,
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    context.read<AddressBloc>().add(
-                                        EditAddressEvent(
-                                            id: widget.addressModel.id
-                                                .toString(),
-                                            name: namecontroller,
-                                            phone: phonecontroller,
-                                            address: addresscontroller,
-                                            subdistrict: subdistrictController,
-                                            district: districtController,
-                                            province: provinceController,
-                                            zipcode: zipcodeController,
-                                            context: context));
+                                    context.read<AddressBloc>().add(EditAddressEvent(
+                                        id: widget.addressModel.id.toString(),
+                                        name: namecontroller,
+                                        phone: phonecontroller,
+                                        address: addresscontroller,
+                                        subdistrict: subdistrictController,
+                                        district: districtController,
+                                        province: provinceController,
+                                        zipcode: zipcodeController,
+                                        context: context));
                                   }
                                 },
                                 child: Text('บันทึกข้อมูล',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3!
-                                        .copyWith(
-                                            color: Colors.white,
-                                            fontSize: PlatformSize(context),
-                                            fontWeight: FontWeight.bold)),
+                                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                                        color: Colors.white,
+                                        fontSize: PlatformSize(context),
+                                        fontWeight: FontWeight.bold)),
                               ),
                             ),
                           );

@@ -96,7 +96,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                           'สร้างรายการสำเร็จ',
                           style: Theme.of(event.context)
                               .textTheme
-                              .headline4!
+                              .headlineMedium!
                               .copyWith(fontSize: PlatformSize(event.context) * 1.2, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -105,7 +105,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                       'คุณต้องการสร้างรายการต่อหรือไม่',
                       style: Theme.of(event.context)
                           .textTheme
-                          .headline4!
+                          .headlineMedium!
                           .copyWith(fontSize: PlatformSize(event.context) * 1.1, fontWeight: FontWeight.normal),
                     ),
                     actions: <CupertinoDialogAction>[
@@ -116,10 +116,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                         },
                         child: Text(
                           'สร้างรายการต่อ',
-                          style: Theme.of(event.context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontSize: PlatformSize(event.context), fontWeight: FontWeight.normal, color: Colors.blue),
+                          style: Theme.of(event.context).textTheme.headlineMedium!.copyWith(
+                              fontSize: PlatformSize(event.context), fontWeight: FontWeight.normal, color: Colors.blue),
                         ),
                       ),
                       CupertinoDialogAction(
@@ -131,10 +129,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
                         },
                         child: Text(
                           'ไปหน้าพัสดุ',
-                          style: Theme.of(event.context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(fontSize: PlatformSize(event.context), fontWeight: FontWeight.normal, color: Colors.red),
+                          style: Theme.of(event.context).textTheme.headlineMedium!.copyWith(
+                              fontSize: PlatformSize(event.context), fontWeight: FontWeight.normal, color: Colors.red),
                         ),
                       ),
                     ],

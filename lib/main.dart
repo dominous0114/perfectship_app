@@ -162,10 +162,10 @@ class MyApp extends StatelessWidget {
                             elevation: 0,
                             backgroundColor: Colors.white,
                             toolbarTextStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme)
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 16),
                             titleTextStyle: GoogleFonts.notoSansThaiTextTheme(Theme.of(context).textTheme)
-                                .headline6!
+                                .titleLarge!
                                 .copyWith(fontSize: 16))
                         .copyWith(),
                     colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.blue, primary: Colors.blue))
@@ -183,13 +183,22 @@ class MyApp extends StatelessWidget {
 
 TextTheme textTheme() {
   return TextTheme(
-    headline1: GoogleFonts.notoSansThai(fontSize: 20, color: Colors.black),
-    headline2: GoogleFonts.notoSansThai(fontSize: 18, color: Colors.black),
-    headline3: GoogleFonts.notoSansThai(fontSize: 16, color: Colors.black),
-    headline4: GoogleFonts.notoSansThai(fontSize: 16, color: Colors.black),
-    headline5: GoogleFonts.notoSansThai(fontSize: 14, color: Colors.black),
-    headline6: GoogleFonts.notoSansThai(fontSize: 12, color: Colors.black),
-    bodyText1: GoogleFonts.notoSansThai(fontSize: 10, color: Colors.black),
-    bodyText2: GoogleFonts.notoSansThai(fontSize: 13, color: Colors.black),
+    displayLarge: GoogleFonts.notoSansThai(fontSize: 20, color: Colors.black),
+    displayMedium: GoogleFonts.notoSansThai(fontSize: 18, color: Colors.black),
+    displaySmall: GoogleFonts.notoSansThai(fontSize: 16, color: Colors.black),
+    headlineMedium: GoogleFonts.notoSansThai(fontSize: 16, color: Colors.black),
+    headlineSmall: GoogleFonts.notoSansThai(fontSize: 14, color: Colors.black),
+    titleLarge: GoogleFonts.notoSansThai(fontSize: 12, color: Colors.black),
+    bodyLarge: GoogleFonts.notoSansThai(fontSize: 10, color: Colors.black),
+    bodyMedium: GoogleFonts.notoSansThai(fontSize: 13, color: Colors.black),
+
+    // displayLarge: GoogleFonts.notoSansThai(fontSize: 20, color: Colors.black),
+    // displayMedium: GoogleFonts.notoSansThai(fontSize: 18, color: Colors.black),
+    // displaySmall: GoogleFonts.notoSansThai(fontSize: 16, color: Colors.black),
+    // headlineMedium: GoogleFonts.notoSansThai(fontSize: 16, color: Colors.black),
+    // headlineSmall: GoogleFonts.notoSansThai(fontSize: 14, color: Colors.black),
+    // titleLarge: GoogleFonts.notoSansThai(fontSize: 12, color: Colors.black),
+    // bodyLarge: GoogleFonts.notoSansThai(fontSize: 10, color: Colors.black),
+    // bodyMedium: GoogleFonts.notoSansThai(fontSize: 13, color: Colors.black),
   );
 }

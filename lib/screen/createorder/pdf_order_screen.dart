@@ -55,17 +55,17 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
   String url = '';
   final urlController = TextEditingController();
   InAppWebViewController? webViewController;
-  InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
-      crossPlatform: InAppWebViewOptions(
-        useShouldOverrideUrlLoading: true,
-        mediaPlaybackRequiresUserGesture: true,
-      ),
-      android: AndroidInAppWebViewOptions(
-        useHybridComposition: true,
-      ),
-      ios: IOSInAppWebViewOptions(
-        allowsInlineMediaPlayback: true,
-      ));
+  // InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
+  //     crossPlatform: InAppWebViewOptions(
+  //       useShouldOverrideUrlLoading: true,
+  //       mediaPlaybackRequiresUserGesture: true,
+  //     ),
+  //     android: AndroidInAppWebViewOptions(
+  //       useHybridComposition: true,
+  //     ),
+  //     ios: IOSInAppWebViewOptions(
+  //       allowsInlineMediaPlayback: true,
+  //     ));
 
   late PullToRefreshController pullToRefreshController;
   late ContextMenu contextMenu;
@@ -203,7 +203,8 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                                   ),
                                   Text(
                                     'Paperang',
-                                    style: Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold),
+                                    style:
+                                        Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -242,12 +243,14 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                                   children: [
                                     Text(
                                       'PeriPage',
-                                      style:
-                                          Theme.of(context).textTheme.headline3!.copyWith(fontWeight: FontWeight.bold),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall!
+                                          .copyWith(fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       '**แชร์ไปยังแอพพลิเคชั่น PeriPage เพื่อทำรายการต่อ',
-                                      style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey),
+                                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                                     ),
                                   ],
                                 ),
@@ -395,7 +398,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
             children: [
               Text(
                 "ปริ้น : ",
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontSize: PlatformSize(context),
                     ),
               ),
@@ -411,21 +414,26 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton2<PaperSizeModel>(
                         //dropdownColor: Theme.of(context).primaryColor,
-                        dropdownElevation: 8,
-                        scrollbarRadius: const Radius.circular(40),
-                        dropdownMaxHeight: 400,
-                        scrollbarThickness: 6,
-                        scrollbarAlwaysShow: true,
-                        offset: const Offset(0, -20),
-                        dropdownDecoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: Colors.white),
-                        buttonDecoration: BoxDecoration(
+
+                        buttonStyleData: ButtonStyleData(
+                            decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
-                        ),
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        )),
+                        dropdownStyleData: DropdownStyleData(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(14), color: Colors.white),
+                            offset: Offset(0, -20),
+                            elevation: 8,
+                            maxHeight: 400,
+                            scrollbarTheme: ScrollbarThemeData(
+                              thickness: WidgetStateProperty.all(6),
+                              radius: Radius.circular(40),
+                              interactive: true,
+                            )),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
                         hint: Text(
                           "  ",
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
                         ),
                         items: PaperSizeModel.paperSizes.map<DropdownMenuItem<PaperSizeModel>>((e) {
@@ -433,7 +441,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                             value: e,
                             child: Text(
                               e.upper,
-                              style: Theme.of(context).textTheme.headline3!.copyWith(
+                              style: Theme.of(context).textTheme.displaySmall!.copyWith(
                                   fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Colors.black87),
                             ),
                           );
@@ -461,7 +469,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                       children: [
                         Text(
                           ' คัดลอก',
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                                 fontSize: PlatformSize(context),
                               ),
                         ),
@@ -480,7 +488,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                           "คัดลอก Link $url แล้ว",
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(fontSize: PlatformSize(context), color: Colors.white),
                         )));
                       });
@@ -497,10 +505,10 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                 child: InAppWebView(
                   key: webViewKey,
                   contextMenu: contextMenu,
-                  initialUrlRequest: URLRequest(url: WebUri.uri(Uri.parse(url))),
+                  initialUrlRequest: URLRequest(url: WebUri(url)),
                   // initialFile: "assets/index.html",
                   initialUserScripts: UnmodifiableListView<UserScript>([]),
-                  initialOptions: options,
+                  initialSettings: InAppWebViewSettings(),
                   pullToRefreshController: pullToRefreshController,
 
                   onWebViewCreated: (controller) {
@@ -520,11 +528,11 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                     var uri = navigationAction.request.url!;
 
                     if (!["http", "https", "file", "chrome", "data", "javascript", "about"].contains(uri.scheme)) {
-                      if (await canLaunch(url)) {
+                      if (await canLaunchUrl(uri)) {
                         // Launch the App
-                        await launch(
-                          url,
-                          forceWebView: true,
+                        await launchUrl(
+                          uri,
+                          mode: LaunchMode.externalApplication,
                         );
                         // and cancel the request
                         return NavigationActionPolicy.CANCEL;
@@ -591,7 +599,7 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                   ),
                   Text(
                     'Paperang',
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                 ],
               ),
@@ -627,11 +635,11 @@ class _PdfOrderScreenState extends State<PdfOrderScreen> with SingleTickerProvid
                     children: [
                       Text(
                         'PeriPage',
-                        style: Theme.of(context).textTheme.headline3,
+                        style: Theme.of(context).textTheme.displaySmall,
                       ),
                       Text(
                         '**แชร์ไปยัง PeriPage เพื่อทำรายการต่อ',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.grey),
                       ),
                     ],
                   ),
@@ -666,7 +674,7 @@ class LoadingIndicator extends StatelessWidget {
               Platform.isAndroid ? CircularProgressIndicator() : CupertinoActivityIndicator(),
               Text(
                 'กำลังโหลด',
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.displaySmall,
               )
             ],
           ),

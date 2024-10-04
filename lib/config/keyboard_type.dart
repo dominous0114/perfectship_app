@@ -5,11 +5,9 @@ import 'package:keyboard_actions/keyboard_actions.dart';
 
 import '../widget/fontsize.dart';
 
-TextInputType textInputNum =
-    Platform.isAndroid ? TextInputType.number : TextInputType.number;
+TextInputType textInputNum = Platform.isAndroid ? TextInputType.number : TextInputType.number;
 
-TextInputType textInputPhone =
-    Platform.isAndroid ? TextInputType.phone : TextInputType.phone;
+TextInputType textInputPhone = Platform.isAndroid ? TextInputType.phone : TextInputType.phone;
 
 KeyboardActionsConfig buildConfig(BuildContext context, FocusNode focusNode) {
   return KeyboardActionsConfig(
@@ -27,10 +25,7 @@ KeyboardActionsConfig buildConfig(BuildContext context, FocusNode focusNode) {
                   padding: EdgeInsets.all(8.0),
                   child: Text(
                     'Done',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: PlatformSize(context)),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: PlatformSize(context)),
                   )),
             );
           }

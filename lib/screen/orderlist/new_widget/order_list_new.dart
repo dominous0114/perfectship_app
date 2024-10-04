@@ -175,8 +175,11 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                 slivers: [
                                   SliverPersistentHeader(
                                     pinned: true,
-                                    delegate:
-                                        FloatingHeaderDelegate(minHeight: isSelect ? 0 : 50, maxHeight: isSelect ? 0 : 50, minChild: persistentChild(isSelect: isSelect), maxChild: persistentChild(isSelect: isSelect)),
+                                    delegate: FloatingHeaderDelegate(
+                                        minHeight: isSelect ? 0 : 50,
+                                        maxHeight: isSelect ? 0 : 50,
+                                        minChild: persistentChild(isSelect: isSelect),
+                                        maxChild: persistentChild(isSelect: isSelect)),
                                   ),
                                   SliverToBoxAdapter(
                                     child: Padding(
@@ -186,9 +189,10 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                         children: [
                                           Text(
                                             'ทั้งหมด ${state.orderlist.length} รายการ',
-                                            style: Theme.of(context).textTheme.headline6,
+                                            style: Theme.of(context).textTheme.titleLarge,
                                           ),
-                                          Text('${DateFormat('dd/MM/yyyy').format(state.startDate)} - ${DateFormat('dd/MM/yyyy').format(state.endDate)}')
+                                          Text(
+                                              '${DateFormat('dd/MM/yyyy').format(state.startDate)} - ${DateFormat('dd/MM/yyyy').format(state.endDate)}')
                                         ],
                                       ),
                                     ),
@@ -220,7 +224,8 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                     if (isSelect) {
                                                       if (_selectedItems.contains(state.orderlist[index])) {
                                                         setState(() {
-                                                          _selectedItems.removeWhere((element) => element.id == state.orderlist[index].id);
+                                                          _selectedItems.removeWhere(
+                                                              (element) => element.id == state.orderlist[index].id);
                                                         });
                                                       } else {
                                                         setState(() {
@@ -231,7 +236,8 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                       print(_selectedItems[0].id);
                                                       print(state.orderlist[0].id);
                                                     } else {
-                                                      context.read<TrackingBloc>().add(TrackingInitialEvent(track: state.orderlist[index].trackNo!));
+                                                      context.read<TrackingBloc>().add(
+                                                          TrackingInitialEvent(track: state.orderlist[index].trackNo!));
                                                       Navigator.push(
                                                           context,
                                                           CupertinoPageRoute(
@@ -260,8 +266,10 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                       color: Colors.white,
                                                       boxShadow: [
                                                         _selectedItems.contains(state.orderlist[index])
-                                                            ? BoxShadow(color: Colors.blue, spreadRadius: 3, blurRadius: 4)
-                                                            : BoxShadow(color: Colors.black45, spreadRadius: 0, blurRadius: 1)
+                                                            ? BoxShadow(
+                                                                color: Colors.blue, spreadRadius: 3, blurRadius: 4)
+                                                            : BoxShadow(
+                                                                color: Colors.black45, spreadRadius: 0, blurRadius: 1)
                                                       ],
                                                     ),
                                                     child: Column(
@@ -279,7 +287,11 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                       Image.network(
                                                                         state.orderlist[index].logoMobile!,
                                                                       ),
-                                                                      _selectedItems.contains(state.orderlist[index]) ? Lottie.asset('assets/lottie/78295-correct.json', repeat: false) : SizedBox()
+                                                                      _selectedItems.contains(state.orderlist[index])
+                                                                          ? Lottie.asset(
+                                                                              'assets/lottie/78295-correct.json',
+                                                                              repeat: false)
+                                                                          : SizedBox()
                                                                     ],
                                                                   )),
                                                               Expanded(flex: 1, child: SizedBox()),
@@ -290,13 +302,16 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                   children: [
                                                                     Text(
                                                                       state.orderlist[index].trackNo!,
-                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight.bold, fontSize: 14),
                                                                     ),
                                                                     Row(
                                                                       children: [
                                                                         Text(
                                                                           'ผู้รับ : ',
-                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 14),
                                                                         ),
                                                                         Expanded(
                                                                           child: Text(
@@ -310,7 +325,9 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                       children: [
                                                                         Text(
                                                                           'เบอร์โทร : ',
-                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 14),
                                                                         ),
                                                                         Text(
                                                                           '${state.orderlist[index].dstPhone!}',
@@ -322,7 +339,9 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                       children: [
                                                                         Text(
                                                                           'COD : ',
-                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 14),
                                                                         ),
                                                                         Text(
                                                                           '${state.orderlist[index].codAmount!}',
@@ -334,15 +353,23 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                       children: [
                                                                         Text(
                                                                           'สถานะ : ',
-                                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 14),
                                                                         ),
                                                                         Container(
-                                                                          decoration: BoxDecoration(color: StatusColor().checkstatus(state.orderlist[index].statusColor!), borderRadius: BorderRadius.circular(8)),
+                                                                          decoration: BoxDecoration(
+                                                                              color: StatusColor().checkstatus(
+                                                                                  state.orderlist[index].statusColor!),
+                                                                              borderRadius: BorderRadius.circular(8)),
                                                                           child: Padding(
-                                                                            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                                                                            padding: const EdgeInsets.symmetric(
+                                                                                vertical: 2, horizontal: 4),
                                                                             child: Text(
                                                                               '${state.orderlist[index].statusName!}',
-                                                                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                                                              style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  color: Colors.white),
                                                                             ),
                                                                           ),
                                                                         ),
@@ -355,7 +382,11 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                           ),
                                                         ),
                                                         Container(
-                                                          decoration: BoxDecoration(color: Colors.blueGrey.shade50, borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))),
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.blueGrey.shade50,
+                                                              borderRadius: BorderRadius.only(
+                                                                  bottomLeft: Radius.circular(8),
+                                                                  bottomRight: Radius.circular(8))),
                                                           child: Padding(
                                                             padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
                                                             child: Column(
@@ -365,7 +396,8 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                   children: [
                                                                     Text(
                                                                       'ที่อยู่ : ',
-                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight.bold, fontSize: 14),
                                                                     ),
                                                                     Expanded(
                                                                       flex: 9,
@@ -379,7 +411,8 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                         child: IgnorePointer(
                                                                           ignoring: isSelect,
                                                                           child: PopupMenuButton(
-                                                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                                                            shape: RoundedRectangleBorder(
+                                                                                borderRadius: BorderRadius.circular(8)),
                                                                             child: Container(
                                                                               //color: Colors.amber,
                                                                               height: 23,
@@ -390,7 +423,9 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                               ),
                                                                             ),
                                                                             color: Colors.white,
-                                                                            itemBuilder: state.orderlist[index].statusName != 'รอเข้าระบบ'
+                                                                            itemBuilder: state
+                                                                                        .orderlist[index].statusName !=
+                                                                                    'รอเข้าระบบ'
                                                                                 ? (context) {
                                                                                     return [
                                                                                       PopupMenuItem(
@@ -398,22 +433,35 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                             Future.delayed(
                                                                                               Duration(milliseconds: 1),
                                                                                               () {
-                                                                                                Navigator.pushNamed(context, '/pdforder', arguments: state.orderlist[index].id.toString());
+                                                                                                Navigator.pushNamed(
+                                                                                                    context,
+                                                                                                    '/pdforder',
+                                                                                                    arguments: state
+                                                                                                        .orderlist[
+                                                                                                            index]
+                                                                                                        .id
+                                                                                                        .toString());
                                                                                               },
                                                                                             );
                                                                                           },
                                                                                           child: Row(
-                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                            crossAxisAlignment:
+                                                                                                CrossAxisAlignment
+                                                                                                    .center,
                                                                                             children: [
                                                                                               Icon(
                                                                                                 CupertinoIcons.printer,
-                                                                                                color: Colors.blue.shade700,
+                                                                                                color: Colors
+                                                                                                    .blue.shade700,
                                                                                               ),
                                                                                               SizedBox(width: 5),
                                                                                               Text('ปริ้นท์ใบปะหน้า ',
                                                                                                   style: TextStyle(
-                                                                                                    fontSize: PlatformSize(context),
-                                                                                                    fontWeight: FontWeight.w400,
+                                                                                                    fontSize:
+                                                                                                        PlatformSize(
+                                                                                                            context),
+                                                                                                    fontWeight:
+                                                                                                        FontWeight.w400,
                                                                                                     color: Colors.black,
                                                                                                   ))
                                                                                             ],
@@ -427,20 +475,36 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                             Future.delayed(
                                                                                               Duration(milliseconds: 1),
                                                                                               () {
-                                                                                                print(state.orderlist[index].id);
-                                                                                                Navigator.pushNamed(context, '/pdforder', arguments: state.orderlist[index].id.toString());
+                                                                                                print(state
+                                                                                                    .orderlist[index]
+                                                                                                    .id);
+                                                                                                Navigator.pushNamed(
+                                                                                                    context,
+                                                                                                    '/pdforder',
+                                                                                                    arguments: state
+                                                                                                        .orderlist[
+                                                                                                            index]
+                                                                                                        .id
+                                                                                                        .toString());
                                                                                               },
                                                                                             );
                                                                                           },
                                                                                           child: Row(
-                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                            crossAxisAlignment:
+                                                                                                CrossAxisAlignment
+                                                                                                    .center,
                                                                                             children: [
                                                                                               Icon(
                                                                                                 CupertinoIcons.printer,
-                                                                                                color: Colors.blue.shade700,
+                                                                                                color: Colors
+                                                                                                    .blue.shade700,
                                                                                               ),
                                                                                               SizedBox(width: 5),
-                                                                                              Text('ปริ้นท์ใบปะหน้า ', style: Theme.of(context).textTheme.headline5)
+                                                                                              Text('ปริ้นท์ใบปะหน้า ',
+                                                                                                  style: Theme.of(
+                                                                                                          context)
+                                                                                                      .textTheme
+                                                                                                      .headlineSmall)
                                                                                             ],
                                                                                           )),
                                                                                       PopupMenuItem(
@@ -448,19 +512,32 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                                             Future.delayed(
                                                                                               Duration(milliseconds: 1),
                                                                                               () {
-                                                                                                confirmDialog(context, state.orderlist[index].trackNo!, state.orderlist[index]);
+                                                                                                confirmDialog(
+                                                                                                    context,
+                                                                                                    state
+                                                                                                        .orderlist[
+                                                                                                            index]
+                                                                                                        .trackNo!,
+                                                                                                    state.orderlist[
+                                                                                                        index]);
                                                                                               },
                                                                                             );
                                                                                           },
                                                                                           child: Row(
-                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                            crossAxisAlignment:
+                                                                                                CrossAxisAlignment
+                                                                                                    .center,
                                                                                             children: [
                                                                                               Icon(
                                                                                                 CupertinoIcons.delete,
                                                                                                 color: Colors.red,
                                                                                               ),
                                                                                               SizedBox(width: 5),
-                                                                                              Text('ลบ ', style: Theme.of(context).textTheme.headline5)
+                                                                                              Text('ลบ ',
+                                                                                                  style: Theme.of(
+                                                                                                          context)
+                                                                                                      .textTheme
+                                                                                                      .headlineSmall)
                                                                                             ],
                                                                                           )),
                                                                                     ];
@@ -469,14 +546,17 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
                                                                         ))
                                                                   ],
                                                                 ),
-                                                                state.orderlist[index].remark == null || state.orderlist[index].remark == ''
+                                                                state.orderlist[index].remark == null ||
+                                                                        state.orderlist[index].remark == ''
                                                                     ? SizedBox()
                                                                     : Row(
                                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                                         children: [
                                                                           Text(
                                                                             'หมายเหตุ : ',
-                                                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                                                            style: TextStyle(
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 14),
                                                                           ),
                                                                           Expanded(
                                                                             child: Text(
@@ -609,37 +689,47 @@ class _OrderlistNewScreenState extends State<OrderlistNewScreen> {
 }
 
 void confirmDialog(BuildContext context, String track, OrderlistNewModel model) {
-  Dialogs.materialDialog(msgAlign: TextAlign.center, msg: 'คุณต้องการลบรายการ $track ?', title: "ลบรายการ", color: Colors.white, context: context, actions: [
-    IconsOutlineButton(
-      onPressed: () {
-        Navigator.pop(context);
-      },
-      text: 'ยกเลิก',
-      textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
-      iconColor: Colors.grey,
-    ),
-    IconsButton(
-      onPressed: () async {
-        Navigator.pop(context);
-        loadingDialog(context);
-        await OrderRepository().cancelOrder(trackNo: model.trackNo!, refCode: model.refCode!, courierCode: model.courierCode!).then((value) {
-          if (value['status'] == true) {
+  Dialogs.materialDialog(
+      msgAlign: TextAlign.center,
+      msg: 'คุณต้องการลบรายการ $track ?',
+      title: "ลบรายการ",
+      color: Colors.white,
+      context: context,
+      actions: [
+        IconsOutlineButton(
+          onPressed: () {
             Navigator.pop(context);
-            context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
-            Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
-          } else {
+          },
+          text: 'ยกเลิก',
+          textStyle:
+              Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+          iconColor: Colors.grey,
+        ),
+        IconsButton(
+          onPressed: () async {
             Navigator.pop(context);
-            responseDialog(context, value['message']);
-          }
-        });
-      },
-      text: 'ลบ',
-      iconData: Icons.delete,
-      color: Colors.red,
-      textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-      iconColor: Colors.white,
-    ),
-  ]);
+            loadingDialog(context);
+            await OrderRepository()
+                .cancelOrder(trackNo: model.trackNo!, refCode: model.refCode!, courierCode: model.courierCode!)
+                .then((value) {
+              if (value['status'] == true) {
+                Navigator.pop(context);
+                context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
+                Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
+              } else {
+                Navigator.pop(context);
+                responseDialog(context, value['message']);
+              }
+            });
+          },
+          text: 'ลบ',
+          iconData: Icons.delete,
+          color: Colors.red,
+          textStyle:
+              Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          iconColor: Colors.white,
+        ),
+      ]);
 }
 
 void responseDialog(BuildContext context, String msg) {
@@ -662,7 +752,8 @@ void responseDialog(BuildContext context, String msg) {
           text: 'ปิด',
           iconData: Icons.close,
           color: Colors.blue,
-          textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          textStyle:
+              Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
           iconColor: Colors.white,
         ),
       ]);

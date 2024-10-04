@@ -93,16 +93,14 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                           width: 5,
                                         ),
                                         Text('กรุณาเลือกรหัสไปรษณีย์ปลายทาง',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline4!
-                                                .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
+                                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                                fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
                                       ],
                                     ),
                                     content: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 3, blurStyle: BlurStyle.inner)]),
+                                      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                                        BoxShadow(color: Colors.black45, blurRadius: 3, blurStyle: BlurStyle.inner)
+                                      ]),
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +120,10 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                                     ListTile(
                                                       title: Text(
                                                         '$e\n${snapshot.data![index].amphure} ${snapshot.data![index].district} ${snapshot.data![index].province}',
-                                                        style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: PlatformSize(context)),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headlineMedium!
+                                                            .copyWith(fontSize: PlatformSize(context)),
                                                       ),
                                                     ),
                                                     Divider(
@@ -158,7 +159,10 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                 children: [
                                   Text(
                                     '${snapshot.data![index].district}',
-                                    style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(fontSize: PlatformSize(context) * 1.1),
                                   ),
                                   SizedBox(
                                     width: 4,
@@ -172,7 +176,10 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                   ),
                                   Text(
                                     '${snapshot.data![index].amphure}',
-                                    style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(fontSize: PlatformSize(context) * 1.1),
                                   ),
                                   SizedBox(
                                     width: 4,
@@ -186,7 +193,10 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                   ),
                                   Text(
                                     '${snapshot.data![index].province}',
-                                    style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge!
+                                        .copyWith(fontSize: PlatformSize(context) * 1.1),
                                   ),
                                   SizedBox(
                                     width: 4,
@@ -201,14 +211,17 @@ class SearchAddressDelegate extends SearchDelegate<String> {
                                   Expanded(
                                     child: Text(
                                       '${snapshot.data![index].zipcode}',
-                                      style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(fontSize: PlatformSize(context) * 1.1),
                                     ),
                                   ),
                                 ],
                               )
                               // Text(
                               //   '${snapshot.data![index].district} >> ${snapshot.data![index].amphure} >> ${snapshot.data![index].province} >> ${snapshot.data![index].zipcode}',
-                              //   style: Theme.of(context).textTheme.headline6!.copyWith(fontSize: PlatformSize(context) * 1.1),
+                              //   style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: PlatformSize(context) * 1.1),
                               // ),
                               ),
                           Divider(

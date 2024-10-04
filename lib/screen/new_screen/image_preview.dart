@@ -67,7 +67,10 @@ class _PhotoWidgetState extends State<PhotoWidget> {
               )
             : Text(
                 '${percentage} %',
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context), color: Colors.black),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontSize: PlatformSize(context), color: Colors.black),
               ),
         onPressed: () async {
           Map<Permission, PermissionStatus> statuses = await [
@@ -106,7 +109,7 @@ class _PhotoWidgetState extends State<PhotoWidget> {
                         'บันทึกแล้ว!!',
                         style: Theme.of(context)
                             .textTheme
-                            .headline3!
+                            .displaySmall!
                             .copyWith(color: Colors.white),
                       )));*/
                   percentage = '';

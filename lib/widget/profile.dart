@@ -16,9 +16,10 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final Shader linearGradient = LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: <Color>[Colors.lightBlueAccent.shade100, Colors.lightBlue.shade600]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: <Color>[Colors.lightBlueAccent.shade100, Colors.lightBlue.shade600])
+      .createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,7 +57,8 @@ class _ProfileState extends State<Profile> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
+                        decoration:
+                            BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(8))),
                         width: MediaQuery.of(context).size.width * 0.6,
                         height: 110),
                   )
@@ -114,7 +116,7 @@ class _ProfileState extends State<Profile> {
                                 SizedBox(height: 10),
                                 Text(
                                   '${state.userdatamodel.name}',
-                                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                                         fontWeight: FontWeight.bold,
                                         fontSize: PlatformSize(context) * 1.2,
                                         color: Colors.black,
@@ -124,14 +126,14 @@ class _ProfileState extends State<Profile> {
                                   'รหัสลูกค้า : ${state.userdatamodel.id}',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline4!
+                                      .headlineMedium!
                                       .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
                                 ),
                                 Text(
                                   'เบอร์ : ${state.userdatamodel.phone}',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline4!
+                                      .headlineMedium!
                                       .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
                                 ),
                                 SizedBox(
@@ -144,7 +146,7 @@ class _ProfileState extends State<Profile> {
                                       '${state.userdatamodel.address!.address} ${state.userdatamodel.address!.subDistrict} ${state.userdatamodel.address!.district} ${state.userdatamodel.address!.province} ${state.userdatamodel.address!.zipcode}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline4!
+                                          .headlineMedium!
                                           .copyWith(fontWeight: FontWeight.bold, fontSize: PlatformSize(context) * .8),
                                     )),
                                   ],
@@ -250,7 +252,7 @@ class _ProfileState extends State<Profile> {
                         //               '${state.usercreditmodel.credit} บาท',
                         //               style: Theme.of(context)
                         //                   .textTheme
-                        //                   .bodyText1!
+                        //                   .bodyLarge!
                         //                   .copyWith(
                         //                     fontSize:
                         //                         PlatformSize(context) * 1.2,
@@ -264,7 +266,7 @@ class _ProfileState extends State<Profile> {
                         //           'เครดิตคงเหลือ',
                         //           style: Theme.of(context)
                         //               .textTheme
-                        //               .bodyText1!
+                        //               .bodyLarge!
                         //               .copyWith(
                         //                   fontSize:
                         //                       PlatformSize(context) * 0.9),
@@ -288,7 +290,7 @@ class _ProfileState extends State<Profile> {
                         //               '${state.usercreditmodel.orderAmount} รายการ',
                         //               style: Theme.of(context)
                         //                   .textTheme
-                        //                   .bodyText1!
+                        //                   .bodyLarge!
                         //                   .copyWith(
                         //                     fontSize:
                         //                         PlatformSize(context) * 1.2,
@@ -302,7 +304,7 @@ class _ProfileState extends State<Profile> {
                         //           'สร้างได้',
                         //           style: Theme.of(context)
                         //               .textTheme
-                        //               .bodyText1!
+                        //               .bodyLarge!
                         //               .copyWith(
                         //                   fontSize:
                         //                       PlatformSize(context) * 0.9),

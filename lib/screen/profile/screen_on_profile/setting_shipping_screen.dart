@@ -19,8 +19,7 @@ class SettingShippingScreen extends StatefulWidget {
 
   static Route route() {
     return PageRouteBuilder(
-        settings: const RouteSettings(name: routeName),
-        pageBuilder: (_, __, ___) => SettingShippingScreen());
+        settings: const RouteSettings(name: routeName), pageBuilder: (_, __, ___) => SettingShippingScreen());
   }
 
   @override
@@ -73,43 +72,39 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                     ),
                     Text(
                       'แจ้งเตือน',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: PlatformSize(context) * 1.2,
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
                 content: Text(
                   'คุณต้องการรีเซ็ทการตั้งค่าหรือไม่',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: PlatformSize(context) * 1.1,
-                      fontWeight: FontWeight.normal),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium!
+                      .copyWith(fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.normal),
                 ),
                 actions: <CupertinoDialogAction>[
                   CupertinoDialogAction(
                     isDefaultAction: true,
                     onPressed: () async {
-                      SharedPreferences preferences =
-                          await SharedPreferences.getInstance();
+                      SharedPreferences preferences = await SharedPreferences.getInstance();
                       preferences.remove('initshipping');
                       preferences.remove('initcat');
                       preferences.remove('initpush');
                       Fluttertoast.showToast(msg: 'รีเซ็ทการตั้งค่าสำเร็จ');
                       Navigator.pop(context);
                       Navigator.pop(context);
-                      context
-                          .read<DropdownCourierBloc>()
-                          .add(DropdownCourierIniitialEvent());
+                      context.read<DropdownCourierBloc>().add(DropdownCourierIniitialEvent());
                     },
                     child: Text(
                       'ตกลง',
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
-                          .copyWith(
-                              fontSize: PlatformSize(context),
-                              fontWeight: FontWeight.normal,
-                              color: Colors.blue),
+                          .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.blue),
                     ),
                   ),
                   CupertinoDialogAction(
@@ -122,10 +117,7 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
-                          .copyWith(
-                              fontSize: PlatformSize(context),
-                              fontWeight: FontWeight.normal,
-                              color: Colors.red),
+                          .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.red),
                     ),
                   ),
                 ],
@@ -154,56 +146,48 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                     ),
                     Text(
                       'แจ้งเตือน',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: PlatformSize(context) * 1.2,
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
                 content: Text(
                   'คุณต้องการเปลี่ยนแปลงการตั้งค่าหรือไม่',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                      fontSize: PlatformSize(context) * 1.1,
-                      fontWeight: FontWeight.normal),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium!
+                      .copyWith(fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.normal),
                 ),
                 actions: <CupertinoDialogAction>[
                   CupertinoDialogAction(
                     isDefaultAction: true,
                     onPressed: () async {
-                      SharedPreferences preferences =
-                          await SharedPreferences.getInstance();
-                      if (_courier?.code == null &&
-                          _productCategory?.id != null) {
+                      SharedPreferences preferences = await SharedPreferences.getInstance();
+                      if (_courier?.code == null && _productCategory?.id != null) {
                         print('condition 1 ');
                         preferences.setInt('initpush', initpush!);
                         preferences.setInt('initcat', _productCategory!.id);
                         Fluttertoast.showToast(msg: 'บันทึกการตั้งค่าสำเร็จ');
                         Navigator.pop(context);
                         Navigator.pop(context);
-                        context
-                            .read<DropdownCourierBloc>()
-                            .add(DropdownCourierIniitialEvent());
-                      } else if (_courier?.code != null &&
-                          _productCategory?.id == null) {
+                        context.read<DropdownCourierBloc>().add(DropdownCourierIniitialEvent());
+                      } else if (_courier?.code != null && _productCategory?.id == null) {
                         print('condition 2 ');
                         preferences.setInt('initpush', initpush!);
                         preferences.setString('initshipping', _courier!.code!);
                         Fluttertoast.showToast(msg: 'บันทึกการตั้งค่าสำเร็จ');
                         Navigator.pop(context);
                         Navigator.pop(context);
-                        context
-                            .read<DropdownCourierBloc>()
-                            .add(DropdownCourierIniitialEvent());
-                      } else if (_courier?.code == null ||
-                          _productCategory?.id == null) {
+                        context.read<DropdownCourierBloc>().add(DropdownCourierIniitialEvent());
+                      } else if (_courier?.code == null || _productCategory?.id == null) {
                         print('condition 3 ');
                         preferences.setInt('initpush', initpush!);
                         Fluttertoast.showToast(msg: 'บันทึกการตั้งค่าสำเร็จ');
                         Navigator.pop(context);
                         Navigator.pop(context);
-                        context
-                            .read<DropdownCourierBloc>()
-                            .add(DropdownCourierIniitialEvent());
+                        context.read<DropdownCourierBloc>().add(DropdownCourierIniitialEvent());
                       } else {
                         print('condition 4 ');
                         preferences.setString('initshipping', _courier!.code!);
@@ -212,9 +196,7 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                         Fluttertoast.showToast(msg: 'บันทึกการตั้งค่าสำเร็จ');
                         Navigator.pop(context);
                         Navigator.pop(context);
-                        context
-                            .read<DropdownCourierBloc>()
-                            .add(DropdownCourierIniitialEvent());
+                        context.read<DropdownCourierBloc>().add(DropdownCourierIniitialEvent());
                       }
                     },
                     child: Text(
@@ -222,10 +204,7 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
-                          .copyWith(
-                              fontSize: PlatformSize(context),
-                              fontWeight: FontWeight.normal,
-                              color: Colors.blue),
+                          .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.blue),
                     ),
                   ),
                   CupertinoDialogAction(
@@ -238,10 +217,7 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
-                          .copyWith(
-                              fontSize: PlatformSize(context),
-                              fontWeight: FontWeight.normal,
-                              color: Colors.red),
+                          .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.red),
                     ),
                   ),
                 ],
@@ -283,13 +259,11 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
     if (courcode != null && procatid == null) {
       _courier = courier.firstWhere((element) => element.code == courcode);
     } else if (courcode == null && procatid != null) {
-      _productCategory = ProductCategory.category
-          .firstWhere((element) => element.id == procatid);
+      _productCategory = ProductCategory.category.firstWhere((element) => element.id == procatid);
     } else if (courcode != null && procatid != null) {
       _courier = courier.firstWhere((element) => element.code == courcode);
       print('procat = $procatid');
-      _productCategory = ProductCategory.category
-          .firstWhere((element) => element.id == procatid);
+      _productCategory = ProductCategory.category.firstWhere((element) => element.id == procatid);
     }
 
     // _courier = courier.firstWhere((element) => element.code == courcode);
@@ -341,314 +315,222 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                       color: Colors.white,
                       boxShadow: [BoxShadow(blurRadius: 1, color: Colors.grey)],
                       borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromARGB(200, 43, 166, 223),
-                                  Color.fromARGB(180, 41, 88, 162),
-                                ],
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                stops: [0.0, 0.8],
-                                tileMode: TileMode.clamp,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  topRight: Radius.circular(8))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB(200, 43, 166, 223),
+                              Color.fromARGB(180, 41, 88, 162),
+                            ],
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [0.0, 0.8],
+                            tileMode: TileMode.clamp,
+                          ),
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      FontAwesomeIcons.truck,
+                                Icon(
+                                  FontAwesomeIcons.truck,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'ข้อมูลการจัดส่งเริ่มต้น',
+                                  style: TextStyle(
                                       color: Colors.white,
-                                      size: 18,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      'ข้อมูลการจัดส่งเริ่มต้น',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: PlatformSize(context) * 1.1,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                                      fontSize: PlatformSize(context) * 1.1,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
-                          ),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            'ขนส่ง',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162)),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Material(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              child: Center(
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButtonFormField2(
-                                    validator: (value) {
-                                      if (value == null) {
-                                        return 'กรุณาเลือกขนส่ง';
-                                      }
-                                      return null;
-                                    },
-                                    isExpanded: true,
-                                    hint: Row(
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        'ขนส่ง',
+                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            fontSize: PlatformSize(context),
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 41, 88, 162)),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Material(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
+                          child: Center(
+                            child: DropdownButtonFormField2<CourierModel>(
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'กรุณาเลือกขนส่ง';
+                                }
+                                return null;
+                              },
+                              hint: Text(
+                                '--โปรดเลือกขนส่ง--',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              buttonStyleData: ButtonStyleData(
+                                height: 50,
+                                padding: EdgeInsets.all(0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  color: Colors.white,
+                                ),
+                                offset: Offset(0, -20),
+                                elevation: 8,
+                                maxHeight: 400,
+                                scrollbarTheme: ScrollbarThemeData(
+                                  thickness: MaterialStateProperty.all(6),
+                                  radius: Radius.circular(40),
+                                  interactive: true,
+                                ),
+                              ),
+                              items: courier.map<DropdownMenuItem<CourierModel>>((item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        SizedBox(
-                                          width: 4,
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                                          child: Image.network('${item.logoMobile}'),
                                         ),
-                                        Expanded(
-                                          child: Text(
-                                            '--โปรดเลือกขนส่ง--',
-                                            style: TextStyle(
-                                              fontSize: PlatformSize(context),
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.black,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          item.name!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
                                         ),
                                       ],
                                     ),
-                                    value: _courier,
-                                    items: courier
-                                        .map((item) =>
-                                            DropdownMenuItem<CourierModel>(
-                                              value: item,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  8)),
-                                                      child: Image.network(
-                                                          '${item.logoMobile}'),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      item.name!,
-                                                      style: TextStyle(
-                                                        fontSize: PlatformSize(
-                                                            context),
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.black,
-                                                      ),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _onDropDownItemSelected(
-                                            value! as CourierModel);
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      errorStyle: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                      //Add isDense true and zero Padding.
-                                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.zero,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      //Add more decoration as you want here
-                                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                                    ),
-                                    
-                                    buttonDecoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        color: Colors.black26,
-                                      ),
-                                      color: Colors.white,
-                                    ),
-                                    icon: const Icon(
-                                      Icons.keyboard_arrow_down_sharp,
-                                      color: Colors.black45,
-                                      size: 20,
-                                    ),
-                                    iconSize: 30,
-                                    buttonHeight: 45,
-                                    buttonPadding: const EdgeInsets.only(
-                                        left: 20, right: 10),
-                                    dropdownDecoration: BoxDecoration(
-                                      border: Border.all(width: 0.1),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    dropdownMaxHeight: 250,
-                                    scrollbarAlwaysShow: true,
-                                    scrollbarThickness: 6,
                                   ),
-                                ),
-                              ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _onDropDownItemSelected(value!);
+                                });
+                              },
+                              value: _courier,
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            'ประเภทพัสดุ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(
-                                    fontSize: PlatformSize(context),
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 41, 88, 162)),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: 5, left: 4, right: 4),
-                          child: Material(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2),
-                              child: Center(
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButtonFormField2(
-                                    validator: (value) {
-                                      if (value == null) {
-                                        return 'กรุณาเลือกประเภทพัสดุ';
-                                      }
-                                      return null;
-                                    },
-                                    isExpanded: true,
-                                    hint: Row(
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        'ประเภทพัสดุ',
+                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            fontSize: PlatformSize(context),
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 41, 88, 162)),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 4, right: 4),
+                      child: Material(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2),
+                          child: Center(
+                            child: DropdownButtonFormField2<ProductCategory>(
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'กรุณาเลือกประเภทพัสดุ';
+                                }
+                                return null;
+                              },
+                              hint: Text(
+                                '    เลือกประเภทพัสดุ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              buttonStyleData: ButtonStyleData(
+                                height: 50,
+                                padding: EdgeInsets.all(0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  color: Colors.white,
+                                ),
+                                offset: Offset(0, -20),
+                                elevation: 8,
+                                maxHeight: 400,
+                                scrollbarTheme: ScrollbarThemeData(
+                                  thickness: MaterialStateProperty.all(6),
+                                  radius: Radius.circular(40),
+                                  interactive: true,
+                                ),
+                              ),
+                              items: ProductCategory.category.map<DropdownMenuItem<ProductCategory>>((item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        SizedBox(
-                                          width: 4,
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            '--โปรดเลือกประเภทพัสดุ--',
-                                            style: TextStyle(
-                                              fontSize: PlatformSize(context),
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.black,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+                                        Text(
+                                          item.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
                                         ),
                                       ],
                                     ),
-                                    value: _productCategory,
-                                    items: ProductCategory.category
-                                        .map((item) =>
-                                            DropdownMenuItem<ProductCategory>(
-                                              value: item,
-                                              child: Text(
-                                                item.name,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      PlatformSize(context),
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.black,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      _onDropDownItemSelectedCategory(
-                                          value as ProductCategory);
-                                    },
-                                    decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      errorStyle: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                      //Add isDense true and zero Padding.
-                                      //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.zero,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      //Add more decoration as you want here
-                                      //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                                    ),
-                                    buttonDecoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        color: Colors.black26,
-                                      ),
-                                      color: Colors.white,
-                                    ),
-                                    icon: const Icon(
-                                      Icons.keyboard_arrow_down_sharp,
-                                      color: Colors.black45,
-                                      size: 20,
-                                    ),
-                                    iconSize: 30,
-                                    buttonHeight: 45,
-                                    buttonPadding: const EdgeInsets.only(
-                                        left: 20, right: 10),
-                                    dropdownDecoration: BoxDecoration(
-                                      border: Border.all(width: 0.1),
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    dropdownMaxHeight: 250,
-                                    scrollbarAlwaysShow: true,
-                                    scrollbarThickness: 6,
                                   ),
-                                ),
-                              ),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                _onDropDownItemSelectedCategory(value as ProductCategory);
+                              },
+                              value: _productCategory,
                             ),
                           ),
                         ),
-                      ]),
+                      ),
+                    ),
+                  ]),
                 ),
               ),
               Padding(
@@ -673,9 +555,7 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                               stops: [0.0, 0.8],
                               tileMode: TileMode.clamp,
                             ),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(8),
-                                topRight: Radius.circular(8))),
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: Row(
@@ -751,10 +631,8 @@ class _SettingShippingScreenState extends State<SettingShippingScreen> {
                       _showAlertSave(context);
                     },
                     child: Text('บันทึกการตั้งค่า',
-                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                            color: Colors.white,
-                            fontSize: PlatformSize(context),
-                            fontWeight: FontWeight.bold)),
+                        style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            color: Colors.white, fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
                   ),
                 ),
               ),

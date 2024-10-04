@@ -67,12 +67,14 @@ class _FilterOrderNewState extends State<FilterOrderNew> {
                   children: [
                     TableCalendar(
                       headerStyle: HeaderStyle(
-                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-                        titleTextStyle: Theme.of(context).textTheme.headline5!.copyWith(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+                        titleTextStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.blue.shade700,
                             ),
-                        formatButtonTextStyle: Theme.of(context).textTheme.headline5!.copyWith(
+                        formatButtonTextStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.blue.shade700,
                             ),
@@ -223,11 +225,14 @@ class _FilterOrderNewState extends State<FilterOrderNew> {
                       primary: false,
                       shrinkWrap: true,
                       itemCount: state.statuses.length,
-                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, childAspectRatio: 3, crossAxisSpacing: 5, mainAxisSpacing: 8),
+                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200, childAspectRatio: 3, crossAxisSpacing: 5, mainAxisSpacing: 8),
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            context.read<OrderlistNewBloc>().add(OrderlistNewChangeStatusEvent(status: state.statuses[index]));
+                            context
+                                .read<OrderlistNewBloc>()
+                                .add(OrderlistNewChangeStatusEvent(status: state.statuses[index]));
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -236,7 +241,9 @@ class _FilterOrderNewState extends State<FilterOrderNew> {
                                   BoxShadow(
                                       spreadRadius: state.statuses[index].code == state.status.code ? 2 : 0,
                                       blurRadius: state.statuses[index].code == state.status.code ? 3 : 0.5,
-                                      color: state.statuses[index].code == state.status.code ? Color.fromARGB(200, 43, 166, 223) : Colors.black45),
+                                      color: state.statuses[index].code == state.status.code
+                                          ? Color.fromARGB(200, 43, 166, 223)
+                                          : Colors.black45),
                                 ],
                                 color: Colors.white),
                             child: Padding(

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:perfectship_app/config/constant.dart';
 import 'package:perfectship_app/model/new_model/dashboard_new_model.dart';
 import 'package:perfectship_app/model/new_model/orderlist_new_model.dart';
+import 'package:perfectship_app/model/new_model/product_create_model.dart';
 import 'package:perfectship_app/model/new_model/tracking_list_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -43,7 +44,8 @@ class OrderRepository {
       required int jntPickup,
       required int kerryPickup,
       required int categoryId,
-      required int saveDstAddress}) async {
+      required int saveDstAddress,
+      List<ProductCreateModel>? products}) async {
     try {
       print('on create repo');
       preferences = await SharedPreferences.getInstance();
@@ -85,7 +87,8 @@ class OrderRepository {
         "kerry_pickup": kerryPickup,
         "category_id": categoryId,
         "expressCategory": 1,
-        "save_dst_address": saveDstAddress
+        "save_dst_address": saveDstAddress,
+        if (products!.isNotEmpty && (codAmount != 0)) "products": products.map((e) => e.toJson()).toList(),
       });
       print(request.body);
       request.headers.addAll(headers);
@@ -113,7 +116,13 @@ class OrderRepository {
     var customerid = preferences!.getInt('customerid');
     var headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'};
     var request = http.Request('GET', Uri.parse('${MyConstant().newDomain}/api/v1/order/get-order-list'));
-    request.body = json.encode({"customer_id": customerid, "courier_code": couriercode, "status_id": status, "start_date": start, "end_date": end});
+    request.body = json.encode({
+      "customer_id": customerid,
+      "courier_code": couriercode,
+      "status_id": status,
+      "start_date": start,
+      "end_date": end
+    });
     print('getdata body = ${request.body}');
     request.headers.addAll(headers);
 

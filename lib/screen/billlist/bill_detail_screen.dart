@@ -24,8 +24,7 @@ class BillDetailScreen extends StatefulWidget {
   State<BillDetailScreen> createState() => _BillDetailScreenState();
 }
 
-class _BillDetailScreenState extends State<BillDetailScreen>
-    with TickerProviderStateMixin {
+class _BillDetailScreenState extends State<BillDetailScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
   bool isPlaying = false;
   TextEditingController textController = TextEditingController();
@@ -34,9 +33,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
   void _handleOnPressed() {
     setState(() {
       isPlaying = !isPlaying;
-      isPlaying
-          ? _animationController.forward()
-          : _animationController.reverse();
+      isPlaying ? _animationController.forward() : _animationController.reverse();
       print(isPlaying);
     });
   }
@@ -55,12 +52,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset.zero,
-                                spreadRadius: .3,
-                                color: Colors.grey)
-                          ]),
+                          boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                       child: TextFormField(
                         style: TextStyle(fontSize: PlatformSize(context)),
                         cursorColor: Colors.blue.shade300,
@@ -70,12 +62,11 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                         focusNode: searchFocusNode,
                         onChanged: (keyword) async {
                           if (textController.text == '') {
-                            context.read<BillDetailBloc>().add(
-                                BillDetailInitialEvent(id: widget.list[0]));
+                            context.read<BillDetailBloc>().add(BillDetailInitialEvent(id: widget.list[0]));
                           } else {
-                            context.read<BillDetailBloc>().add(
-                                BillDetailSearchEvent(
-                                    id: widget.list[0], keyword: keyword));
+                            context
+                                .read<BillDetailBloc>()
+                                .add(BillDetailSearchEvent(id: widget.list[0], keyword: keyword));
                           }
                         },
                         decoration: InputDecoration(
@@ -88,8 +79,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                             ),
                             suffix: TextButton(
                               onPressed: () {
-                                context.read<BillDetailBloc>().add(
-                                    BillDetailInitialEvent(id: widget.list[0]));
+                                context.read<BillDetailBloc>().add(BillDetailInitialEvent(id: widget.list[0]));
                                 setState(() {
                                   textController.clear();
                                   searchFocusNode.unfocus();
@@ -99,21 +89,14 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                                 'ล้าง',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
-                                    .copyWith(
-                                        color: Colors.blue.shade300,
-                                        fontSize: PlatformSize(context)),
+                                    .headlineMedium!
+                                    .copyWith(color: Colors.blue.shade300, fontSize: PlatformSize(context)),
                               ),
                             ),
                             border: InputBorder.none,
                             hintText: 'ค้นหา',
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .headline4!
-                                .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
-                                    fontSize: PlatformSize(context))),
+                            hintStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                fontWeight: FontWeight.bold, color: Colors.grey, fontSize: PlatformSize(context))),
                       ),
                     ),
                   )
@@ -125,13 +108,10 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                         children: [
                           Text(
                             'ทั้งหมด $total รายการ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(
-                                    fontSize: PlatformSize(context) * 1.2,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                fontSize: PlatformSize(context) * 1.2,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
                         ],
                       ),
@@ -146,12 +126,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset.zero,
-                            spreadRadius: .3,
-                            color: Colors.grey)
-                      ]),
+                      boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                   child: Center(
                     child: AnimatedIcon(
                       color: Colors.black54,
@@ -168,11 +143,8 @@ class _BillDetailScreenState extends State<BillDetailScreen>
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
-    context
-        .read<BillDetailBloc>()
-        .add(BillDetailInitialEvent(id: widget.list[0]));
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    context.read<BillDetailBloc>().add(BillDetailInitialEvent(id: widget.list[0]));
     super.initState();
   }
 
@@ -190,8 +162,7 @@ class _BillDetailScreenState extends State<BillDetailScreen>
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     SliverAppBar(
                       leading: IconButton(
-                        icon:
-                            Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                        icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       floating: true,
@@ -211,13 +182,10 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                           ),
                           Text(
                             '# ${widget.list[1]}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(
-                                    fontSize: PlatformSize(context) * 1.2,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                fontSize: PlatformSize(context) * 1.2,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           )
                         ],
                       ),
@@ -237,11 +205,8 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                       physics: AlwaysScrollableScrollPhysics(),
                       child: Column(children: [
                         Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [BoxShadow(color: Colors.black)]),
-                          child: buildSearch(
-                              context, state.billdetailmodel.length),
+                          decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black)]),
+                          child: buildSearch(context, state.billdetailmodel.length),
                         ),
                         MediaQuery.removePadding(
                           context: context,
@@ -252,13 +217,11 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                             itemCount: state.billdetailmodel.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 8),
+                                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)),
+                                    borderRadius: BorderRadius.all(Radius.circular(8)),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black54,
@@ -267,36 +230,25 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                                     ],
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         decoration: BoxDecoration(
                                             color: Colors.blueGrey.shade300,
                                             borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(5),
-                                                topRight: Radius.circular(5))),
+                                                topLeft: Radius.circular(5), topRight: Radius.circular(5))),
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 4, vertical: 2),
+                                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                                           child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Expanded(
                                                 child: Text(
                                                   '# ${state.billdetailmodel[index].trackNo} (${state.billdetailmodel[index].dstName})',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headlineMedium!
-                                                      .copyWith(
-                                                          fontSize:
-                                                              PlatformSize(
-                                                                      context) *
-                                                                  1.1,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.black),
+                                                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                                      fontSize: PlatformSize(context) * 1.1,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: Colors.black),
                                                 ),
                                               ),
                                               // Container(
@@ -324,24 +276,14 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                                               //     ),
                                               //   ),
                                               // )
-                                              state.billdetailmodel[index]
-                                                          .isCancel ==
-                                                      'รายการปกติ'
+                                              state.billdetailmodel[index].isCancel == 'รายการปกติ'
                                                   ? SizedBox()
                                                   : Text(
                                                       'ยกเลิกเลขพัสดุแล้ว',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .headlineMedium!
-                                                          .copyWith(
-                                                              fontSize:
-                                                                  PlatformSize(
-                                                                      context),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color:
-                                                                  Colors.red),
+                                                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                                          fontSize: PlatformSize(context),
+                                                          fontWeight: FontWeight.w600,
+                                                          color: Colors.red),
                                                     ),
                                             ],
                                           ),
@@ -349,53 +291,38 @@ class _BillDetailScreenState extends State<BillDetailScreen>
                                       ),
                                       Text(
                                         'ราคา/หน่วย : ${state.billdetailmodel[index].price}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .copyWith(
-                                                fontSize: PlatformSize(context),
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black),
+                                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                            fontSize: PlatformSize(context),
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black),
                                       ),
                                       Text(
                                         'COD : ${state.billdetailmodel[index].codAmount}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .copyWith(
-                                                fontSize: PlatformSize(context),
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black),
+                                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                            fontSize: PlatformSize(context),
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black),
                                       ),
                                       Text(
                                         'ค่าธรรมเนียม COD : ${state.billdetailmodel[index].codAmount}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .copyWith(
-                                                fontSize: PlatformSize(context),
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black),
+                                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                            fontSize: PlatformSize(context),
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black),
                                       ),
                                       Text(
                                         'จำนวน : ${state.billdetailmodel[index].productQty}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .copyWith(
-                                                fontSize: PlatformSize(context),
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black),
+                                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                            fontSize: PlatformSize(context),
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black),
                                       ),
                                       Text(
                                         'รวม : ${state.billdetailmodel[index].totalPrice}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium!
-                                            .copyWith(
-                                                fontSize: PlatformSize(context),
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black),
+                                        style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                            fontSize: PlatformSize(context),
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black),
                                       ),
                                     ],
                                   ),

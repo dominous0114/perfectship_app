@@ -1,4 +1,3 @@
-
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -340,7 +339,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> with SingleTi
     final ColorScheme colorScheme = theme.colorScheme;
     _borderColorTween.end = theme.dividerColor;
     _headerColorTween
-      ..begin = widget.collapsedTextColor ?? theme.textTheme.subtitle1!.color
+      ..begin = widget.collapsedTextColor ?? theme.textTheme.bodyLarge!.color
       ..end = widget.textColor ?? colorScheme.primary;
     _iconColorTween
       ..begin = widget.collapsedIconColor ?? theme.unselectedWidgetColor

@@ -19,7 +19,9 @@ import '../../../widget/fontsize.dart';
 import '../../../widget/status_color.dart';
 
 class TrackingListScreen extends StatefulWidget {
-  const TrackingListScreen({Key? key, required this.logo, required this.logoMobile, required this.statusColor, required this.statusText}) : super(key: key);
+  const TrackingListScreen(
+      {Key? key, required this.logo, required this.logoMobile, required this.statusColor, required this.statusText})
+      : super(key: key);
 
   final String logo;
   final String logoMobile;
@@ -41,38 +43,51 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
   ];
 
   void confirmDialog(BuildContext context, String track, TrackingLoaded state) {
-    Dialogs.materialDialog(msgAlign: TextAlign.center, msg: 'คุณต้องการลบรายการ $track ?', title: "ลบรายการ", color: Colors.white, context: context, actions: [
-      IconsOutlineButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        text: 'ยกเลิก',
-        textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
-        iconColor: Colors.grey,
-      ),
-      IconsButton(
-        onPressed: () async {
-          Navigator.pop(context);
-          loadingDialog(context);
-          await OrderRepository().cancelOrder(trackNo: state.track.shipping!.trackNo!, refCode: state.track.shipping!.refCode!, courierCode: state.track.shipping!.courierCode!).then((value) {
-            if (value['status'] == true) {
+    Dialogs.materialDialog(
+        msgAlign: TextAlign.center,
+        msg: 'คุณต้องการลบรายการ $track ?',
+        title: "ลบรายการ",
+        color: Colors.white,
+        context: context,
+        actions: [
+          IconsOutlineButton(
+            onPressed: () {
               Navigator.pop(context);
+            },
+            text: 'ยกเลิก',
+            textStyle:
+                Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.grey, fontWeight: FontWeight.bold),
+            iconColor: Colors.grey,
+          ),
+          IconsButton(
+            onPressed: () async {
               Navigator.pop(context);
-              context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
-              Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
-            } else {
-              Navigator.pop(context);
-              responseDialog(context, value['message']);
-            }
-          });
-        },
-        text: 'ลบ',
-        iconData: Icons.delete,
-        color: Colors.red,
-        textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-        iconColor: Colors.white,
-      ),
-    ]);
+              loadingDialog(context);
+              await OrderRepository()
+                  .cancelOrder(
+                      trackNo: state.track.shipping!.trackNo!,
+                      refCode: state.track.shipping!.refCode!,
+                      courierCode: state.track.shipping!.courierCode!)
+                  .then((value) {
+                if (value['status'] == true) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  context.read<OrderlistNewBloc>().add(OrderlistNewInitialEvent());
+                  Fluttertoast.showToast(msg: 'ลบเรียบร้อย', gravity: ToastGravity.CENTER);
+                } else {
+                  Navigator.pop(context);
+                  responseDialog(context, value['message']);
+                }
+              });
+            },
+            text: 'ลบ',
+            iconData: Icons.delete,
+            color: Colors.red,
+            textStyle:
+                Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            iconColor: Colors.white,
+          ),
+        ]);
   }
 
   void responseDialog(BuildContext context, String msg) {
@@ -95,7 +110,8 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle:
+                Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);
@@ -149,7 +165,10 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                         children: [
                           Text(
                             'ติดตามสถานะ',
-                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                fontSize: PlatformSize(context) * 1.2,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ],
                       ),
@@ -236,12 +255,15 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                                   ),
                                                   Container(
-                                                    decoration: BoxDecoration(color: StatusColor().checkstatus(widget.statusColor), borderRadius: BorderRadius.circular(8)),
+                                                    decoration: BoxDecoration(
+                                                        color: StatusColor().checkstatus(widget.statusColor),
+                                                        borderRadius: BorderRadius.circular(8)),
                                                     child: Padding(
                                                       padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
                                                       child: Text(
                                                         '${widget.statusText}',
-                                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                                        style:
+                                                            TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                                                       ),
                                                     ),
                                                   ),
@@ -267,10 +289,14 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(context, '/pdforder', arguments: state.track.shipping!.id.toString());
+                                      Navigator.pushNamed(context, '/pdforder',
+                                          arguments: state.track.shipping!.id.toString());
                                     },
                                     child: Container(
-                                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.blue.shade800, blurRadius: 1)]),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [BoxShadow(color: Colors.blue.shade800, blurRadius: 1)]),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -299,7 +325,10 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                       confirmDialog(context, state.track.shipping!.trackNo!, state);
                                     },
                                     child: Container(
-                                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.red.shade800, blurRadius: 1)]),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [BoxShadow(color: Colors.red.shade800, blurRadius: 1)]),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
@@ -338,7 +367,8 @@ class _TrackingListScreenState extends State<TrackingListScreen> {
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Lottie.asset('assets/lottie/97670-tomato-error.json', width: 80, height: 80, repeat: false),
+                                            Lottie.asset('assets/lottie/97670-tomato-error.json',
+                                                width: 80, height: 80, repeat: false),
                                             // SizedBox(
                                             //   width: 5,
                                             // ),

@@ -4,7 +4,7 @@ import FirebaseCore
 import flutter_local_notifications
 
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate {
     private let channelName = "custom_share"
   override func application(

@@ -184,7 +184,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                 onTap: () {
                   if (formKey.currentState!.validate()) {
                     loadingDialog(context);
-                    PasswordRepository().updatePassword(oldpassController.text, newpassController.text, confirmNewpassController.text).then((value) {
+                    PasswordRepository()
+                        .updatePassword(oldpassController.text, newpassController.text, confirmNewpassController.text)
+                        .then((value) {
                       if (value['status'] == true) {
                         Navigator.pop(context);
                         correctDialog(context, value['message']);
@@ -253,7 +255,8 @@ class _ChangePasswordState extends State<ChangePassword> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle:
+                Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);
@@ -295,7 +298,8 @@ class _ChangePasswordState extends State<ChangePassword> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle:
+                Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);

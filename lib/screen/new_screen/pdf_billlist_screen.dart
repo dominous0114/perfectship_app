@@ -233,7 +233,7 @@ class _PdfBillListScreenState extends State<PdfBillListScreen> with SingleTicker
         //     children: [
         //       Text(
         //         "ปริ้น : ",
-        //         style: Theme.of(context).textTheme.bodyText1!.copyWith(
+        //         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
         //               fontSize: PlatformSize(context),
         //             ),
         //       ),
@@ -261,13 +261,13 @@ class _PdfBillListScreenState extends State<PdfBillListScreen> with SingleTicker
         //                 ),
         //                 style: Theme.of(context)
         //                     .textTheme
-        //                     .bodyText1!
+        //                     .bodyLarge!
         //                     .copyWith(fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
         //                 hint: Text(
         //                   "  ",
         //                   style: Theme.of(context)
         //                       .textTheme
-        //                       .bodyText1!
+        //                       .bodyLarge!
         //                       .copyWith(fontSize: PlatformSize(context), color: Colors.grey[600], fontWeight: FontWeight.bold),
         //                 ),
         //                 items: PaperSizeModel.paperSizes.map<DropdownMenuItem<PaperSizeModel>>((e) {
@@ -277,7 +277,7 @@ class _PdfBillListScreenState extends State<PdfBillListScreen> with SingleTicker
         //                       e.upper,
         //                       style: Theme.of(context)
         //                           .textTheme
-        //                           .headline3!
+        //                           .displaySmall!
         //                           .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Colors.black87),
         //                     ),
         //                   );
@@ -305,7 +305,7 @@ class _PdfBillListScreenState extends State<PdfBillListScreen> with SingleTicker
         //               children: [
         //                 Text(
         //                   ' คัดลอก',
-        //                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
+        //                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
         //                         fontSize: PlatformSize(context),
         //                       ),
         //                 ),
@@ -322,7 +322,7 @@ class _PdfBillListScreenState extends State<PdfBillListScreen> with SingleTicker
         //                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         //                     content: Text(
         //                   "คัดลอก Link $url แล้ว",
-        //                   style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: PlatformSize(context), color: Colors.white),
+        //                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: PlatformSize(context), color: Colors.white),
         //                 )));
         //               });
         //             }),

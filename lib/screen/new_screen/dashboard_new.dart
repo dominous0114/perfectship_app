@@ -17,7 +17,12 @@ class DashBoardNew extends StatefulWidget {
   State<DashBoardNew> createState() => _DashBoardNewState();
 }
 
-final List<ChartData> chartData = [ChartData('David', 25), ChartData('Steve', 38), ChartData('Jack', 34), ChartData('Others', 52)];
+final List<ChartData> chartData = [
+  ChartData('David', 25),
+  ChartData('Steve', 38),
+  ChartData('Jack', 34),
+  ChartData('Others', 52)
+];
 
 class _DashBoardNewState extends State<DashBoardNew> {
   @override
@@ -95,15 +100,15 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                 saveText: 'เสร็จ',
                                 builder: (BuildContext context, Widget? child) {
                                   return Theme(
-                                    data: ThemeData(
-                                      backgroundColor: Color(0xFF009CDB),
-                                    ),
+                                    data: ThemeData(),
                                     child: child!,
                                   );
                                 });
                             if (picked != null) {
                               setState(() {
-                                context.read<DashboardBloc>().add(DashboardfilterEvent(startDate: picked.start, endDate: picked.end));
+                                context
+                                    .read<DashboardBloc>()
+                                    .add(DashboardfilterEvent(startDate: picked.start, endDate: picked.end));
                               });
                             }
                           },
@@ -261,7 +266,10 @@ class _DashBoardNewState extends State<DashBoardNew> {
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.blue.shade700, blurRadius: 1)]),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [BoxShadow(color: Colors.blue.shade700, blurRadius: 1)]),
                       padding: EdgeInsets.zero,
                       height: 200,
                       child: Container(
@@ -280,7 +288,10 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                         child: Center(
                                             child: Text(
                                           'ไม่มีรายการ COD',
-                                          style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
                                         )),
                                       ),
                                     )
@@ -289,20 +300,24 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                       series: <CircularSeries>[
                                         PieSeries<ChartData, String>(
                                           dataSource: <ChartData>[
-                                            ChartData('ยอด COD ที่รอการชำระ', double.parse(state.dashboardNewModel.codWaiting ?? '0')),
-                                            ChartData('ยอด COD ที่ชำระแล้ว', double.parse(state.dashboardNewModel.codSuccess ?? '0')),
+                                            ChartData('ยอด COD ที่รอการชำระ',
+                                                double.parse(state.dashboardNewModel.codWaiting ?? '0')),
+                                            ChartData('ยอด COD ที่ชำระแล้ว',
+                                                double.parse(state.dashboardNewModel.codSuccess ?? '0')),
                                           ],
                                           xValueMapper: (ChartData data, _) => data.category,
                                           yValueMapper: (ChartData data, _) => data.value,
-                                          pointColorMapper: (ChartData data, _) => data.category == 'ยอด COD ที่รอการชำระ'
-                                              ? Colors.red.shade500
-                                              : data.category == 'ยอด COD ที่ชำระแล้ว'
-                                                  ? Colors.green.shade500
-                                                  : Colors.grey.shade500,
+                                          pointColorMapper: (ChartData data, _) =>
+                                              data.category == 'ยอด COD ที่รอการชำระ'
+                                                  ? Colors.red.shade500
+                                                  : data.category == 'ยอด COD ที่ชำระแล้ว'
+                                                      ? Colors.green.shade500
+                                                      : Colors.grey.shade500,
                                           dataLabelMapper: (ChartData data, _) => '${data.value} บาท',
                                           groupMode: CircularChartGroupMode.point,
                                           dataLabelSettings: DataLabelSettings(
-                                            textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white),
+                                            textStyle:
+                                                Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),
                                             showZeroValue: false,
                                             showCumulativeValues: true,
                                             isVisible: true,
@@ -345,11 +360,17 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                               children: [
                                                 Text(
                                                   'ยอด COD ทั้งหมด',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 ),
                                                 Text(
                                                   '${state.dashboardNewModel.codAll!} ฿',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 )
                                               ],
                                             ),
@@ -376,11 +397,17 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                               children: [
                                                 Text(
                                                   'ยอด COD ที่รอการชำระ',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 ),
                                                 Text(
                                                   '${state.dashboardNewModel.codWaiting!} ฿',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 )
                                               ],
                                             ),
@@ -407,11 +434,17 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                               children: [
                                                 Text(
                                                   'ยอด COD ที่ชำระแล้ว',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 ),
                                                 Text(
                                                   '${state.dashboardNewModel.codSuccess!} ฿',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 )
                                               ],
                                             ),
@@ -431,7 +464,10 @@ class _DashBoardNewState extends State<DashBoardNew> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       height: 270,
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.blue.shade700, blurRadius: 1)]),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [BoxShadow(color: Colors.blue.shade700, blurRadius: 1)]),
                       padding: EdgeInsets.zero,
                       child: Container(
                         child: Row(
@@ -465,11 +501,17 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                               children: [
                                                 Text(
                                                   'รายการทั้งหมด',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 ),
                                                 Text(
                                                   '${state.dashboardNewModel.orderAll!} รายการ',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 )
                                               ],
                                             ),
@@ -496,11 +538,17 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                               children: [
                                                 Text(
                                                   'รายการที่รอการจัดส่ง',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 ),
                                                 Text(
                                                   '${state.dashboardNewModel.orderWaitShipping!} รายการ',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 )
                                               ],
                                             ),
@@ -527,11 +575,17 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                               children: [
                                                 Text(
                                                   'รายการที่กำลังดำเนินการ',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 ),
                                                 Text(
                                                   '${state.dashboardNewModel.orderOnProcess!} รายการ',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 )
                                               ],
                                             ),
@@ -558,11 +612,17 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                               children: [
                                                 Text(
                                                   'รายการที่สำเร็จ',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 ),
                                                 Text(
                                                   '${state.dashboardNewModel.successOrder!} รายการ',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 )
                                               ],
                                             ),
@@ -589,11 +649,17 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                               children: [
                                                 Text(
                                                   'รายการที่ยกเลิก',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 ),
                                                 Text(
                                                   '${state.dashboardNewModel.cancelOrder!} รายการ',
-                                                  style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineSmall!
+                                                      .copyWith(fontWeight: FontWeight.bold, color: Colors.black54),
                                                 )
                                               ],
                                             ),
@@ -616,7 +682,10 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                         child: Center(
                                             child: Text(
                                           'ไม่มีรายการ',
-                                          style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge!
+                                              .copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
                                         )),
                                       ),
                                     )
@@ -625,24 +694,28 @@ class _DashBoardNewState extends State<DashBoardNew> {
                                       series: <CircularSeries>[
                                         PieSeries<ChartData, String>(
                                           dataSource: <ChartData>[
-                                            ChartData('รายการที่รอการจัดส่ง', state.dashboardNewModel.orderWaitShipping ?? 0),
-                                            ChartData('รายการที่กำลังดำเนินการ', state.dashboardNewModel.orderOnProcess ?? 0),
+                                            ChartData(
+                                                'รายการที่รอการจัดส่ง', state.dashboardNewModel.orderWaitShipping ?? 0),
+                                            ChartData(
+                                                'รายการที่กำลังดำเนินการ', state.dashboardNewModel.orderOnProcess ?? 0),
                                             ChartData('รายการที่สำเร็จ', state.dashboardNewModel.successOrder ?? 0),
                                             ChartData('รายการที่ยกเลิก', state.dashboardNewModel.cancelOrder ?? 0),
                                           ],
                                           xValueMapper: (ChartData data, _) => data.category,
                                           yValueMapper: (ChartData data, _) => data.value,
-                                          pointColorMapper: (ChartData data, _) => data.category == 'รายการที่รอการจัดส่ง'
-                                              ? Colors.orange.shade700
-                                              : data.category == 'รายการที่กำลังดำเนินการ'
-                                                  ? Colors.cyan.shade300
-                                                  : data.category == 'รายการที่สำเร็จ'
-                                                      ? Colors.green.shade400
-                                                      : Colors.red.shade400,
+                                          pointColorMapper: (ChartData data, _) =>
+                                              data.category == 'รายการที่รอการจัดส่ง'
+                                                  ? Colors.orange.shade700
+                                                  : data.category == 'รายการที่กำลังดำเนินการ'
+                                                      ? Colors.cyan.shade300
+                                                      : data.category == 'รายการที่สำเร็จ'
+                                                          ? Colors.green.shade400
+                                                          : Colors.red.shade400,
                                           dataLabelMapper: (ChartData data, _) => '${data.value}',
                                           groupMode: CircularChartGroupMode.point,
                                           dataLabelSettings: DataLabelSettings(
-                                            textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white),
+                                            textStyle:
+                                                Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),
                                             showZeroValue: false,
                                             showCumulativeValues: true,
                                             isVisible: true,
@@ -677,7 +750,12 @@ class _DashBoardNewState extends State<DashBoardNew> {
     );
   }
 
-  Widget _buildStatisticRow({required String label, required String value, required String lottie, required Color color, required String suffix}) {
+  Widget _buildStatisticRow(
+      {required String label,
+      required String value,
+      required String lottie,
+      required Color color,
+      required String suffix}) {
     return Card(
       elevation: 2,
       child: Padding(
@@ -714,7 +792,13 @@ class _DashBoardNewState extends State<DashBoardNew> {
     );
   }
 
-  Widget _buildStatisticBigRow({required String label, required String value, required String suffix, required String lottie, required Color color, required double sized}) {
+  Widget _buildStatisticBigRow(
+      {required String label,
+      required String value,
+      required String suffix,
+      required String lottie,
+      required Color color,
+      required double sized}) {
     return Card(
       elevation: 2,
       child: Padding(
@@ -726,7 +810,11 @@ class _DashBoardNewState extends State<DashBoardNew> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(decoration: BoxDecoration(shape: BoxShape.circle, color: color), child: Padding(padding: const EdgeInsets.all(8.0), child: Lottie.asset(lottie, height: sized, width: sized, repeat: false))),
+                Container(
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Lottie.asset(lottie, height: sized, width: sized, repeat: false))),
                 SizedBox(
                   width: 10,
                 ),

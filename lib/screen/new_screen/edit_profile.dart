@@ -250,7 +250,8 @@ class _EditProfileState extends State<EditProfile> {
                   elevation: 0,
                   title: Text(
                     'แก้ไขข้อมูลผู้ส่ง',
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                   flexibleSpace: Container(
                     decoration: BoxDecoration(
@@ -281,7 +282,10 @@ class _EditProfileState extends State<EditProfile> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -297,7 +301,8 @@ class _EditProfileState extends State<EditProfile> {
                                             ),
                                             Text(
                                               'ประเภทพัสดุเรื่มต้น ',
-                                              style: TextStyle(color: Colors.blue.shade900, fontWeight: FontWeight.bold),
+                                              style:
+                                                  TextStyle(color: Colors.blue.shade900, fontWeight: FontWeight.bold),
                                             ),
                                           ],
                                         ),
@@ -315,28 +320,33 @@ class _EditProfileState extends State<EditProfile> {
                                                   },
                                                   hint: Text(
                                                     '    เลือกประเภทพัสดุ',
-                                                    style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineSmall!
+                                                        .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
                                                     textAlign: TextAlign.center,
                                                   ),
-                                                  buttonHeight: 50,
-                                                  dropdownDecoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(14),
-                                                    boxShadow: [
-                                                      BoxShadow(color: Colors.black26, spreadRadius: 0.5, blurRadius: 1),
-                                                    ],
+                                                  buttonStyleData: ButtonStyleData(
+                                                    height: 50,
+                                                    padding: EdgeInsets.all(0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(14),
+                                                    ),
                                                   ),
-                                                  buttonDecoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    color: Colors.white,
-                                                    border: Border.all(color: Colors.black54),
+                                                  dropdownStyleData: DropdownStyleData(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(14),
+                                                      color: Colors.white,
+                                                    ),
+                                                    offset: Offset(0, -20),
+                                                    elevation: 8,
+                                                    maxHeight: 400,
+                                                    scrollbarTheme: ScrollbarThemeData(
+                                                      thickness: WidgetStateProperty.all(6),
+                                                      radius: Radius.circular(40),
+                                                      interactive: true,
+                                                    ),
                                                   ),
-                                                  dropdownElevation: 8,
-                                                  scrollbarRadius: const Radius.circular(40),
-                                                  dropdownMaxHeight: 400,
-                                                  scrollbarThickness: 6,
-                                                  scrollbarAlwaysShow: true,
-                                                  offset: const Offset(0, -20),
-                                                  selectedItemHighlightColor: Colors.blue.shade50.withOpacity(.4),
                                                   items: state.categories.map<DropdownMenuItem<CategoryNewModel>>((e) {
                                                     return DropdownMenuItem(
                                                         value: e,
@@ -350,7 +360,12 @@ class _EditProfileState extends State<EditProfile> {
                                                                 ),
                                                                 Text(
                                                                   e.name ?? '',
-                                                                  style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                  style: Theme.of(context)
+                                                                      .textTheme
+                                                                      .headlineSmall!
+                                                                      .copyWith(
+                                                                          color: Colors.black54,
+                                                                          fontWeight: FontWeight.bold),
                                                                 )
                                                               ],
                                                             ),
@@ -358,16 +373,12 @@ class _EditProfileState extends State<EditProfile> {
                                                         ));
                                                   }).toList(),
                                                   onChanged: (value) {
-                                                    //ontext.read<CreateOrderBloc>().add(OrderSelectFuze(value: value!));
-                                                    //  _onDropDownItemSelected(value!);
                                                     print(value!.name);
-                                                    // context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: value));
-                                                    // print(state.customerId);
-
-                                                    context.read<UserDataBloc>().add(UserdataSelectCategoryEvent(categoryNewModel: value));
+                                                    context
+                                                        .read<UserDataBloc>()
+                                                        .add(UserdataSelectCategoryEvent(categoryNewModel: value));
                                                   },
                                                   value: state.category,
-                                                  buttonPadding: EdgeInsets.all(0),
                                                 ),
                                               ),
                                             ),
@@ -407,28 +418,33 @@ class _EditProfileState extends State<EditProfile> {
                                                   },
                                                   hint: Text(
                                                     '    เลือกขนส่งเริ่มต้น',
-                                                    style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineSmall!
+                                                        .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
                                                     textAlign: TextAlign.center,
                                                   ),
-                                                  buttonHeight: 50,
-                                                  dropdownDecoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(14),
-                                                    boxShadow: [
-                                                      BoxShadow(color: Colors.black26, spreadRadius: 0.5, blurRadius: 1),
-                                                    ],
+                                                  buttonStyleData: ButtonStyleData(
+                                                    height: 50,
+                                                    padding: EdgeInsets.all(0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(14),
+                                                    ),
                                                   ),
-                                                  buttonDecoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    color: Colors.white,
-                                                    border: Border.all(color: Colors.black54),
+                                                  dropdownStyleData: DropdownStyleData(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(14),
+                                                      color: Colors.white,
+                                                    ),
+                                                    offset: Offset(0, -20),
+                                                    elevation: 8,
+                                                    maxHeight: 400,
+                                                    scrollbarTheme: ScrollbarThemeData(
+                                                      thickness: MaterialStateProperty.all(6),
+                                                      radius: Radius.circular(40),
+                                                      interactive: true,
+                                                    ),
                                                   ),
-                                                  dropdownElevation: 8,
-                                                  scrollbarRadius: const Radius.circular(40),
-                                                  dropdownMaxHeight: 400,
-                                                  scrollbarThickness: 6,
-                                                  scrollbarAlwaysShow: true,
-                                                  offset: const Offset(0, -20),
-                                                  selectedItemHighlightColor: Colors.blue.shade50.withOpacity(.4),
                                                   items: state.couriers.map<DropdownMenuItem<CourierNewModel>>((e) {
                                                     return DropdownMenuItem(
                                                         value: e,
@@ -451,7 +467,12 @@ class _EditProfileState extends State<EditProfile> {
                                                                 Expanded(
                                                                   child: Text(
                                                                     e.name ?? '',
-                                                                    style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                    style: Theme.of(context)
+                                                                        .textTheme
+                                                                        .headlineSmall!
+                                                                        .copyWith(
+                                                                            color: Colors.black54,
+                                                                            fontWeight: FontWeight.bold),
                                                                   ),
                                                                 )
                                                               ],
@@ -460,16 +481,12 @@ class _EditProfileState extends State<EditProfile> {
                                                         ));
                                                   }).toList(),
                                                   onChanged: (value) {
-                                                    //ontext.read<CreateOrderBloc>().add(OrderSelectFuze(value: value!));
-                                                    //  _onDropDownItemSelected(value!);
                                                     print(value!.name);
-                                                    // context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: value));
-                                                    // print(state.customerId);
-
-                                                    context.read<UserDataBloc>().add(UserdataSelectCourierEvent(courier: value));
+                                                    context
+                                                        .read<UserDataBloc>()
+                                                        .add(UserdataSelectCourierEvent(courier: value));
                                                   },
                                                   value: state.courier,
-                                                  buttonPadding: EdgeInsets.all(0),
                                                 ),
                                               ),
                                             ),
@@ -483,7 +500,10 @@ class _EditProfileState extends State<EditProfile> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -567,7 +587,9 @@ class _EditProfileState extends State<EditProfile> {
                                         ),
                                         idloading == true
                                             ? Container(
-                                                decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey.shade300,
+                                                    borderRadius: BorderRadius.circular(8)),
                                                 height: 120,
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -595,7 +617,9 @@ class _EditProfileState extends State<EditProfile> {
                                                       _selectImage('idcard');
                                                     },
                                                     child: Container(
-                                                      decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.grey.shade300,
+                                                          borderRadius: BorderRadius.circular(8)),
                                                       height: 120,
                                                       child: idloading == true
                                                           ? Row(
@@ -630,14 +654,17 @@ class _EditProfileState extends State<EditProfile> {
                                                     alignment: Alignment.bottomRight,
                                                     children: [
                                                       Container(
-                                                        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.grey.shade100,
+                                                            borderRadius: BorderRadius.circular(8)),
                                                         height: 120,
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             GestureDetector(
                                                                 onTap: () {
-                                                                  Navigator.pushNamed(context, '/photo-widget', arguments: state.userdatamodel.cardUrl);
+                                                                  Navigator.pushNamed(context, '/photo-widget',
+                                                                      arguments: state.userdatamodel.cardUrl);
                                                                 },
                                                                 child: Image.network(state.userdatamodel.cardUrl))
                                                           ],
@@ -653,7 +680,10 @@ class _EditProfileState extends State<EditProfile> {
                                                               decoration: BoxDecoration(
                                                                 color: Colors.white.withOpacity(0.9),
                                                                 borderRadius: BorderRadius.circular(8),
-                                                                boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)],
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: Colors.grey.shade300, blurRadius: 0.5)
+                                                                ],
                                                               ),
                                                               child: Padding(
                                                                 padding: const EdgeInsets.all(8.0),
@@ -678,7 +708,10 @@ class _EditProfileState extends State<EditProfile> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -706,28 +739,33 @@ class _EditProfileState extends State<EditProfile> {
                                                   },
                                                   hint: Text(
                                                     '    เลือกธนาคาร',
-                                                    style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headlineSmall!
+                                                        .copyWith(color: Colors.black45, fontWeight: FontWeight.bold),
                                                     textAlign: TextAlign.center,
                                                   ),
-                                                  buttonHeight: 50,
-                                                  dropdownDecoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(14),
-                                                    boxShadow: [
-                                                      BoxShadow(color: Colors.black26, spreadRadius: 0.5, blurRadius: 1),
-                                                    ],
+                                                  buttonStyleData: ButtonStyleData(
+                                                    height: 50,
+                                                    padding: EdgeInsets.all(0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(14),
+                                                    ),
                                                   ),
-                                                  buttonDecoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    color: Colors.white,
-                                                    border: Border.all(color: Colors.black54),
+                                                  dropdownStyleData: DropdownStyleData(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(14),
+                                                      color: Colors.white,
+                                                    ),
+                                                    offset: Offset(0, -20),
+                                                    elevation: 8,
+                                                    maxHeight: 400,
+                                                    scrollbarTheme: ScrollbarThemeData(
+                                                      thickness: MaterialStateProperty.all(6),
+                                                      radius: Radius.circular(40),
+                                                      interactive: true,
+                                                    ),
                                                   ),
-                                                  dropdownElevation: 8,
-                                                  scrollbarRadius: const Radius.circular(40),
-                                                  dropdownMaxHeight: 400,
-                                                  scrollbarThickness: 6,
-                                                  scrollbarAlwaysShow: true,
-                                                  offset: const Offset(0, -20),
-                                                  selectedItemHighlightColor: Colors.blue.shade50.withOpacity(.4),
                                                   items: state.bankModel.map<DropdownMenuItem<BankModel>>((e) {
                                                     return DropdownMenuItem(
                                                         value: e,
@@ -741,7 +779,12 @@ class _EditProfileState extends State<EditProfile> {
                                                                 ),
                                                                 Text(
                                                                   e.name ?? '',
-                                                                  style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.black54, fontWeight: FontWeight.bold),
+                                                                  style: Theme.of(context)
+                                                                      .textTheme
+                                                                      .headlineSmall!
+                                                                      .copyWith(
+                                                                          color: Colors.black54,
+                                                                          fontWeight: FontWeight.bold),
                                                                 )
                                                               ],
                                                             ),
@@ -749,16 +792,10 @@ class _EditProfileState extends State<EditProfile> {
                                                         ));
                                                   }).toList(),
                                                   onChanged: (value) {
-                                                    //ontext.read<CreateOrderBloc>().add(OrderSelectFuze(value: value!));
-                                                    //  _onDropDownItemSelected(value!);
                                                     print(value!.name);
-                                                    // context.read<CreateOrderBloc>().add(SelectCourierEvent(courier: value));
-                                                    // print(state.customerId);
-
                                                     context.read<UserDataBloc>().add(UserdataOnselectBank(bank: value));
                                                   },
                                                   value: state.bankSelect,
-                                                  buttonPadding: EdgeInsets.all(0),
                                                 ),
                                               ),
                                             ),
@@ -873,7 +910,9 @@ class _EditProfileState extends State<EditProfile> {
                                         ),
                                         bookbankloading == true
                                             ? Container(
-                                                decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey.shade300,
+                                                    borderRadius: BorderRadius.circular(8)),
                                                 height: 120,
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -895,13 +934,16 @@ class _EditProfileState extends State<EditProfile> {
                                                     ),
                                                   ],
                                                 ))
-                                            : state.userdatamodel.bookBankUrl == null || state.userdatamodel.bookBankUrl == ''
+                                            : state.userdatamodel.bookBankUrl == null ||
+                                                    state.userdatamodel.bookBankUrl == ''
                                                 ? GestureDetector(
                                                     onTap: () {
                                                       _selectImage('bookbank');
                                                     },
                                                     child: Container(
-                                                      decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(8)),
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.grey.shade300,
+                                                          borderRadius: BorderRadius.circular(8)),
                                                       height: 120,
                                                       child: Row(
                                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -922,14 +964,17 @@ class _EditProfileState extends State<EditProfile> {
                                                     alignment: Alignment.bottomRight,
                                                     children: [
                                                       Container(
-                                                        decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.grey.shade100,
+                                                            borderRadius: BorderRadius.circular(8)),
                                                         height: 120,
                                                         child: Row(
                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                           children: [
                                                             GestureDetector(
                                                                 onTap: () {
-                                                                  Navigator.pushNamed(context, '/photo-widget', arguments: state.userdatamodel.bookBankUrl);
+                                                                  Navigator.pushNamed(context, '/photo-widget',
+                                                                      arguments: state.userdatamodel.bookBankUrl);
                                                                 },
                                                                 child: Image.network(state.userdatamodel.bookBankUrl))
                                                           ],
@@ -943,7 +988,12 @@ class _EditProfileState extends State<EditProfile> {
                                                           },
                                                           child: Container(
                                                               decoration: BoxDecoration(
-                                                                  color: Colors.white.withOpacity(0.9), borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.5)]),
+                                                                  color: Colors.white.withOpacity(0.9),
+                                                                  borderRadius: BorderRadius.circular(8),
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                        color: Colors.grey.shade300, blurRadius: 0.5)
+                                                                  ]),
                                                               child: Padding(
                                                                 padding: const EdgeInsets.all(8.0),
                                                                 child: Text('เลือกภาพใหม่'),
@@ -967,13 +1017,17 @@ class _EditProfileState extends State<EditProfile> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8), boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 1)]),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('ค้นหาที่อยู่', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
+                                        Text('ค้นหาที่อยู่',
+                                            style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
                                         SizedBox(
                                           height: 3,
                                         ),
@@ -982,11 +1036,14 @@ class _EditProfileState extends State<EditProfile> {
                                           onTap: () async {
                                             searchFocus.unfocus();
                                             // searchFocusNode.unfocus();
-                                            AddressSearchNewModel address = await showSearch(context: context, delegate: SearcgAddressNewDelegate());
+                                            AddressSearchNewModel address = await showSearch(
+                                                context: context, delegate: SearcgAddressNewDelegate());
                                             print(address.amphure);
-                                            context
-                                                .read<UserDataBloc>()
-                                                .add(UserdataSelectAddressEvent(subDistrict: address.district!, district: address.amphure!, province: address.province!, zipcode: address.zipcode!));
+                                            context.read<UserDataBloc>().add(UserdataSelectAddressEvent(
+                                                subDistrict: address.district!,
+                                                district: address.amphure!,
+                                                province: address.province!,
+                                                zipcode: address.zipcode!));
                                             // context.read<CreateOrderBloc>().add(SelectAddressManulEvent(addressSearchNewModel: address));
                                             // districtController.text = address.amphure!;
                                             // subdistrictController.text = address.district!;
@@ -1233,7 +1290,8 @@ class _EditProfileState extends State<EditProfile> {
                                         children: [
                                           Text(
                                             'บันทึก',
-                                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                                            style: TextStyle(
+                                                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
                                           ),
                                         ],
                                       ),
@@ -1276,7 +1334,8 @@ class _EditProfileState extends State<EditProfile> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle:
+                Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);
@@ -1318,7 +1377,8 @@ class _EditProfileState extends State<EditProfile> {
             text: 'ปิด',
             iconData: Icons.close,
             color: Colors.blue,
-            textStyle: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+            textStyle:
+                Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
             iconColor: Colors.white,
           ),
         ]);

@@ -58,6 +58,7 @@ class CreateOrderData extends CreateOrderState {
   final TextEditingController srczipcodeController;
   final TextEditingController remarkController;
   final bool isCod;
+  final List<ProductCreateModel> products;
   final TextEditingController codController;
   final bool isInsure;
   final TextEditingController insureController;
@@ -118,6 +119,7 @@ class CreateOrderData extends CreateOrderState {
     required this.srczipcodeController,
     required this.remarkController,
     required this.isCod,
+    required this.products,
     required this.codController,
     required this.isInsure,
     required this.insureController,
@@ -179,6 +181,7 @@ class CreateOrderData extends CreateOrderState {
     TextEditingController? srczipcodeController,
     TextEditingController? remarkController,
     bool? isCod,
+    List<ProductCreateModel>? products,
     TextEditingController? codController,
     bool? isInsure,
     TextEditingController? insureController,
@@ -187,7 +190,6 @@ class CreateOrderData extends CreateOrderState {
     TextEditingController? dstDistrictController,
     TextEditingController? dstProvinceController,
     TextEditingController? dstZipcodeController,
-    TextEditingController? dstInsureController,
     TextEditingController? dstNameController,
     TextEditingController? dstPhoneController,
   }) {
@@ -240,6 +242,7 @@ class CreateOrderData extends CreateOrderState {
       srczipcodeController: srczipcodeController ?? this.srczipcodeController,
       remarkController: remarkController ?? this.remarkController,
       isCod: isCod ?? this.isCod,
+      products: products ?? this.products,
       codController: codController ?? this.codController,
       isInsure: isInsure ?? this.isInsure,
       insureController: insureController ?? this.insureController,
@@ -302,6 +305,7 @@ class CreateOrderData extends CreateOrderState {
         srcprovinceController,
         srczipcodeController,
         isCod,
+        products,
         isInsure,
         codController,
         insureController,

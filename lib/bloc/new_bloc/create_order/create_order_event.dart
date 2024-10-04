@@ -121,3 +121,35 @@ class OnRecieveSearchEvent extends CreateOrderEvent {
         address,
       ];
 }
+
+class AddProductCreateEvent extends CreateOrderEvent {
+  final ProductCreateModel productCreate;
+  AddProductCreateEvent({
+    required this.productCreate,
+  });
+
+  @override
+  List<Object> get props => [productCreate];
+}
+
+class editProductCreateEvent extends CreateOrderEvent {
+  final ProductCreateModel productCreate;
+  final int index;
+  editProductCreateEvent({
+    required this.productCreate,
+    required this.index,
+  });
+
+  @override
+  List<Object> get props => [productCreate, index];
+}
+
+class deleteProductCreateEvent extends CreateOrderEvent {
+  final int index;
+  deleteProductCreateEvent({
+    required this.index,
+  });
+
+  @override
+  List<Object> get props => [index];
+}

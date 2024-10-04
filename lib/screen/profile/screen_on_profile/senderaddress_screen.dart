@@ -14,16 +14,14 @@ class SenderAddressScreen extends StatefulWidget {
 
   static Route route() {
     return PageRouteBuilder(
-        settings: const RouteSettings(name: routeName),
-        pageBuilder: (_, __, ___) => SenderAddressScreen());
+        settings: const RouteSettings(name: routeName), pageBuilder: (_, __, ___) => SenderAddressScreen());
   }
 
   @override
   State<SenderAddressScreen> createState() => _SenderAddressScreenState();
 }
 
-class _SenderAddressScreenState extends State<SenderAddressScreen>
-    with TickerProviderStateMixin {
+class _SenderAddressScreenState extends State<SenderAddressScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
   bool isPlaying = false;
   TextEditingController textController = TextEditingController();
@@ -33,9 +31,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
   void _handleOnPressed() {
     setState(() {
       isPlaying = !isPlaying;
-      isPlaying
-          ? _animationController.forward()
-          : _animationController.reverse();
+      isPlaying ? _animationController.forward() : _animationController.reverse();
       print(isPlaying);
     });
   }
@@ -80,18 +76,17 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                           'แจ้งเตือน',
                           style: Theme.of(context)
                               .textTheme
-                              .headline4!
-                              .copyWith(
-                                  fontSize: PlatformSize(context) * 1.2,
-                                  fontWeight: FontWeight.bold),
+                              .headlineMedium!
+                              .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     content: Text(
                       'คุณต้องการตั้งที่อยู่นี้เป็นที่อยู่เริ่มต้นหรือไม่',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: PlatformSize(context) * 1.1,
-                          fontWeight: FontWeight.normal),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.normal),
                     ),
                     actions: <CupertinoDialogAction>[
                       CupertinoDialogAction(
@@ -100,20 +95,14 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                           // setState(() {
                           //   _isprimayloading = true;
                           // });
-                          context.read<AddressBloc>().add(
-                              SetPrimaryAddressEvent(id: id, context: context));
+                          context.read<AddressBloc>().add(SetPrimaryAddressEvent(id: id, context: context));
 
                           print(_isprimayloading.toString());
                         },
                         child: Text(
                           'ตกลง',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.blue),
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.blue),
                         ),
                       ),
                       CupertinoDialogAction(
@@ -123,13 +112,8 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                         },
                         child: Text(
                           'ยกเลิก',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.red),
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.red),
                         ),
                       ),
                     ],
@@ -181,18 +165,17 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                           'แจ้งเตือน',
                           style: Theme.of(context)
                               .textTheme
-                              .headline4!
-                              .copyWith(
-                                  fontSize: PlatformSize(context) * 1.2,
-                                  fontWeight: FontWeight.bold),
+                              .headlineMedium!
+                              .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     content: Text(
                       'คุณต้องลบที่อยู่นี้หรือไม่',
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontSize: PlatformSize(context) * 1.1,
-                          fontWeight: FontWeight.normal),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(fontSize: PlatformSize(context) * 1.1, fontWeight: FontWeight.normal),
                     ),
                     actions: <CupertinoDialogAction>[
                       CupertinoDialogAction(
@@ -201,18 +184,12 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                           // setState(() {
                           //   _isprimayloading = true;
                           // });
-                          context.read<AddressBloc>().add(
-                              DeleteAddressEvent(id: id, context: context));
+                          context.read<AddressBloc>().add(DeleteAddressEvent(id: id, context: context));
                         },
                         child: Text(
                           'ตกลง',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.blue),
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.blue),
                         ),
                       ),
                       CupertinoDialogAction(
@@ -222,13 +199,8 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                         },
                         child: Text(
                           'ยกเลิก',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                  fontSize: PlatformSize(context),
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.red),
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                              fontSize: PlatformSize(context), fontWeight: FontWeight.normal, color: Colors.red),
                         ),
                       ),
                     ],
@@ -256,12 +228,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset.zero,
-                                spreadRadius: .3,
-                                color: Colors.grey)
-                          ]),
+                          boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                       child: TextFormField(
                         style: TextStyle(fontSize: PlatformSize(context)),
                         cursorColor: Colors.blue.shade300,
@@ -271,13 +238,9 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                         focusNode: searchFocusNode,
                         onChanged: (keyword) async {
                           if (textController.text == '') {
-                            context
-                                .read<AddressBloc>()
-                                .add(AddressInitialEvent());
+                            context.read<AddressBloc>().add(AddressInitialEvent());
                           } else {
-                            context
-                                .read<AddressBloc>()
-                                .add(AddressSearchEvent(keyword: keyword));
+                            context.read<AddressBloc>().add(AddressSearchEvent(keyword: keyword));
                           }
                         },
                         decoration: InputDecoration(
@@ -290,9 +253,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                             ),
                             suffix: TextButton(
                               onPressed: () {
-                                context
-                                    .read<AddressBloc>()
-                                    .add(AddressInitialEvent());
+                                context.read<AddressBloc>().add(AddressInitialEvent());
                                 setState(() {
                                   textController.clear();
                                   searchFocusNode.unfocus();
@@ -302,21 +263,14 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                                 'ล้าง',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline4!
-                                    .copyWith(
-                                        color: Colors.blue.shade300,
-                                        fontSize: PlatformSize(context)),
+                                    .headlineMedium!
+                                    .copyWith(color: Colors.blue.shade300, fontSize: PlatformSize(context)),
                               ),
                             ),
                             border: InputBorder.none,
                             hintText: 'ค้นหา ชื่อ ที่อยู่ เบอร์โทร',
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .headline4!
-                                .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
-                                    fontSize: PlatformSize(context))),
+                            hintStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                fontWeight: FontWeight.bold, color: Colors.grey, fontSize: PlatformSize(context))),
                       ),
                     ),
                   )
@@ -328,13 +282,10 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                         children: [
                           Text(
                             'ทั้งหมด $total รายการ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(
-                                    fontSize: PlatformSize(context) * 1.2,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                fontSize: PlatformSize(context) * 1.2,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
                         ],
                       ),
@@ -349,12 +300,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset.zero,
-                            spreadRadius: .3,
-                            color: Colors.grey)
-                      ]),
+                      boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                   child: Center(
                     child: AnimatedIcon(
                       color: Colors.black54,
@@ -377,12 +323,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                           end: Alignment.bottomCenter,
                           colors: <Color>[Colors.blue.shade300, Colors.blue]),
                       borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset.zero,
-                            spreadRadius: .3,
-                            color: Colors.grey)
-                      ]),
+                      boxShadow: [BoxShadow(offset: Offset.zero, spreadRadius: .3, color: Colors.grey)]),
                   child: Center(
                     child: Icon(
                       Icons.add_location_alt_outlined,
@@ -398,8 +339,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     context.read<AddressBloc>().add(AddressInitialEvent());
     super.initState();
   }
@@ -432,9 +372,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                 child: Column(
                   children: [
                     Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [BoxShadow(color: Colors.black)]),
+                      decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black)]),
                       child: buildSearch(context, state.addressmodel.length),
                     ),
                     ListView.builder(
@@ -443,120 +381,89 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                       itemCount: state.addressmodel.length,
                       itemBuilder: (context, index) {
                         state.addressmodel.sort(
-                          (a, b) =>
-                              b.primaryAddress!.compareTo(a.primaryAddress!),
+                          (a, b) => b.primaryAddress!.compareTo(a.primaryAddress!),
                         );
                         return Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                               child: Slidable(
                                 // enabled: AddressModel.addresstest[index].primaryAddress == 1
                                 //     ? false
                                 //     : true,
-                                endActionPane: state.addressmodel[index]
-                                            .primaryAddress ==
-                                        1
-                                    ? ActionPane(
-                                        extentRatio: 2 / 5,
-                                        motion: DrawerMotion(),
-                                        children: [
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                _showAlertDelete(
-                                                    context,
-                                                    state.addressmodel[index].id
-                                                        .toString());
-                                              },
-                                              label: 'ลบ',
-                                              icon: CupertinoIcons.delete,
-                                              foregroundColor: Colors.red,
-                                              backgroundColor: Colors.white,
-                                            )
-                                          ])
-                                    : ActionPane(
-                                        extentRatio: 3.5 / 5,
-                                        motion: DrawerMotion(),
-                                        children: [
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                // showDialog(
-                                                //   context: context,
-                                                //   builder: (context) => Center(
-                                                //     child: Container(
-                                                //       width: 60.0,
-                                                //       height: 60.0,
-                                                //       decoration: BoxDecoration(
-                                                //         color: Colors.white,
-                                                //         borderRadius:
-                                                //             BorderRadius
-                                                //                 .circular(4.0),
-                                                //       ),
-                                                //       child: Padding(
-                                                //         padding:
-                                                //             const EdgeInsets
-                                                //                 .all(12.0),
-                                                //         child:
-                                                //             CupertinoActivityIndicator(),
-                                                //       ),
-                                                //     ),
-                                                //   ),
-                                                // );
+                                endActionPane: state.addressmodel[index].primaryAddress == 1
+                                    ? ActionPane(extentRatio: 2 / 5, motion: DrawerMotion(), children: [
+                                        SlidableAction(
+                                          onPressed: (context) {
+                                            _showAlertDelete(context, state.addressmodel[index].id.toString());
+                                          },
+                                          label: 'ลบ',
+                                          icon: CupertinoIcons.delete,
+                                          foregroundColor: Colors.red,
+                                          backgroundColor: Colors.white,
+                                        )
+                                      ])
+                                    : ActionPane(extentRatio: 3.5 / 5, motion: DrawerMotion(), children: [
+                                        SlidableAction(
+                                          onPressed: (context) {
+                                            // showDialog(
+                                            //   context: context,
+                                            //   builder: (context) => Center(
+                                            //     child: Container(
+                                            //       width: 60.0,
+                                            //       height: 60.0,
+                                            //       decoration: BoxDecoration(
+                                            //         color: Colors.white,
+                                            //         borderRadius:
+                                            //             BorderRadius
+                                            //                 .circular(4.0),
+                                            //       ),
+                                            //       child: Padding(
+                                            //         padding:
+                                            //             const EdgeInsets
+                                            //                 .all(12.0),
+                                            //         child:
+                                            //             CupertinoActivityIndicator(),
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // );
 
-                                                _showAlertSetprimary(
-                                                    context,
-                                                    state.addressmodel[index].id
-                                                        .toString());
-                                              },
-                                              label: 'ที่อยู่เริ่มต้น',
-                                              icon:
-                                                  CupertinoIcons.location_fill,
-                                              foregroundColor: Color.fromARGB(
-                                                  180, 41, 88, 162),
-                                              backgroundColor: Colors.white,
-                                            ),
-                                            SlidableAction(
-                                              onPressed: (context) {
-                                                _showAlertDelete(
-                                                    context,
-                                                    state.addressmodel[index].id
-                                                        .toString());
-                                              },
-                                              label: 'ลบ',
-                                              icon: CupertinoIcons.delete,
-                                              foregroundColor: Colors.red,
-                                              backgroundColor: Colors.white,
-                                            )
-                                          ]),
+                                            _showAlertSetprimary(context, state.addressmodel[index].id.toString());
+                                          },
+                                          label: 'ที่อยู่เริ่มต้น',
+                                          icon: CupertinoIcons.location_fill,
+                                          foregroundColor: Color.fromARGB(180, 41, 88, 162),
+                                          backgroundColor: Colors.white,
+                                        ),
+                                        SlidableAction(
+                                          onPressed: (context) {
+                                            _showAlertDelete(context, state.addressmodel[index].id.toString());
+                                          },
+                                          label: 'ลบ',
+                                          icon: CupertinoIcons.delete,
+                                          foregroundColor: Colors.red,
+                                          backgroundColor: Colors.white,
+                                        )
+                                      ]),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/editaddress',
-                                        arguments: state.addressmodel[index]);
+                                    Navigator.pushNamed(context, '/editaddress', arguments: state.addressmodel[index]);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                              blurRadius: 1, color: Colors.grey)
-                                        ],
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5))),
+                                        boxShadow: [BoxShadow(blurRadius: 1, color: Colors.grey)],
+                                        borderRadius: BorderRadius.all(Radius.circular(5))),
                                     child: Column(
                                       children: [
                                         Container(
                                           decoration: BoxDecoration(
-                                              gradient: state
-                                                          .addressmodel[index]
-                                                          .primaryAddress ==
-                                                      1
+                                              gradient: state.addressmodel[index].primaryAddress == 1
                                                   ? LinearGradient(
                                                       colors: [
-                                                        Color.fromARGB(
-                                                            200, 43, 166, 223),
-                                                        Color.fromARGB(
-                                                            180, 41, 88, 162),
+                                                        Color.fromARGB(200, 43, 166, 223),
+                                                        Color.fromARGB(180, 41, 88, 162),
                                                       ],
                                                       begin: Alignment.topRight,
                                                       end: Alignment.bottomLeft,
@@ -564,10 +471,7 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                                                       tileMode: TileMode.clamp,
                                                     )
                                                   : LinearGradient(
-                                                      colors: [
-                                                        Colors.grey.shade200,
-                                                        Colors.grey.shade300
-                                                      ],
+                                                      colors: [Colors.grey.shade200, Colors.grey.shade300],
                                                       begin: Alignment.topRight,
                                                       end: Alignment.bottomLeft,
                                                       stops: [0.0, 0.8],
@@ -579,26 +483,17 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                                               //     ? Colors.blue.shade300
                                               //     : Colors.grey.shade200,
                                               borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(5),
-                                                  topRight:
-                                                      Radius.circular(5))),
+                                                  topLeft: Radius.circular(5), topRight: Radius.circular(5))),
                                           child: Padding(
                                             padding: const EdgeInsets.all(5.0),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
                                                     Icon(
-                                                      Icons
-                                                          .location_on_outlined,
-                                                      color: state
-                                                                  .addressmodel[
-                                                                      index]
-                                                                  .primaryAddress ==
-                                                              1
+                                                      Icons.location_on_outlined,
+                                                      color: state.addressmodel[index].primaryAddress == 1
                                                           ? Colors.white
                                                           : Colors.blue,
                                                     ),
@@ -609,31 +504,20 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                                                       // '${state.addressmodel[index].name}',
                                                       '${state.addressmodel[index].name}',
                                                       style: TextStyle(
-                                                          color: state
-                                                                      .addressmodel[
-                                                                          index]
-                                                                      .primaryAddress ==
-                                                                  1
+                                                          color: state.addressmodel[index].primaryAddress == 1
                                                               ? Colors.white
                                                               : Colors.blue,
-                                                          fontSize:
-                                                              PlatformSize(
-                                                                      context) *
-                                                                  1.1,
-                                                          fontWeight:
-                                                              FontWeight.bold),
+                                                          fontSize: PlatformSize(context) * 1.1,
+                                                          fontWeight: FontWeight.bold),
                                                     ),
                                                   ],
                                                 ),
-                                                state.addressmodel[index]
-                                                            .primaryAddress ==
-                                                        1
+                                                state.addressmodel[index].primaryAddress == 1
                                                     ? Row(
                                                         children: [
                                                           Icon(
                                                             Icons.add_task,
-                                                            color: Colors
-                                                                .green.shade900,
+                                                            color: Colors.green.shade900,
                                                             size: 20,
                                                           ),
                                                           SizedBox(
@@ -643,15 +527,9 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                                                             // '${state.addressmodel[index].name}',
                                                             'ที่อยู่เริ่มต้น',
                                                             style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize:
-                                                                    PlatformSize(
-                                                                            context) *
-                                                                        1.1,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                                color: Colors.white,
+                                                                fontSize: PlatformSize(context) * 1.1,
+                                                                fontWeight: FontWeight.bold),
                                                           ),
                                                         ],
                                                       )
@@ -669,19 +547,13 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                                                   Text(
                                                     'เบอร์โทร : ${state.addressmodel[index].phone}',
                                                     style: TextStyle(
-                                                        fontSize: PlatformSize(
-                                                            context),
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                        fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
                                                   ),
                                                   Text(
                                                     // ' ${state.addressmodel[index].phone}',
                                                     '',
                                                     style: TextStyle(
-                                                        fontSize: PlatformSize(
-                                                            context),
-                                                        fontWeight:
-                                                            FontWeight.normal),
+                                                        fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
                                                   )
                                                 ],
                                               ),
@@ -690,20 +562,14 @@ class _SenderAddressScreenState extends State<SenderAddressScreen>
                                                   Text(
                                                     'ที่อยู่ :',
                                                     style: TextStyle(
-                                                        fontSize: PlatformSize(
-                                                            context),
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                        fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
                                                   ),
                                                   Expanded(
                                                     child: Text(
                                                       ' ${state.addressmodel[index].address} ${state.addressmodel[index].subDistrict} ${state.addressmodel[index].district} ${state.addressmodel[index].province} ${state.addressmodel[index].zipcode}',
                                                       style: TextStyle(
-                                                          fontSize:
-                                                              PlatformSize(
-                                                                  context),
-                                                          fontWeight: FontWeight
-                                                              .normal),
+                                                          fontSize: PlatformSize(context),
+                                                          fontWeight: FontWeight.normal),
                                                     ),
                                                   )
                                                 ],

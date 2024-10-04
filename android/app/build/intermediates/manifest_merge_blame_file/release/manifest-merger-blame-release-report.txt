@@ -1,0 +1,882 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.dplusexpress.app"
+4    android:versionCode="17"
+5    android:versionName="1.0.7" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="34" />
+9-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml
+10
+11    <queries>
+11-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:5:5-10:11
+12        <intent>
+12-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:6:5-9:14
+13            <action android:name="android.intent.action.VIEW" />
+13-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:7:9-61
+13-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:7:17-58
+14
+15            <data android:mimeType="text/plain" />
+15-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:9-47
+15-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:15-44
+16        </intent>
+17        <intent>
+17-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:10:9-12:18
+18            <action android:name="android.support.customtabs.action.CustomTabsService" />
+18-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-90
+18-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:11:21-87
+19        </intent>
+20    </queries>
+21
+22    <uses-permission android:name="android.permission.INTERNET" />
+22-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:12:5-67
+22-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:12:22-64
+23    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+23-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:13:5-79
+23-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:13:22-76
+24    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+24-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:14:5-75
+24-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:14:22-72
+25    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+25-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:15:5-80
+25-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:15:22-78
+26    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+26-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:16:5-79
+26-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:16:22-77
+27    <uses-permission android:name="android.permission.CAMERA" />
+27-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:17:5-65
+27-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:17:22-62
+28
+29    <uses-feature android:name="android.hardware.camera.autofocus" />
+29-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:18:5-69
+29-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:18:19-67
+30    <uses-feature android:name="android.hardware.camera" />
+30-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:19:6-61
+30-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:19:20-58
+31
+32    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+32-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:20:5-80
+32-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:20:22-78
+33    <uses-permission android:name="android.permission.VIBRATE" />
+33-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:21:5-66
+33-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:21:22-63
+34    <uses-permission android:name="android.permission.WAKE_LOCK" />
+34-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:22:5-68
+34-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:22:22-65
+35
+36    <!-- BLUETOOTH PERMISSION -->
+37    <!-- Request legacy Bluetooth permissions on older devices. -->
+38    <uses-permission android:name="android.permission.BLUETOOTH" />
+38-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:28:5-68
+38-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:28:22-65
+39    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+39-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:29:5-74
+39-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:29:22-71
+40    <!--
+41         Needed only if your app looks for Bluetooth devices.
+42             If your app doesn't use Bluetooth scan results to derive physical
+43             location information, you can strongly assert that your app
+44             doesn't derive physical location.
+45    -->
+46    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+46-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:34:5-73
+46-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:34:22-70
+47    <!--
+48      Needed only if your app makes the device discoverable to Bluetooth
+49      devices.
+50    -->
+51    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+51-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:37:5-78
+51-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:37:22-75
+52    <!--
+53         Needed only if your app communicates with already-paired Bluetooth
+54           devices.
+55    -->
+56    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+56-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:40:5-76
+56-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:40:22-73
+57
+58    <!-- Permissions options for the `notification` group -->
+59    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+59-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:13:5-77
+59-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:13:22-74
+60    <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+60-->[:flutter_barcode_scanner] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_barcode_scanner-2.0.0/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:13:5-69
+60-->[:flutter_barcode_scanner] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_barcode_scanner-2.0.0/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:13:22-66
+61    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+61-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:26:5-82
+61-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:26:22-79
+62    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+62-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:26:5-88
+62-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:26:22-85
+63    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" />
+63-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:27:5-82
+63-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:27:22-79
+64    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+64-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:26:5-110
+64-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:26:22-107
+65
+66    <permission
+66-->[androidx.core:core:1.13.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/27025a7324679e755cd0cba45c4bc43d/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+67        android:name="com.dplusexpress.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+67-->[androidx.core:core:1.13.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/27025a7324679e755cd0cba45c4bc43d/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+68        android:protectionLevel="signature" />
+68-->[androidx.core:core:1.13.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/27025a7324679e755cd0cba45c4bc43d/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+69
+70    <uses-permission android:name="com.dplusexpress.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+70-->[androidx.core:core:1.13.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/27025a7324679e755cd0cba45c4bc43d/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+70-->[androidx.core:core:1.13.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/27025a7324679e755cd0cba45c4bc43d/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+71
+72    <application
+72-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:59:5-199:19
+73        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+73-->[androidx.core:core:1.13.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/27025a7324679e755cd0cba45c4bc43d/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+74        android:extractNativeLibs="false"
+74-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:60:9-42
+75        android:icon="@mipmap/launcher_icon"
+75-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:61:9-45
+76        android:label="D Tracking"
+76-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:62:9-35
+77        android:largeHeap="true"
+77-->[:flutter_barcode_scanner] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_barcode_scanner-2.0.0/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:16:9-33
+78        android:requestLegacyExternalStorage="true"
+78-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:63:9-52
+79        android:theme="@style/Theme.AppCompat.NoActionBar"
+79-->[:flutter_barcode_scanner] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_barcode_scanner-2.0.0/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:17:9-59
+80        android:usesCleartextTraffic="true" >
+80-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:64:9-44
+81
+82        <!--
+83        <provider
+84            android:name="androidx.core.content.FileProvider"
+85            android:authorities="${applicationId}.fileProvider"
+86            android:exported="false"
+87            android:grantUriPermissions="true"
+88            tools:replace="android:authorities">
+89            <meta-data
+90                android:name="android.support.FILE_PROVIDER_PATHS"
+91                android:resource="@xml/filepaths"
+92                tools:replace="android:resource" />
+93        </provider>
+94        -->
+95
+96        <activity android:name="ng.com.piccmaq.flutter.flutter_mobile_vision_2.barcode.BarcodeCaptureActivity" />
+96-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:81:9-114
+96-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:81:19-111
+97        <activity android:name="ng.com.piccmaq.flutter.flutter_mobile_vision_2.ocr.OcrCaptureActivity" />
+97-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:82:9-106
+97-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:82:19-103
+98        <activity android:name="ng.com.piccmaq.flutter.flutter_mobile_vision_2.face.FaceCaptureActivity" />
+98-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:83:9-108
+98-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:83:19-105
+99        <activity
+99-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:86:9-183:20
+100            android:name="com.dplusexpress.app.MainActivity"
+100-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:87:13-41
+101            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+101-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:88:13-163
+102            android:exported="true"
+102-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:89:13-36
+103            android:hardwareAccelerated="true"
+103-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:90:13-47
+104            android:launchMode="singleTask"
+104-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:91:13-44
+105            android:screenOrientation="fullSensor"
+105-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:92:13-51
+106            android:showWhenLocked="false"
+106-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:94:13-43
+107            android:theme="@style/LaunchTheme"
+107-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:93:13-47
+108            android:turnScreenOn="true"
+108-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:95:13-40
+109            android:windowSoftInputMode="adjustResize" >
+109-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:96:13-55
+110
+111            <!--
+112                 Specifies an Android theme to apply to this Activity as soon as
+113                 the Android process has started. This theme is visible to the user
+114                 while the Flutter UI initializes. After that, this theme continues
+115                 to determine the Window background behind the Flutter UI.
+116            -->
+117            <meta-data
+117-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:102:13-104:66
+118                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+118-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:103:17-81
+119                android:resource="@drawable/launch_background" />
+119-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:104:17-63
+120
+121            <!-- Theme to apply as soon as Flutter begins rendering frames -->
+122            <meta-data
+122-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:109:13-111:57
+123                android:name="io.flutter.embedding.android.NormalTheme"
+123-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:110:17-72
+124                android:resource="@style/NormalTheme" />
+124-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:111:17-54
+125
+126            <intent-filter>
+126-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:112:13-115:29
+127                <action android:name="android.intent.action.MAIN" />
+127-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:113:17-69
+127-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:113:25-66
+128
+129                <category android:name="android.intent.category.LAUNCHER" />
+129-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:114:17-77
+129-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:114:27-74
+130            </intent-filter>
+131            <!-- Deep linking -->
+132            <meta-data
+132-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:117:13-119:40
+133                android:name="flutter_deeplinking_enabled"
+133-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:118:17-59
+134                android:value="true" />
+134-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:119:17-37
+135            <meta-data
+135-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:122:13-124:39
+136                android:name="com.google.mlkit.vision.DEPENDENCIES"
+136-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:123:17-68
+137                android:value="ocr" />
+137-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:124:17-36
+138
+139            <!-- Deep linking -->
+140            <intent-filter>
+140-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:128:13-135:29
+141                <action android:name="android.intent.action.VIEW" />
+141-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:7:9-61
+141-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:7:17-58
+142
+143                <category android:name="android.intent.category.DEFAULT" />
+143-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:17-76
+143-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:27-73
+144                <category android:name="android.intent.category.BROWSABLE" />
+144-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:131:17-78
+144-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:131:27-75
+145
+146                <data
+146-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:9-47
+147                    android:host="dplus"
+147-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:133:21-41
+148                    android:scheme="applink" />
+148-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:132:23-47
+149            </intent-filter>
+150            <intent-filter>
+150-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:139:13-143:29
+151                <action android:name="android.intent.action.SEND" />
+151-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:140:17-69
+151-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:140:25-66
+152
+153                <category android:name="android.intent.category.DEFAULT" />
+153-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:17-76
+153-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:27-73
+154
+155                <data android:mimeType="text/*" />
+155-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:9-47
+155-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:15-44
+156            </intent-filter>
+157            <intent-filter>
+157-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:145:13-149:29
+158                <action android:name="android.intent.action.SEND" />
+158-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:140:17-69
+158-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:140:25-66
+159
+160                <category android:name="android.intent.category.DEFAULT" />
+160-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:17-76
+160-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:27-73
+161
+162                <data android:mimeType="image/*" />
+162-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:9-47
+162-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:15-44
+163            </intent-filter>
+164            <intent-filter>
+164-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:151:13-155:29
+165                <action android:name="android.intent.action.SEND" />
+165-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:140:17-69
+165-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:140:25-66
+166
+167                <category android:name="android.intent.category.DEFAULT" />
+167-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:17-76
+167-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:27-73
+168
+169                <data android:mimeType="video/*" />
+169-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:9-47
+169-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:15-44
+170            </intent-filter>
+171            <intent-filter>
+171-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:157:13-161:29
+172                <action android:name="android.intent.action.SEND" />
+172-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:140:17-69
+172-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:140:25-66
+173
+174                <category android:name="android.intent.category.DEFAULT" />
+174-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:17-76
+174-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:27-73
+175
+176                <data android:mimeType="*/*" />
+176-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:9-47
+176-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:15-44
+177            </intent-filter>
+178            <intent-filter>
+178-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:163:13-167:29
+179                <action android:name="android.intent.action.SEND_MULTIPLE" />
+179-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:164:17-78
+179-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:164:25-75
+180
+181                <category android:name="android.intent.category.DEFAULT" />
+181-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:17-76
+181-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:27-73
+182
+183                <data android:mimeType="image/*" />
+183-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:9-47
+183-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:15-44
+184            </intent-filter>
+185            <intent-filter>
+185-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:169:13-173:29
+186                <action android:name="android.intent.action.SEND_MULTIPLE" />
+186-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:164:17-78
+186-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:164:25-75
+187
+188                <category android:name="android.intent.category.DEFAULT" />
+188-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:17-76
+188-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:27-73
+189
+190                <data android:mimeType="video/*" />
+190-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:9-47
+190-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:15-44
+191            </intent-filter>
+192            <intent-filter>
+192-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:175:13-179:29
+193                <action android:name="android.intent.action.SEND_MULTIPLE" />
+193-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:164:17-78
+193-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:164:25-75
+194
+195                <category android:name="android.intent.category.DEFAULT" />
+195-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:17-76
+195-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:130:27-73
+196
+197                <data android:mimeType="*/*" />
+197-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:9-47
+197-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:8:15-44
+198            </intent-filter>
+199        </activity>
+200
+201        <!--
+202             Don't delete the meta-data below.
+203             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+204        -->
+205        <meta-data
+205-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:189:9-191:33
+206            android:name="flutterEmbedding"
+206-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:190:13-44
+207            android:value="2" />
+207-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:191:13-30
+208
+209        <!-- A custom Android Notification Channel to deliver FCM notifications on a non-default channel -->
+210        <meta-data
+210-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:195:9-197:55
+211            android:name="com.google.firebase.messaging.default_notification_channel_id"
+211-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:196:13-89
+212            android:value="high_importance_channel" />
+212-->/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/src/main/AndroidManifest.xml:197:13-52
+213
+214        <service
+214-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:16:9-19:72
+215            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService"
+215-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-107
+216            android:exported="false"
+216-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:18:13-37
+217            android:permission="android.permission.BIND_JOB_SERVICE" />
+217-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:19:13-69
+218        <service
+218-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:20:9-26:19
+219            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingService"
+219-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:21:13-97
+220            android:exported="false" >
+220-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:22:13-37
+221            <intent-filter>
+221-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:23:13-25:29
+222                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+222-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:24:17-78
+222-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:24:25-75
+223            </intent-filter>
+224        </service>
+225
+226        <receiver
+226-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:28:9-35:20
+227            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingReceiver"
+227-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:29:13-98
+228            android:exported="true"
+228-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:30:13-36
+229            android:permission="com.google.android.c2dm.permission.SEND" >
+229-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:31:13-73
+230            <intent-filter>
+230-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:32:13-34:29
+231                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+231-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:33:17-81
+231-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:33:25-78
+232            </intent-filter>
+233        </receiver>
+234
+235        <service
+235-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:37:9-41:19
+236            android:name="com.google.firebase.components.ComponentDiscoveryService"
+236-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:37:18-89
+237            android:directBootAware="true"
+237-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+238            android:exported="false" >
+238-->[com.google.firebase:firebase-analytics-ktx:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/71066f4f0e9ea51f52f7057c63143463/transformed/jetified-firebase-analytics-ktx-22.1.0/AndroidManifest.xml:10:13-37
+239            <meta-data
+239-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:38:13-40:85
+240                android:name="com.google.firebase.components:io.flutter.plugins.firebase.messaging.FlutterFirebaseAppRegistrar"
+240-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:39:17-128
+241                android:value="com.google.firebase.components.ComponentRegistrar" />
+241-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:40:17-82
+242            <meta-data
+242-->[:firebase_core] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-13:85
+243                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+243-->[:firebase_core] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:12:17-124
+244                android:value="com.google.firebase.components.ComponentRegistrar" />
+244-->[:firebase_core] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_core-3.6.0/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:13:17-82
+245            <meta-data
+245-->[com.google.firebase:firebase-analytics-ktx:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/71066f4f0e9ea51f52f7057c63143463/transformed/jetified-firebase-analytics-ktx-22.1.0/AndroidManifest.xml:11:13-13:85
+246                android:name="com.google.firebase.components:com.google.firebase.analytics.ktx.FirebaseAnalyticsLegacyRegistrar"
+246-->[com.google.firebase:firebase-analytics-ktx:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/71066f4f0e9ea51f52f7057c63143463/transformed/jetified-firebase-analytics-ktx-22.1.0/AndroidManifest.xml:12:17-129
+247                android:value="com.google.firebase.components.ComponentRegistrar" />
+247-->[com.google.firebase:firebase-analytics-ktx:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/71066f4f0e9ea51f52f7057c63143463/transformed/jetified-firebase-analytics-ktx-22.1.0/AndroidManifest.xml:13:17-82
+248            <meta-data
+248-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:57:13-59:85
+249                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
+249-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:58:17-122
+250                android:value="com.google.firebase.components.ComponentRegistrar" />
+250-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:59:17-82
+251            <meta-data
+251-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:60:13-62:85
+252                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+252-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:61:17-119
+253                android:value="com.google.firebase.components.ComponentRegistrar" />
+253-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:62:17-82
+254            <meta-data
+254-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:37:13-39:85
+255                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+255-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:38:17-139
+256                android:value="com.google.firebase.components.ComponentRegistrar" />
+256-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:39:17-82
+257            <meta-data
+257-->[com.google.firebase:firebase-installations:18.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/415fdac815b309cce52e1a8d3e0db515/transformed/jetified-firebase-installations-18.0.0/AndroidManifest.xml:15:13-17:85
+258                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+258-->[com.google.firebase:firebase-installations:18.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/415fdac815b309cce52e1a8d3e0db515/transformed/jetified-firebase-installations-18.0.0/AndroidManifest.xml:16:17-130
+259                android:value="com.google.firebase.components.ComponentRegistrar" />
+259-->[com.google.firebase:firebase-installations:18.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/415fdac815b309cce52e1a8d3e0db515/transformed/jetified-firebase-installations-18.0.0/AndroidManifest.xml:17:17-82
+260            <meta-data
+260-->[com.google.firebase:firebase-installations:18.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/415fdac815b309cce52e1a8d3e0db515/transformed/jetified-firebase-installations-18.0.0/AndroidManifest.xml:18:13-20:85
+261                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+261-->[com.google.firebase:firebase-installations:18.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/415fdac815b309cce52e1a8d3e0db515/transformed/jetified-firebase-installations-18.0.0/AndroidManifest.xml:19:17-127
+262                android:value="com.google.firebase.components.ComponentRegistrar" />
+262-->[com.google.firebase:firebase-installations:18.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/415fdac815b309cce52e1a8d3e0db515/transformed/jetified-firebase-installations-18.0.0/AndroidManifest.xml:20:17-82
+263            <meta-data
+263-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/56ce76c670d908c656d6a2e836e8af17/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
+264                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+264-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/56ce76c670d908c656d6a2e836e8af17/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
+265                android:value="com.google.firebase.components.ComponentRegistrar" />
+265-->[com.google.firebase:firebase-common-ktx:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/56ce76c670d908c656d6a2e836e8af17/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
+266            <meta-data
+266-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+267                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+267-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:36:17-109
+268                android:value="com.google.firebase.components.ComponentRegistrar" />
+268-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+269            <meta-data
+269-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/738ead65839fef15a25920a4ef0e8462/transformed/jetified-firebase-datatransport-18.2.0/AndroidManifest.xml:25:13-27:85
+270                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+270-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/738ead65839fef15a25920a4ef0e8462/transformed/jetified-firebase-datatransport-18.2.0/AndroidManifest.xml:26:17-115
+271                android:value="com.google.firebase.components.ComponentRegistrar" />
+271-->[com.google.firebase:firebase-datatransport:18.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/738ead65839fef15a25920a4ef0e8462/transformed/jetified-firebase-datatransport-18.2.0/AndroidManifest.xml:27:17-82
+272        </service>
+273
+274        <provider
+274-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:43:9-47:38
+275            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider"
+275-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:44:13-102
+276            android:authorities="com.dplusexpress.app.flutterfirebasemessaginginitprovider"
+276-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:45:13-88
+277            android:exported="false"
+277-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:46:13-37
+278            android:initOrder="99" />
+278-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:47:13-35
+279
+280        <activity android:name="com.amolg.flutterbarcodescanner.BarcodeCaptureActivity" />
+280-->[:flutter_barcode_scanner] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_barcode_scanner-2.0.0/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:18:9-91
+280-->[:flutter_barcode_scanner] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_barcode_scanner-2.0.0/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:18:19-88
+281        <activity
+281-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:16:9-20:47
+282            android:name="com.pichillilorenzo.flutter_inappwebview_android.in_app_browser.InAppBrowserActivity"
+282-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-112
+283            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
+283-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:18:13-137
+284            android:exported="false"
+284-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:19:13-37
+285            android:theme="@style/AppTheme" />
+285-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:20:13-44
+286        <activity
+286-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:21:9-24:55
+287            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.ChromeCustomTabsActivity"
+287-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:22:13-120
+288            android:exported="false"
+288-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:23:13-37
+289            android:theme="@style/ThemeTransparent" />
+289-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:24:13-52
+290        <activity
+290-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:25:9-28:55
+291            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.TrustedWebActivity"
+291-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:26:13-114
+292            android:exported="false"
+292-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:27:13-37
+293            android:theme="@style/ThemeTransparent" />
+293-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:28:13-52
+294        <activity
+294-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:29:9-33:55
+295            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.ChromeCustomTabsActivitySingleInstance"
+295-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:30:13-134
+296            android:exported="false"
+296-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:31:13-37
+297            android:launchMode="singleInstance"
+297-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:32:13-48
+298            android:theme="@style/ThemeTransparent" />
+298-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:33:13-52
+299        <activity
+299-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:34:9-38:55
+300            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.TrustedWebActivitySingleInstance"
+300-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:35:13-128
+301            android:exported="false"
+301-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:36:13-37
+302            android:launchMode="singleInstance"
+302-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:37:13-48
+303            android:theme="@style/ThemeTransparent" />
+303-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:38:13-52
+304
+305        <receiver
+305-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:40:9-43:40
+306            android:name="com.pichillilorenzo.flutter_inappwebview_android.chrome_custom_tabs.ActionBroadcastReceiver"
+306-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:41:13-119
+307            android:enabled="true"
+307-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:42:13-35
+308            android:exported="false" />
+308-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:43:13-37
+309
+310        <meta-data
+310-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:45:9-47:36
+311            android:name="io.flutter.embedded_views_preview"
+311-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:46:13-61
+312            android:value="true" />
+312-->[:flutter_inappwebview_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:47:13-33
+313
+314        <provider
+314-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:11:9-19:20
+315            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+315-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:12:13-82
+316            android:authorities="com.dplusexpress.app.flutter.image_provider"
+316-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-74
+317            android:exported="false"
+317-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:14:13-37
+318            android:grantUriPermissions="true" >
+318-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:15:13-47
+319            <meta-data
+319-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-18:75
+320                android:name="android.support.FILE_PROVIDER_PATHS"
+320-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:17:17-67
+321                android:resource="@xml/flutter_image_picker_file_paths" />
+321-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:18:17-72
+322        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
+323        <service
+323-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:21:9-33:19
+324            android:name="com.google.android.gms.metadata.ModuleDependencies"
+324-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:22:13-78
+325            android:enabled="false"
+325-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:23:13-36
+326            android:exported="false" >
+326-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:24:13-37
+327            <intent-filter>
+327-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:26:13-28:29
+328                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+328-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:27:17-94
+328-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:27:25-91
+329            </intent-filter>
+330
+331            <meta-data
+331-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:30:13-32:36
+332                android:name="photopicker_activity:0:required"
+332-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:31:17-63
+333                android:value="" />
+333-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:32:17-33
+334        </service>
+335        <!--
+336           Declares a provider which allows us to store files to share in
+337           '.../caches/share_plus' and grant the receiving action access
+338        -->
+339        <provider
+339-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:15:9-23:20
+340            android:name="dev.fluttercommunity.plus.share.ShareFileProvider"
+340-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-77
+341            android:authorities="com.dplusexpress.app.flutter.share_provider"
+341-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:17:13-74
+342            android:exported="false"
+342-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:18:13-37
+343            android:grantUriPermissions="true" >
+343-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:19:13-47
+344            <meta-data
+344-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-18:75
+345                android:name="android.support.FILE_PROVIDER_PATHS"
+345-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:17:17-67
+346                android:resource="@xml/flutter_share_file_paths" />
+346-->[:image_picker_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+14/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:18:17-72
+347        </provider>
+348        <!--
+349           This manifest declared broadcast receiver allows us to use an explicit
+350           Intent when creating a PendingItent to be informed of the user's choice
+351        -->
+352        <receiver
+352-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:28:9-34:20
+353            android:name="dev.fluttercommunity.plus.share.SharePlusPendingIntent"
+353-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:29:13-82
+354            android:exported="false" >
+354-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:30:13-37
+355            <intent-filter>
+355-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:31:13-33:29
+356                <action android:name="EXTRA_CHOSEN_COMPONENT" />
+356-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:32:17-65
+356-->[:share_plus] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/share_plus-10.0.2/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:32:25-62
+357            </intent-filter>
+358        </receiver>
+359
+360        <activity
+360-->[:url_launcher_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.10/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:10:9-13:74
+361            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+361-->[:url_launcher_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.10/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-74
+362            android:exported="false"
+362-->[:url_launcher_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.10/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:12:13-37
+363            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+363-->[:url_launcher_android] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.10/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-71
+364
+365        <receiver
+365-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:29:9-40:20
+366            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+366-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:30:13-78
+367            android:exported="true"
+367-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:31:13-36
+368            android:permission="com.google.android.c2dm.permission.SEND" >
+368-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:32:13-73
+369            <intent-filter>
+369-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:32:13-34:29
+370                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+370-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:33:17-81
+370-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:33:25-78
+371            </intent-filter>
+372
+373            <meta-data
+373-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:37:13-39:40
+374                android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED"
+374-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:38:17-92
+375                android:value="true" />
+375-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:39:17-37
+376        </receiver>
+377        <!--
+378             FirebaseMessagingService performs security checks at runtime,
+379             but set to not exported to explicitly avoid allowing another app to call it.
+380        -->
+381        <service
+381-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:46:9-53:19
+382            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+382-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:47:13-82
+383            android:directBootAware="true"
+383-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:48:13-43
+384            android:exported="false" >
+384-->[com.google.firebase:firebase-messaging:24.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/9098b8cd56e26115dee992690a9ffc64/transformed/jetified-firebase-messaging-24.0.1/AndroidManifest.xml:49:13-37
+385            <intent-filter android:priority="-500" >
+385-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:23:13-25:29
+386                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+386-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:24:17-78
+386-->[:firebase_messaging] /Users/direkkerdsaknawangnoi/.pub-cache/hosted/pub.dev/firebase_messaging-15.1.3/android/build/intermediates/merged_manifest/release/AndroidManifest.xml:24:25-75
+387            </intent-filter>
+388        </service>
+389
+390        <property
+390-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:30:9-32:61
+391            android:name="android.adservices.AD_SERVICES_CONFIG"
+391-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:31:13-65
+392            android:resource="@xml/ga_ad_services_config" />
+392-->[com.google.android.gms:play-services-measurement-api:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/cd111782013404b7b792f9e490949482/transformed/jetified-play-services-measurement-api-22.1.0/AndroidManifest.xml:32:13-58
+393
+394        <activity
+394-->[com.google.android.gms:play-services-base:18.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/232ad3ea097a0c5ecb7db2f8d6fd86cc/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+395            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+395-->[com.google.android.gms:play-services-base:18.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/232ad3ea097a0c5ecb7db2f8d6fd86cc/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+396            android:exported="false"
+396-->[com.google.android.gms:play-services-base:18.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/232ad3ea097a0c5ecb7db2f8d6fd86cc/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+397            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+397-->[com.google.android.gms:play-services-base:18.0.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/232ad3ea097a0c5ecb7db2f8d6fd86cc/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+398
+399        <provider
+399-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+400            android:name="com.google.firebase.provider.FirebaseInitProvider"
+400-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+401            android:authorities="com.dplusexpress.app.firebaseinitprovider"
+401-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+402            android:directBootAware="true"
+402-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+403            android:exported="false"
+403-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+404            android:initOrder="100" />
+404-->[com.google.firebase:firebase-common:21.0.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4435d3bee07605feac87fda7ee19f61e/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+405
+406        <receiver
+406-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:29:9-33:20
+407            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+407-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:30:13-85
+408            android:enabled="true"
+408-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:31:13-35
+409            android:exported="false" >
+409-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:32:13-37
+410        </receiver>
+411
+412        <service
+412-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:35:9-38:40
+413            android:name="com.google.android.gms.measurement.AppMeasurementService"
+413-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:36:13-84
+414            android:enabled="true"
+414-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:37:13-35
+415            android:exported="false" />
+415-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:38:13-37
+416        <service
+416-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:39:9-43:72
+417            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+417-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:40:13-87
+418            android:enabled="true"
+418-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:41:13-35
+419            android:exported="false"
+419-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:42:13-37
+420            android:permission="android.permission.BIND_JOB_SERVICE" />
+420-->[com.google.android.gms:play-services-measurement:22.1.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/82cfbc1e9109d4bdf3f00dcc00c873a8/transformed/jetified-play-services-measurement-22.1.0/AndroidManifest.xml:43:13-69
+421
+422        <uses-library
+422-->[androidx.window:window:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/630cb79ffe9abadce868ad67ef1cf0f6/transformed/jetified-window-1.2.0/AndroidManifest.xml:23:9-25:40
+423            android:name="androidx.window.extensions"
+423-->[androidx.window:window:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/630cb79ffe9abadce868ad67ef1cf0f6/transformed/jetified-window-1.2.0/AndroidManifest.xml:24:13-54
+424            android:required="false" />
+424-->[androidx.window:window:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/630cb79ffe9abadce868ad67ef1cf0f6/transformed/jetified-window-1.2.0/AndroidManifest.xml:25:13-37
+425        <uses-library
+425-->[androidx.window:window:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/630cb79ffe9abadce868ad67ef1cf0f6/transformed/jetified-window-1.2.0/AndroidManifest.xml:26:9-28:40
+426            android:name="androidx.window.sidecar"
+426-->[androidx.window:window:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/630cb79ffe9abadce868ad67ef1cf0f6/transformed/jetified-window-1.2.0/AndroidManifest.xml:27:13-51
+427            android:required="false" />
+427-->[androidx.window:window:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/630cb79ffe9abadce868ad67ef1cf0f6/transformed/jetified-window-1.2.0/AndroidManifest.xml:28:13-37
+428        <uses-library
+428-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/fe6abe5c7f602685d588c01046b390a1/transformed/jetified-ads-adservices-1.0.0-beta05/AndroidManifest.xml:23:9-25:40
+429            android:name="android.ext.adservices"
+429-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/fe6abe5c7f602685d588c01046b390a1/transformed/jetified-ads-adservices-1.0.0-beta05/AndroidManifest.xml:24:13-50
+430            android:required="false" />
+430-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/fe6abe5c7f602685d588c01046b390a1/transformed/jetified-ads-adservices-1.0.0-beta05/AndroidManifest.xml:25:13-37
+431
+432        <meta-data
+432-->[com.google.android.gms:play-services-basement:18.4.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/e1fd6ae9d95556a8daaa7be308fb4436/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
+433            android:name="com.google.android.gms.version"
+433-->[com.google.android.gms:play-services-basement:18.4.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/e1fd6ae9d95556a8daaa7be308fb4436/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
+434            android:value="@integer/google_play_services_version" />
+434-->[com.google.android.gms:play-services-basement:18.4.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/e1fd6ae9d95556a8daaa7be308fb4436/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
+435
+436        <provider
+436-->[androidx.emoji2:emoji2:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d8d127fd4653dad555ac5e18d6a950ba/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+437            android:name="androidx.startup.InitializationProvider"
+437-->[androidx.emoji2:emoji2:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d8d127fd4653dad555ac5e18d6a950ba/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+438            android:authorities="com.dplusexpress.app.androidx-startup"
+438-->[androidx.emoji2:emoji2:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d8d127fd4653dad555ac5e18d6a950ba/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+439            android:exported="false" >
+439-->[androidx.emoji2:emoji2:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d8d127fd4653dad555ac5e18d6a950ba/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+440            <meta-data
+440-->[androidx.emoji2:emoji2:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d8d127fd4653dad555ac5e18d6a950ba/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+441                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+441-->[androidx.emoji2:emoji2:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d8d127fd4653dad555ac5e18d6a950ba/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+442                android:value="androidx.startup" />
+442-->[androidx.emoji2:emoji2:1.2.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d8d127fd4653dad555ac5e18d6a950ba/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+443            <meta-data
+443-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d1d3de9e7b7bcc6d4291e24c79a2c628/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:29:13-31:52
+444                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+444-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d1d3de9e7b7bcc6d4291e24c79a2c628/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:30:17-78
+445                android:value="androidx.startup" />
+445-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/d1d3de9e7b7bcc6d4291e24c79a2c628/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:31:17-49
+446            <meta-data
+446-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+447                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+447-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+448                android:value="androidx.startup" />
+448-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+449        </provider>
+450
+451        <service
+451-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/96c726bec9ae0c5ce1a939150db65876/transformed/jetified-transport-backend-cct-3.1.9/AndroidManifest.xml:28:9-34:19
+452            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+452-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/96c726bec9ae0c5ce1a939150db65876/transformed/jetified-transport-backend-cct-3.1.9/AndroidManifest.xml:29:13-103
+453            android:exported="false" >
+453-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/96c726bec9ae0c5ce1a939150db65876/transformed/jetified-transport-backend-cct-3.1.9/AndroidManifest.xml:30:13-37
+454            <meta-data
+454-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/96c726bec9ae0c5ce1a939150db65876/transformed/jetified-transport-backend-cct-3.1.9/AndroidManifest.xml:31:13-33:39
+455                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+455-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/96c726bec9ae0c5ce1a939150db65876/transformed/jetified-transport-backend-cct-3.1.9/AndroidManifest.xml:32:17-94
+456                android:value="cct" />
+456-->[com.google.android.datatransport:transport-backend-cct:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/96c726bec9ae0c5ce1a939150db65876/transformed/jetified-transport-backend-cct-3.1.9/AndroidManifest.xml:33:17-36
+457        </service>
+458        <service
+458-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4ccc76e2de59f66d3318f7dac936a71a/transformed/jetified-transport-runtime-3.1.9/AndroidManifest.xml:26:9-30:19
+459            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+459-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4ccc76e2de59f66d3318f7dac936a71a/transformed/jetified-transport-runtime-3.1.9/AndroidManifest.xml:27:13-117
+460            android:exported="false"
+460-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4ccc76e2de59f66d3318f7dac936a71a/transformed/jetified-transport-runtime-3.1.9/AndroidManifest.xml:28:13-37
+461            android:permission="android.permission.BIND_JOB_SERVICE" >
+461-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4ccc76e2de59f66d3318f7dac936a71a/transformed/jetified-transport-runtime-3.1.9/AndroidManifest.xml:29:13-69
+462        </service>
+463
+464        <receiver
+464-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4ccc76e2de59f66d3318f7dac936a71a/transformed/jetified-transport-runtime-3.1.9/AndroidManifest.xml:32:9-34:40
+465            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+465-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4ccc76e2de59f66d3318f7dac936a71a/transformed/jetified-transport-runtime-3.1.9/AndroidManifest.xml:33:13-132
+466            android:exported="false" />
+466-->[com.google.android.datatransport:transport-runtime:3.1.9] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/4ccc76e2de59f66d3318f7dac936a71a/transformed/jetified-transport-runtime-3.1.9/AndroidManifest.xml:34:13-37
+467        <receiver
+467-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+468            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+468-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+469            android:directBootAware="false"
+469-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+470            android:enabled="true"
+470-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+471            android:exported="true"
+471-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+472            android:permission="android.permission.DUMP" >
+472-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+473            <intent-filter>
+473-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+474                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+474-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+474-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+475            </intent-filter>
+476            <intent-filter>
+476-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+477                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+477-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+477-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+478            </intent-filter>
+479            <intent-filter>
+479-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+480                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+480-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+480-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+481            </intent-filter>
+482            <intent-filter>
+482-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+483                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+483-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+483-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/direkkerdsaknawangnoi/.gradle/caches/transforms-3/6ce535837cc512734f7f8baa6703a69f/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+484            </intent-filter>
+485        </receiver>
+486    </application>
+487
+488</manifest>

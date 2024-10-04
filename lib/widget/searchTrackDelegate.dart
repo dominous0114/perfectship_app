@@ -15,14 +15,13 @@ class SearchTrackDeletfate extends SearchDelegate {
   String initend = DateFormat('yyyy-MM-dd').format(DateTime.now());
   String path = '/tracking?track=';
   BuildContext? contextPage;
- 
+
   String get searchFieldLabel => "กรอกหมายเลขพัสดุ";
 
   Future<void> scan(ScanMode scanMode, BuildContext context) async {
     String barcodeScanRes;
     try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, scanMode);
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, scanMode);
 
       if (barcodeScanRes == '-1') {
       } else {
@@ -30,8 +29,7 @@ class SearchTrackDeletfate extends SearchDelegate {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => TrackingScreen(
-                    url: server, path: path, trackingNo: barcodeScanRes)));
+                builder: (context) => TrackingScreen(url: server, path: path, trackingNo: barcodeScanRes)));
       }
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
@@ -78,12 +76,7 @@ class SearchTrackDeletfate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     context.read<TrackBloc>().add(TrackSearchHomeEvent(
-        keyword: query,
-        start: '2021-01-01',
-        end: initend,
-        courier: 'all',
-        printing: 'all',
-        order: 'all'));
+        keyword: query, start: '2021-01-01', end: initend, courier: 'all', printing: 'all', order: 'all'));
     return BlocBuilder<TrackBloc, TrackState>(
       builder: (context, state) {
         if (state is TrackLoading) {
@@ -100,37 +93,26 @@ class SearchTrackDeletfate extends SearchDelegate {
                     width: 50,
                   ),
                   title: Text(state.trackmodel[index].trackNo ?? '',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: PlatformSize(context) * 0.8)),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: PlatformSize(context) * 0.8)),
                   subtitle: Text('ผู้รับ : ${state.trackmodel[index].dstName}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: PlatformSize(context) * 0.7)),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: PlatformSize(context) * 0.7)),
                   trailing: Wrap(
                     direction: Axis.horizontal,
                     alignment: WrapAlignment.end,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.copy,
-                            color: Theme.of(context).iconTheme.color),
+                        icon: Icon(Icons.copy, color: Theme.of(context).iconTheme.color),
                         onPressed: () {
                           // query = state.orderData[index].trackNo!;
-                          Clipboard.setData(ClipboardData(
-                                  text: state.trackmodel[index].trackNo!))
-                              .then((_) {
+                          Clipboard.setData(ClipboardData(text: state.trackmodel[index].trackNo!)).then((_) {
                             ScaffoldMessenger.of(context).hideCurrentSnackBar();
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text(
                               "คัดลอก ${state.trackmodel[index].trackNo!} แล้ว",
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                      fontSize: PlatformSize(context),
-                                      color: Colors.white),
+                                  .bodyLarge!
+                                  .copyWith(fontSize: PlatformSize(context), color: Colors.white),
                             )));
                           });
                         },
@@ -160,8 +142,7 @@ class SearchTrackDeletfate extends SearchDelegate {
                               builder: (context) => TrackingScreen(
                                   url: 'https://www.ninjavan.co/th-th',
                                   path: path,
-                                  trackingNo:
-                                      state.trackmodel[index].trackNo!)));
+                                  trackingNo: state.trackmodel[index].trackNo!)));
                     } else {
                       server = '';
                       server = MyConstant().domainprint;
@@ -174,8 +155,7 @@ class SearchTrackDeletfate extends SearchDelegate {
                               builder: (context) => TrackingScreen(
                                   url: server,
                                   path: '/tracking?track=',
-                                  trackingNo:
-                                      state.trackmodel[index].trackNo!)));
+                                  trackingNo: state.trackmodel[index].trackNo!)));
                     }
                   },
                 );

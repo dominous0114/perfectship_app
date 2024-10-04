@@ -65,7 +65,8 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                           } else {
                             String formattedDate2 = DateFormat('yyyy-MM-dd').format(_endDate);
                             String formattedDate = DateFormat('yyyy-MM-dd').format(_startDate);
-                            context.read<BillBloc>().add(BillFilterSearchEvent(keyword: keyword, end: formattedDate2, start: formattedDate));
+                            context.read<BillBloc>().add(
+                                BillFilterSearchEvent(keyword: keyword, end: formattedDate2, start: formattedDate));
                           }
                         },
                         decoration: InputDecoration(
@@ -86,15 +87,16 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                               },
                               child: Text(
                                 'ล้าง',
-                                style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.blue.shade300, fontSize: PlatformSize(context)),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(color: Colors.blue.shade300, fontSize: PlatformSize(context)),
                               ),
                             ),
                             border: InputBorder.none,
                             hintText: 'ค้นหา',
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .headline4!
-                                .copyWith(fontWeight: FontWeight.bold, color: Colors.grey, fontSize: PlatformSize(context))),
+                            hintStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                fontWeight: FontWeight.bold, color: Colors.grey, fontSize: PlatformSize(context))),
                       ),
                     ),
                   )
@@ -106,10 +108,10 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                         children: [
                           Text(
                             'ทั้งหมด $total รายการ',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.black),
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                fontSize: PlatformSize(context) * 1.2,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
                         ],
                       ),
@@ -152,8 +154,8 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                     builder: (BuildContext context, Widget? child) {
                       return Theme(
                         data: ThemeData(
-                          backgroundColor: Color(0xFF009CDB),
-                        ),
+                            // backgroundColor: Color(0xFF009CDB),
+                            ),
                         child: child!,
                       );
                     });
@@ -250,10 +252,10 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                           ),
                           Text(
                             'รายการบิล',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium!
-                                .copyWith(fontSize: PlatformSize(context) * 1.2, fontWeight: FontWeight.bold, color: Colors.white),
+                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                fontSize: PlatformSize(context) * 1.2,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           )
                         ],
                       ),
@@ -306,7 +308,9 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                     endActionPane: ActionPane(extentRatio: 1, motion: DrawerMotion(), children: [
                                       SlidableAction(
                                         onPressed: (context) async {
-                                          await BillRepository().getBillDetail(state.billmodel[index].id.toString()).then((value) async {
+                                          await BillRepository()
+                                              .getBillDetail(state.billmodel[index].id.toString())
+                                              .then((value) async {
                                             var enval = value.map((e) => e.orderId.toString());
                                             String enval2 = enval.toString();
                                             final removefirst = enval2.replaceAll('(', '');
@@ -315,7 +319,8 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                               lid = removelast;
                                               print('lid = $lid');
                                             });
-                                            Navigator.pushNamed(scaffoldKey.currentContext!, '/pdforder', arguments: lid);
+                                            Navigator.pushNamed(scaffoldKey.currentContext!, '/pdforder',
+                                                arguments: lid);
                                           });
                                         },
                                         label: 'ใบเสร็จ',
@@ -325,7 +330,9 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                       ),
                                       SlidableAction(
                                         onPressed: (context) async {
-                                          await BillRepository().getBillDetail(state.billmodel[index].id.toString()).then((value) async {
+                                          await BillRepository()
+                                              .getBillDetail(state.billmodel[index].id.toString())
+                                              .then((value) async {
                                             var enval = value.map((e) => e.orderId.toString());
                                             String enval2 = enval.toString();
                                             final removefirst = enval2.replaceAll('(', '');
@@ -334,7 +341,8 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                               lid = removelast;
                                               print('lid = $lid');
                                             });
-                                            Navigator.pushNamed(scaffoldKey.currentContext!, '/pdfbill', arguments: lid);
+                                            Navigator.pushNamed(scaffoldKey.currentContext!, '/pdfbill',
+                                                arguments: lid);
                                           });
                                         },
                                         label: 'ใบปะหน้า',
@@ -345,8 +353,10 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                     ]),
                                     child: GestureDetector(
                                       onTap: () {
-                                        Navigator.pushNamed(context, '/billdetail',
-                                            arguments: [state.billmodel[index].id.toString(), state.billmodel[index].code.toString()]);
+                                        Navigator.pushNamed(context, '/billdetail', arguments: [
+                                          state.billmodel[index].id.toString(),
+                                          state.billmodel[index].code.toString()
+                                        ]);
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -372,7 +382,8 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                                   //         1
                                                   //     ? Colors.blue.shade300
                                                   //     : Colors.grey.shade200,
-                                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+                                                  borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(5), topRight: Radius.circular(5))),
                                               child: Padding(
                                                 padding: const EdgeInsets.all(5.0),
                                                 child: Row(
@@ -410,12 +421,17 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                                     children: [
                                                       Text(
                                                         'วันที่สร้าง : ',
-                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
+                                                        style: TextStyle(
+                                                            fontSize: PlatformSize(context),
+                                                            fontWeight: FontWeight.bold),
                                                       ),
                                                       Text(
                                                         // ' ${state.addressmodel[index].phone}',
-                                                        DateFormat.yMd('th').add_jms().format(DateTime.parse('${state.billmodel[index].created}')),
-                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                                        DateFormat.yMd('th').add_jms().format(
+                                                            DateTime.parse('${state.billmodel[index].created}')),
+                                                        style: TextStyle(
+                                                            fontSize: PlatformSize(context),
+                                                            fontWeight: FontWeight.normal),
                                                       )
                                                     ],
                                                   ),
@@ -423,12 +439,16 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                                     children: [
                                                       Text(
                                                         'ชื่อลูกค้า : ',
-                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
+                                                        style: TextStyle(
+                                                            fontSize: PlatformSize(context),
+                                                            fontWeight: FontWeight.bold),
                                                       ),
                                                       Expanded(
                                                         child: Text(
                                                           '${state.billmodel[index].customerName}',
-                                                          style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                                          style: TextStyle(
+                                                              fontSize: PlatformSize(context),
+                                                              fontWeight: FontWeight.normal),
                                                         ),
                                                       )
                                                     ],
@@ -437,12 +457,16 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                                     children: [
                                                       Text(
                                                         'เบอร์โทร : ',
-                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
+                                                        style: TextStyle(
+                                                            fontSize: PlatformSize(context),
+                                                            fontWeight: FontWeight.bold),
                                                       ),
                                                       Expanded(
                                                         child: Text(
                                                           '${state.billmodel[index].customerPhone}',
-                                                          style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                                          style: TextStyle(
+                                                              fontSize: PlatformSize(context),
+                                                              fontWeight: FontWeight.normal),
                                                         ),
                                                       )
                                                     ],
@@ -451,12 +475,16 @@ class _BillListScreenState extends State<BillListScreen> with TickerProviderStat
                                                     children: [
                                                       Text(
                                                         'ราคา : ',
-                                                        style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.bold),
+                                                        style: TextStyle(
+                                                            fontSize: PlatformSize(context),
+                                                            fontWeight: FontWeight.bold),
                                                       ),
                                                       Expanded(
                                                         child: Text(
                                                           '${state.billmodel[index].totalAmount}',
-                                                          style: TextStyle(fontSize: PlatformSize(context), fontWeight: FontWeight.normal),
+                                                          style: TextStyle(
+                                                              fontSize: PlatformSize(context),
+                                                              fontWeight: FontWeight.normal),
                                                         ),
                                                       )
                                                     ],

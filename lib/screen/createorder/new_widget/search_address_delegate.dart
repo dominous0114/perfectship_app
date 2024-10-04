@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:perfectship_app/model/new_model/address_search_new_model.dart';
@@ -78,16 +77,14 @@ class SearcgAddressNewDelegate extends SearchDelegate {
                                           width: 5,
                                         ),
                                         Text('กรุณาเลือกรหัสไปรษณีย์ปลายทาง',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline4!
-                                                .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
+                                            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                                fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
                                       ],
                                     ),
                                     content: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 3, blurStyle: BlurStyle.inner)]),
+                                      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                                        BoxShadow(color: Colors.black45, blurRadius: 3, blurStyle: BlurStyle.inner)
+                                      ]),
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +106,10 @@ class SearcgAddressNewDelegate extends SearchDelegate {
                                                     ListTile(
                                                       title: Text(
                                                         '$e\n${snapshot.data![index].amphure} ${snapshot.data![index].district} ${snapshot.data![index].province}',
-                                                        style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: PlatformSize(context)),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headlineMedium!
+                                                            .copyWith(fontSize: PlatformSize(context)),
                                                       ),
                                                     ),
                                                     Divider(
@@ -151,43 +151,43 @@ class SearcgAddressNewDelegate extends SearchDelegate {
                                       text: '${snapshot.data![index].district}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline4!
+                                          .headlineMedium!
                                           .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
                                   TextSpan(
                                       text: '  >>  ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Colors.blue)),
+                                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                          fontSize: PlatformSize(context),
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue)),
                                   TextSpan(
                                       text: '${snapshot.data![index].amphure}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline4!
+                                          .headlineMedium!
                                           .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
                                   TextSpan(
                                       text: '  >>  ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Colors.blue)),
+                                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                          fontSize: PlatformSize(context),
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue)),
                                   TextSpan(
                                       text: '${snapshot.data![index].province}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline4!
+                                          .headlineMedium!
                                           .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
                                   TextSpan(
                                       text: '  >>  ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold, color: Colors.blue)),
+                                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                                          fontSize: PlatformSize(context),
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue)),
                                   TextSpan(
                                       text: '${snapshot.data![index].zipcode}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline4!
+                                          .headlineMedium!
                                           .copyWith(fontSize: PlatformSize(context), fontWeight: FontWeight.bold)),
                                 ],
                               ),

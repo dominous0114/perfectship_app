@@ -1,0 +1,7 @@
+#Fri Oct 04 11:27:08 ICT 2024
+base.0=/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+base.1=/Users/direkkerdsaknawangnoi/developer/flutter-work/perfectship-app/perfectship_app/android/app/build/intermediates/desugar_lib_dex/release/classes1000.dex
+path.0=classes.dex
+path.1=classes1000.dex
+renamed.0=classes.dex
+renamed.1=classes2.dex
